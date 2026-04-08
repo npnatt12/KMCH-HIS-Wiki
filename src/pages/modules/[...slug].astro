@@ -3,7 +3,10 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PrintButton from '../../components/PrintButton.astro';
 import ModuleChip from '../../components/ModuleChip.astro';
+import ImageGalleryButton from '../../components/ImageGalleryButton.astro';
 import { getModuleMeta } from '../../lib/modules';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 export async function getStaticPaths() {
   const entries = await getCollection('modules');
@@ -24,6 +27,20 @@ const meta = getModuleMeta(entry.id.replace(/\.md$/, ''));
 const relatedModuleTags = (entry.data.tags ?? []).filter(
   (t: string) => t !== 'module' && !t.includes(' ')
 );
+
+// Load screenshot manifest
+let moduleImages: { file: string; thumb: string; section: string }[] = [];
+try {
+  const manifestPath = join(process.cwd(), 'public', 'screenshots', 'manifest.json');
+  const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
+  if (manifest[slug]) {
+    moduleImages = manifest[slug].map((img: any) => ({
+      file: img.file,
+      thumb: img.thumb,
+      section: img.section || '',
+    }));
+  }
+} catch {}
 ---
 <Base title={entry.data.title} showBackLink={true}>
   <div class="mb-4 flex items-center justify-between flex-wrap gap-2">
@@ -38,7 +55,12 @@ const relatedModuleTags = (entry.data.tags ?? []).filter(
         )}
       </div>
     </div>
-    <PrintButton slug={slug} />
+    <div class="flex items-center gap-2 flex-wrap">
+      {moduleImages.length > 0 && (
+        <ImageGalleryButton images={moduleImages} moduleSlug={slug} />
+      )}
+      <PrintButton slug={slug} />
+    </div>
   </div>
 
   {relatedModuleTags.length > 0 && (

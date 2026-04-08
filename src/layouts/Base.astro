@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
+import Lightbox from '../components/Lightbox.astro';
 
 interface Props {
   title: string;
@@ -30,6 +31,7 @@ const { title, showBackLink = false } = Astro.props;
     <footer class="max-w-4xl mx-auto px-4 py-8 text-center text-xs text-gray-400">
       KMCH HIS Wiki • สร้างจากคู่มือ MEDHIS • {new Date().getFullYear()}
     </footer>
+    <Lightbox />
     <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
     <script is:inline src="/pagefind/pagefind-ui.js"></script>
   </body>

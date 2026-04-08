@@ -1,0 +1,101 @@
+<!-- Lightbox overlay - hidden by default, activated via window.openLightbox() -->
+<div id="lightbox-overlay" class="fixed inset-0 z-[100] bg-black/90 hidden flex-col items-center justify-center" role="dialog" aria-label="Image lightbox">
+  <!-- Close button -->
+  <button id="lb-close" class="absolute top-3 right-3 w-12 h-12 flex items-center justify-center text-white text-3xl bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10" aria-label="ปิด">
+    &times;
+  </button>
+
+  <!-- Previous arrow -->
+  <button id="lb-prev" class="absolute left-2 top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center text-white text-2xl bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10" aria-label="ภาพก่อนหน้า">
+    &#10094;
+  </button>
+
+  <!-- Next arrow -->
+  <button id="lb-next" class="absolute right-2 top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center text-white text-2xl bg-white/10 hover:bg-white/20 rounded-full transition-colors z-10" aria-label="ภาพถัดไป">
+    &#10095;
+  </button>
+
+  <!-- Image container -->
+  <div class="flex-1 flex items-center justify-center w-full px-16 py-16">
+    <img id="lb-img" src="" alt="" class="max-w-[95vw] max-h-[80vh] object-contain rounded shadow-lg" />
+  </div>
+
+  <!-- Caption + counter -->
+  <div class="pb-4 text-center">
+    <p id="lb-caption" class="text-white text-sm mb-1"></p>
+    <p id="lb-counter" class="text-white/60 text-xs"></p>
+  </div>
+</div>
+
+<script is:inline>
+(function() {
+  var images = [];
+  var currentIdx = 0;
+  var overlay = document.getElementById('lightbox-overlay');
+  var img = document.getElementById('lb-img');
+  var caption = document.getElementById('lb-caption');
+  var counter = document.getElementById('lb-counter');
+  var closeBtn = document.getElementById('lb-close');
+  var prevBtn = document.getElementById('lb-prev');
+  var nextBtn = document.getElementById('lb-next');
+
+  function show(idx) {
+    if (!images.length) return;
+    currentIdx = ((idx % images.length) + images.length) % images.length;
+    var item = images[currentIdx];
+    img.src = item.full;
+    img.alt = item.caption || '';
+    caption.textContent = item.caption || '';
+    counter.textContent = (currentIdx + 1) + ' / ' + images.length;
+  }
+
+  function open(imageList, startIndex) {
+    images = imageList || [];
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    show(startIndex || 0);
+  }
+
+  function close() {
+    overlay.classList.add('hidden');
+    overlay.classList.remove('flex');
+    document.body.style.overflow = '';
+    img.src = '';
+  }
+
+  window.openLightbox = open;
+
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', function() { show(currentIdx - 1); });
+  nextBtn.addEventListener('click', function() { show(currentIdx + 1); });
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) close();
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', function(e) {
+    if (overlay.classList.contains('hidden')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(currentIdx - 1);
+    if (e.key === 'ArrowRight') show(currentIdx + 1);
+  });
+
+  // Touch swipe
+  var touchStartX = 0;
+  var touchStartY = 0;
+  overlay.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, { passive: true });
+  overlay.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].screenX - touchStartX;
+    var dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx > 0) show(currentIdx - 1);
+      else show(currentIdx + 1);
+    }
+  }, { passive: true });
+})();
+</script>
