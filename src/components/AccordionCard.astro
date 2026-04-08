@@ -1,0 +1,22 @@
+---
+interface Props {
+  title: string;
+  summary?: string;
+  open?: boolean;
+}
+const { title, summary, open = false } = Astro.props;
+---
+<details class="bg-white border border-gray-200 rounded-lg mb-2 group" open={open || undefined}>
+  <summary class="flex items-center justify-between px-4 py-3 cursor-pointer select-none hover:bg-gray-50 list-none">
+    <div class="flex items-center gap-2">
+      <span class="text-amber-500 group-open:text-blue-500 text-sm transition-transform group-open:rotate-90">▶</span>
+      <span class="font-semibold text-sm">{title}</span>
+    </div>
+    {summary && <span class="text-xs text-gray-400 hidden sm:inline">{summary}</span>}
+  </summary>
+  <div class="px-4 pb-4 text-sm leading-relaxed prose prose-sm max-w-none
+              prose-table:text-xs prose-th:bg-gray-50 prose-td:py-1
+              prose-a:text-blue-700 prose-a:no-underline hover:prose-a:underline">
+    <slot />
+  </div>
+</details>

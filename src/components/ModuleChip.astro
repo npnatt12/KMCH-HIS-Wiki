@@ -1,0 +1,16 @@
+---
+import { MODULE_META } from '../lib/modules';
+interface Props { name: string; }
+const { name } = Astro.props;
+const slug = name.toLowerCase().replace(/\s+/g, '-');
+const meta = MODULE_META[slug];
+---
+{meta ? (
+  <a href={`/modules/${meta.slug}/`}
+     class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs border transition-colors hover:opacity-80"
+     style={`color: ${meta.color}; border-color: ${meta.bgColor}; background-color: ${meta.bgColor};`}>
+    {meta.icon} {meta.nameEn}
+  </a>
+) : (
+  <span class="inline-flex items-center px-2 py-0.5 rounded text-xs border border-gray-200 text-gray-500">{name}</span>
+)}

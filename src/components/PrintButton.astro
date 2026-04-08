@@ -1,0 +1,8 @@
+---
+interface Props { slug: string; }
+const { slug } = Astro.props;
+---
+<a href={`/print/${slug}/`}
+   class="inline-flex items-center gap-1 text-xs bg-blue-50 text-blue-700 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors">
+  🖨️ พิมพ์
+</a>
