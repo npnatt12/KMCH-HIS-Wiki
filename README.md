@@ -1,6 +1,6 @@
 # KMCH HIS Wiki Portal
 
-A searchable, mobile-friendly reference portal for the **MEDHIS Hospital Information System** used at KMCH (Khon Kaen Medical Center Hospital). Built to replace 18 paper manuals with a fast, accessible web interface for medical professionals of all digital literacy levels.
+A searchable, mobile-friendly reference portal for the **MEDHIS Hospital Information System** used at KMCH (King Mongkut Chaokhun Thahan Hospital). Built to replace 18 paper manuals with a fast, accessible web interface for medical professionals of all digital literacy levels.
 
 **Live site:** [kmch-wiki.vercel.app](https://kmch-wiki.vercel.app)
 
