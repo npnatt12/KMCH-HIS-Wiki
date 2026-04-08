@@ -1,0 +1,278 @@
+---
+interface Props {
+  title: string;
+  icon?: string;
+  source?: string;
+  slug: string;
+}
+const { title, icon = '', source = '', slug } = Astro.props;
+const today = new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — KMCH HIS Print</title>
+    <style>
+      @font-face {
+        font-family: 'Sarabun';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/Sarabun-Regular.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Sarabun';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('/fonts/Sarabun-Bold.woff2') format('woff2');
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Sarabun', sans-serif;
+        font-size: 10pt;
+        color: #111;
+        background: #fff;
+      }
+
+      /* Screen preview */
+      @media screen {
+        body {
+          background: #e5e7eb;
+          padding: 2rem;
+        }
+        .page {
+          max-width: 210mm;
+          margin: 0 auto;
+          background: #fff;
+          padding: 15mm 15mm 20mm;
+          min-height: 297mm;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+          border-radius: 4px;
+        }
+        .no-print-bar {
+          max-width: 210mm;
+          margin: 0 auto 1rem;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+        .print-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.4rem 1rem;
+          background: #1e40af;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          font-family: inherit;
+          font-size: 0.85rem;
+        }
+        .print-btn:hover { background: #1d4ed8; }
+        .back-link {
+          font-size: 0.85rem;
+          color: #3b82f6;
+          text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+      }
+
+      /* Print */
+      @media print {
+        @page {
+          size: A4;
+          margin: 12mm 12mm 15mm;
+        }
+        body {
+          background: #fff;
+          font-size: 9pt;
+        }
+        .page {
+          padding: 0;
+        }
+        .no-print-bar {
+          display: none !important;
+        }
+      }
+
+      /* Header */
+      .print-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        border-bottom: 2px solid #1e40af;
+        padding-bottom: 0.6rem;
+        margin-bottom: 0.8rem;
+      }
+      .print-header-icon {
+        font-size: 1.8rem;
+        line-height: 1;
+      }
+      .print-header-text h1 {
+        font-size: 14pt;
+        font-weight: 700;
+        color: #1e3a8a;
+        line-height: 1.2;
+      }
+      .print-header-text p {
+        font-size: 8pt;
+        color: #6b7280;
+        margin-top: 2px;
+      }
+
+      /* 2-column content */
+      .print-content {
+        columns: 2;
+        column-gap: 6mm;
+        column-rule: 1px solid #e5e7eb;
+        font-size: 9pt;
+        line-height: 1.5;
+      }
+
+      .print-content h2 {
+        font-size: 10pt;
+        font-weight: 700;
+        color: #1e3a8a;
+        border-bottom: 1px solid #bfdbfe;
+        padding-bottom: 2px;
+        margin-top: 0.7em;
+        margin-bottom: 0.3em;
+        break-after: avoid;
+        column-span: none;
+      }
+
+      .print-content h3 {
+        font-size: 9pt;
+        font-weight: 700;
+        color: #374151;
+        margin-top: 0.5em;
+        margin-bottom: 0.2em;
+        break-after: avoid;
+      }
+
+      .print-content h1 {
+        font-size: 11pt;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 0.4em;
+        column-span: all;
+        break-after: avoid;
+      }
+
+      .print-content p {
+        margin-bottom: 0.4em;
+      }
+
+      .print-content ul,
+      .print-content ol {
+        padding-left: 1.2em;
+        margin-bottom: 0.4em;
+      }
+
+      .print-content li {
+        margin-bottom: 0.15em;
+      }
+
+      .print-content table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 8pt;
+        margin-bottom: 0.5em;
+        break-inside: avoid;
+      }
+
+      .print-content th {
+        background: #f3f4f6;
+        font-weight: 700;
+        padding: 2px 4px;
+        border: 1px solid #d1d5db;
+        text-align: left;
+      }
+
+      .print-content td {
+        padding: 2px 4px;
+        border: 1px solid #e5e7eb;
+        vertical-align: top;
+      }
+
+      .print-content code {
+        background: #f3f4f6;
+        padding: 0 3px;
+        border-radius: 2px;
+        font-size: 8pt;
+        font-family: monospace;
+      }
+
+      .print-content pre {
+        background: #f3f4f6;
+        padding: 0.4em;
+        border-radius: 3px;
+        font-size: 8pt;
+        overflow: hidden;
+        break-inside: avoid;
+        margin-bottom: 0.4em;
+      }
+
+      .print-content a {
+        color: #1d4ed8;
+        text-decoration: none;
+      }
+
+      .print-content blockquote {
+        border-left: 3px solid #93c5fd;
+        padding-left: 0.6em;
+        color: #4b5563;
+        margin: 0.4em 0;
+        break-inside: avoid;
+      }
+
+      /* Footer */
+      .print-footer {
+        margin-top: 0.8rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid #e5e7eb;
+        font-size: 7.5pt;
+        color: #9ca3af;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="no-print-bar">
+      <a href={`/modules/${slug}/`} class="back-link">← กลับหน้า {title}</a>
+      <button class="print-btn" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
+    </div>
+
+    <div class="page">
+      <header class="print-header">
+        {icon && <span class="print-header-icon">{icon}</span>}
+        <div class="print-header-text">
+          <h1>{title}</h1>
+          {source && <p>แหล่งอ้างอิง: {source}</p>}
+        </div>
+      </header>
+
+      <div class="print-content">
+        <slot />
+      </div>
+
+      <footer class="print-footer">
+        <span>KMCH HIS Wiki</span>
+        {source && <span>{source}</span>}
+        <span>{today}</span>
+      </footer>
+    </div>
+  </body>
+</html>
