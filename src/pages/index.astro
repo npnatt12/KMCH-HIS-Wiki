@@ -1,16 +1,23 @@
 ---
-import '../styles/global.css';
+import Base from '../layouts/Base.astro';
+import ModuleGrid from '../components/ModuleGrid.astro';
 ---
-<html lang="th">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>KMCH HIS Wiki</title>
-  </head>
-  <body class="font-sans bg-gray-50 text-gray-900">
-    <div class="max-w-4xl mx-auto p-4 text-center">
-      <h1 class="text-3xl font-bold text-primary mt-12">KMCH HIS Wiki</h1>
-      <p class="text-gray-500 mt-2">ระบบค้นหาคู่มือ MEDHIS</p>
-    </div>
-  </body>
-</html>
+<Base title="หน้าหลัก">
+  <div class="text-center mt-4 mb-2">
+    <h1 class="text-3xl font-bold text-blue-800">🏥 KMCH HIS Wiki</h1>
+    <p class="text-gray-500 mt-1 text-sm">ระบบค้นหาคู่มือ MEDHIS</p>
+  </div>
+  <div class="max-w-lg mx-auto my-6" id="search-home"></div>
+  <ModuleGrid />
+  <p class="text-center text-xs text-gray-400 mt-4">▼ เลื่อนดูทั้งหมด 18 โมดูล</p>
+  <script is:inline>
+    window.addEventListener('DOMContentLoaded', () => {
+      const homeEl = document.getElementById('search-home');
+      if (homeEl && typeof PagefindUI !== 'undefined') {
+        new PagefindUI({ element: homeEl, showSubResults: true, showImages: false, resetStyles: false,
+          translations: { placeholder: "ค้นหา... เช่น \"ลงทะเบียนผู้ป่วยใหม่\"", zero_results: "ไม่พบผลลัพธ์สำหรับ [SEARCH_TERM]" }
+        });
+      }
+    });
+  </script>
+</Base>
