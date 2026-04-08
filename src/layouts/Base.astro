@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  showBackLink?: boolean;
+}
+
+const { title, showBackLink = false } = Astro.props;
+---
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — KMCH HIS Wiki</title>
+    <link rel="preload" href="/fonts/Sarabun-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Sarabun-Bold.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body class="font-sans bg-gray-50 text-gray-900 min-h-screen">
+    <header class="sticky top-0 z-10 bg-white border-b border-gray-200 px-4 py-3">
+      <div class="max-w-4xl mx-auto flex items-center gap-3">
+        <a href="/" class="text-xl font-bold text-blue-800 whitespace-nowrap">🏥 KMCH HIS</a>
+        <div class="flex-1">
+          <div id="search-compact" class="hidden sm:block"></div>
+        </div>
+      </div>
+    </header>
+    <main class="max-w-4xl mx-auto px-4 py-6">
+      {showBackLink && (
+        <a href="/" class="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 mb-4">
+          ← กลับหน้าหลัก
+        </a>
+      )}
+      <slot />
+    </main>
+    <footer class="max-w-4xl mx-auto px-4 py-8 text-center text-xs text-gray-400">
+      KMCH HIS Wiki • สร้างจากคู่มือ MEDHIS • {new Date().getFullYear()}
+    </footer>
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <script is:inline src="/pagefind/pagefind-ui.js"></script>
+    <script is:inline>
+      window.addEventListener('DOMContentLoaded', () => {
+        const compactEl = document.getElementById('search-compact');
+        if (compactEl && typeof PagefindUI !== 'undefined') {
+          new PagefindUI({ element: compactEl, showSubResults: true, showImages: false,
+            translations: { placeholder: "ค้นหา...", zero_results: "ไม่พบผลลัพธ์สำหรับ [SEARCH_TERM]" }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
