@@ -1,0 +1,16 @@
+graph TB
+  subgraph Doctor
+    A[1. Discharge<br/>Advice] --> B[2. Discharge<br/>Order]
+  end
+  subgraph Nurse
+    C[3. Medical<br/>Discharge] --> D{Billing<br/>Complete?}
+    D -->|Yes| E[4. Final<br/>Discharge]
+    D -->|No| F[Wait]
+    F --> D
+  end
+  B --> C
+  style A fill:#e0e7ff,stroke:#3730a3
+  style B fill:#e0e7ff,stroke:#3730a3
+  style C fill:#dcfce7,stroke:#166534
+  style E fill:#dcfce7,stroke:#166534
+  style F fill:#fef3c7,stroke:#92400e

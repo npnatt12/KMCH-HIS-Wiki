@@ -1,0 +1,16 @@
+graph LR
+  A[Registered] --> B[Arrived]
+  B --> C[Screening<br/>Completed]
+  C --> D[Consultation<br/>Started]
+  D --> E[Consultation<br/>Completed]
+  E --> F[Medical<br/>Discharge]
+  F --> G[Billing<br/>In Progress]
+  G --> H[Financial<br/>Discharge]
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#dbeafe,stroke:#1e40af
+  style C fill:#dbeafe,stroke:#1e40af
+  style D fill:#dcfce7,stroke:#166534
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#dbeafe,stroke:#1e40af
+  style G fill:#fef3c7,stroke:#92400e
+  style H fill:#dcfce7,stroke:#166534

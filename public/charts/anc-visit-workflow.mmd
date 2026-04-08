@@ -1,0 +1,14 @@
+graph TB
+  A[EMR → ANC] --> B[ANC Chart]
+  B --> C[Pregnancy Detail]
+  C --> D[Delivery History]
+  D --> E[Obstetric Summary]
+  E --> F[Examination]
+  F --> G[Medical History]
+  G --> H[Outside Lab]
+  H --> I[SAVE]
+  I --> J{Complete?}
+  J -->|Yes| K[Completed ✅]
+  J -->|No| L[Next visit]
+  style I fill:#dcfce7,stroke:#166534
+  style K fill:#f3e8ff,stroke:#6b21a8

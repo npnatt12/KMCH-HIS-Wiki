@@ -1,0 +1,8 @@
+graph LR
+  A[Emergency Menu] --> B[Registration]
+  B --> C{New?}
+  C -->|New| D[Basic + Visit]
+  C -->|Existing| E[Search]
+  E --> D
+  D --> F[Save ✅]
+  style F fill:#dcfce7,stroke:#166534

@@ -1,0 +1,11 @@
+graph TB
+  subgraph Method_1[Registration Menu]
+    A1[OP Registration] --> A2[Search + Select]
+    A2 --> A3[Auto-fill Appt]
+  end
+  subgraph Method_2[OPD Worklist]
+    B1[APPOINTMENTS tab] --> B2[Select Patient]
+  end
+  A3 --> C[SAVE ✅]
+  B2 --> C
+  style C fill:#dcfce7,stroke:#166534

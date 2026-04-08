@@ -1,0 +1,13 @@
+graph TB
+  subgraph From_OPD_ER[From OPD/ER]
+    A1[EMR Request] --> A2[Admission List]
+    A2 --> A3[Admit]
+  end
+  subgraph Direct[Direct Admission]
+    B1[Search Patient] --> B2[Select]
+  end
+  A3 --> C[Admission Detail]
+  B2 --> C
+  C --> D[Save]
+  D --> E[Arrive ✅]
+  style E fill:#dcfce7,stroke:#166534

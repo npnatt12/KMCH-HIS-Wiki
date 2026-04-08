@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 export async function getStaticPaths() {
   const entries = await getCollection('workflows');
@@ -14,7 +16,12 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const { slug } = Astro.params;
 const { Content } = await entry.render();
+
+const svgPath = join(process.cwd(), 'public', 'charts', `${slug}.svg`);
+const hasSvg = existsSync(svgPath);
+const svgContent = hasSvg ? readFileSync(svgPath, 'utf-8') : null;
 ---
 <Base title={entry.data.title} showBackLink={true}>
   <div class="mb-6">
@@ -23,6 +30,12 @@ const { Content } = await entry.render();
     </div>
     <h1 class="text-2xl font-bold text-gray-900">{entry.data.title}</h1>
   </div>
+
+  {hasSvg && svgContent && (
+    <div class="mb-6 bg-white border border-gray-200 rounded-lg p-4 overflow-x-auto">
+      <Fragment set:html={svgContent} />
+    </div>
+  )}
 
   <div
     data-pagefind-body

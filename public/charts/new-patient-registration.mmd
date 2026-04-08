@@ -1,0 +1,6 @@
+graph LR
+  A[Registration] --> B[Patient Search]
+  B -->|Not found| C[New Patient]
+  C --> D[Demographics]
+  D --> E[SAVE ✅]
+  style E fill:#dcfce7,stroke:#166534

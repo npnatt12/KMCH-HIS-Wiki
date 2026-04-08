@@ -1,0 +1,13 @@
+graph TB
+  A[Ordered] --> B[Specimen<br/>Collected]
+  B --> C{Accept?}
+  C -->|Yes| D[Specimen<br/>Accepted]
+  C -->|Reject| E[Specimen<br/>Rejected]
+  E -->|Re-collect| B
+  D --> F[Report<br/>Entered]
+  F --> G[Report<br/>Authorized]
+  G --> H[EMR ✅]
+  style A fill:#dbeafe,stroke:#1e40af
+  style D fill:#dcfce7,stroke:#166534
+  style E fill:#fee2e2,stroke:#b91c1c
+  style G fill:#dcfce7,stroke:#166534
