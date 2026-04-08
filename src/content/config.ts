@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 
 const wikiSchema = z.object({
   title: z.string(),
-  type: z.enum(['module', 'workflow', 'concept', 'entity', 'source', 'overview']),
+  type: z.enum(['module', 'workflow', 'concept', 'entity', 'source', 'overview', 'faq']),
   sources: z.array(z.string()).optional(),
   created: z.coerce.string().optional(),
   updated: z.coerce.string().optional(),
@@ -14,4 +14,5 @@ export const collections = {
   workflows: defineCollection({ schema: wikiSchema }),
   concepts: defineCollection({ schema: wikiSchema }),
   entities: defineCollection({ schema: wikiSchema }),
+  faq: defineCollection({ schema: wikiSchema }),
 };

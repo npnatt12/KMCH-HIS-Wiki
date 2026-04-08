@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+const faqEntries = await getCollection('faq');
+const howTo = faqEntries.find(e => e.id.includes('how-to'));
+const troubleshooting = faqEntries.find(e => e.id.includes('troubleshooting'));
+
+const howToRendered = howTo ? await howTo.render() : null;
+const troubleshootingRendered = troubleshooting ? await troubleshooting.render() : null;
+---
+<Base title="FAQ / ศูนย์ช่วยเหลือ" showBackLink={true}>
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-900">FAQ / ศูนย์ช่วยเหลือ</h1>
+    <p class="text-sm text-gray-500 mt-1">คำถามที่พบบ่อยและวิธีแก้ไขปัญหา</p>
+  </div>
+
+  <!-- Tab buttons -->
+  <div class="flex gap-2 mb-6 border-b border-gray-200 pb-0">
+    <button
+      id="tab-howto"
+      class="px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-blue-500 bg-blue-50 text-blue-700 -mb-px"
+      onclick="switchTab('howto')"
+    >
+      วิธีการใช้งาน
+    </button>
+    <button
+      id="tab-troubleshoot"
+      class="px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-gray-300 bg-gray-50 text-gray-500 -mb-px"
+      onclick="switchTab('troubleshoot')"
+    >
+      แก้ไขปัญหา
+    </button>
+  </div>
+
+  <!-- How-to content -->
+  <div id="panel-howto" data-pagefind-body>
+    {howToRendered && (
+      <div class="prose prose-sm max-w-none
+                  prose-headings:text-gray-800 prose-h2:text-lg prose-h2:font-bold prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-1 prose-h2:mb-3 prose-h2:mt-6
+                  prose-h3:text-base prose-h3:font-semibold prose-h3:text-blue-800 prose-h3:mt-4
+                  prose-table:text-xs prose-th:bg-gray-50 prose-td:py-1
+                  prose-a:text-blue-700 prose-a:no-underline hover:prose-a:underline
+                  prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded prose-code:text-xs">
+        <howToRendered.Content />
+      </div>
+    )}
+  </div>
+
+  <!-- Troubleshooting content -->
+  <div id="panel-troubleshoot" class="hidden" data-pagefind-body>
+    {troubleshootingRendered && (
+      <div class="prose prose-sm max-w-none
+                  prose-headings:text-gray-800 prose-h2:text-lg prose-h2:font-bold prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-1 prose-h2:mb-3 prose-h2:mt-6
+                  prose-h3:text-base prose-h3:font-semibold prose-h3:text-red-700 prose-h3:mt-4
+                  prose-table:text-xs prose-th:bg-gray-50 prose-td:py-1
+                  prose-a:text-blue-700 prose-a:no-underline hover:prose-a:underline
+                  prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded prose-code:text-xs">
+        <troubleshootingRendered.Content />
+      </div>
+    )}
+  </div>
+
+  <script is:inline>
+    function switchTab(tab) {
+      var howtoPanel = document.getElementById('panel-howto');
+      var troubleshootPanel = document.getElementById('panel-troubleshoot');
+      var howtoTab = document.getElementById('tab-howto');
+      var troubleshootTab = document.getElementById('tab-troubleshoot');
+
+      if (tab === 'howto') {
+        howtoPanel.classList.remove('hidden');
+        troubleshootPanel.classList.add('hidden');
+        howtoTab.className = 'px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-blue-500 bg-blue-50 text-blue-700 -mb-px';
+        troubleshootTab.className = 'px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-gray-300 bg-gray-50 text-gray-500 -mb-px';
+      } else {
+        howtoPanel.classList.add('hidden');
+        troubleshootPanel.classList.remove('hidden');
+        troubleshootTab.className = 'px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-blue-500 bg-blue-50 text-blue-700 -mb-px';
+        howtoTab.className = 'px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-gray-300 bg-gray-50 text-gray-500 -mb-px';
+      }
+    }
+  </script>
+</Base>
