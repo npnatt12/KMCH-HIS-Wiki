@@ -1,0 +1,235 @@
+---
+import { MODULE_META, MODULE_ORDER } from '../lib/modules';
+
+const modules = MODULE_ORDER.map(slug => MODULE_META[slug]);
+
+const workflows = [
+  { slug: 'opd-patient-flow', name: 'OPD Patient Flow' },
+  { slug: 'new-patient-registration', name: 'New Patient Registration' },
+  { slug: 'appointment-registration', name: 'Appointment Registration' },
+  { slug: 'emergency-registration', name: 'Emergency Registration' },
+  { slug: 'mass-casualty-registration', name: 'Mass Casualty Registration' },
+  { slug: 'op-billing-workflow', name: 'OP Billing Workflow' },
+  { slug: 'admission-workflow', name: 'Admission Workflow' },
+  { slug: 'ipd-discharge-process', name: 'IPD Discharge Process' },
+  { slug: 'lab-order-to-result', name: 'Lab Order to Result' },
+  { slug: 'anc-visit-workflow', name: 'ANC Visit Workflow' },
+];
+---
+
+<nav class="sticky top-0 z-50 bg-[#1e40af] text-white">
+  <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-14">
+    <!-- Logo -->
+    <a href="/" class="text-lg font-bold whitespace-nowrap flex items-center gap-2">
+      <span>KMCH HIS</span>
+    </a>
+
+    <!-- Desktop nav (sm and up) -->
+    <div class="hidden sm:flex items-center gap-1">
+      <!-- Modules dropdown -->
+      <div class="relative group">
+        <button class="px-3 py-2 text-sm font-medium hover:bg-blue-700 rounded transition-colors flex items-center gap-1">
+          โมดูล <span class="text-[10px]">&#9662;</span>
+        </button>
+        <div class="hidden group-hover:block absolute left-0 top-full pt-1 z-50">
+          <div class="bg-white text-gray-900 rounded-lg shadow-xl border border-gray-200 p-3 w-[420px]">
+            <div class="grid grid-cols-3 gap-2">
+              {modules.map(mod => (
+                <a href={`/modules/${mod.slug}/`}
+                   class="flex items-center gap-2 px-2 py-1.5 rounded text-xs font-medium hover:opacity-80 transition-colors"
+                   style={`background-color: ${mod.bgColor}; color: ${mod.color};`}>
+                  <span>{mod.icon}</span>
+                  <span>{mod.nameEn}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workflows dropdown -->
+      <div class="relative group">
+        <button class="px-3 py-2 text-sm font-medium hover:bg-blue-700 rounded transition-colors flex items-center gap-1">
+          Workflows <span class="text-[10px]">&#9662;</span>
+        </button>
+        <div class="hidden group-hover:block absolute left-0 top-full pt-1 z-50">
+          <div class="bg-white text-gray-900 rounded-lg shadow-xl border border-gray-200 py-2 w-[260px]">
+            {workflows.map(wf => (
+              <a href={`/workflows/${wf.slug}/`}
+                 class="block px-4 py-2 text-sm hover:bg-blue-50 transition-colors">
+                {wf.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ link -->
+      <a href="/faq/" class="px-3 py-2 text-sm font-medium hover:bg-blue-700 rounded transition-colors">
+        FAQ
+      </a>
+
+      <!-- Search toggle -->
+      <button id="search-toggle-desktop" class="px-3 py-2 text-sm hover:bg-blue-700 rounded transition-colors" aria-label="ค้นหา">
+        &#128269;
+      </button>
+    </div>
+
+    <!-- Mobile nav -->
+    <div class="flex sm:hidden items-center gap-2">
+      <button id="search-toggle-mobile" class="p-2 hover:bg-blue-700 rounded transition-colors" aria-label="ค้นหา">
+        &#128269;
+      </button>
+      <button id="hamburger-btn" class="p-2 hover:bg-blue-700 rounded transition-colors" aria-label="เมนู">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Desktop search overlay -->
+  <div id="search-overlay-desktop" class="hidden bg-white border-t border-blue-300">
+    <div class="max-w-4xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-sm text-gray-500 font-medium">ค้นหาในคู่มือ</span>
+        <button id="search-close-desktop" class="text-gray-400 hover:text-gray-600 text-lg">&times;</button>
+      </div>
+      <div id="search-nav"></div>
+    </div>
+  </div>
+
+  <!-- Mobile search panel -->
+  <div id="search-panel-mobile" class="hidden sm:hidden bg-white border-t border-blue-300">
+    <div class="px-4 py-3">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-sm text-gray-500 font-medium">ค้นหา</span>
+        <button id="search-close-mobile" class="text-gray-400 hover:text-gray-600 text-lg">&times;</button>
+      </div>
+      <div id="search-mobile"></div>
+    </div>
+  </div>
+
+  <!-- Mobile slide-down panel -->
+  <div id="mobile-menu" class="hidden sm:hidden bg-white text-gray-900 border-t border-blue-300 max-h-[80vh] overflow-y-auto">
+    <div class="px-4 py-3">
+      <!-- Modules -->
+      <details class="mb-2">
+        <summary class="flex items-center justify-between min-h-[48px] px-2 py-2 font-semibold text-gray-800 cursor-pointer select-none hover:bg-gray-50 rounded list-none">
+          <span>โมดูล</span>
+          <span class="text-xs text-gray-400">&#9662;</span>
+        </summary>
+        <div class="grid grid-cols-2 gap-2 px-2 pb-3 pt-1">
+          {modules.map(mod => (
+            <a href={`/modules/${mod.slug}/`}
+               class="flex items-center gap-2 px-2 py-2 rounded text-xs font-medium min-h-[44px]"
+               style={`background-color: ${mod.bgColor}; color: ${mod.color};`}>
+              <span>{mod.icon}</span>
+              <span>{mod.nameEn}</span>
+            </a>
+          ))}
+        </div>
+      </details>
+
+      <!-- Workflows -->
+      <details class="mb-2">
+        <summary class="flex items-center justify-between min-h-[48px] px-2 py-2 font-semibold text-gray-800 cursor-pointer select-none hover:bg-gray-50 rounded list-none">
+          <span>Workflows</span>
+          <span class="text-xs text-gray-400">&#9662;</span>
+        </summary>
+        <div class="px-2 pb-3 pt-1">
+          {workflows.map(wf => (
+            <a href={`/workflows/${wf.slug}/`}
+               class="block px-2 py-2 text-sm hover:bg-blue-50 rounded min-h-[48px] flex items-center">
+              {wf.name}
+            </a>
+          ))}
+        </div>
+      </details>
+
+      <!-- FAQ -->
+      <a href="/faq/" class="flex items-center min-h-[48px] px-2 py-2 font-semibold text-gray-800 hover:bg-gray-50 rounded">
+        FAQ / ศูนย์ช่วยเหลือ
+      </a>
+
+      <!-- Close button -->
+      <button id="mobile-menu-close" class="w-full mt-3 mb-1 min-h-[48px] bg-gray-100 text-gray-600 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+        ปิดเมนู
+      </button>
+    </div>
+  </div>
+</nav>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Desktop search
+    var toggleDesktop = document.getElementById('search-toggle-desktop');
+    var overlayDesktop = document.getElementById('search-overlay-desktop');
+    var closeDesktop = document.getElementById('search-close-desktop');
+
+    if (toggleDesktop && overlayDesktop) {
+      toggleDesktop.addEventListener('click', function() {
+        overlayDesktop.classList.toggle('hidden');
+        var searchInput = overlayDesktop.querySelector('input');
+        if (searchInput) searchInput.focus();
+      });
+    }
+    if (closeDesktop && overlayDesktop) {
+      closeDesktop.addEventListener('click', function() {
+        overlayDesktop.classList.add('hidden');
+      });
+    }
+
+    // Mobile search
+    var toggleMobile = document.getElementById('search-toggle-mobile');
+    var panelMobile = document.getElementById('search-panel-mobile');
+    var closeMobile = document.getElementById('search-close-mobile');
+    var mobileMenu = document.getElementById('mobile-menu');
+
+    if (toggleMobile && panelMobile) {
+      toggleMobile.addEventListener('click', function() {
+        panelMobile.classList.toggle('hidden');
+        if (mobileMenu) mobileMenu.classList.add('hidden');
+        var searchInput = panelMobile.querySelector('input');
+        if (searchInput) searchInput.focus();
+      });
+    }
+    if (closeMobile && panelMobile) {
+      closeMobile.addEventListener('click', function() {
+        panelMobile.classList.add('hidden');
+      });
+    }
+
+    // Hamburger
+    var hamburger = document.getElementById('hamburger-btn');
+    var menuClose = document.getElementById('mobile-menu-close');
+
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+        if (panelMobile) panelMobile.classList.add('hidden');
+      });
+    }
+    if (menuClose && mobileMenu) {
+      menuClose.addEventListener('click', function() {
+        mobileMenu.classList.add('hidden');
+      });
+    }
+
+    // PagefindUI init
+    if (typeof PagefindUI !== 'undefined') {
+      var navEl = document.getElementById('search-nav');
+      if (navEl) {
+        new PagefindUI({ element: navEl, showSubResults: true, showImages: false,
+          translations: { placeholder: "ค้นหา...", zero_results: "ไม่พบผลลัพธ์สำหรับ [SEARCH_TERM]" }
+        });
+      }
+      var mobileEl = document.getElementById('search-mobile');
+      if (mobileEl) {
+        new PagefindUI({ element: mobileEl, showSubResults: true, showImages: false,
+          translations: { placeholder: "ค้นหา...", zero_results: "ไม่พบผลลัพธ์สำหรับ [SEARCH_TERM]" }
+        });
+      }
+    }
+  });
+</script>
