@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import QuickPrintButton from '../../components/QuickPrintButton.astro';
 
 export async function getStaticPaths() {
   const entries = await getCollection('concepts');
@@ -18,8 +19,11 @@ const { Content } = await entry.render();
 ---
 <Base title={entry.data.title} showBackLink={true}>
   <div class="mb-6">
-    <div class="flex items-center gap-2 mb-1">
-      <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">Concept</span>
+    <div class="flex items-center justify-between flex-wrap gap-2 mb-1">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">Concept</span>
+      </div>
+      <QuickPrintButton />
     </div>
     <h1 class="text-2xl font-bold text-gray-900">{entry.data.title}</h1>
   </div>

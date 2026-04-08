@@ -7,6 +7,7 @@ interface Props {
 }
 const { title, icon = '', source = '', slug } = Astro.props;
 const today = new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+const backUrl = slug.startsWith('workflow/') ? `/workflows/${slug.replace('workflow/', '')}/` : `/modules/${slug}/`;
 ---
 <!DOCTYPE html>
 <html lang="th">
@@ -251,7 +252,7 @@ const today = new Date().toLocaleDateString('th-TH', { year: 'numeric', month: '
   </head>
   <body>
     <div class="no-print-bar">
-      <a href={`/modules/${slug}/`} class="back-link">← กลับหน้า {title}</a>
+      <a href={backUrl} class="back-link">← กลับหน้า {title}</a>
       <button class="print-btn" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
     </div>
 

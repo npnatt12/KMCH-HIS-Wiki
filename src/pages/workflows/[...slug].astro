@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import PrintButton from '../../components/PrintButton.astro';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -25,8 +26,11 @@ const svgContent = hasSvg ? readFileSync(svgPath, 'utf-8') : null;
 ---
 <Base title={entry.data.title} showBackLink={true}>
   <div class="mb-6">
-    <div class="flex items-center gap-2 mb-1">
-      <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-green-100 text-green-700">Workflow</span>
+    <div class="flex items-center justify-between flex-wrap gap-2 mb-1">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-green-100 text-green-700">Workflow</span>
+      </div>
+      <PrintButton slug={`workflow/${slug}`} />
     </div>
     <h1 class="text-2xl font-bold text-gray-900">{entry.data.title}</h1>
   </div>

@@ -17,3 +17,9 @@
   font-display: swap;
   src: url('/fonts/Sarabun-Bold.woff2') format('woff2');
 }
+
+@media print {
+  nav, footer, .no-print { display: none !important; }
+  body { background: white !important; }
+  main { max-width: 100% !important; padding: 0 !important; }
+}
