@@ -64,6 +64,42 @@ const workflows = [
         </div>
       </div>
 
+      <!-- Cheat Sheets dropdown -->
+      <div class="relative group">
+        <button class="px-3 py-2 text-sm font-medium hover:bg-blue-700 rounded transition-colors flex items-center gap-1">
+          🖨️ Cheat Sheets <span class="text-[10px]">&#9662;</span>
+        </button>
+        <div class="hidden group-hover:block absolute left-0 top-full pt-1 z-50">
+          <div class="bg-white text-gray-900 rounded-lg shadow-xl border border-gray-200 p-3 w-[480px] max-h-[70vh] overflow-y-auto">
+            <div class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Modules</div>
+            <div class="grid grid-cols-3 gap-1 mb-3">
+              {modules.map(mod => (
+                <a href={`/cheatsheet/${mod.slug}/`}
+                   class="flex items-center gap-1.5 px-2 py-1.5 rounded text-xs font-medium hover:opacity-80 transition-colors"
+                   style={`background-color: ${mod.bgColor}; color: ${mod.color};`}>
+                  <span>{mod.icon}</span>
+                  <span>{mod.nameEn}</span>
+                </a>
+              ))}
+            </div>
+            <div class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2 border-t border-gray-200 pt-2">Workflows</div>
+            <div class="grid grid-cols-2 gap-1">
+              {workflows.map(wf => (
+                <a href={`/cheatsheet/workflow/${wf.slug}/`}
+                   class="block px-2 py-1.5 text-xs hover:bg-blue-50 rounded transition-colors">
+                  {wf.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Master Flow link -->
+      <a href="/master-flow/" class="px-3 py-2 text-sm font-medium hover:bg-blue-700 rounded transition-colors flex items-center gap-1">
+        🗺️ Master Flow
+      </a>
+
       <!-- FAQ link -->
       <a href="/faq/" class="px-3 py-2 text-sm font-medium hover:bg-blue-700 rounded transition-colors">
         FAQ
@@ -146,6 +182,39 @@ const workflows = [
           ))}
         </div>
       </details>
+
+      <!-- Cheat Sheets -->
+      <details class="mb-2">
+        <summary class="flex items-center justify-between min-h-[48px] px-2 py-2 font-semibold text-gray-800 cursor-pointer select-none hover:bg-gray-50 rounded list-none">
+          <span>🖨️ Cheat Sheets</span>
+          <span class="text-xs text-gray-400">&#9662;</span>
+        </summary>
+        <div class="px-2 pb-3 pt-1">
+          <div class="text-xs font-bold text-gray-400 uppercase mb-1">Modules</div>
+          <div class="grid grid-cols-2 gap-2 mb-2">
+            {modules.map(mod => (
+              <a href={`/cheatsheet/${mod.slug}/`}
+                 class="flex items-center gap-2 px-2 py-2 rounded text-xs font-medium min-h-[44px]"
+                 style={`background-color: ${mod.bgColor}; color: ${mod.color};`}>
+                <span>{mod.icon}</span>
+                <span>{mod.nameEn}</span>
+              </a>
+            ))}
+          </div>
+          <div class="text-xs font-bold text-gray-400 uppercase mb-1">Workflows</div>
+          {workflows.map(wf => (
+            <a href={`/cheatsheet/workflow/${wf.slug}/`}
+               class="block px-2 py-2 text-sm hover:bg-blue-50 rounded min-h-[48px] flex items-center">
+              {wf.name}
+            </a>
+          ))}
+        </div>
+      </details>
+
+      <!-- Master Flow -->
+      <a href="/master-flow/" class="flex items-center gap-2 min-h-[48px] px-2 py-2 font-semibold text-gray-800 hover:bg-gray-50 rounded">
+        🗺️ Master Flow
+      </a>
 
       <!-- FAQ -->
       <a href="/faq/" class="flex items-center min-h-[48px] px-2 py-2 font-semibold text-gray-800 hover:bg-gray-50 rounded">
