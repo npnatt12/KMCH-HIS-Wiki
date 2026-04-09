@@ -3,7 +3,7 @@ title: OR — Operating Room Module
 type: module
 sources: ["11.MEDHIS Manual_OR V.1.docx"]
 created: 2026-04-08
-updated: 2026-04-08
+updated: 2026-04-09
 tags: [module, or, operating-room, surgery]
 ---
 
@@ -19,93 +19,135 @@ tags: [module, or, operating-room, surgery]
 
 ## Key Screens
 
-### Surgery Request List
-รายชื่อคำขอผ่าตัดที่ส่งมาจากแผนกต่างๆ → เลือก: Book / Cancel / Modify Demographic
+| Screen | Description |
+|--------|-------------|
+| **Surgery Request List** | รายชื่อคำขอผ่าตัดจากแผนกต่างๆ → Book / Cancel / Modify Demographic |
+| [[entities/OR Schedule Screen\|OR Schedule]] | ตาราง Calendar นัดห้องผ่าตัด — Click ช่องว่างเพื่อจอง |
+| **OR Worklist** | รายชื่อผู้ป่วยที่จะมาผ่าตัดวันนี้ พร้อมเมนูย่อย 10 รายการ |
+| [[entities/OR Record Screen\|OR Record]] | บันทึกรายละเอียดการผ่าตัดจริง (Intra-op) |
 
-### OR Schedule
-ตารางนัดห้องผ่าตัด — ดูตามห้อง + วัน/เวลา → Click ช่องว่างเพื่อจอง
+## 2 เส้นทางเข้าสู่ OR
 
-### OR Worklist
-รายชื่อผู้ป่วยที่จะมาผ่าตัดวันนี้ พร้อมเมนูย่อย
+### เส้นทางที่ 1: Surgery Request (ผ่านแผนกอื่น)
 
-## Workflows
+```
+EMR → Referral → Tab Surgery
+```
 
-### 1. Surgery Request (จากแผนกอื่น)
-- EMR → Referral → Tab **Surgery**
-- ระบุ: Department, **Surgeon**, **Procedure Details**, Surgery Date/Time, **Anesthesia** + Anesthesist
-- Save → ส่งไป Surgery Request List
-
-### 2. OR Schedule (จองห้อง)
-- จาก Surgery Request List → **Book** (หรือจอง Direct)
-- ระบุรายละเอียด:
+**Fields ที่ต้องระบุ:**
 
 | Field | Description |
 |-------|-------------|
+| Department | แผนกที่เกี่ยวข้อง |
+| Surgeon | ชื่อแพทย์ผู้ผ่าตัด |
+| Procedure Details | ชื่อหัตถการ |
+| Surgery Date & Time | วันที่และเวลาที่ต้องการ |
+| Anesthesia | ชนิดการวางยาสลบ + แพทย์ดมยา |
+
+→ Save → ส่งไปที่ **Surgery Request List**
+→ OR Staff เลือก **Book** → เปิด OR Schedule
+
+### เส้นทางที่ 2: OR Schedule (จองตรง)
+
+```
+Operating Room → OR Schedule → Click ช่องเวลา → กรอกรายละเอียด → Save
+```
+
+## OR Schedule — Fields การจอง
+
+| Field | Options |
+|-------|---------|
 | Operating Room | ห้องผ่าตัด |
-| Appointment Date | วันที่ |
-| From / To | เวลาเริ่ม-สิ้นสุด |
+| Appointment Date / From / To | วันที่ + เวลา |
 | Priority | Normal / Urgent |
 | Status | Booked / Confirmed |
 | Planning Type | Elective / Emergency |
 | Criticality | Major / Minor |
-| Anesthesia | GA / LA ฯลฯ |
+| Anesthesia | GA / LA / ฯลฯ |
 | Anesthesist | วิสัญญีแพทย์ |
-| Procedure Details | หัตถการ |
-| Surgeon Role + Surgeon | ทีมผ่าตัด (เพิ่มได้) |
+| Procedure Details | หัตถการผ่าตัด |
+| Surgeon Role + Surgeon | ทีมผ่าตัด (เพิ่มได้หลายคน) |
 
-### 3. Schedule Management
+ดูรายละเอียดทุก Field ที่ [[entities/OR Schedule Screen]]
 
-| Action | Condition | Note |
-|--------|-----------|------|
-| **Modify** | ทุกสถานะ | แก้ไขรายละเอียด |
-| **Reschedule** | Booked เท่านั้น | เลื่อนนัด ต้องระบุเหตุผล |
-| **Confirm** | Booked → Confirmed | ยืนยัน |
-| **Cancel** | ทุกสถานะ | ยกเลิก ต้องระบุเหตุผล |
+## Schedule Management
 
-### 4. OR Worklist (วันผ่าตัด)
+| Action | เงื่อนไข | รายละเอียด |
+|--------|---------|-----------|
+| **Modify** | ทุกสถานะ | แก้ไขรายละเอียดการจอง |
+| **Reschedule** | Booked เท่านั้น | เลื่อนนัด → ต้องระบุเหตุผล |
+| **Confirm** | Booked → Confirmed | ยืนยันการจอง |
+| **Cancel** | ทุกสถานะ | ยกเลิก → ต้องระบุเหตุผล |
+| **View Audit Log** | ทุกสถานะ | ดูประวัติการจองทั้งหมด |
 
-เมนูเมื่อ click ชื่อผู้ป่วย:
+## OR Worklist — เมนูย่อย (วันผ่าตัด)
 
 | Menu | Description |
 |------|-------------|
 | **Charting** | บันทึกสัญญาณชีพ |
-| **Order** | สั่ง orders |
-| **View EMR** | ดูแฟ้มประวัติ |
+| **Order** | ลงคำสั่งการรักษา |
+| **View EMR** | ดูแฟ้มประวัติผู้ป่วย |
 | **Consent Form** | Upload ใบยินยอมผ่าตัด |
-| **Confirm Booking** | ยืนยัน (ถ้ายังไม่ Confirm) |
+| **Confirm Booking** | ยืนยันผ่าตัด (ปรากฏเฉพาะที่ยังไม่ Confirm) |
 | **OR Record** | บันทึกรายละเอียดผ่าตัด |
 | **Check list** | แบบฟอร์ม checklists |
-| **Anesthesia record** | บันทึกยาระงับความรู้สึก |
+| **Anesthesia record** | บันทึกการได้รับยาระงับความรู้สึก |
 | **eMAR Record** | บันทึกการให้ยา |
-| **Patient Tracking** | สถานะผู้ป่วย |
+| **Patient Tracking** | บันทึกสถานะผู้ป่วย |
 
-### 5. OR Record (บันทึกผ่าตัด)
+## OR Record — Fields บันทึกผ่าตัด
+
+### Timing
 
 | Field | Description |
 |-------|-------------|
-| Theatre in/out Date & Time | เข้า/ออกห้องผ่าตัด |
-| Anesthesia Start/End | เริ่ม/สิ้นสุดวางยาสลบ |
+| Theatre in Date & Time | เวลาเข้าห้องผ่าตัด |
+| Theatre out Date & Time | เวลาออกจากห้องผ่าตัด |
+| Anesthesia Start/End | เริ่ม/สิ้นสุดการวางยาสลบ |
 | Procedure Start/End | เริ่ม/สิ้นสุดหัตถการ |
+
+### Details
+
+| Field | Description |
+|-------|-------------|
 | Reason For Procedure | สาเหตุการผ่าตัด |
 | Procedure Free Text | รายละเอียดเพิ่มเติม |
-| Bodysites | ส่วนร่างกาย |
-| Surgeon team | ทีม + roles |
-| Scrub nurse | ชื่อ |
-| Implants Details | วัสดุอุปกรณ์ |
+| Bodysites | ส่วนของร่างกาย |
+| Surgeon Role + Name | ทีมผ่าตัด (เพิ่ม/ลบได้) |
+| Anesthesist | ชื่อผู้ให้ยาระงับความรู้สึก |
+| Scrub nurse | ชื่อ Scrub Nurse |
+| Implants Details | วัสดุ Implants ที่ใช้กับผู้ป่วย |
 | Status | Completed / Inprogress / Planned |
-| Surgeon Note | บันทึกรายละเอียด (multi-form) |
+| Planning Type | Elective / Emergency |
+| Criticality | Major / Minor |
+| Surgeon Note | บันทึกรายละเอียด (สร้างได้หลายฟอร์ม) |
 
-รองรับ **multi-procedure** ในครั้งเดียว (กด + เพิ่ม Procedure)
+**Multi-Procedure:** กด + เพิ่มชุดรายละเอียด Procedure ใหม่ในผ่าตัดครั้งเดียวกัน
 
-### 6. Recovery Room (ห้องพักฟื้น)
-- บันทึก Vital Signs + Orders ก่อนจำหน่ายออกจากห้อง
+ดูรายละเอียดทุก Field ที่ [[entities/OR Record Screen]]
+
+## Recovery Room (ห้องพักฟื้น)
+
+- บันทึก **Vital Signs** (Charting)
+- บันทึก **Order** (คำสั่งการรักษาในห้องพักฟื้น)
+- จำหน่ายผู้ป่วยออกจากห้องพักฟื้น
+
+## Status Flow
+
+```
+Surgery Request → Booked → Confirmed → Inprogress → Completed
+```
 
 ## Integration Points
 
 | Module | Integration |
 |--------|-------------|
-| [[EMR Doctor]] | Surgery Request จาก EMR |
-| [[ER]] | Emergency Discharge → Send to OR |
-| [[IPD]] | ผู้ป่วยในส่งผ่าตัด |
-| [[Admission]] | ผู้ป่วย OR อาจ Admit |
-| [[Billing]] | OR charges |
+| [[modules/EMR Doctor]] | Surgery Request จาก EMR Referral Tab |
+| [[modules/ER]] | Emergency → Send to OR |
+| [[modules/IPD]] | ผู้ป่วยในส่งผ่าตัด |
+| [[modules/Admission]] | ผู้ป่วย OR อาจต้อง Admit หลังผ่าตัด |
+| [[modules/Billing]] | OR charges |
+
+## Workflows
+
+- [[workflows/OR Surgery Request to Record Workflow]] — กระบวนการครบตั้งแต่ Request ถึง Recovery Room

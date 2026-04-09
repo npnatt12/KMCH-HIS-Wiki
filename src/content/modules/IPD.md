@@ -3,7 +3,7 @@ title: IPD — Inpatient Department Module
 type: module
 sources: ["7.MEDHIS_Manual_IPD V.1.docx"]
 created: 2026-04-08
-updated: 2026-04-08
+updated: 2026-04-09
 tags: [module, ipd, inpatient]
 ---
 
@@ -22,18 +22,41 @@ tags: [module, ipd, inpatient]
 ### [[Ward Board]]
 หน้าจอหลักแสดงเตียงและผู้ป่วยใน Ward — ดู [[Bed Status]] สำหรับสถานะเตียง
 
+**Action Icons บน Ward Board:**
+
+| Icon | Action | คำอธิบาย |
+|------|--------|----------|
+| **Arrive** | รับผู้ป่วยเข้า Ward | กด YES เพื่อยืนยัน สัญลักษณ์ Arrive หายไปหลังยืนยัน |
+| **Charting** | บันทึก Vital Signs | → Charting → OBSERVATION → Vital Sign Chart |
+| **Appointment** | ทำนัดหมาย | ระบุ Department/Careprovider/Date/Time + Future Orders |
+| **Transfer Request** | ขอย้ายเตียง/Ward | ต้องรอ [[Admission]] อนุมัติ |
+| **Dispense Return** | คืนยา | แสดงรายการยา + จำนวนที่ใช้แล้ว |
+| **Discharge Plan** | เริ่มกระบวนการจำหน่าย | เปิด Discharge Plan 4 ขั้นตอน |
+
 ### [[Nursing Worklist Screen]]
 รายการคำสั่งแพทย์ทั้งหมด ค้นหาตาม Ward / Search Patients
 
 **Group by** (6 แบบ):
 | Group | Description |
 |-------|-------------|
-| Department | แผนก |
-| Patient | ชื่อผู้ป่วย |
-| Careprovider | แพทย์ |
-| Order Category Type | ประเภทคำสั่ง |
-| Status | สถานะ |
-| Date | วันที่ |
+| Department | จัดเรียงตามแผนก |
+| Patient | จัดเรียงตามชื่อผู้ป่วย |
+| Careprovider | จัดเรียงตามแพทย์ |
+| Order Category Type | จัดเรียงตามประเภทคำสั่ง |
+| Status | จัดเรียงตามสถานะ |
+| Date | จัดเรียงตามวันที่ |
+
+**การรับคำสั่งแพทย์ (Execute Order):**
+1. Inpatient → Nursing Worklist
+2. เลือก Ward หรือค้นหาจาก Search Patients → SEARCH
+3. กดเลือก Task → เลือก Order รายการที่ต้องการ
+4. กด **Update** เพื่อดูรายละเอียด
+5. กด **Execute Order** → SAVE
+
+**IPD Consults (รับ Order ส่งปรึกษา):**
+- Nursing Worklist → เลือก **IPD Consults**
+- หากแพทย์ยังไม่ระบุผู้รับ Consult: กด **Modify** → ระบุ Careprovider → SAVE
+- ประสานงานติดต่อแพทย์และส่งเวร
 
 ## Key Workflows
 
@@ -64,9 +87,10 @@ tags: [module, ipd, inpatient]
 - Nursing Worklist → **IPD Consults** → Assign Careprovider ถ้าแพทย์ยังไม่ระบุ (Modify → ระบุชื่อ → SAVE)
 - ประสานงานแผนกที่รับ Consult
 
-### 8. Transfer (ย้ายเตียง/Ward)
-- Ward Board → เลือกผู้ป่วย → **Transfer Request** → เลือก Ward/เตียง → SAVE
+### 8. [[IPD Transfer Between Wards Workflow|Transfer]] (ย้ายเตียง/Ward)
+- [[Ward Board]] → เลือกผู้ป่วย → **Transfer Request** → เลือก Ward/เตียง → SAVE
 - ติดต่อแผนก [[Admission]] เพื่ออนุมัติ → Admission กด **TRANSFER**
+- ดู [[IPD Transfer Screen]] สำหรับรายละเอียดหน้าจอ
 
 ### 9. Dispense Return (คืนยา)
 - เลือกผู้ป่วย → **Dispense Return** → แสดงรายการยาทั้งหมด + จำนวนที่ใช้แล้ว
@@ -74,6 +98,9 @@ tags: [module, ipd, inpatient]
 - ใช้กรณี: กลับบ้าน หรือแพทย์ยกเลิก order
 
 ### 10. [[IPD Discharge Process]] (จำหน่าย — 4 ขั้นตอน)
+
+**Dispense Return ก่อน Discharge:**
+- เลือกผู้ป่วย → **Dispense Return** → เลือกรายการ → ระบุจำนวนจาก Batches → SAVE
 
 | Step | ผู้รับผิดชอบ | Action |
 |------|-------------|--------|
@@ -83,6 +110,42 @@ tags: [module, ipd, inpatient]
 | 4. Final Discharge | พยาบาล | SAVE ได้เมื่อ billing เสร็จ (สัญลักษณ์ "$") → ผู้ป่วยออกจาก Ward |
 
 - **REVERT**: ยกเลิกสถานะในแต่ละขั้นตอนได้
+
+## Button Actions
+
+| Button | Action | Conditions | Result |
+|--------|--------|------------|--------|
+| **Arrive** | รับผู้ป่วยเข้า Ward | ผู้ป่วยอยู่ในสถานะรอรับ | สัญลักษณ์ Arrive หายไป เริ่มดูแลได้ |
+| **Cancel Admission** | ยกเลิก Admit | ก่อนกด Arrive เท่านั้น | เตียงกลาย Vacant ทันที |
+| **Charting → Save** | บันทึก Vital Signs | ระบุค่าครบ | บันทึกลงระบบ |
+| **Execute Order → SAVE** | รับ Order แพทย์ | Order ยัง Active | สถานะ Order อัปเดต |
+| **Modify** (Consult) | กำหนดแพทย์รับ Consult | Consult ยังไม่ assign แพทย์ | ระบุ Careprovider |
+| **Transfer Request → SAVE** | ส่งคำร้องย้าย | — | Admission รอยืนยัน |
+| **Dispense Return → SAVE** | คืนยา | ระบุจำนวนยาคืน | บันทึกการคืนยา |
+| **Discharge Plan → SAVE** | บันทึกแต่ละขั้น Discharge | ตามเงื่อนไขแต่ละ Step | ส่งต่อ Step ถัดไป |
+| **REVERT** | ยกเลิกขั้นตอน Discharge | ทำได้ทุก Step | ย้อนกลับ Step ก่อนหน้า |
+| **Print บัตรนัด** | พิมพ์บัตรนัดผู้ป่วย | หลัง Appointment บันทึกแล้ว | พิมพ์บัตรนัด |
+
+## Permissions
+
+| Action | Roles | Notes |
+|--------|-------|-------|
+| กด Arrive | พยาบาล/เจ้าหน้าที่ Ward | ทำจาก Ward Board |
+| Cancel Admission | **จำกัดสิทธิ์บางตำแหน่งเท่านั้น** | config ระดับระบบ |
+| บันทึก Vital Signs | พยาบาล/เจ้าหน้าที่ Ward | จาก Charting |
+| Execute Order | พยาบาล | จาก Nursing Worklist |
+| Transfer Request | พยาบาล/เจ้าหน้าที่ Ward | ส่งขอ Admission อนุมัติ |
+| อนุมัติ Transfer (กด TRANSFER) | เจ้าหน้าที่ Admission | ที่แผนก Admission |
+| Discharge Advice + Order (Step 1–2) | แพทย์ | จาก EMR / Ward Board |
+| Medical Discharge + Final Discharge (Step 3–4) | พยาบาล/เจ้าหน้าที่ Ward | ต้องคืนยาและรอ billing ก่อน |
+
+## Error / Edge Cases
+
+- **Arrive แล้ว Cancel ไม่ได้**: หลังกด Arrive ต้องผ่าน Discharge Process เท่านั้น
+- **Final Discharge กด SAVE ไม่ได้**: ต้องรอสัญลักษณ์ "$" (billing ชำระเสร็จ) จาก [[Billing]]
+- **Transfer ต้องรอ Admission**: Ward เองย้ายไม่ได้โดยตรง ต้องให้แผนก Admission อนุมัติ
+- **Consult ไม่มีแพทย์**: พยาบาลต้อง Assign Careprovider เองจาก Nursing Worklist → Modify
+- **Appointment ที่มี Follow-up Order**: ต้องเปิด Add Future Orders ด้วย
 
 ## [[Bed Status]]
 

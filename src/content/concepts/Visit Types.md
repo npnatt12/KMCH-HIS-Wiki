@@ -1,9 +1,9 @@
 ---
 title: Visit Types
 type: concept
-sources: ["2.MEDHIS Manual_Registration V.2.docx"]
+sources: ["2.MEDHIS Manual_Registration V.2.docx", "4.MEDHIS Manual_ER V.1.docx", "6.MEDHIS Manual_Admission V.1.docx"]
 created: 2026-04-08
-updated: 2026-04-08
+updated: 2026-04-09
 tags: [concept, visit, registration]
 ---
 
@@ -48,8 +48,27 @@ tags: [concept, visit, registration]
 - **Transfer Mode** — ชนิดการเคลื่อนย้าย (รถนอน, รถพยาบาล, รถเข็น)
 - **REVISIT** — checkbox เชื่อมต่อ visit เดิม
 
+## Transfer Mode
+
+ระบุใน Visit Detail — ชนิดการเคลื่อนย้ายผู้ป่วยมาโรงพยาบาล:
+- รถนอน
+- รถพยาบาล
+- รถเข็น
+- Walk-in (เดินมาเอง)
+
+## Encounter Types
+
+| Type | Module | Description |
+|------|--------|-------------|
+| **OPD** (Outpatient) | [[OPD]] / [[Registration]] | ผู้ป่วยนอก — เปิด visit และกลับบ้านในวันเดียวกัน |
+| **ER** (Emergency) | [[ER]] / [[Emergency Registration]] | ฉุกเฉิน — Department = Emergency (default) |
+| **IPD** (Inpatient) | [[Admission]] / [[IPD]] | ผู้ป่วยใน — Admit เข้า Ward พักค้างคืน |
+| **Pre-Admit** | [[Admission]] | เตรียม Admit ล่วงหน้า — สั่งคำสั่งก่อน Admit จริง |
+
 ## ที่ใช้งาน
 
 - [[Registration]] — Visit Detail section ใน [[Patient Demographics Screen]]
 - [[Emergency Registration]] — Visit Detail (default Department: Emergency)
 - [[OPD]] — OPD Worklist
+- [[Admission]] — Admission Detail (IPD/Pre-Admit)
+- [[ER]] — Whiteboard + Triage (Encounter Type filter)

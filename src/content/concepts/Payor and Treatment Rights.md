@@ -1,9 +1,9 @@
 ---
 title: Payor and Treatment Rights
 type: concept
-sources: ["2.MEDHIS Manual_Registration V.2.docx"]
+sources: ["2.MEDHIS Manual_Registration V.2.docx", "5.MEDHIS Manual_Billing V.1.docx"]
 created: 2026-04-08
-updated: 2026-04-08
+updated: 2026-04-09
 tags: [concept, payor, billing, insurance, rights]
 ---
 
@@ -41,7 +41,35 @@ tags: [concept, payor, billing, insurance, rights]
 3. ระบบแสดงรายละเอียดสิทธิ
 4. เลือกสิทธิ → ระบบระบุให้อัตโนมัติใน Payor Details
 
+## Payment Modes (5 รูปแบบ) ในการชำระ
+
+เมื่อ Settle บิลในระบบ [[Billing]] สามารถเลือกรูปแบบการชำระ:
+
+| Mode | รายละเอียดที่ต้องระบุ |
+|------|---------------------|
+| **Cash** | Amount (default = ยอดรวม) |
+| **EDC** | Enable toggle, EDC Config, Parameter |
+| **Credit Card** | Card Type, Card Holder Name, Card Number (4 ตัวท้าย), Bank, Expiry |
+| **Transfer** | Bank Name, Date, Transaction Number (สลิป) |
+| **Cheque** | Bank Name, Due Date, Transaction Number |
+
+- รองรับ **mixed payment** (หลายรูปแบบใน 1 ใบเสร็จ)
+- ดูรายละเอียดครบที่ [[Payment Modes]]
+
+## Payor ในบริบท Billing
+
+ขั้นตอนการเรียกเก็บใน [[Billing]]:
+1. **Lock** — เปลี่ยนสถานะเป็น Billing In Progress
+2. **Allocate Bill** — ระบบคำนวณค่ารักษาแยกตาม Payor Rank
+3. **Modify Payor** — แก้ไข/เพิ่มสิทธิ์ได้ขณะออกบิล + ตรวจสอบสิทธิ สปสช. เพิ่มเติมได้
+4. **Auto Allocate** — คำนวณรวมทุก Rank
+5. **Settle** — เลือก Payment Mode ชำระ
+
+**กฎการตกสิทธิ์:** รายการที่ Payor ไม่คุ้มครองตกไป Rank ถัดไปอัตโนมัติ — ถ้าไม่มี Rank ถัดไปตกเป็น Self Pay
+
 ## ที่ใช้งาน
 
 - [[Registration]] — Payor Details section ใน [[Patient Demographics Screen]]
-- [[Billing]] — ใช้ Payor Details ในการคำนวณค่ารักษา
+- [[Billing]] — ใช้ Payor Details ในการคำนวณค่ารักษา + Modify Payor ขณะออกบิล
+- [[NHSO Authentication]] — ตรวจสอบสิทธิ สปสช. ออนไลน์
+- [[Payment Modes]] — รูปแบบการชำระเงิน 5 ประเภท

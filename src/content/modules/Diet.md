@@ -3,7 +3,7 @@ title: Diet Module
 type: module
 sources: ["15.MEDHIS Manual_Diet V.1.docx"]
 created: 2026-04-08
-updated: 2026-04-08
+updated: 2026-04-09
 tags: [module, diet, nutrition, kitchen, meal]
 ---
 
@@ -16,54 +16,119 @@ tags: [module, diet, nutrition, kitchen, meal]
 ## Access
 
 เมนูหลัก: **Diet & Nutrition**
+- Diet Worklist
+- Diet Order Entry
+- Kitchen Worklist
 
-## Key Screens (3 หน้าจอ)
+---
 
-### 1. Diet Worklist
+## 1. Diet Worklist
 
-หน้าจอรายการงานของนักโภชนาการ แบ่งเป็น 3 กลุ่ม:
+หน้าจอรายการงานของนักโภชนาการ
 
-| Group | Description |
+เส้นทาง: Diet & Nutrition → Diet Worklist
+
+### Sub-tabs
+
+| Tab | Description |
+|-----|-------------|
+| New Inpatients | ผู้ป่วยในรายใหม่ทั้งหมด — ค้นหาผู้ป่วยที่เพิ่งรับไว้ยังไม่เคยสั่งอาหาร |
+| Inpatients | ผู้ป่วยในทั้งหมด — ดูประวัติการได้อาหาร + ลง Diet Plan + ส่ง Consult |
+| Outpatients | ผู้ป่วยนอก — ดูประวัติ + ลง Diet Plan + ส่ง Consult นักโภชนา |
+| Search Patients | ค้นหาจากชื่อผู้ป่วย |
+| Search All Patients | ค้นหาจากผู้ป่วยทั้งหมด |
+
+### Search Fields
+
+| Field | Description |
 |-------|-------------|
-| New Inpatients | ผู้ป่วยในรายใหม่ที่ยังไม่ได้สั่งอาหาร |
-| Inpatients | ผู้ป่วยในทั้งหมดที่มีคำสั่งอาหาร |
-| Outpatients | ผู้ป่วยนอก (สำหรับ consult โภชนาการ) |
+| Ward | ค้นหาจากตึกผู้ป่วย |
+| Care Provider | ค้นหาจากชื่อแพทย์ |
+| Search | เริ่มค้นหา |
+| Clear | ล้างข้อมูล |
 
-การค้นหา:
-- ค้นหาตาม **Ward** (หอผู้ป่วย)
-- ค้นหาตาม **Careprovider** (แพทย์ผู้ดูแล)
+### Inpatients Tab — ฟังก์ชัน
 
-### 2. Diet Order Entry (การสั่งอาหาร)
+- ดูประวัติการได้อาหารของผู้ป่วย
+- ลง **Diet Plan** — แผนโภชนาการสำหรับผู้ป่วย
+- ส่ง **Consult** นักโภชนา
+- ศึกษาประวัติผู้ป่วยจาก EMR
+- ปรึกษาทีมแพทย์เจ้าของไข้
 
-ขั้นตอน: เลือก **Ward** → เลือก **Patient** → กำหนด **Meal Sets** สำหรับ 3 มื้อ:
+---
 
-| Meal | Description |
-|------|-------------|
-| Breakfast | มื้อเช้า |
-| Lunch | มื้อกลางวัน |
-| Dinner | มื้อเย็น |
+## 2. Diet Order Entry (การสั่งอาหาร)
 
-แต่ละมื้อสามารถเลือก Meal Set ที่กำหนดไว้ในระบบ
+ใช้สำหรับผู้ป่วย IPD เบิกอาหาร
 
-### 3. Kitchen Worklist (รายการงานห้องครัว)
+เส้นทาง: Diet & Nutrition → Diet Order Entry
 
-หน้าจอสำหรับเจ้าหน้าที่ห้องครัว:
+### หน้าจอ Diet Order Entry
+
+| หมายเลข | ปุ่ม/ฟิลด์ | Description |
+|---------|----------|-------------|
+| 1 | Ward | ระบุตึกที่ต้องการค้นหา |
+| 2 | Search | ค้นหาผู้ป่วย |
+| 3 | Patient list | เลือกผู้ป่วยที่ต้องการสั่งอาหาร |
+| 4 | Meal Set search | ค้นหาชุดอาหารทั้ง 3 มื้อ |
+| 5 | Select meal | เลือกสั่งอาหาร |
+| 6 | Confirm | ยืนยัน |
+| 7 | Save | บันทึก |
+
+### 3 มื้ออาหาร
+
+| มื้อ | Thai | Description |
+|-----|------|-------------|
+| Breakfast | มื้อเช้า | เลือก Meal Set |
+| Lunch | มื้อกลางวัน | เลือก Meal Set |
+| Dinner | มื้อเย็น | เลือก Meal Set |
+
+**ขั้นตอน:**
+1. ระบุ Ward → Search
+2. เลือกผู้ป่วย
+3. กดค้นหา Meal Set → เลือกชุดอาหารทั้ง 3 มื้อ
+4. กดเลือกสั่งอาหาร → ยืนยัน → บันทึก
+5. ระบบแสดงหน้าจอบันทึกข้อมูล
+
+---
+
+## 3. Kitchen Worklist (รายการงานห้องครัว)
+
+สำหรับเจ้าหน้าที่ห้องครัวดูคำสั่งรายการอาหาร
+
+เส้นทาง: Diet & Nutrition → Kitchen Worklist
+
+### Views
 
 | View | Description |
 |------|-------------|
-| Summary | สรุปจำนวนอาหารแต่ละประเภท |
-| Details | รายละเอียดอาหารรายคน |
+| Summary | สรุปรายการอาหารทั้งหมด — ดูจำนวนรวมแต่ละประเภท |
+| Details | รายละเอียดคำสั่งอาหาร — กดรับทราบคำสั่งอาหาร |
 
-การค้นหา:
-- **Meal Group** — กลุ่มอาหาร
-- **Patient Name** — ชื่อผู้ป่วย
-- **Ward** — หอผู้ป่วย
-- **Order** — คำสั่งอาหาร
+### Search/Filter Options
+
+| Filter | Description |
+|--------|-------------|
+| Meal Group | ค้นหาตามกลุ่มอาหาร (มื้ออาหาร) |
+| Patient Name | ค้นหาจากชื่อผู้ป่วย |
+| Ward | ค้นหาจากตึกผู้ป่วย |
+| Order | ค้นหาจาก Order ที่สั่งเบิก |
+
+---
 
 ## Additional Features
 
-- **Diet Plan** — แผนโภชนาการสำหรับผู้ป่วย
-- **Consult** — ให้คำปรึกษาทางโภชนาการโดยนักโภชนาการ
+- **Diet Plan** — แผนโภชนาการส่วนบุคคล บันทึกผ่าน Inpatients tab
+- **Consult** — นักโภชนาค้นหาผู้ป่วยที่ส่ง Consult และศึกษาประวัติจาก EMR
+- **Search All Patients** — ค้นหาผู้ป่วยที่ไม่อยู่ใน list ปัจจุบัน
+
+## Workflows
+
+- [[Diet Order to Kitchen Workflow]] — สั่งอาหาร → Kitchen Worklist → เตรียม
+
+## Entities
+
+- [[Diet Order Entry Screen]] — หน้าจอสั่งอาหาร 3 มื้อ
 
 ## Integration Points
 
@@ -71,4 +136,4 @@ tags: [module, diet, nutrition, kitchen, meal]
 |--------|-------------|
 | [[IPD]] | อาหารผู้ป่วยใน (Inpatient meals) — จัด 3 มื้อตาม ward |
 | [[OPD]] | ผู้ป่วยนอก consult โภชนาการ |
-| [[EMR Doctor]] | ดูประวัติโภชนาการของผู้ป่วย |
+| [[EMR Doctor]] | ดูประวัติโภชนาการของผู้ป่วยจาก EMR |

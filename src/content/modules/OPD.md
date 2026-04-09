@@ -3,7 +3,7 @@ title: OPD — Outpatient Department Module
 type: module
 sources: ["3.MEDHIS_Manual_OPD V.1.docx"]
 created: 2026-04-08
-updated: 2026-04-08
+updated: 2026-04-09
 tags: [module, opd, outpatient]
 ---
 
@@ -94,6 +94,161 @@ Summary, Current Visit, Timeline, Medicine, Vaccines Chart, Laboratory, Radiolog
 
 ### 11. Reports
 Reporting → Standard Reports → เลือกแผนก → เลือกรายงาน → ช่วงวันที่ → พิมพ์
+
+## Screen Fields — OPD Worklist Filter / Visit Detail
+
+### Visit Detail Panel — Tabs
+| Tab | Content |
+|-----|---------|
+| Order Details | รายการ orders ทั้งหมด (ยา, Lab, X-ray, Task ฯลฯ) |
+| Appointments | วันนัดที่แพทย์ทำไว้ + พิมพ์ Appointment Slip |
+| Tasks | คำสั่งที่ต้องรับ Execute (Status: Ordered → Executed) |
+| Consults | ส่งปรึกษาแผนกอื่น |
+| Patient Tracking | Timeline สถานะทั้งหมด เรียงตามวัน-เวลา + ผู้บันทึก |
+
+### Patient Tracking — คอลัมน์ที่แสดง
+| Column | Description |
+|--------|-------------|
+| วันที่ / เวลา | เวลาที่เปลี่ยนสถานะ |
+| Status | สถานะ ณ เวลานั้น |
+| ผู้บันทึก | User ที่กดเปลี่ยน |
+
+## Button Actions
+
+| Button / Icon | หน้าจอ | Action | เงื่อนไข | ผลลัพธ์ |
+|---------------|--------|--------|-----------|---------|
+| Status change | OPD Worklist | เปลี่ยน Status | เลือกผู้ป่วยก่อน | Status อัปเดทในรายการ |
+| Arrived | Visit Detail | Registered → Arrived | ผู้ป่วยต้องอยู่ใน Registered | Status = Arrived |
+| Screening Completed | Visit Detail | ส่งชื่อไปหน้าแพทย์ | ต้องระบุ Careprovider ก่อน | Status = Screening Completed, ชื่อแสดงหน้าแพทย์ |
+| Charting | Visit Detail | เปิดหน้าบันทึก Vital Signs | — | บันทึก Vital Sign Chart |
+| Assign Careprovider | Visit Detail | ระบุแพทย์ผู้ตรวจ | กรณียังไม่มีแพทย์ | แพทย์ถูกผูกกับ Visit |
+| Execute Order | Visit Detail → Tasks | รับคำสั่ง Tasks | Status ต้อง Ordered | Status เปลี่ยนเป็น Executed |
+| Appointment | Visit Detail | เปิดตารางนัด | — | สร้างนัดหมาย |
+| Print Documents | Visit Detail | เปิดรายการเอกสาร Standard | — | เลือกเอกสาร → Print |
+| Form | Visit Detail | เปิด MEDHIS Centrix Form | — | กรอกข้อมูล → Download PDF / Print |
+| View EMR | Visit Detail | เปิด EMR ผู้ป่วย | — | หน้า EMR 9 หัวข้อ |
+| Medical Discharge | Visit Detail | จำหน่ายผู้ป่วย | ทำทุก orders เสร็จแล้ว | ชื่อส่งไปการเงินทันที |
+| Collect Specimen | Lab Specimen Screen | บันทึกการเก็บสิ่งส่งตรวจ | เลือกรายการ Lab แล้ว | Status: Ordered → Specimen Collected |
+| Print Sticker | Lab Specimen Screen | พิมพ์ Lab Label | — | ออก Lab Label sticker |
+
+## Lab Specimen Collection — Field Details
+
+| Field | Type | Description |
+|-------|------|-------------|
+| Department | Dropdown | กรองตามแผนก |
+| Ward | Dropdown | กรองตาม Ward |
+| Careprovider | Text search | กรองตามแพทย์ผู้สั่ง |
+| Patient | Text search | ค้นหาผู้ป่วย |
+| Encounter Type | Dropdown | OPD / IPD |
+| Order No. | Text | ค้นหาตาม Order Number |
+| Date From–To | Date range | ช่วงวันที่สั่ง |
+| Status | Dropdown | กรองตาม Order status |
+
+**Sort Options:** Lab No. / Name (ชื่อผู้ป่วย) / Order Date
+
+**Tabs:** TO COLLECT (รอเก็บ) / COLLECTED (เก็บแล้ว)
+
+**Batch Mode:** เลือกทีละหลายรายการโดย Checkbox → Print Sticker batch / Collect Specimen batch → ยืนยัน → อัปเดทพร้อมกัน
+
+## Appointment — Field Details
+
+### Book Appointment (วิธี 1 — เมนูหลัก)
+| Field | Description |
+|-------|-------------|
+| Department | แผนกที่ต้องการนัด |
+| Care provider | แพทย์ผู้ตรวจ |
+| Date | เลือกจากปฏิทิน |
+| Time slot | Click เลือกช่องเวลา |
+| Patient Name / HN | ค้นหาผู้ป่วย |
+| Referral Details | รายละเอียดการส่งปรึกษา (ถ้ามี) |
+| Future Order | สั่งคำสั่งล่วงหน้า |
+| Task | บันทึก Task ล่วงหน้า |
+
+**หลัง Save:** ระบบแสดง Print Preview → Print บัตรนัด (Appointment Slip)
+
+### Day View (วิธี 2 — หลายคลินิก/แพทย์)
+- ระบุ Department หลายแห่ง + Careprovider หลายท่านพร้อมกัน
+- ช่องสีฟ้า = มีนัดแล้ว (ไม่สามารถนัดซ้ำในช่องนั้น)
+- เลือกช่องเวลาที่ว่าง → เปิด Book Appointment form เหมือน วิธี 1
+
+## Documents — MEDHIS Centrix Form
+
+| Element | Description |
+|---------|-------------|
+| ช่องสีเหลือง | ช่องกรอกข้อมูลที่ต้องการให้แสดงบนเอกสาร |
+| History | จำนวนเอกสารที่เคยบันทึกไว้ก่อนหน้า → Click ดูรายละเอียด / Download / Print |
+| Download PDF | ดาวน์โหลดเอกสารเป็น PDF |
+| Print | พิมพ์เอกสารออกเครื่องพิมพ์ |
+
+## EMR View — 9 หัวข้อ
+
+| หัวข้อ | รายละเอียด |
+|--------|------------|
+| Summary | ประวัติการรักษาเรียงตามวัน-เวลา |
+| Current Visit | เลือกดู Visit ใดก็ได้ (แสดงจำนวน Visit ทั้งหมด) |
+| Time Line | ประวัติการรักษาแบบ timeline |
+| Medicine | รายการยา |
+| Vaccines Chart | ประวัติการรับวัคซีน |
+| Laboratory | ผลตรวจทางห้องปฏิบัติการ |
+| Radiology | ผลตรวจทางรังสีวิทยา |
+| Pathology | ผลตรวจทาง Pathology |
+| Doctor Fee | ค่าตรวจทั่วไปและปรึกษาแพทย์ |
+| Procedure | ประวัติการทำหัตถการ |
+
+## Alerts — ขั้นตอนและ Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| Type | Dropdown | ประเภทของการแจ้งเตือน |
+| Messages | Text (Required) | ข้อความแจ้งเตือน |
+
+**Access Path:** OPD Worklist → ผู้ป่วย → View EMR → Alerts → NEW → กรอก → SAVE
+**ผลลัพธ์:** แสดงสัญลักษณ์แจ้งเตือนที่ประวัติผู้ป่วย
+
+## Reports — ขั้นตอน
+
+1. เมนู **Reporting → Standard Reports**
+2. เลือก **แผนก** (Department)
+3. เลือก **รายงาน** ที่ต้องการ
+4. ระบุ **ช่วงวันที่-เวลา**
+5. กด Search → แสดงข้อมูล → Print
+
+## Consults — ขั้นตอนการรับ Consult
+
+1. แพทย์สั่ง Consult → แสดงใน Visit Details → Consults
+2. ประสานงาน/ส่งเวรไปยังแผนกรับ Consult
+3. แผนกรับ: **OPD → OPD Worklist → Tab REFERRALS**
+4. Click ชื่อผู้ป่วย → Click รับเป็นผู้ป่วย → Confirm "YES" (Check-in this patient)
+5. กรณีตรวจไม่ได้วันนั้น → Click Appointment → นัดหมาย
+
+## Referral Out — ขั้นตอน
+
+1. แพทย์บันทึก: **Referral → Referral Out** → บันทึก → ระบบพิมพ์เอกสารออกมา
+2. เจ้าหน้าที่ตรวจสอบจาก **Visit Details** ว่ามี order ส่งต่อ
+3. เตรียมเอกสาร + ผู้ป่วยไปยังโรงพยาบาลปลายทาง
+
+## Permissions
+
+| Action | ผู้ดำเนินการ | หมายเหตุ |
+|--------|-------------|---------|
+| Arrived / Screening Completed | พยาบาล / เจ้าหน้าที่ OPD | — |
+| Charting Vital Signs | พยาบาล / เจ้าหน้าที่ | — |
+| Assign Careprovider | พยาบาล / เจ้าหน้าที่ | — |
+| Execute Order (Tasks) | ผู้รับผิดชอบงานนั้นๆ | ตามแผนกที่ได้รับ Task |
+| Medical Discharge | พยาบาล / เจ้าหน้าที่ OPD | — |
+| Collect Specimen | พยาบาล / เจ้าหน้าที่ Lab | จากเมนู Laboratory |
+| Book Appointment | พยาบาล / เจ้าหน้าที่ | — |
+| Print Documents / Form | พยาบาล / เจ้าหน้าที่ | — |
+| Report (ดู/พิมพ์) | เจ้าหน้าที่ / ผู้จัดการ | ผ่าน Reporting menu |
+
+## Error / Edge Cases
+
+- **ยังไม่ระบุแพทย์**: ต้อง Assign Careprovider ก่อนกด Screening Completed มิฉะนั้นชื่อผู้ป่วยจะไม่ปรากฏในหน้าแพทย์ที่ถูกต้อง
+- **Tasks ยัง Ordered อยู่**: ควร Execute ให้ครบก่อน Medical Discharge เพื่อความชัดเจนในการสื่อสาร
+- **ช่องเวลาสีฟ้า (Day View)**: มีนัดแล้ว ต้องเลือกช่องว่างอื่น
+- **Follow-up Tasks**: ต้องทำ Appointment ด้วย ไม่ใช่แค่ Execute Order
+- **Batch Specimen Collection**: ยืนยัน (Confirm) ก่อน batch collect — ไม่สามารถยกเลิกย้อนหลังได้
+- **Medical Discharge**: เมื่อกดแล้วชื่อผู้ป่วยส่งการเงินทันที — ควรตรวจสอบ orders ให้ครบก่อน
 
 ## Integration Points
 

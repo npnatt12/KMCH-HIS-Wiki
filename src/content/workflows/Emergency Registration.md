@@ -1,9 +1,9 @@
 ---
 title: Emergency Registration Workflow
 type: workflow
-sources: ["2.MEDHIS Manual_Registration V.2.docx"]
+sources: ["2.MEDHIS Manual_Registration V.2.docx", "4.MEDHIS Manual_ER V.1.docx"]
 created: 2026-04-08
-updated: 2026-04-08
+updated: 2026-04-09
 tags: [workflow, registration, emergency]
 ---
 
@@ -42,8 +42,52 @@ tags: [workflow, registration, emergency]
 | MRN | สร้างอัตโนมัติ | สร้างอัตโนมัติ |
 | ข้อมูลเต็ม | ไม่จำเป็น | จำเป็น |
 
+## หลังลงทะเบียน — ขั้นตอน ER ต่อเนื่อง
+
+เมื่อลงทะเบียนเสร็จแล้ว ผู้ป่วยจะปรากฏใน [[Whiteboard]] → ดำเนินการต่อดังนี้:
+
+### ขั้นตอน Triage
+1. [[Whiteboard]] → Click ชื่อผู้ป่วย → Visit Detail → Icon **Triage**
+2. กรอก: Triaged By / Chief Complaints / Present Illness / [[ESI Level]] / Glasgow Coma Scale
+3. **Save** → Status เปลี่ยนเป็น **Triaged** → สีแสดงที่ Whiteboard
+
+### ขั้นตอน Emergency Discharge
+1. Visit Detail → Icon **Emergency Discharge**
+2. กรอก: Date / Time / Recommended By / Discharge Type / Discharge Status
+3. เลือก Discharge Status:
+   - **Discharge** → กลับบ้าน
+   - **Death** → บันทึกรายละเอียดการเสียชีวิต
+   - **Referred to Admission** → รับ IPD → ส่ง [[Admission]]
+   - **Referred to Other Hospital** → เตรียมเอกสาร ส่งตัว
+   - **Send to OR** → ส่ง [[OR]]
+4. **Save** → Status → **Medical Discharge** → เข้า [[Billing]]
+
+## Mass Casualty — ขั้นตอนเพิ่มเติม
+
+1. Emergency → **Mass Casualty**
+2. กรอก Incident Details:
+   - Incident Date (Default: วันปัจจุบัน)
+   - Department (Default: Emergency)
+   - Adult/Child: จำนวนแยก Male/Female/Unknown
+   - Brought by Next of Kin: ถ้า ON → Escort Name (Required), Mobile, Comment
+3. **Save** → Popup แสดงจำนวน → ระบบสร้าง Visit อัตโนมัติ
+4. ชื่อผู้ป่วยถูกตั้งอัตโนมัติ: `"Incident Detail Adult/Child_เพศ_ลำดับ"` → แก้ไขชื่อจริงภายหลัง
+5. ผู้ป่วยทั้งหมดปรากฏใน [[Whiteboard]] → Triage ทีละราย
+
+## เปรียบเทียบกับ [[New Patient Registration]]
+
+| | Emergency Registration | New Patient Registration |
+|---|---|---|
+| Required fields | First Name + Department | ทุก mandatory fields |
+| Default Department | Emergency | ไม่มี |
+| MRN | สร้างอัตโนมัติ | สร้างอัตโนมัติ |
+| ข้อมูลเต็ม | ไม่จำเป็น | จำเป็น |
+
 ## Related
 
 - [[Registration]] — module page
-- [[Mass Casualty Registration]] — สำหรับเหตุอุบัติภัยหมู่
 - [[ER]] — Emergency Room module
+- [[Mass Casualty Registration]] — สำหรับเหตุอุบัติภัยหมู่
+- [[Whiteboard]] — รายชื่อผู้ป่วยฉุกเฉินหลังลงทะเบียน
+- [[ER Triage Screen]] — หน้าจอ Triage
+- [[ER Discharge Screen]] — หน้าจอจำหน่าย
