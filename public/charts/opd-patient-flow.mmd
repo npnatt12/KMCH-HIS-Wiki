@@ -1,11 +1,17 @@
-graph LR
-  A([Registered]) --> B([Arrived])
-  B --> C([Screening Completed])
-  C --> D([Consultation Started])
-  D --> E([Consultation Completed])
-  E --> F([Medical Discharge])
-  F --> G([Billing In Progress])
-  G --> H([Financial Discharge])
+graph TB
+  subgraph Arrival["รับผู้ป่วย"]
+    A([Registered]) --> B([Arrived])
+    B --> C([Screening Completed])
+  end
+  subgraph Consultation["พบแพทย์"]
+    C --> D([Consultation Started])
+    D --> E([Consultation Completed])
+  end
+  subgraph Billing["ชำระเงิน"]
+    E --> F([Medical Discharge])
+    F --> G([Billing In Progress])
+    G --> H([Financial Discharge])
+  end
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#dbeafe,stroke:#1e40af
   style C fill:#dbeafe,stroke:#1e40af

@@ -1,12 +1,16 @@
-graph LR
-  A([Goods Receive → New]) --> B[เลือก Type GRN]
-  B --> C[กรอก Header — Store / Vendor]
-  C --> D[เพิ่มรายการ Items]
-  D --> E[Batch ID + Expiry + Price]
-  E --> F[Save]
-  F --> G{Approval Required}
-  G -->|Approve| H([Raised — สต็อกเพิ่ม])
-  G -->|Cancel| I([Cancelled])
+graph TB
+  subgraph Entry["บันทึกรับสินค้า"]
+    A([Goods Receive → New]) --> B[เลือก Type GRN]
+    B --> C[กรอก Header — Store / Vendor]
+    C --> D[เพิ่มรายการ Items]
+    D --> E[Batch ID + Expiry + Price]
+    E --> F[Save]
+  end
+  subgraph Approval["อนุมัติ"]
+    F --> G{Approval Required}
+    G -->|Approve| H([Raised — สต็อกเพิ่ม])
+    G -->|Cancel| I([Cancelled])
+  end
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280
   style C fill:#fef9c3,stroke:#854d0e

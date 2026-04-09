@@ -1,10 +1,14 @@
-graph LR
-  A([OP Registration]) --> B[ค้นหาผู้ป่วย]
-  B -->|ไม่พบ| C[New Patient Form]
-  B -->|พบ| D[เลือกผู้ป่วยเก่า]
-  C --> E[กรอก Demographics]
-  D --> E
-  E --> F[เลือกสิทธิ์ Payor]
+graph TB
+  subgraph Search["ค้นหาผู้ป่วย"]
+    A([OP Registration]) --> B[ค้นหาผู้ป่วย]
+    B -->|ไม่พบ| C[New Patient Form]
+    B -->|พบ| D[เลือกผู้ป่วยเก่า]
+  end
+  subgraph Register["ลงทะเบียน"]
+    C --> E[กรอก Demographics]
+    D --> E
+    E --> F[เลือกสิทธิ์ Payor]
+  end
   F --> G([SAVE — สร้าง Visit])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280

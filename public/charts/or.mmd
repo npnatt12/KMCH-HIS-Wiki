@@ -1,9 +1,13 @@
-graph LR
-  A([Surgery Request / OR Schedule]) --> B[Book OR — ตาราง]
-  B --> C[Confirm Booking]
-  C --> D[OR Worklist — วันผ่าตัด]
-  D --> E[OR Record — บันทึกผ่าตัด]
-  E --> F[Anesthesia Record]
+graph TB
+  subgraph Booking["จองตาราง OR"]
+    A([Surgery Request / OR Schedule]) --> B[Book OR — ตาราง]
+    B --> C[Confirm Booking]
+  end
+  subgraph Surgery["วันผ่าตัด"]
+    C --> D[OR Worklist — วันผ่าตัด]
+    D --> E[OR Record — บันทึกผ่าตัด]
+    E --> F[Anesthesia Record]
+  end
   F --> G([Recovery Room])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280

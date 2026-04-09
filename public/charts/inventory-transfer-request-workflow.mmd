@@ -1,16 +1,20 @@
 graph TB
-  A([Stock Request → New]) --> B{Type}
-  B -->|Transfer| C[From Store → To Store]
-  B -->|Issue| D[From Dept → To Store]
-  C --> E[Add Items → Save]
-  D --> E
-  E --> F{Approve?}
-  F -->|Approve| G([Raised])
-  F -->|Cancel| H([Cancelled])
-  G --> I[Stock Transfer / Issue]
-  I --> J{Transfer Accept?}
-  J -->|Accept| K([Completed])
-  J -->|No Accept Reqd| K
+  subgraph Request["สร้างคำขอ"]
+    A([Stock Request → New]) --> B{Type}
+    B -->|Transfer| C[From Store → To Store]
+    B -->|Issue| D[From Dept → To Store]
+    C --> E[Add Items → Save]
+    D --> E
+    E --> F{Approve?}
+    F -->|Approve| G([Raised])
+    F -->|Cancel| H([Cancelled])
+  end
+  subgraph Transfer["โอนสต็อก"]
+    G --> I[Stock Transfer / Issue]
+    I --> J{Transfer Accept?}
+    J -->|Accept| K([Completed])
+    J -->|No Accept Reqd| K
+  end
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280
   style C fill:#fef9c3,stroke:#854d0e

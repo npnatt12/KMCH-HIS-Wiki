@@ -1,9 +1,13 @@
-graph LR
-  A([Request จาก OPD/ER]) --> C[Admission List]
-  B([Direct Admission]) --> C
-  C --> D[เลือกเตียง Bed Selection]
-  D --> E[กรอก Admission Detail]
-  E --> F[Save]
+graph TB
+  subgraph Intake["รับคำขอ Admission"]
+    A([Request จาก OPD/ER]) --> C[Admission List]
+    B([Direct Admission]) --> C
+  end
+  subgraph Detail["กรอกรายละเอียด"]
+    C --> D[เลือกเตียง Bed Selection]
+    D --> E[กรอก Admission Detail]
+    E --> F[Save]
+  end
   F --> G([Arrive — รับเข้า Ward])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#dbeafe,stroke:#1e40af

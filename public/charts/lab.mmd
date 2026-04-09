@@ -1,12 +1,16 @@
-graph LR
-  A([สั่งตรวจ — Order]) --> B[เก็บสิ่งส่งตรวจ]
-  B --> C{Accept?}
-  C -->|Accept| D[Specimen Accepted]
-  C -->|Reject| E[เก็บใหม่]
-  E --> B
-  D --> F[ลงผล Manual/Auto]
-  F --> G[Authorize ผล]
-  G --> H([ผลแสดงใน EMR])
+graph TB
+  subgraph Specimen["เก็บสิ่งส่งตรวจ"]
+    A([สั่งตรวจ — Order]) --> B[เก็บสิ่งส่งตรวจ]
+    B --> C{Accept?}
+    C -->|Accept| D[Specimen Accepted]
+    C -->|Reject| E[เก็บใหม่]
+    E --> B
+  end
+  subgraph Result["รายงานผล"]
+    D --> F[ลงผล Manual/Auto]
+    F --> G[Authorize ผล]
+    G --> H([ผลแสดงใน EMR])
+  end
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280
   style C fill:#f3f4f6,stroke:#6b7280

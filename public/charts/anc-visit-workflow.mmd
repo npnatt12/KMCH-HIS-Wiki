@@ -1,12 +1,16 @@
 graph TB
-  A([EMR → ANC]) --> B[ANC Chart]
-  B --> C[Pregnancy Detail]
-  C --> D[Delivery History]
-  D --> E[Obstetric Summary]
-  E --> F[Examination]
-  F --> G[Medical History]
-  G --> H[Outside Lab]
-  H --> I[SAVE]
+  subgraph History["ประวัติฝากครรภ์"]
+    A([EMR → ANC]) --> B[ANC Chart]
+    B --> C[Pregnancy Detail]
+    C --> D[Delivery History]
+    D --> E[Obstetric Summary]
+  end
+  subgraph Examination["ตรวจร่างกาย"]
+    E --> F[Examination]
+    F --> G[Medical History]
+    G --> H[Outside Lab]
+    H --> I[SAVE]
+  end
   I --> J{Complete?}
   J -->|Yes| K([Completed])
   J -->|No| L([Next Visit])

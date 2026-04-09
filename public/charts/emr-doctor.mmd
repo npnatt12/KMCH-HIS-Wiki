@@ -1,9 +1,13 @@
-graph LR
-  A([Doctor Worklist]) --> B[เลือกผู้ป่วย]
-  B --> C[เปิด EMR — Chief Complaint]
-  C --> D[ตรวจร่างกาย + วินิจฉัย]
-  D --> E[สั่ง Orders]
-  E --> F[SAVE — บันทึก Visit]
+graph TB
+  subgraph Consult["ตรวจผู้ป่วย"]
+    A([Doctor Worklist]) --> B[เลือกผู้ป่วย]
+    B --> C[เปิด EMR — Chief Complaint]
+    C --> D[ตรวจร่างกาย + วินิจฉัย]
+  end
+  subgraph Record["บันทึก + สั่งการ"]
+    D --> E[สั่ง Orders]
+    E --> F[SAVE — บันทึก Visit]
+  end
   F --> G([Medical Discharge])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280

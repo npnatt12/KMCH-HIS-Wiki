@@ -1,11 +1,17 @@
-graph LR
-  A([ลงทะเบียน]) --> B[Arrived — รับผู้ป่วย]
-  B --> C[คัดกรอง Vital Signs]
-  C --> D[พบแพทย์ — EMR]
-  D --> E[สั่ง Orders]
-  E --> F[Medical Discharge]
-  F --> G[ชำระเงิน Billing]
-  G --> H([Financial Discharge])
+graph TB
+  subgraph Reception["รับผู้ป่วย"]
+    A([ลงทะเบียน]) --> B[Arrived — รับผู้ป่วย]
+    B --> C[คัดกรอง Vital Signs]
+  end
+  subgraph Clinical["พบแพทย์ + สั่งการ"]
+    C --> D[พบแพทย์ — EMR]
+    D --> E[สั่ง Orders]
+    E --> F[Medical Discharge]
+  end
+  subgraph Payment["ชำระเงิน"]
+    F --> G[ชำระเงิน Billing]
+    G --> H([Financial Discharge])
+  end
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280
   style C fill:#fef9c3,stroke:#854d0e

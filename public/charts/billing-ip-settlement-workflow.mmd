@@ -1,13 +1,17 @@
 graph TB
-  A([Medical Discharge]) --> B[IP Cashier Worklist — Lock]
-  B --> C[Allocate Bill]
-  C --> D[Modify Payor — Rank]
-  D --> E[Allocate All]
-  E --> F{Deposit?}
-  F -->|Yes| G[Use Deposit]
-  F -->|No| H[Select Payment Mode]
-  G --> H
-  H --> I[Generate Bill → Settle]
+  subgraph Prepare["เตรียม Bill"]
+    A([Medical Discharge]) --> B[IP Cashier Worklist — Lock]
+    B --> C[Allocate Bill]
+    C --> D[Modify Payor — Rank]
+    D --> E[Allocate All]
+  end
+  subgraph Payment["ชำระเงิน"]
+    E --> F{Deposit?}
+    F -->|Yes| G[Use Deposit]
+    F -->|No| H[Select Payment Mode]
+    G --> H
+    H --> I[Generate Bill → Settle]
+  end
   I --> J([Financial Discharge])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#fef9c3,stroke:#854d0e

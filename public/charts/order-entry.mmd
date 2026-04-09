@@ -1,13 +1,17 @@
-graph LR
-  A([EMR → Order]) --> B{วิธีเพิ่มรายการ}
-  B -->|Search| C[Order Details]
-  B -->|Tick Sheet| D[Tick Sheet]
-  B -->|Favorites| E[Favorites/Order Set]
-  C --> F[ตรวจสอบ Drug Alerts]
-  D --> F
-  E --> F
-  F --> G[ระบุ Password → Save]
-  G --> H([Orders Created])
+graph TB
+  subgraph Select["เลือกรายการ Order"]
+    A([EMR → Order]) --> B{วิธีเพิ่มรายการ}
+    B -->|Search| C[Order Details]
+    B -->|Tick Sheet| D[Tick Sheet]
+    B -->|Favorites| E[Favorites/Order Set]
+  end
+  subgraph Confirm["ยืนยัน + บันทึก"]
+    C --> F[ตรวจสอบ Drug Alerts]
+    D --> F
+    E --> F
+    F --> G[ระบุ Password → Save]
+    G --> H([Orders Created])
+  end
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280
   style C fill:#fef9c3,stroke:#854d0e

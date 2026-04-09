@@ -1,10 +1,14 @@
 graph TB
-  A([EMR → ANC]) --> B[ANC Chart — ลงทะเบียนฝากครรภ์]
-  B --> C[Pregnancy Detail + EDC]
-  C --> D[Delivery History]
-  D --> E[Obstetric Summary]
-  E --> F[Examination + Medical History]
-  F --> G[SAVE]
+  subgraph Registration["ลงทะเบียนฝากครรภ์"]
+    A([EMR → ANC]) --> B[ANC Chart — ลงทะเบียนฝากครรภ์]
+    B --> C[Pregnancy Detail + EDC]
+    C --> D[Delivery History]
+  end
+  subgraph Assessment["ประเมินสุขภาพ"]
+    D --> E[Obstetric Summary]
+    E --> F[Examination + Medical History]
+    F --> G[SAVE]
+  end
   G --> H{ครบตามมาตรฐาน?}
   H -->|Yes| I([Completed — ปิด Cycle])
   H -->|No| J([นัดครั้งถัดไป])

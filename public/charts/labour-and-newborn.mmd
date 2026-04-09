@@ -1,9 +1,13 @@
 graph TB
-  A([Ward Board — ห้องคลอด]) --> B[Labour Detail]
-  B --> C[Pregnancy Detail + EDC]
-  C --> D[Delivery Details — บันทึกคลอด]
-  D --> E[Newborn Detail]
-  E --> F[APGAR Score]
+  subgraph Labour["บันทึกคลอด"]
+    A([Ward Board — ห้องคลอด]) --> B[Labour Detail]
+    B --> C[Pregnancy Detail + EDC]
+    C --> D[Delivery Details — บันทึกคลอด]
+  end
+  subgraph Newborn["ทารกแรกเกิด"]
+    D --> E[Newborn Detail]
+    E --> F[APGAR Score]
+  end
   F --> G([Auto-Admit ทารก — Nursery])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280

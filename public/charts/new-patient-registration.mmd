@@ -1,8 +1,12 @@
-graph LR
-  A([Registration]) --> B[Patient Search]
-  B -->|Not Found| C[New Patient Form]
-  C --> D[Demographics]
-  D --> E([SAVE])
+graph TB
+  subgraph Search["ค้นหาผู้ป่วย"]
+    A([Registration]) --> B[Patient Search]
+    B -->|Not Found| C[New Patient Form]
+  end
+  subgraph Register["ลงทะเบียน"]
+    C --> D[Demographics]
+    D --> E([SAVE])
+  end
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280
   style C fill:#fef9c3,stroke:#854d0e

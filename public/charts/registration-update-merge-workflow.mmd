@@ -1,17 +1,17 @@
 graph TB
-  subgraph Modify[Modify Demographics]
+  subgraph Modify["Modify Demographics"]
     A([Registration / OPD / IPD]) --> B[Modify Demographics]
     B --> C[ปลดล็อค — กดแก้ไข]
     C --> D[แก้ไขข้อมูล → Save]
   end
-  subgraph Merge[Patient Merge]
+  D -.->|Merge Path| E
+  subgraph Merge["Patient Merge"]
     E([MRD → Patient Merge]) --> F[New Merge]
-    F --> G[ระบุ Primary Patient]
-    G --> H[ระบุ Secondary Patient]
-    H --> I[ระบุ Reason → Confirm]
-    I --> J{ถูกต้อง?}
-    J -->|Yes| K([Merged — 1 HN])
-    J -->|Unmerge| L([คืน 2 HN])
+    F --> G[ระบุ Primary + Secondary]
+    G --> H[ระบุ Reason → Confirm]
+    H --> I{ถูกต้อง?}
+    I -->|Yes| J([Merged — 1 HN])
+    I -->|Unmerge| K([คืน 2 HN])
   end
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280

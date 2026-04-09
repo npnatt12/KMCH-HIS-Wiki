@@ -1,13 +1,17 @@
-graph LR
-  A([Doctor Worklist — OutPatients]) --> B[START — Consultation Started]
-  B --> C[ตรวจประวัติ + Vital Signs]
-  C --> D[บันทึก EMR — Chief Complaint / Diagnosis]
-  D --> E[สั่ง Orders]
-  E --> F{ผลลัพธ์}
-  F -->|จบปกติ| G[END — Consultation Completed]
-  F -->|ส่งปรึกษา| H[OPD Consult]
-  F -->|ขอ Admit| I[Request Admission]
-  F -->|ส่งต่อนอก| J[Referral Out]
+graph TB
+  subgraph Consult["ตรวจผู้ป่วย"]
+    A([Doctor Worklist — OutPatients]) --> B[START — Consultation Started]
+    B --> C[ตรวจประวัติ + Vital Signs]
+    C --> D[บันทึก EMR — Chief Complaint / Diagnosis]
+    D --> E[สั่ง Orders]
+  end
+  subgraph Outcome["ผลลัพธ์"]
+    E --> F{ผลลัพธ์}
+    F -->|จบปกติ| G[END — Consultation Completed]
+    F -->|ส่งปรึกษา| H[OPD Consult]
+    F -->|ขอ Admit| I[Request Admission]
+    F -->|ส่งต่อนอก| J[Referral Out]
+  end
   G --> K([Medical Discharge → Billing])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#fef9c3,stroke:#854d0e

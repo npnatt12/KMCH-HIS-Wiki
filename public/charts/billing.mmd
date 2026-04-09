@@ -1,10 +1,14 @@
-graph LR
-  A([Medical Discharge]) --> B[Lock Bill]
-  B --> C[Allocate Bill]
-  C --> D[Modify Payor สิทธิ์]
-  D --> E[Allocate All]
-  E --> F[Generate Bill]
-  F --> G[Settle ชำระเงิน]
+graph TB
+  subgraph Prepare["เตรียม Bill"]
+    A([Medical Discharge]) --> B[Lock Bill]
+    B --> C[Allocate Bill]
+    C --> D[Modify Payor สิทธิ์]
+  end
+  subgraph Payment["ชำระเงิน"]
+    D --> E[Allocate All]
+    E --> F[Generate Bill]
+    F --> G[Settle ชำระเงิน]
+  end
   G --> H([Financial Discharge])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#fee2e2,stroke:#b91c1c

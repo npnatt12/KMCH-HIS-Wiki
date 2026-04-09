@@ -1,8 +1,12 @@
-graph LR
-  A([Emergency]) --> B[ลงทะเบียนฉุกเฉิน]
-  B --> C[Triage — ESI Level]
-  C --> D[รักษา + Orders]
-  D --> E{Discharge Status}
+graph TB
+  subgraph Triage["คัดกรองฉุกเฉิน"]
+    A([Emergency]) --> B[ลงทะเบียนฉุกเฉิน]
+    B --> C[Triage — ESI Level]
+  end
+  subgraph Treatment["รักษา + สั่งการ"]
+    C --> D[รักษา + Orders]
+    D --> E{Discharge Status}
+  end
   E -->|Discharge| F([Medical Discharge])
   E -->|Refer Admission| G([ส่ง Admission])
   E -->|Send to OR| H([ส่ง OR])

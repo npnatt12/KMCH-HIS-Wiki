@@ -1,8 +1,12 @@
-graph LR
-  A([Diet Worklist — ผู้ป่วยใน]) --> B[Diet Order Entry]
-  B --> C[สั่งอาหาร 3 มื้อ]
-  C --> D[Kitchen Worklist]
-  D --> E[เตรียมอาหาร]
+graph TB
+  subgraph Order["สั่งอาหาร"]
+    A([Diet Worklist — ผู้ป่วยใน]) --> B[Diet Order Entry]
+    B --> C[สั่งอาหาร 3 มื้อ]
+  end
+  subgraph Kitchen["ห้องครัว"]
+    C --> D[Kitchen Worklist]
+    D --> E[เตรียมอาหาร]
+  end
   E --> F([ส่งอาหารผู้ป่วย])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280

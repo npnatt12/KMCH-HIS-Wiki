@@ -1,11 +1,15 @@
-graph LR
-  A([แผนก Request]) --> B[CSSD Issue — เลือก Tray]
-  B --> C([Issued — จ่ายแผนก])
-  C --> D[ใช้งานที่แผนก]
-  D --> E[แผนก Return — คืน CSSD]
-  E --> F[In Process: Clean]
-  F --> G[In Process: Pack]
-  G --> H[In Process: Sterilize]
+graph TB
+  subgraph Issue["จ่าย-ใช้งาน"]
+    A([แผนก Request]) --> B[CSSD Issue — เลือก Tray]
+    B --> C([Issued — จ่ายแผนก])
+    C --> D[ใช้งานที่แผนก]
+    D --> E[แผนก Return — คืน CSSD]
+  end
+  subgraph Sterilize["ทำความสะอาด-ฆ่าเชื้อ"]
+    E --> F[In Process: Clean]
+    F --> G[In Process: Pack]
+    G --> H[In Process: Sterilize]
+  end
   H --> I([Store — พร้อมจ่าย])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#fef9c3,stroke:#854d0e

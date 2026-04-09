@@ -1,13 +1,14 @@
 graph TB
-  subgraph Reject[Med Reject]
+  subgraph Reject["Med Reject"]
     A([Pharmacy Worklist]) --> B[Med Reject]
     B --> C[ระบุเหตุผล → Confirm]
     C --> D([Doctor Worklist — Reject Box])
     D --> E{Doctor Decision}
-    E -->|Confirm| F([กลับ Pharmacy Worklist])
+    E -->|Confirm| F([กลับ Pharmacy])
     E -->|Cancel| G([Order Cancelled])
   end
-  subgraph Return[Med Return OP]
+  F -.->|Return Path| H
+  subgraph Return["Med Return OP"]
     H([Dispensed + Financial Discharge]) --> I[Med Return]
     I --> J[ระบุจำนวนคืน → Save]
     J --> K{Verify?}

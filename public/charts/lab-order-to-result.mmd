@@ -1,12 +1,16 @@
 graph TB
-  A([Ordered]) --> B[Specimen Collected]
-  B --> C{Accept?}
-  C -->|Yes| D[Specimen Accepted]
-  C -->|Reject| E([Specimen Rejected])
-  E -->|Re-collect| B
-  D --> F[Report Entered]
-  F --> G[Report Authorized]
-  G --> H([EMR Result])
+  subgraph Specimen["เก็บสิ่งส่งตรวจ"]
+    A([Ordered]) --> B[Specimen Collected]
+    B --> C{Accept?}
+    C -->|Yes| D[Specimen Accepted]
+    C -->|Reject| E([Specimen Rejected])
+    E -->|Re-collect| B
+  end
+  subgraph Result["รายงานผล"]
+    D --> F[Report Entered]
+    F --> G[Report Authorized]
+    G --> H([EMR Result])
+  end
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280
   style C fill:#f3f4f6,stroke:#6b7280

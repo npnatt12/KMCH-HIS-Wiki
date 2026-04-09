@@ -1,13 +1,14 @@
 graph TB
-  subgraph OP[OP Dispensing]
+  subgraph OP["OP Dispensing"]
     A([Ordered]) --> B[Register]
     B --> C[Allocate]
     C --> D{Drug Alert?}
     D -->|Yes — Add Reason| E[Verify]
     D -->|No| E
-    E --> F([Dispensed])
+    E --> F([Dispensed OP])
   end
-  subgraph IP[IP Fill]
+  F -.->|IP Path| G
+  subgraph IP["IP Fill"]
     G([Generate IP Fill]) --> H[Allocate & Dispense]
     H --> I([Dispensed / Partial])
   end

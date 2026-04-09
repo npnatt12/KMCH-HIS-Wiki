@@ -1,9 +1,13 @@
-graph LR
-  A([Emergency Menu]) --> B[Registration]
-  B --> C{New / Existing?}
-  C -->|New| D[Basic Info + Visit]
-  C -->|Existing| E[Search Patient]
-  E --> D
+graph TB
+  subgraph Entry["เข้าระบบฉุกเฉิน"]
+    A([Emergency Menu]) --> B[Registration]
+    B --> C{New / Existing?}
+  end
+  subgraph PatientInfo["ข้อมูลผู้ป่วย"]
+    C -->|New| D[Basic Info + Visit]
+    C -->|Existing| E[Search Patient]
+    E --> D
+  end
   D --> F([Save])
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#f3f4f6,stroke:#6b7280

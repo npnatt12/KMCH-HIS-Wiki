@@ -1,11 +1,13 @@
 graph TB
-  A([Ward Board / Doctor Worklist]) --> B[เปิด IPD EMR]
-  B --> C[บันทึก Progress Notes]
-  C --> D[สั่ง Daily / Continuous Order]
-  D --> E{Consult?}
-  E -->|Yes| F[IPD Consult — ส่งปรึกษา]
-  E -->|No| G[Discharge Summary]
-  F --> G
+  subgraph DailyRound["Daily Round + Orders"]
+    A([Ward Board / Doctor Worklist]) --> B[เปิด IPD EMR]
+    B --> C[บันทึก Progress Notes]
+    C --> D[สั่ง Daily / Continuous Order]
+    D --> E{Consult?}
+    E -->|Yes| F[IPD Consult — ส่งปรึกษา]
+    E -->|No| G[Discharge Summary]
+    F --> G
+  end
   subgraph Discharge[4-Step Discharge]
     G --> H[Discharge Advice]
     H --> I[Discharge Order + Discharge Med]

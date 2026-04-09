@@ -1,13 +1,17 @@
-graph LR
-  A([แพทย์สั่งตรวจ]) --> B([Ordered])
-  B --> C[Register]
-  C --> D([Registered])
-  D --> E[Execute — Modality + Radiologist]
-  E --> F([Executed])
-  F --> G[Report Entry]
-  G --> H([Report Entered])
-  H --> I[Approve Result]
-  I --> J([Report Authorized — EMR])
+graph TB
+  subgraph Exam["สั่งตรวจ + ถ่ายภาพ"]
+    A([แพทย์สั่งตรวจ]) --> B([Ordered])
+    B --> C[Register]
+    C --> D([Registered])
+    D --> E[Execute — Modality + Radiologist]
+    E --> F([Executed])
+  end
+  subgraph Report["รายงานผล"]
+    F --> G[Report Entry]
+    G --> H([Report Entered])
+    H --> I[Approve Result]
+    I --> J([Report Authorized — EMR])
+  end
   style A fill:#dbeafe,stroke:#1e40af
   style B fill:#fef9c3,stroke:#854d0e
   style C fill:#f3f4f6,stroke:#6b7280
