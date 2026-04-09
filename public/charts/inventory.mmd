@@ -1,0 +1,15 @@
+graph LR
+  A([รับสินค้า GRN]) --> B[Approve — อนุมัติ GRN]
+  B --> C[Stock คลังสินค้า]
+  C --> D{เบิก/โอน}
+  D -->|Request| E[จ่ายออก Issue]
+  D -->|Transfer| F[โอนย้ายคลัง]
+  E --> G([Ledger — บัญชีสต็อก])
+  F --> G
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#f3f4f6,stroke:#6b7280
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#dcfce7,stroke:#166534

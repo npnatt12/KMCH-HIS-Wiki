@@ -1,8 +1,12 @@
 graph LR
-  A[Emergency Menu] --> B[Registration]
-  B --> C{New?}
-  C -->|New| D[Basic + Visit]
-  C -->|Existing| E[Search]
+  A([Emergency Menu]) --> B[Registration]
+  B --> C{New / Existing?}
+  C -->|New| D[Basic Info + Visit]
+  C -->|Existing| E[Search Patient]
   E --> D
-  D --> F[Save ✅]
+  D --> F([Save])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#f3f4f6,stroke:#6b7280
   style F fill:#dcfce7,stroke:#166534

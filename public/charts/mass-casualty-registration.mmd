@@ -1,7 +1,12 @@
 graph LR
-  A[Emergency] --> B[Mass Casualty]
+  A([Emergency]) --> B[Mass Casualty]
   B --> C[Incident Details]
   C --> D[Save]
   D --> E[Auto-create Visits]
-  E --> F[Whiteboard ✅]
+  E --> F([Whiteboard])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#f3f4f6,stroke:#6b7280
+  style E fill:#fef9c3,stroke:#854d0e
   style F fill:#dcfce7,stroke:#166534

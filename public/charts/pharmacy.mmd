@@ -1,0 +1,13 @@
+graph LR
+  A([Order ใบสั่งยา]) --> B[Allocate — จัดยา]
+  B --> C{Drug Alerts?}
+  C -->|ระบุเหตุผล| D[Verify — ตรวจสอบ]
+  C -->|ไม่มี Alert| D
+  D --> E[Dispense — จ่ายยา]
+  E --> F([ส่งยาผู้ป่วย])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#fef9c3,stroke:#854d0e
+  style C fill:#f3f4f6,stroke:#6b7280
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#dcfce7,stroke:#166534

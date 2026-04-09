@@ -1,0 +1,14 @@
+graph LR
+  A([Request จาก OPD/ER]) --> C[Admission List]
+  B([Direct Admission]) --> C
+  C --> D[เลือกเตียง Bed Selection]
+  D --> E[กรอก Admission Detail]
+  E --> F[Save]
+  F --> G([Arrive — รับเข้า Ward])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#dbeafe,stroke:#1e40af
+  style C fill:#f3f4f6,stroke:#6b7280
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#f3f4f6,stroke:#6b7280
+  style G fill:#dcfce7,stroke:#166534

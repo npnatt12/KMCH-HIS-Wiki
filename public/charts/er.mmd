@@ -1,0 +1,16 @@
+graph LR
+  A([Emergency]) --> B[ลงทะเบียนฉุกเฉิน]
+  B --> C[Triage — ESI Level]
+  C --> D[รักษา + Orders]
+  D --> E{Discharge Status}
+  E -->|Discharge| F([Medical Discharge])
+  E -->|Refer Admission| G([ส่ง Admission])
+  E -->|Send to OR| H([ส่ง OR])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#f3f4f6,stroke:#6b7280
+  style F fill:#dcfce7,stroke:#166534
+  style G fill:#dcfce7,stroke:#166534
+  style H fill:#dcfce7,stroke:#166534

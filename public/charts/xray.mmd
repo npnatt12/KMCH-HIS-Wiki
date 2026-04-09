@@ -1,0 +1,12 @@
+graph LR
+  A([สั่งตรวจ — Order]) --> B[Register — ลงทะเบียน]
+  B --> C[Execute — ถ่ายภาพ]
+  C --> D[Report Entry — อ่านผล]
+  D --> E[Authorize ผล]
+  E --> F([ผลแสดงใน EMR])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#dcfce7,stroke:#166534

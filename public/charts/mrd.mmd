@@ -1,0 +1,17 @@
+graph LR
+  A([MRD Worklist]) --> B{ประเภทคำขอ}
+  B -->|Appointment| C[Appointment Issue]
+  B -->|Walk-in| D[Direct Issue]
+  C --> E[Issue แฟ้ม]
+  D --> E
+  E --> F[ส่ง OPD/IPD]
+  F --> G[Folder Return — คืนแฟ้ม]
+  G --> H([จัดเก็บ])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#f3f4f6,stroke:#6b7280
+  style D fill:#f3f4f6,stroke:#6b7280
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#dcfce7,stroke:#166534

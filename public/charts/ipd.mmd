@@ -1,0 +1,16 @@
+graph LR
+  A([Arrive — รับเข้า Ward]) --> B[Ward Board]
+  B --> C[Nursing — Vital Signs]
+  C --> D[Execute Orders]
+  D --> E{Transfer/Discharge?}
+  E -->|Transfer| F[ย้าย Ward]
+  E -->|Discharge| G[4-Step Discharge]
+  G --> H([Final Discharge])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#f3f4f6,stroke:#6b7280
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#dcfce7,stroke:#166534

@@ -1,0 +1,16 @@
+graph LR
+  A([ลงทะเบียน]) --> B[Arrived — รับผู้ป่วย]
+  B --> C[คัดกรอง Vital Signs]
+  C --> D[พบแพทย์ — EMR]
+  D --> E[สั่ง Orders]
+  E --> F[Medical Discharge]
+  F --> G[ชำระเงิน Billing]
+  G --> H([Financial Discharge])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#dcfce7,stroke:#166534

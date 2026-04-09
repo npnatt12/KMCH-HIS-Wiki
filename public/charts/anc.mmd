@@ -1,0 +1,20 @@
+graph TB
+  A([EMR → ANC]) --> B[ANC Chart — ลงทะเบียนฝากครรภ์]
+  B --> C[Pregnancy Detail + EDC]
+  C --> D[Delivery History]
+  D --> E[Obstetric Summary]
+  E --> F[Examination + Medical History]
+  F --> G[SAVE]
+  G --> H{ครบตามมาตรฐาน?}
+  H -->|Yes| I([Completed — ปิด Cycle])
+  H -->|No| J([นัดครั้งถัดไป])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#f3f4f6,stroke:#6b7280
+  style H fill:#f3f4f6,stroke:#6b7280
+  style I fill:#dcfce7,stroke:#166534
+  style J fill:#fef9c3,stroke:#854d0e

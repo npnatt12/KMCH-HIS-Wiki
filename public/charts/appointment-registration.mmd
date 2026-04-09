@@ -1,11 +1,16 @@
 graph TB
   subgraph Method_1[Registration Menu]
-    A1[OP Registration] --> A2[Search + Select]
+    A1([OP Registration]) --> A2[Search + Select]
     A2 --> A3[Auto-fill Appt]
   end
   subgraph Method_2[OPD Worklist]
-    B1[APPOINTMENTS tab] --> B2[Select Patient]
+    B1([APPOINTMENTS Tab]) --> B2[Select Patient]
   end
-  A3 --> C[SAVE ✅]
+  A3 --> C([SAVE])
   B2 --> C
+  style A1 fill:#dbeafe,stroke:#1e40af
+  style B1 fill:#dbeafe,stroke:#1e40af
+  style A2 fill:#f3f4f6,stroke:#6b7280
+  style A3 fill:#fef9c3,stroke:#854d0e
+  style B2 fill:#f3f4f6,stroke:#6b7280
   style C fill:#dcfce7,stroke:#166534

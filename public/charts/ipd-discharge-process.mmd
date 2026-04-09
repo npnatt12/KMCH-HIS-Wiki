@@ -1,16 +1,17 @@
 graph TB
-  subgraph Doctor
-    A[1. Discharge<br/>Advice] --> B[2. Discharge<br/>Order]
+  subgraph Doctor[Doctor]
+    A([1. Discharge Advice]) --> B[2. Discharge Order]
   end
-  subgraph Nurse
-    C[3. Medical<br/>Discharge] --> D{Billing<br/>Complete?}
-    D -->|Yes| E[4. Final<br/>Discharge]
-    D -->|No| F[Wait]
+  subgraph Nurse[Nurse]
+    C[3. Medical Discharge] --> D{Billing Complete?}
+    D -->|Yes| E([4. Final Discharge])
+    D -->|No| F([Wait])
     F --> D
   end
   B --> C
-  style A fill:#e0e7ff,stroke:#3730a3
-  style B fill:#e0e7ff,stroke:#3730a3
-  style C fill:#dcfce7,stroke:#166534
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#fef9c3,stroke:#854d0e
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#f3f4f6,stroke:#6b7280
   style E fill:#dcfce7,stroke:#166534
-  style F fill:#fef3c7,stroke:#92400e
+  style F fill:#fef9c3,stroke:#854d0e

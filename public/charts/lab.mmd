@@ -1,0 +1,17 @@
+graph LR
+  A([สั่งตรวจ — Order]) --> B[เก็บสิ่งส่งตรวจ]
+  B --> C{Accept?}
+  C -->|Accept| D[Specimen Accepted]
+  C -->|Reject| E[เก็บใหม่]
+  E --> B
+  D --> F[ลงผล Manual/Auto]
+  F --> G[Authorize ผล]
+  G --> H([ผลแสดงใน EMR])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#f3f4f6,stroke:#6b7280
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fee2e2,stroke:#b91c1c
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#dcfce7,stroke:#166534

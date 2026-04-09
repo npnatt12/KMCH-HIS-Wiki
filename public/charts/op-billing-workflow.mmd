@@ -1,12 +1,16 @@
 graph LR
-  A[Medical<br/>Discharge] --> B[Lock 🔒]
+  A([Medical Discharge]) --> B[Lock Bill]
   B --> C[Allocate Bill]
   C --> D[Modify Payor]
   D --> E[Allocate All]
   E --> F[Generate Bill]
-  F --> G[Settle ✅]
-  G --> H[Financial<br/>Discharge]
-  style A fill:#fef3c7,stroke:#92400e
+  F --> G([Settle])
+  G --> H([Financial Discharge])
+  style A fill:#dbeafe,stroke:#1e40af
   style B fill:#fee2e2,stroke:#b91c1c
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#fef9c3,stroke:#854d0e
   style G fill:#dcfce7,stroke:#166534
   style H fill:#dcfce7,stroke:#166534

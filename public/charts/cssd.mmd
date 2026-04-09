@@ -1,0 +1,16 @@
+graph LR
+  A([แผนก Request]) --> B[CSSD Issue — จ่าย]
+  B --> C[แผนกใช้งาน]
+  C --> D[แผนก Return — คืน]
+  D --> E[Clean ล้าง]
+  E --> F[Pack บรรจุ]
+  F --> G[Sterilize ฆ่าเชื้อ]
+  G --> H([พร้อมจ่ายอีกครั้ง])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#fef9c3,stroke:#854d0e
+  style C fill:#f3f4f6,stroke:#6b7280
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#dcfce7,stroke:#166534
