@@ -1,0 +1,265 @@
+---
+interface Props {
+  title: string;
+  titleTh: string;
+  icon?: string;
+  source?: string;
+  slug: string;
+  type: 'module' | 'workflow';
+}
+const { title, titleTh, icon = '', source = '', slug, type } = Astro.props;
+const today = new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+const backUrl = type === 'workflow' ? `/workflows/${slug}/` : `/modules/${slug}/`;
+
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+const chartSlug = slug.replace('workflow/', '');
+const svgPath = join(process.cwd(), 'public', 'charts', `${chartSlug}.svg`);
+const hasSvg = existsSync(svgPath);
+const svgContent = hasSvg ? readFileSync(svgPath, 'utf-8') : null;
+---
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — KMCH Cheat Sheet</title>
+    <style>
+      @font-face {
+        font-family: 'Sarabun';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/Sarabun-Regular.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Sarabun';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('/fonts/Sarabun-Bold.woff2') format('woff2');
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: 'Sarabun', sans-serif;
+        font-size: 8pt;
+        color: #111;
+        background: #fff;
+        line-height: 1.4;
+      }
+
+      /* ---- Screen preview ---- */
+      @media screen {
+        body { background: #e5e7eb; padding: 2rem; }
+        .page {
+          max-width: 210mm;
+          margin: 0 auto;
+          background: #fff;
+          padding: 12mm;
+          height: 297mm;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+          border-radius: 4px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+        .no-print-bar {
+          max-width: 210mm;
+          margin: 0 auto 1rem;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+        .print-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.4rem 1rem;
+          background: #1e40af;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+          font-family: inherit;
+          font-size: 0.85rem;
+        }
+        .print-btn:hover { background: #1d4ed8; }
+        .back-link {
+          font-size: 0.85rem;
+          color: #3b82f6;
+          text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+      }
+
+      /* ---- Print ---- */
+      @media print {
+        @page { size: A4; margin: 12mm; }
+        body { background: #fff; }
+        .page {
+          padding: 0;
+          height: 273mm;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+        .no-print-bar { display: none !important; }
+      }
+
+      /* ---- Header zone (~8mm) ---- */
+      .cs-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-bottom: 2px solid #1e40af;
+        padding-bottom: 4px;
+        margin-bottom: 6px;
+        flex: 0 0 auto;
+      }
+      .cs-header-icon { font-size: 1.4rem; line-height: 1; }
+      .cs-header-text h1 {
+        font-size: 11pt;
+        font-weight: 700;
+        color: #1e3a8a;
+        line-height: 1.2;
+      }
+      .cs-header-text p {
+        font-size: 7pt;
+        color: #6b7280;
+        margin-top: 1px;
+      }
+
+      /* ---- Flowchart zone (~80mm max) ---- */
+      .cs-chart {
+        flex: 0 0 auto;
+        max-height: 80mm;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+        border-radius: 4px;
+        padding: 4px;
+        margin-bottom: 6px;
+        text-align: center;
+      }
+      .cs-chart :global(svg) {
+        max-height: 76mm;
+        width: auto;
+        max-width: 100%;
+      }
+
+      /* ---- Key Info zone (fills remaining) ---- */
+      .cs-content {
+        flex: 1 1 auto;
+        overflow: hidden;
+        columns: 3;
+        column-gap: 4mm;
+        column-rule: 1px solid #e5e7eb;
+        font-size: 8pt;
+        line-height: 1.35;
+      }
+
+      .cs-content h2 {
+        font-size: 8.5pt;
+        font-weight: 700;
+        color: #1e3a8a;
+        border-bottom: 1px solid #bfdbfe;
+        padding-bottom: 1px;
+        margin-top: 0.4em;
+        margin-bottom: 0.2em;
+        break-after: avoid;
+      }
+
+      .cs-content h3 {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #374151;
+        margin-top: 0.3em;
+        margin-bottom: 0.1em;
+        break-after: avoid;
+      }
+
+      .cs-content p { margin-bottom: 0.25em; }
+
+      .cs-content ul, .cs-content ol {
+        padding-left: 1em;
+        margin-bottom: 0.25em;
+      }
+
+      .cs-content li { margin-bottom: 0.1em; }
+
+      .cs-content table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 7pt;
+        margin-bottom: 0.3em;
+        break-inside: avoid;
+      }
+
+      .cs-content th {
+        background: #f3f4f6;
+        font-weight: 700;
+        padding: 1px 3px;
+        border: 1px solid #d1d5db;
+        text-align: left;
+      }
+
+      .cs-content td {
+        padding: 1px 3px;
+        border: 1px solid #e5e7eb;
+        vertical-align: top;
+      }
+
+      .cs-content a {
+        color: #1d4ed8;
+        text-decoration: none;
+      }
+
+      /* ---- Footer zone (~10mm) ---- */
+      .cs-footer {
+        flex: 0 0 auto;
+        margin-top: auto;
+        padding-top: 4px;
+        border-top: 1px solid #e5e7eb;
+        font-size: 7pt;
+        color: #9ca3af;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="no-print-bar">
+      <a href={backUrl} class="back-link">← กลับหน้า {title}</a>
+      <button class="print-btn" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
+    </div>
+
+    <div class="page">
+      <header class="cs-header">
+        {icon && <span class="cs-header-icon">{icon}</span>}
+        <div class="cs-header-text">
+          <h1>{title} — {titleTh}</h1>
+          {source && <p>แหล่งอ้างอิง: {source}</p>}
+        </div>
+      </header>
+
+      {hasSvg && svgContent && (
+        <div class="cs-chart">
+          <Fragment set:html={svgContent} />
+        </div>
+      )}
+
+      <div class="cs-content">
+        <slot />
+      </div>
+
+      <footer class="cs-footer">
+        <span>KMCH HIS Wiki — Cheat Sheet</span>
+        {source && <span>{source}</span>}
+        <span>{today}</span>
+      </footer>
+    </div>
+  </body>
+</html>
