@@ -1,0 +1,25 @@
+graph TB
+  A([Ward Board / Doctor Worklist]) --> B[เปิด IPD EMR]
+  B --> C[บันทึก Progress Notes]
+  C --> D[สั่ง Daily / Continuous Order]
+  D --> E{Consult?}
+  E -->|Yes| F[IPD Consult — ส่งปรึกษา]
+  E -->|No| G[Discharge Summary]
+  F --> G
+  subgraph Discharge[4-Step Discharge]
+    G --> H[Discharge Advice]
+    H --> I[Discharge Order + Discharge Med]
+    I --> J[Medical Discharge — Nurse]
+    J --> K([Final Discharge])
+  end
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#f3f4f6,stroke:#6b7280
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#fef9c3,stroke:#854d0e
+  style I fill:#fef9c3,stroke:#854d0e
+  style J fill:#fef9c3,stroke:#854d0e
+  style K fill:#dcfce7,stroke:#166534

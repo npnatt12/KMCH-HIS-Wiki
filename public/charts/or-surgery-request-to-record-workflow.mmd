@@ -1,0 +1,28 @@
+graph TB
+  subgraph Request[Surgery Request]
+    A([EMR → Referral → Surgery]) --> B[Surgery Request List]
+    B --> C{Book / Cancel}
+  end
+  subgraph Schedule[OR Schedule]
+    C -->|Book| D[เลือกห้อง + เวลา → Save]
+    D --> E([Booked])
+    E --> F[Confirm]
+    F --> G([Confirmed])
+  end
+  subgraph Day_of_Surgery[Day of Surgery]
+    G --> H[OR Worklist]
+    H --> I[OR Record]
+    I --> J[Anesthesia Record]
+    J --> K([Completed → Recovery Room])
+  end
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#f3f4f6,stroke:#6b7280
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#fef9c3,stroke:#854d0e
+  style I fill:#fef9c3,stroke:#854d0e
+  style J fill:#fef9c3,stroke:#854d0e
+  style K fill:#dcfce7,stroke:#166534

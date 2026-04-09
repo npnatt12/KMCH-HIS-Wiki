@@ -1,0 +1,22 @@
+graph TB
+  subgraph OP[OP Dispensing]
+    A([Ordered]) --> B[Register]
+    B --> C[Allocate]
+    C --> D{Drug Alert?}
+    D -->|Yes — Add Reason| E[Verify]
+    D -->|No| E
+    E --> F([Dispensed])
+  end
+  subgraph IP[IP Fill]
+    G([Generate IP Fill]) --> H[Allocate & Dispense]
+    H --> I([Dispensed / Partial])
+  end
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#f3f4f6,stroke:#6b7280
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#dcfce7,stroke:#166534
+  style G fill:#dbeafe,stroke:#1e40af
+  style H fill:#fef9c3,stroke:#854d0e
+  style I fill:#dcfce7,stroke:#166534

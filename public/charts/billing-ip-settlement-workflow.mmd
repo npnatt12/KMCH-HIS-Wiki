@@ -1,0 +1,21 @@
+graph TB
+  A([Medical Discharge]) --> B[IP Cashier Worklist — Lock]
+  B --> C[Allocate Bill]
+  C --> D[Modify Payor — Rank]
+  D --> E[Allocate All]
+  E --> F{Deposit?}
+  F -->|Yes| G[Use Deposit]
+  F -->|No| H[Select Payment Mode]
+  G --> H
+  H --> I[Generate Bill → Settle]
+  I --> J([Financial Discharge])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#fef9c3,stroke:#854d0e
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#f3f4f6,stroke:#6b7280
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#fef9c3,stroke:#854d0e
+  style I fill:#fef9c3,stroke:#854d0e
+  style J fill:#dcfce7,stroke:#166534

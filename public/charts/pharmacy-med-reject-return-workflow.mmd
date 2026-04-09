@@ -1,0 +1,29 @@
+graph TB
+  subgraph Reject[Med Reject]
+    A([Pharmacy Worklist]) --> B[Med Reject]
+    B --> C[ระบุเหตุผล → Confirm]
+    C --> D([Doctor Worklist — Reject Box])
+    D --> E{Doctor Decision}
+    E -->|Confirm| F([กลับ Pharmacy Worklist])
+    E -->|Cancel| G([Order Cancelled])
+  end
+  subgraph Return[Med Return OP]
+    H([Dispensed + Financial Discharge]) --> I[Med Return]
+    I --> J[ระบุจำนวนคืน → Save]
+    J --> K{Verify?}
+    K -->|OK| L([Completed])
+    K -->|Error| M([Cancelled])
+  end
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#fee2e2,stroke:#b91c1c
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#f3f4f6,stroke:#6b7280
+  style F fill:#dcfce7,stroke:#166534
+  style G fill:#fee2e2,stroke:#b91c1c
+  style H fill:#dbeafe,stroke:#1e40af
+  style I fill:#fef9c3,stroke:#854d0e
+  style J fill:#fef9c3,stroke:#854d0e
+  style K fill:#f3f4f6,stroke:#6b7280
+  style L fill:#dcfce7,stroke:#166534
+  style M fill:#fee2e2,stroke:#b91c1c

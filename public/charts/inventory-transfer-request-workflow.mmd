@@ -1,0 +1,24 @@
+graph TB
+  A([Stock Request → New]) --> B{Type}
+  B -->|Transfer| C[From Store → To Store]
+  B -->|Issue| D[From Dept → To Store]
+  C --> E[Add Items → Save]
+  D --> E
+  E --> F{Approve?}
+  F -->|Approve| G([Raised])
+  F -->|Cancel| H([Cancelled])
+  G --> I[Stock Transfer / Issue]
+  I --> J{Transfer Accept?}
+  J -->|Accept| K([Completed])
+  J -->|No Accept Reqd| K
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#f3f4f6,stroke:#6b7280
+  style F fill:#f3f4f6,stroke:#6b7280
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#fee2e2,stroke:#b91c1c
+  style I fill:#fef9c3,stroke:#854d0e
+  style J fill:#f3f4f6,stroke:#6b7280
+  style K fill:#dcfce7,stroke:#166534

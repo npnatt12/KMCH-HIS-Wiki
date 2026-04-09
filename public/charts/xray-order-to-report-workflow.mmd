@@ -1,0 +1,20 @@
+graph LR
+  A([แพทย์สั่งตรวจ]) --> B([Ordered])
+  B --> C[Register]
+  C --> D([Registered])
+  D --> E[Execute — Modality + Radiologist]
+  E --> F([Executed])
+  F --> G[Report Entry]
+  G --> H([Report Entered])
+  H --> I[Approve Result]
+  I --> J([Report Authorized — EMR])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#fef9c3,stroke:#854d0e
+  style C fill:#f3f4f6,stroke:#6b7280
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#fef9c3,stroke:#854d0e
+  style I fill:#fef9c3,stroke:#854d0e
+  style J fill:#dcfce7,stroke:#166534

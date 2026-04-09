@@ -1,0 +1,27 @@
+graph TB
+  subgraph Modify[Modify Demographics]
+    A([Registration / OPD / IPD]) --> B[Modify Demographics]
+    B --> C[ปลดล็อค — กดแก้ไข]
+    C --> D[แก้ไขข้อมูล → Save]
+  end
+  subgraph Merge[Patient Merge]
+    E([MRD → Patient Merge]) --> F[New Merge]
+    F --> G[ระบุ Primary Patient]
+    G --> H[ระบุ Secondary Patient]
+    H --> I[ระบุ Reason → Confirm]
+    I --> J{ถูกต้อง?}
+    J -->|Yes| K([Merged — 1 HN])
+    J -->|Unmerge| L([คืน 2 HN])
+  end
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#dcfce7,stroke:#166534
+  style E fill:#dbeafe,stroke:#1e40af
+  style F fill:#f3f4f6,stroke:#6b7280
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#fef9c3,stroke:#854d0e
+  style I fill:#fef9c3,stroke:#854d0e
+  style J fill:#f3f4f6,stroke:#6b7280
+  style K fill:#dcfce7,stroke:#166534
+  style L fill:#fee2e2,stroke:#b91c1c

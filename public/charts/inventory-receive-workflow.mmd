@@ -1,0 +1,18 @@
+graph LR
+  A([Goods Receive → New]) --> B[เลือก Type GRN]
+  B --> C[กรอก Header — Store / Vendor]
+  C --> D[เพิ่มรายการ Items]
+  D --> E[Batch ID + Expiry + Price]
+  E --> F[Save]
+  F --> G{Approval Required}
+  G -->|Approve| H([Raised — สต็อกเพิ่ม])
+  G -->|Cancel| I([Cancelled])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#f3f4f6,stroke:#6b7280
+  style G fill:#f3f4f6,stroke:#6b7280
+  style H fill:#dcfce7,stroke:#166534
+  style I fill:#fee2e2,stroke:#b91c1c

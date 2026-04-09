@@ -1,0 +1,22 @@
+graph LR
+  A([Doctor Worklist — OutPatients]) --> B[START — Consultation Started]
+  B --> C[ตรวจประวัติ + Vital Signs]
+  C --> D[บันทึก EMR — Chief Complaint / Diagnosis]
+  D --> E[สั่ง Orders]
+  E --> F{ผลลัพธ์}
+  F -->|จบปกติ| G[END — Consultation Completed]
+  F -->|ส่งปรึกษา| H[OPD Consult]
+  F -->|ขอ Admit| I[Request Admission]
+  F -->|ส่งต่อนอก| J[Referral Out]
+  G --> K([Medical Discharge → Billing])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#fef9c3,stroke:#854d0e
+  style C fill:#f3f4f6,stroke:#6b7280
+  style D fill:#fef9c3,stroke:#854d0e
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#f3f4f6,stroke:#6b7280
+  style G fill:#dcfce7,stroke:#166534
+  style H fill:#fef9c3,stroke:#854d0e
+  style I fill:#fef9c3,stroke:#854d0e
+  style J fill:#fef9c3,stroke:#854d0e
+  style K fill:#dcfce7,stroke:#166534

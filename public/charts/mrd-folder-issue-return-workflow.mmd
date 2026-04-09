@@ -1,0 +1,27 @@
+graph LR
+  A([New Register / Admit]) --> B([Auto Create Folder])
+  B --> C([Requested])
+  C --> D{วิธี Issue}
+  D -->|Appointment| E[Appointment Issue]
+  D -->|Direct| F[Direct Issue]
+  D -->|MRD Worklist| G[Worklist Issue]
+  E --> H([Issued])
+  F --> H
+  G --> H
+  H --> I{Transfer?}
+  I -->|Yes| J([Transferred])
+  I -->|No| K[Folder Return]
+  J --> K
+  K --> L([Returned — พร้อม Issue ใหม่])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#f3f4f6,stroke:#6b7280
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#f3f4f6,stroke:#6b7280
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#fef9c3,stroke:#854d0e
+  style I fill:#f3f4f6,stroke:#6b7280
+  style J fill:#fef9c3,stroke:#854d0e
+  style K fill:#fef9c3,stroke:#854d0e
+  style L fill:#dcfce7,stroke:#166534

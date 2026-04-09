@@ -1,0 +1,18 @@
+graph LR
+  A([แผนก Request]) --> B[CSSD Issue — เลือก Tray]
+  B --> C([Issued — จ่ายแผนก])
+  C --> D[ใช้งานที่แผนก]
+  D --> E[แผนก Return — คืน CSSD]
+  E --> F[In Process: Clean]
+  F --> G[In Process: Pack]
+  G --> H[In Process: Sterilize]
+  H --> I([Store — พร้อมจ่าย])
+  style A fill:#dbeafe,stroke:#1e40af
+  style B fill:#fef9c3,stroke:#854d0e
+  style C fill:#fef9c3,stroke:#854d0e
+  style D fill:#f3f4f6,stroke:#6b7280
+  style E fill:#fef9c3,stroke:#854d0e
+  style F fill:#fef9c3,stroke:#854d0e
+  style G fill:#fef9c3,stroke:#854d0e
+  style H fill:#fef9c3,stroke:#854d0e
+  style I fill:#dcfce7,stroke:#166534
