@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import PrintCheatSheet from '../../layouts/PrintCheatSheet.astro';
+import { getModuleMeta } from '../../lib/modules';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('cheatsheets', ({ data }) => data.type === 'module' || data.type === 'cheatsheet');
+  return entries.map((entry) => {
+    const slug = entry.id.replace(/\.md$/, '').replace(/^modules\//, '').toLowerCase().replace(/\s+/g, '-');
+    return { params: { slug }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const slug = entry.id.replace(/\.md$/, '').replace(/^modules\//, '').toLowerCase().replace(/\s+/g, '-');
+const meta = getModuleMeta(slug);
+const source = (entry.data.sources ?? [])[0] ?? '';
+---
+<PrintCheatSheet
+  title={meta?.nameEn ?? entry.data.title}
+  titleTh={entry.data.titleTh ?? meta?.nameTh ?? ''}
+  icon={meta?.icon ?? ''}
+  source={source}
+  slug={slug}
+  type="module"
+>
+  <Content />
+</PrintCheatSheet>

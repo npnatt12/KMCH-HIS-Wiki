@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import PrintCheatSheet from '../../../layouts/PrintCheatSheet.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('cheatsheets', ({ data }) => data.type === 'workflow');
+  return entries.map((entry) => {
+    const slug = entry.id.replace(/\.md$/, '').replace(/^workflows\//, '').toLowerCase().replace(/\s+/g, '-');
+    return { params: { slug }, props: { entry } };
+  });
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const slug = entry.id.replace(/\.md$/, '').replace(/^workflows\//, '').toLowerCase().replace(/\s+/g, '-');
+const source = (entry.data.sources ?? [])[0] ?? '';
+---
+<PrintCheatSheet
+  title={entry.data.title}
+  titleTh={entry.data.titleTh ?? ''}
+  icon=""
+  source={source}
+  slug={slug}
+  type="workflow"
+>
+  <Content />
+</PrintCheatSheet>
