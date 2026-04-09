@@ -1,0 +1,751 @@
+---
+import { ZONES, FLOW_MODULES, CONNECTIONS } from '../lib/hospital-flow-data';
+
+// Build a lookup map for quick zone color access
+const zoneColorMap: Record<string, string> = {};
+ZONES.forEach(z => { zoneColorMap[z.id] = z.color; });
+
+// Build module lookup
+const moduleMap: Record<string, typeof FLOW_MODULES[0]> = {};
+FLOW_MODULES.forEach(m => { moduleMap[m.slug] = m; });
+
+// Helper to get zone by id
+function getZone(id: string) {
+  return ZONES.find(z => z.id === id)!;
+}
+---
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Master Hospital Flow — KMCH HIS</title>
+  <link rel="preload" href="/fonts/Sarabun-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/Sarabun-Bold.woff2" as="font" type="font/woff2" crossorigin />
+  <style>
+    @font-face {
+      font-family: 'Sarabun';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url('/fonts/Sarabun-Regular.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Sarabun';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('/fonts/Sarabun-Bold.woff2') format('woff2');
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+
+    /* Layout */
+    .app { display: flex; flex-direction: column; height: 100vh; }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background: #1e293b;
+      border-bottom: 1px solid #334155;
+      flex-shrink: 0;
+      z-index: 10;
+    }
+    .top-bar h1 { font-size: 18px; font-weight: 700; color: #f1f5f9; }
+    .top-bar-actions { display: flex; gap: 12px; align-items: center; }
+    .top-bar a, .top-bar button {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid #475569;
+      background: #1e293b;
+      color: #cbd5e1;
+      transition: background 0.15s;
+    }
+    .top-bar a:hover, .top-bar button:hover { background: #334155; }
+    .btn-print { background: #1e3a5f !important; border-color: #3b82f6 !important; color: #93c5fd !important; }
+
+    .main-content {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    .flow-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px 24px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* Info Panel */
+    .info-panel {
+      width: 300px;
+      flex-shrink: 0;
+      background: #1e293b;
+      border-left: 1px solid #334155;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .info-default { color: #64748b; text-align: center; padding-top: 40px; font-size: 14px; }
+    .info-default .hint-icon { font-size: 36px; margin-bottom: 10px; }
+    .info-module { display: none; }
+    .info-module.active { display: flex; flex-direction: column; gap: 14px; }
+    .info-module-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #334155;
+    }
+    .info-module-icon { font-size: 28px; }
+    .info-module-names h2 { font-size: 16px; font-weight: 700; color: #f1f5f9; margin: 0; }
+    .info-module-names .name-th { font-size: 13px; color: #94a3b8; margin: 0; }
+    .info-purpose { font-size: 13px; color: #cbd5e1; line-height: 1.6; }
+    .info-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+    .info-list { list-style: none; padding: 0; }
+    .info-list li {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      padding: 3px 0;
+      padding-left: 14px;
+      position: relative;
+    }
+    .info-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #475569;
+    }
+    .info-step-list { list-style: none; padding: 0; counter-reset: step; }
+    .info-step-list li {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      padding: 3px 0;
+      padding-left: 22px;
+      position: relative;
+      counter-increment: step;
+    }
+    .info-step-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #334155;
+      font-size: 10px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 16px;
+      color: #94a3b8;
+    }
+    .info-connected {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .info-connected-chip {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #334155;
+      color: #94a3b8;
+      cursor: pointer;
+      border: none;
+      font-family: 'Sarabun', sans-serif;
+      transition: background 0.15s;
+    }
+    .info-connected-chip:hover { background: #475569; color: #e2e8f0; }
+    .info-wiki-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: #60a5fa;
+      text-decoration: none;
+      padding-top: 4px;
+    }
+    .info-wiki-link:hover { text-decoration: underline; }
+
+    /* Legend */
+    .legend {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid #334155;
+    }
+    .legend-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+    .legend-items { display: flex; flex-direction: column; gap: 4px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #94a3b8; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+    /* Flow Elements */
+    .flow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 24px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .flow-pill-start { background: #16a34a; }
+    .flow-pill-end { background: #16a34a; }
+
+    .flow-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 0;
+      color: #475569;
+      font-size: 18px;
+      line-height: 1;
+    }
+    .flow-arrow-line {
+      width: 2px;
+      height: 18px;
+      background: #475569;
+    }
+
+    .flow-decision {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 28px;
+      background: #854d0e;
+      border: 2px solid #ca8a04;
+      color: #fef08a;
+      font-weight: 700;
+      font-size: 14px;
+      transform: rotate(0deg);
+      border-radius: 8px;
+      position: relative;
+    }
+    .flow-decision::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 2px solid #ca8a0466;
+      border-radius: 12px;
+    }
+
+    /* Zone Box */
+    .zone-box {
+      border: 2px solid;
+      border-radius: 12px;
+      padding: 16px;
+      min-width: 280px;
+      max-width: 560px;
+      width: 100%;
+      position: relative;
+    }
+    .zone-header {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .zone-label-en { font-size: 14px; font-weight: 700; }
+    .zone-label-th { font-size: 12px; opacity: 0.7; }
+    .zone-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Module Chip */
+    .module-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.15s, transform 0.1s;
+      font-family: 'Sarabun', sans-serif;
+      color: #fff;
+    }
+    .module-chip:hover { transform: translateY(-1px); }
+    .module-chip.selected { border-color: #fff !important; }
+    .module-chip-icon { font-size: 15px; }
+
+    /* Split Row */
+    .flow-split-row {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+      max-width: 700px;
+      justify-content: center;
+    }
+    .flow-split-row .zone-box { flex: 1; min-width: 0; }
+
+    /* Arrows for split */
+    .flow-split-arrows {
+      display: flex;
+      justify-content: center;
+      gap: 200px;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    /* ── Print Styles ── */
+    @media print {
+      @page { size: A3 landscape; margin: 10mm; }
+      html, body { height: auto; overflow: visible; }
+      .top-bar { display: none !important; }
+      .info-panel { display: none !important; }
+      .app { height: auto; }
+      .main-content { height: auto; overflow: visible; }
+      .flow-area {
+        overflow: visible;
+        padding: 10px;
+      }
+      body { background: #fff !important; color: #1e293b !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .flow-pill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .zone-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .module-chip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .flow-decision { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .flow-arrow { color: #94a3b8; }
+      .flow-arrow-line { background: #94a3b8; }
+
+      /* Print legend at bottom */
+      .print-legend {
+        display: flex !important;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        justify-content: center;
+        padding: 16px 0;
+        margin-top: 20px;
+        border-top: 1px solid #cbd5e1;
+      }
+      .print-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: #475569;
+      }
+      .print-legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+    .print-legend { display: none; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <h1>Master Hospital Flow — KMCH HIS</h1>
+      <div class="top-bar-actions">
+        <button class="btn-print" onclick="window.print()">Print A3 Poster</button>
+        <a href="/">Back to Wiki</a>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <!-- Flow Area -->
+      <div class="flow-area" id="flow-area">
+
+        <!-- 1. Patient Arrives -->
+        <div class="flow-pill flow-pill-start">
+          <span>&#x1F3E5;</span> ผู้ป่วยมาถึง (Patient Arrives)
+        </div>
+
+        <!-- Arrow -->
+        <div class="flow-arrow">
+          <div class="flow-arrow-line"></div>
+          <span>&#x25BC;</span>
+        </div>
+
+        <!-- 2. Registration Zone -->
+        {(() => {
+          const z = getZone('registration');
+          return (
+            <div class="zone-box" style={`border-color: ${z.color}; background: ${z.color}11;`}>
+              <div class="zone-header">
+                <span class="zone-label-en" style={`color: ${z.color};`}>{z.label}</span>
+                <span class="zone-label-th" style={`color: ${z.color};`}>{z.labelTh}</span>
+              </div>
+              <div class="zone-chips">
+                {z.modules.map(slug => {
+                  const m = moduleMap[slug];
+                  return (
+                    <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <span class="module-chip-icon">{m.icon}</span>
+                      {m.nameEn}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
+
+        <!-- Arrow -->
+        <div class="flow-arrow">
+          <div class="flow-arrow-line"></div>
+          <span>&#x25BC;</span>
+        </div>
+
+        <!-- 3. Split: OPD / ER -->
+        <div class="flow-split-row">
+          {(() => {
+            const z = getZone('outpatient');
+            return (
+              <div class="zone-box" style={`border-color: ${z.color}; background: ${z.color}11;`}>
+                <div class="zone-header">
+                  <span class="zone-label-en" style={`color: ${z.color};`}>{z.label}</span>
+                  <span class="zone-label-th" style={`color: ${z.color};`}>{z.labelTh}</span>
+                </div>
+                <div class="zone-chips">
+                  {z.modules.map(slug => {
+                    const m = moduleMap[slug];
+                    return (
+                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                        <span class="module-chip-icon">{m.icon}</span>
+                        {m.nameEn}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+          {(() => {
+            const z = getZone('emergency');
+            return (
+              <div class="zone-box" style={`border-color: ${z.color}; background: ${z.color}11;`}>
+                <div class="zone-header">
+                  <span class="zone-label-en" style={`color: ${z.color};`}>{z.label}</span>
+                  <span class="zone-label-th" style={`color: ${z.color};`}>{z.labelTh}</span>
+                </div>
+                <div class="zone-chips">
+                  {z.modules.map(slug => {
+                    const m = moduleMap[slug];
+                    return (
+                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                        <span class="module-chip-icon">{m.icon}</span>
+                        {m.nameEn}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+
+        <!-- Dual arrows -->
+        <div class="flow-split-arrows">
+          <div class="flow-arrow">
+            <div class="flow-arrow-line"></div>
+            <span>&#x25BC;</span>
+          </div>
+          <div class="flow-arrow">
+            <div class="flow-arrow-line"></div>
+            <span>&#x25BC;</span>
+          </div>
+        </div>
+
+        <!-- 4. Clinical Services -->
+        {(() => {
+          const z = getZone('clinical');
+          return (
+            <div class="zone-box" style={`border-color: ${z.color}; background: ${z.color}11;`}>
+              <div class="zone-header">
+                <span class="zone-label-en" style={`color: ${z.color};`}>{z.label}</span>
+                <span class="zone-label-th" style={`color: ${z.color};`}>{z.labelTh}</span>
+              </div>
+              <div class="zone-chips">
+                {z.modules.map(slug => {
+                  const m = moduleMap[slug];
+                  return (
+                    <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <span class="module-chip-icon">{m.icon}</span>
+                      {m.nameEn}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
+
+        <!-- Arrow -->
+        <div class="flow-arrow">
+          <div class="flow-arrow-line"></div>
+          <span>&#x25BC;</span>
+        </div>
+
+        <!-- 5. Decision Diamond -->
+        <div class="flow-decision">
+          Admit? / Discharge?
+        </div>
+
+        <!-- Arrow -->
+        <div class="flow-arrow">
+          <div class="flow-arrow-line"></div>
+          <span>&#x25BC;</span>
+        </div>
+
+        <!-- 6. Split: Inpatient / Discharge -->
+        <div class="flow-split-row">
+          {(() => {
+            const z = getZone('inpatient');
+            return (
+              <div class="zone-box" style={`border-color: ${z.color}; background: ${z.color}11;`}>
+                <div class="zone-header">
+                  <span class="zone-label-en" style={`color: ${z.color};`}>{z.label}</span>
+                  <span class="zone-label-th" style={`color: ${z.color};`}>{z.labelTh}</span>
+                </div>
+                <div class="zone-chips">
+                  {z.modules.map(slug => {
+                    const m = moduleMap[slug];
+                    return (
+                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                        <span class="module-chip-icon">{m.icon}</span>
+                        {m.nameEn}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+          {(() => {
+            const z = getZone('discharge');
+            return (
+              <div class="zone-box" style={`border-color: ${z.color}; background: ${z.color}11;`}>
+                <div class="zone-header">
+                  <span class="zone-label-en" style={`color: ${z.color};`}>{z.label}</span>
+                  <span class="zone-label-th" style={`color: ${z.color};`}>{z.labelTh}</span>
+                </div>
+                <div class="zone-chips">
+                  {z.modules.map(slug => {
+                    const m = moduleMap[slug];
+                    return (
+                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                        <span class="module-chip-icon">{m.icon}</span>
+                        {m.nameEn}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+
+        <!-- Dual arrows -->
+        <div class="flow-split-arrows">
+          <div class="flow-arrow">
+            <div class="flow-arrow-line"></div>
+            <span>&#x25BC;</span>
+          </div>
+          <div class="flow-arrow">
+            <div class="flow-arrow-line"></div>
+            <span>&#x25BC;</span>
+          </div>
+        </div>
+
+        <!-- 7. Patient Discharged -->
+        <div class="flow-pill flow-pill-end">
+          <span>&#x1F3E0;</span> ผู้ป่วยกลับบ้าน (Discharged)
+        </div>
+
+        <!-- Print Legend (visible only in print) -->
+        <div class="print-legend">
+          {ZONES.map(z => (
+            <div class="print-legend-item">
+              <div class="print-legend-dot" style={`background: ${z.color};`}></div>
+              <span>{z.label} ({z.labelTh})</span>
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+      <!-- Info Panel -->
+      <div class="info-panel" id="info-panel">
+        <div class="info-default" id="info-default">
+          <div class="hint-icon">&#x1F447;</div>
+          <p>Click any module chip<br/>to see details</p>
+        </div>
+        <div class="info-module" id="info-module">
+          <div class="info-module-header">
+            <span class="info-module-icon" id="info-icon"></span>
+            <div class="info-module-names">
+              <h2 id="info-name-en"></h2>
+              <p class="name-th" id="info-name-th"></p>
+            </div>
+          </div>
+          <p class="info-purpose" id="info-purpose"></p>
+
+          <div>
+            <div class="info-section-title">Key Screens</div>
+            <ul class="info-list" id="info-screens"></ul>
+          </div>
+
+          <div>
+            <div class="info-section-title">Primary Workflow</div>
+            <ol class="info-step-list" id="info-workflow"></ol>
+          </div>
+
+          <div>
+            <div class="info-section-title">Connected Modules</div>
+            <div class="info-connected" id="info-connected"></div>
+          </div>
+
+          <a class="info-wiki-link" id="info-wiki-link" href="#">
+            &#x2192; View full page
+          </a>
+        </div>
+
+        <!-- Legend (always at bottom) -->
+        <div class="legend">
+          <div class="legend-title">Zone Legend</div>
+          <div class="legend-items">
+            {ZONES.map(z => (
+              <div class="legend-item">
+                <div class="legend-dot" style={`background: ${z.color};`}></div>
+                <span>{z.label} &mdash; {z.labelTh}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ FLOW_MODULES, ZONES }}>
+    // Build lookup
+    const modulesBySlug = {};
+    FLOW_MODULES.forEach(m => { modulesBySlug[m.slug] = m; });
+
+    const zonesByModule = {};
+    ZONES.forEach(z => {
+      z.modules.forEach(slug => { zonesByModule[slug] = z; });
+    });
+
+    // DOM refs
+    const infoDefault = document.getElementById('info-default');
+    const infoModule = document.getElementById('info-module');
+    const infoIcon = document.getElementById('info-icon');
+    const infoNameEn = document.getElementById('info-name-en');
+    const infoNameTh = document.getElementById('info-name-th');
+    const infoPurpose = document.getElementById('info-purpose');
+    const infoScreens = document.getElementById('info-screens');
+    const infoWorkflow = document.getElementById('info-workflow');
+    const infoConnected = document.getElementById('info-connected');
+    const infoWikiLink = document.getElementById('info-wiki-link');
+
+    let selectedSlug = null;
+
+    function showModule(slug) {
+      const mod = modulesBySlug[slug];
+      if (!mod) return;
+
+      selectedSlug = slug;
+
+      // Update selected state
+      document.querySelectorAll('.module-chip').forEach(el => {
+        el.classList.toggle('selected', el.getAttribute('data-slug') === slug);
+      });
+
+      // Show info
+      infoDefault.style.display = 'none';
+      infoModule.classList.add('active');
+
+      infoIcon.textContent = mod.icon;
+      infoNameEn.textContent = mod.nameEn;
+      infoNameTh.textContent = mod.nameTh;
+      infoPurpose.textContent = mod.purpose;
+
+      // Key screens
+      infoScreens.innerHTML = '';
+      mod.keyScreens.forEach(s => {
+        const li = document.createElement('li');
+        li.textContent = s;
+        infoScreens.appendChild(li);
+      });
+
+      // Workflow
+      infoWorkflow.innerHTML = '';
+      mod.primaryWorkflow.forEach(s => {
+        const li = document.createElement('li');
+        li.textContent = s;
+        infoWorkflow.appendChild(li);
+      });
+
+      // Connected modules
+      infoConnected.innerHTML = '';
+      mod.connectedModules.forEach(cs => {
+        const cm = modulesBySlug[cs];
+        if (!cm) return;
+        const zone = zonesByModule[cs];
+        const btn = document.createElement('button');
+        btn.className = 'info-connected-chip';
+        btn.textContent = cm.icon + ' ' + cm.nameEn;
+        if (zone) {
+          btn.style.borderLeft = '3px solid ' + zone.color;
+        }
+        btn.addEventListener('click', () => showModule(cs));
+        infoConnected.appendChild(btn);
+      });
+
+      // Wiki link
+      infoWikiLink.href = mod.wikiUrl;
+    }
+
+    // Attach click handlers
+    document.querySelectorAll('.module-chip').forEach(el => {
+      el.addEventListener('click', () => {
+        const slug = el.getAttribute('data-slug');
+        showModule(slug);
+      });
+    });
+  </script>
+</body>
+</html>
