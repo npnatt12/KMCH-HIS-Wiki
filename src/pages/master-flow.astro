@@ -325,12 +325,129 @@ function getZone(id: string) {
       max-width: 700px;
     }
 
+    /* ── Mobile Styles ── */
+    @media (max-width: 768px) {
+      .top-bar { padding: 8px 12px; }
+      .top-bar h1 { font-size: 14px; }
+      .top-bar-actions { gap: 6px; }
+      .top-bar a, .top-bar button { font-size: 11px; padding: 5px 10px; }
+
+      .main-content { position: relative; }
+
+      .info-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 100;
+        transform: translateX(100%);
+        transition: transform 0.25s ease;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+      }
+      .info-panel.open { transform: translateX(0); }
+
+      .flow-area {
+        padding: 20px 12px 40px;
+        width: 100%;
+      }
+
+      .flow-split-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        max-width: 100%;
+      }
+      .flow-split-row .zone-box { min-width: 0; width: 100%; }
+      .flow-split-row .zone-box + .zone-box { margin-top: 0; }
+
+      /* Insert arrow between stacked split boxes */
+      .flow-split-arrows { display: none; }
+      .flow-arrow-mobile { display: flex; }
+      .flow-split-row .flow-arrow-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 6px 0;
+        color: #475569;
+        font-size: 18px;
+        line-height: 1;
+      }
+      .flow-split-row .flow-arrow-mobile .flow-arrow-line {
+        width: 2px;
+        height: 18px;
+        background: #475569;
+      }
+
+      .zone-box { max-width: 100%; min-width: 0; }
+
+      .module-chip { font-size: 12px; padding: 6px 10px; }
+
+      .flow-decision { padding: 10px 18px; font-size: 13px; }
+
+      .flow-pill { font-size: 13px; padding: 8px 18px; }
+    }
+
+    /* Mobile panel overlay backdrop */
+    .panel-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 99;
+    }
+    .panel-backdrop.open { display: block; }
+
+    /* Mobile toggle button */
+    .mobile-info-toggle {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 50;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(59,130,246,0.4);
+      font-family: 'Sarabun', sans-serif;
+    }
+    @media (max-width: 768px) {
+      .mobile-info-toggle { display: flex; align-items: center; justify-content: center; }
+    }
+
+    /* Mobile close button inside panel */
+    .panel-close {
+      display: none;
+      align-self: flex-end;
+      background: none;
+      border: 1px solid #475569;
+      color: #94a3b8;
+      font-size: 18px;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+      flex-shrink: 0;
+    }
+    @media (max-width: 768px) {
+      .panel-close { display: flex; align-items: center; justify-content: center; }
+    }
+
     /* ── Print Styles ── */
     @media print {
       @page { size: A3 landscape; margin: 10mm; }
       html, body { height: auto; overflow: visible; }
       .top-bar { display: none !important; }
       .info-panel { display: none !important; }
+      .mobile-info-toggle { display: none !important; }
+      .panel-backdrop { display: none !important; }
+      .flow-arrow-mobile { display: none !important; }
       .app { height: auto; }
       .main-content { height: auto; overflow: visible; }
       .flow-area {
@@ -371,6 +488,7 @@ function getZone(id: string) {
       }
     }
     .print-legend { display: none; }
+    .flow-arrow-mobile { display: none; }
   </style>
 </head>
 <body>
@@ -453,6 +571,10 @@ function getZone(id: string) {
               </div>
             );
           })()}
+          <div class="flow-arrow-mobile">
+            <div class="flow-arrow-line"></div>
+            <span>&#x25BC;</span>
+          </div>
           {(() => {
             const z = getZone('emergency');
             return (
@@ -554,6 +676,10 @@ function getZone(id: string) {
               </div>
             );
           })()}
+          <div class="flow-arrow-mobile">
+            <div class="flow-arrow-line"></div>
+            <span>&#x25BC;</span>
+          </div>
           {(() => {
             const z = getZone('discharge');
             return (
@@ -607,8 +733,13 @@ function getZone(id: string) {
 
       </div>
 
+      <!-- Mobile: backdrop + toggle button -->
+      <div class="panel-backdrop" id="panel-backdrop"></div>
+      <button class="mobile-info-toggle" id="mobile-info-toggle" aria-label="Show module info">&#x2139;</button>
+
       <!-- Info Panel -->
       <div class="info-panel" id="info-panel">
+        <button class="panel-close" id="panel-close" aria-label="Close panel">&times;</button>
         <div class="info-default" id="info-default">
           <div class="hint-icon">&#x1F447;</div>
           <p>Click any module chip<br/>to see details</p>
@@ -739,11 +870,34 @@ function getZone(id: string) {
       infoWikiLink.href = mod.wikiUrl;
     }
 
+    // Mobile panel controls
+    const infoPanel = document.getElementById('info-panel');
+    const panelBackdrop = document.getElementById('panel-backdrop');
+    const mobileToggle = document.getElementById('mobile-info-toggle');
+    const panelClose = document.getElementById('panel-close');
+
+    function openPanel() {
+      infoPanel.classList.add('open');
+      panelBackdrop.classList.add('open');
+    }
+    function closePanel() {
+      infoPanel.classList.remove('open');
+      panelBackdrop.classList.remove('open');
+    }
+
+    mobileToggle.addEventListener('click', openPanel);
+    panelClose.addEventListener('click', closePanel);
+    panelBackdrop.addEventListener('click', closePanel);
+
     // Attach click handlers
     document.querySelectorAll('.module-chip').forEach(el => {
       el.addEventListener('click', () => {
         const slug = el.getAttribute('data-slug');
         showModule(slug);
+        // Auto-open panel on mobile when a chip is clicked
+        if (window.innerWidth <= 768) {
+          openPanel();
+        }
       });
     });
   </script>
