@@ -1,0 +1,23 @@
+---
+import '../styles/global.css';
+import TopBar from '../components/nav/TopBar.astro';
+import Lightbox from '../components/Lightbox.astro';
+interface Props { title: string; activeRole?: string; }
+const { title, activeRole } = Astro.props;
+---
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} — KMCH HIS Wiki</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preload" href="/fonts/Anuphan-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/Anuphan-600.woff2" as="font" type="font/woff2" crossorigin />
+</head>
+<body class="min-h-screen">
+  <TopBar activeRole={activeRole} />
+  <slot />
+  <Lightbox />
+  <script>import '../lib/reveal';</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+---
+import { ROLES, ROLES_BY_SLUG } from '../../../lib/roles';
+import LandingV2 from '../../../layouts/LandingV2.astro';
+import EyebrowPill from '../../../components/ui/EyebrowPill.astro';
+import FooterV2 from '../../../components/home/FooterV2.astro';
+
+export function getStaticPaths() {
+  return ROLES.map((r) => ({ params: { role: r.slug } }));
+}
+const role = ROLES_BY_SLUG[Astro.params.role!];
+---
+<LandingV2 title={role.nameEn} activeRole={role.slug}>
+  <section class="pt-12 pb-16 lg:pt-20 lg:pb-24" style={`background: linear-gradient(180deg, var(--color-bg) 0%, color-mix(in srgb, ${role.accent}10, var(--color-bg)) 100%);`}>
+    <div class="mx-auto px-4" style="max-width: min(calc(100% - 32px), 1080px);">
+      <EyebrowPill>บทบาท / ROLE</EyebrowPill>
+      <h1 class="mt-4 text-[clamp(2rem,4.8vw,3rem)] font-semibold tracking-tight" style={`color:${role.accent}`}>{role.nameEn}</h1>
+      <p class="text-lg text-[var(--color-ink-muted)]">{role.nameTh}</p>
+      <p class="mt-6 text-base max-w-prose">{role.description}</p>
+      {role.tier === 2 && (
+        <p class="mt-4 inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider" style="background: var(--color-accent-soft); color: var(--color-accent-primary);">
+          Tier 2 — UAT verification pending
+        </p>
+      )}
+    </div>
+  </section>
+  <section class="py-12">
+    <div class="mx-auto px-4" style="max-width: min(calc(100% - 32px), 1080px);">
+      <p class="text-[var(--color-ink-muted)]">Daily flows, reference screens, and permissions populated in next iteration. See the <a href="/" class="underline">homepage</a> or browse <a href="/master-flow/" class="underline">Master Flow</a>.</p>
+    </div>
+  </section>
+  <FooterV2 />
+</LandingV2>

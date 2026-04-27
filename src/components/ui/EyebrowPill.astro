@@ -1,0 +1,10 @@
+---
+interface Props { class?: string; }
+const { class: className = '' } = Astro.props;
+---
+<span class={`inline-flex items-center gap-2 text-[0.78rem] tracking-[0.14em] uppercase px-4 py-1.5 rounded-full bg-[var(--color-surface-tint)] border border-[var(--color-accent-soft)] text-[var(--color-ink-muted)] font-medium ${className}`}>
+  <span aria-hidden="true" class="inline-block w-2.5 h-2.5">
+    <svg viewBox="0 0 12 12" fill="currentColor" style="color: var(--color-accent-primary);"><path d="M0 9 L3 3 L6 9 L9 3 L12 9 Z"/></svg>
+  </span>
+  <slot />
+</span>

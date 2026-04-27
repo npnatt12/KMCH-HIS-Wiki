@@ -1,0 +1,27 @@
+---
+import { ROLES } from '../../lib/roles';
+interface Props { activeSlug?: string; }
+const { activeSlug } = Astro.props;
+const active = activeSlug ? ROLES.find((r) => r.slug === activeSlug) : null;
+---
+<details class="relative">
+  <summary class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--color-border-strong)] hover:bg-[var(--color-surface-tint)] cursor-pointer text-sm font-medium list-none">
+    <span class="text-[var(--color-ink-muted)]">บทบาท</span>
+    <span class="text-[var(--color-ink)]">{active ? active.nameEn : 'เลือก / Choose'}</span>
+    <span class="text-[10px] text-[var(--color-ink-muted)]">▾</span>
+  </summary>
+  <div class="absolute right-0 top-full mt-1 w-72 bg-[var(--color-surface)] border border-[var(--color-border-strong)] rounded-2xl p-2 shadow-[var(--shadow-card)] z-50">
+    {ROLES.map((r) => (
+      <a href={`/roles/${r.slug}/`} class={`flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-[var(--color-surface-tint)] ${activeSlug === r.slug ? 'bg-[var(--color-accent-soft)]' : ''}`}>
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold" style={`background:${r.accent}15;color:${r.accent}`}>
+          {r.nameEn.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}
+        </span>
+        <div class="flex-1">
+          <div class="text-sm font-medium text-[var(--color-ink)]">{r.nameEn}</div>
+          <div class="text-xs text-[var(--color-ink-muted)]">{r.nameTh}</div>
+        </div>
+        {r.tier === 2 && <span class="text-[10px] uppercase tracking-wider text-[var(--color-ink-muted)]">tier 2</span>}
+      </a>
+    ))}
+  </div>
+</details>

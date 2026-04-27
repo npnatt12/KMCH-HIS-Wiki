@@ -1,0 +1,10 @@
+---
+interface Props { href?: string; class?: string; }
+const { href, class: className = '' } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+{href ? (
+  <a href={href} class={`block bg-[var(--color-surface)] border border-[var(--color-border)] rounded-3xl p-6 shadow-[var(--shadow-card)] kmch-hover-lift ${className}`}><slot /></a>
+) : (
+  <div class={`block bg-[var(--color-surface)] border border-[var(--color-border)] rounded-3xl p-6 shadow-[var(--shadow-card)] ${className}`}><slot /></div>
+)}
