@@ -32,7 +32,9 @@ const { title, showBackLink = false } = Astro.props;
       KMCH HIS Wiki • สร้างจากคู่มือ MEDHIS • {new Date().getFullYear()}
     </footer>
     <Lightbox />
-    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
-    <script is:inline src="/pagefind/pagefind-ui.js"></script>
+    <script>
+      import '../lib/reveal';
+    </script>
+    <script src="/search-ui.js" defer></script>
   </body>
 </html>
