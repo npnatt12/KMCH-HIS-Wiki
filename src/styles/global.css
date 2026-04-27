@@ -65,6 +65,45 @@
   src: url('/fonts/Sarabun-Bold.woff2') format('woff2');
 }
 
+/* Anuphan — KMCH Wiki v2 primary font (Latin subset; Thai falls through to Sarabun) */
+@font-face {
+  font-family: 'Anuphan';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Anuphan-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Anuphan';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/Anuphan-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Anuphan';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/Anuphan-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Anuphan';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Anuphan-700.woff2') format('woff2');
+}
+
+/* JetBrains Mono — codes, button labels, field names */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/JetBrainsMono-400.woff2') format('woff2');
+}
+
 /* === Body / element-level baseline === */
 html, body {
   background: var(--color-bg);
