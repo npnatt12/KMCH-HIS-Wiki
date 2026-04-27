@@ -1,0 +1,36 @@
+/* Reveal infrastructure — works with src/lib/reveal.ts IO setup (Task 3a.5) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(64px);
+  transition:
+    opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal][data-revealed='true'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover-lift utility */
+.kmch-hover-lift {
+  transition:
+    transform 200ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.kmch-hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .kmch-hover-lift {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

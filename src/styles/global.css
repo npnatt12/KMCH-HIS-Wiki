@@ -1,7 +1,54 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@import './motion.css';
 
+@theme inline {
+  /* Surface */
+  --color-bg: #FAF7F2;
+  --color-bg-strong: #FBFAF8;
+  --color-surface: #FFFFFF;
+  --color-surface-tint: #F5F0E8;
+
+  /* Ink */
+  --color-ink: #1F1B16;
+  --color-ink-muted: #6E665C;
+
+  /* Borders */
+  --color-border: #E8E1D4;
+  --color-border-strong: #D8CFBE;
+
+  /* Brand accent (KMCH logo) */
+  --color-accent-primary: #C2362F;
+  --color-accent-warm: #D9492C;
+  --color-accent-bright: #E87D2C;
+  --color-accent-soft: #FBE9DD;
+  --color-accent-glow: rgba(232, 125, 44, 0.08);
+
+  /* Status */
+  --color-success: #1F7A4D;
+  --color-warning: #B45309;
+  --color-danger: #B42318;
+
+  /* Typography */
+  --font-sans: 'Anuphan', 'Sarabun', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Shadows — 5-layer warm-stacked, KMCH coral-tinted */
+  --shadow-card:
+    0 1px 3px rgba(194, 54, 47, 0.06),
+    0 5px 5px rgba(194, 54, 47, 0.05),
+    0 12px 7px rgba(194, 54, 47, 0.03),
+    0 21px 8px rgba(194, 54, 47, 0.01),
+    0 33px 9px rgba(194, 54, 47, 0);
+
+  --shadow-card-hover:
+    0 2px 6px rgba(194, 54, 47, 0.08),
+    0 8px 10px rgba(194, 54, 47, 0.06),
+    0 16px 14px rgba(194, 54, 47, 0.04),
+    0 28px 16px rgba(194, 54, 47, 0.02),
+    0 44px 18px rgba(194, 54, 47, 0);
+}
+
+/* === existing @font-face blocks (Sarabun) — PRESERVED here, swapped to Anuphan in Task 3a.3 === */
 @font-face {
   font-family: 'Sarabun';
   font-style: normal;
@@ -18,6 +65,241 @@
   src: url('/fonts/Sarabun-Bold.woff2') format('woff2');
 }
 
+/* === Body / element-level baseline === */
+html, body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-accent-primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-bright);
+}
+
+/* Utility: gradient accent on H1 underline (KMCH gradient) */
+.kmch-gradient-underline {
+  background-image: linear-gradient(90deg, #C2362F 0%, #D9492C 50%, #E87D2C 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 4px;
+  background-position: 0 100%;
+  padding-bottom: 8px;
+}
+
+/* === Existing utility classes (search, etc.) — PRESERVED === */
+.kmch-search {
+  width: 100%;
+}
+
+.kmch-search--home {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.kmch-search--compact {
+  max-width: 100%;
+}
+
+.kmch-search-form {
+  margin: 0;
+}
+
+.kmch-search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  padding: 0 0.75rem 0 1.125rem;
+}
+
+.kmch-search--compact .kmch-search-box {
+  min-height: 2.875rem;
+  border-radius: 0.875rem;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+}
+
+.kmch-search-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: #64748b;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.kmch-search-input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #111827;
+  font-size: 1rem;
+  outline: none;
+}
+
+.kmch-search-input::placeholder {
+  color: #94a3b8;
+}
+
+.kmch-search-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.kmch-search-clear:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.kmch-search-clear[hidden] {
+  display: none;
+}
+
+.kmch-search-examples {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+}
+
+.kmch-search-examples button {
+  min-height: 2.25rem;
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+  background: #f8fafc;
+  color: #1e40af;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 0.375rem 0.75rem;
+  cursor: pointer;
+}
+
+.kmch-search-examples button:hover,
+.kmch-search-examples button:focus-visible {
+  background: #eff6ff;
+  outline: none;
+}
+
+.kmch-search-status {
+  min-height: 1.5rem;
+  margin-top: 0.75rem;
+  color: #64748b;
+  font-size: 0.8125rem;
+  text-align: center;
+}
+
+.kmch-search--compact .kmch-search-status {
+  text-align: left;
+}
+
+.kmch-search-results {
+  display: grid;
+  gap: 0.625rem;
+  margin-top: 0.75rem;
+}
+
+.kmch-search-card {
+  display: block;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.875rem;
+  background: #fff;
+  padding: 0.875rem 1rem;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.kmch-search-card:hover,
+.kmch-search-card:focus-visible {
+  border-color: #93c5fd;
+  box-shadow: 0 10px 24px rgba(30, 64, 175, 0.1);
+  outline: none;
+}
+
+.kmch-search-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.kmch-search-type {
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1e40af;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+}
+
+.kmch-search-card-title {
+  margin-top: 0.375rem;
+  color: #111827;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.kmch-search-card p {
+  margin: 0.25rem 0 0;
+  color: #475569;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.kmch-search-empty {
+  border: 1px dashed #cbd5e1;
+  border-radius: 0.875rem;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 0.875rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .kmch-search-box {
+    min-height: 3rem;
+    border-radius: 1rem;
+    padding-left: 0.875rem;
+  }
+
+  .kmch-search-input {
+    font-size: 0.9375rem;
+  }
+
+  .kmch-search-card {
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+  }
+}
+
+/* === Existing @media print block — PRESERVED === */
 @media print {
   nav, footer, .no-print { display: none !important; }
   body { background: white !important; }
