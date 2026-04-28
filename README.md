@@ -1,89 +1,105 @@
 # KMCH HIS Wiki Portal
 
-A searchable, mobile-friendly reference portal for the **MEDHIS Hospital Information System** used at KMCH (King Mongkut Chaokhun Thahan Hospital). Built to replace 18 paper manuals with a fast, accessible web interface for medical professionals of all digital literacy levels.
+A searchable, mobile-friendly, Thailand-context-aware reference portal for the **MEDHIS Hospital Information System** used at KMCH (Krathum Mae Chedi Hospital). Built to replace 18 paper manuals plus the Phase-4 Odoo / Telemedicine extensions with a fast, accessible web interface for medical professionals of all digital literacy levels.
 
 **Live site:** [kmch-wiki.vercel.app](https://kmch-wiki.vercel.app)
 
-## Features
+**Latest:** v2.3.0 — see [CHANGELOG.md](./CHANGELOG.md).
 
-- **172 static pages** covering all 18 MEDHIS modules, deeply extracted with field-level details
-- **Instant search** (Thai + English) powered by [Pagefind](https://pagefind.app) — fully client-side, no server required
-- **1,042 MEDHIS UI screenshots** extracted from original `.docx` manuals, served as WebP with lazy-load thumbnails and a lightbox gallery
-- **42 flowcharts** for all modules and workflows, rendered as static SVG via Mermaid with standardized color-coded styling
-- **42 single-page A4 cheat sheets** — one per module and workflow, with flowchart hero and condensed reference below
-- **Master Hospital Flow** — full-screen interactive visualization of all 18 modules across 6 color-coded department zones, with click-to-explore info panel and A3 poster print
-- **FAQ / Support Center** with how-to guides and troubleshooting entries
-- **Responsive navigation** — dropdown menus for Modules, Workflows, Cheat Sheets, and Master Flow on desktop; hamburger menu on mobile
-- **Thai-primary** with English MEDHIS terminology preserved naturally
-- **Zero JavaScript frameworks** — only ~19KB JS total (Pagefind UI + lightbox + navbar toggle)
+## Highlights
 
-## Pages
+- **250 static pages** covering 18 MEDHIS modules, the Phase-4 Odoo ERP + Telemedicine surfaces, and 14 role hubs
+- **Thai-aware search** — n-gram tokenization (2/3/4-grams) with a 38-group bilingual hint dictionary; works for partial Thai keywords without spaces
+- **Vault-backed authoring** — content lives in an Obsidian vault; `npm run dev` runs a watcher that re-syncs into Astro content collections on every save (wikilinks, comments, frontmatter, code fences all handled)
+- **Role-first IA** — 14 role hubs (Tier 1: doctor, nurse-IPD, nurse-OPD, pharmacist; Tier 2: nurse-OR, x-ray, admin-system, IT support, finance-accounting, procurement, warehouse-staff, telemedicine-admin, telemedicine-IT-operator, patient)
+- **Print + QR handoff** — every article prints clean A4 (`Cmd+P` on the regular page; no separate print URL needed). A scannable QR in the article header lets staff move from a desktop terminal to their phone without retyping the URL
+- **PDPA-aware screenshots** — entity pages with screen captures auto-render a bilingual mock-data disclaimer; site-wide `/pdpa/` policy page; PII regex scaffold ready for OCR-based caption linting
+- **Self-hosted Thai fonts** (Anuphan + Sarabun) — no Google Fonts CDN dependency, works behind hospital firewalls
+- **Lighthouse Mobile ≥90** on Performance / Accessibility / Best Practices (Slow 4G profile)
+- **Static-first** — 250 HTML files. Works on Vercel, Apache, Nginx, USB drive, or hospital intranet share. No Node.js or server runtime needed in production.
+
+## Pages (current)
 
 | Type | Count | Description |
-|------|-------|-------------|
-| Modules | 18 | Registration, OPD, ER, Billing, Admission, IPD, ANC, EMR Doctor, Order Entry, LAB, XRAY, OR, Labour & Newborn, Pharmacy, Inventory, Diet, CSSD, MRD |
-| Workflows | 24 | OPD Patient Flow, Registration (4 types), Billing (OP + IP), Admission, IPD Discharge, IPD Transfer, Lab Order, XRAY Order, ANC Visit, Pharmacy (Dispensing + Reject/Return), Inventory (Receive + Transfer), Diet, CSSD, OR Surgery, EMR Doctor (OPD + IPD), Registration Update/Merge |
-| Concepts | 13 | OPD Status, Visit Types, Payor/Rights, Patient Types, Bed Status, ESI Level, Lab/Rad Status, EDC, NHSO Auth, Appointments, Drug Alert Types, Order Types, Payment Modes |
-| Entities | 30 | All key screens: Patient Search, Demographics, Banner, OPD Worklist, Whiteboard, Ward Board, Nursing Worklist, ANC Chart, Admission Detail, IPD Transfer, Doctor Worklist, EMR Form, Order Entry, Drug Alert Popup, Lab Specimen/Result, XRAY Register/Report, OR Schedule/Record, Pharmacy Dispensing, Billing Settlement, Inventory Receive/Transfer, Diet Order, CSSD Request, ER Triage/Discharge, OPD Screening |
-| Cheat Sheets | 42 | Single-page A4 with flowchart hero (18 modules + 24 workflows) |
-| Flowcharts | 42 | Mermaid SVG with standardized colors and subgraph phases |
-| Master Flow | 1 | Full-screen interactive hospital visualization (`/master-flow`) |
+|------|------:|-------------|
+| Modules | 23 | 18 MEDHIS modules + 5 Phase-4 Odoo ERP surfaces |
+| Workflows | 37 | OPD/IPD/ER/Lab/XRay/Pharmacy/Inventory/CSSD/Diet/OR/MRD + Phase-4 (Odoo Purchase-to-Pay, Billing, Inventory, Telemedicine, HIS-ERP interface, etc.) |
+| Concepts | 21 | OPD Status, Visit Types, Payor Rights, Bed Status, ESI Level, Lab/Rad Status, EDC, Drug Alerts, NHSO Auth, Telemed Appointment Status, HIS-ERP Interface, Phase-4 UAT Coverage Matrix, etc. |
+| Entities | 49 | All key screens: registration / triage / ward board / EMR / order entry / drug alerts / Odoo PO/Invoice/Payment/Inventory / Telemed Mobile App / Admin Portal / IT Service Stack |
+| Roles | 14 | Doctor, Nurse-IPD, Nurse-OPD, Nurse-OR, Pharmacist, X-Ray Tech, Admin-System, IT-Support, Finance-Accounting, Procurement, Warehouse-Staff, Telemedicine-Admin, Telemedicine-IT-Operator, Patient |
+| Cheat Sheets | 42 | Single-page A4 (`/cheatsheets/...`) with flowchart hero |
+| Flowcharts | 42 | Mermaid SVG (`/charts/...`), pre-rendered |
 | FAQ | 1 | How-to + Troubleshooting |
-| Homepage | 1 | Search + 18-module icon grid |
+| PDPA | 1 | Thai-first PDPA explainer (`/pdpa/`) |
+| Master Flow | 1 | Full-screen interactive hospital visualization (`/master-flow/`) |
+| Homepage | 1 | Search + role grid + module grid |
 
 ## Tech Stack
 
 | Layer | Tool |
 |-------|------|
 | Framework | [Astro](https://astro.build) 4.x (static output) |
-| Styling | [Tailwind CSS](https://tailwindcss.com) 3.x |
-| Search | [Pagefind](https://pagefind.app) — static client-side search |
+| Styling | [Tailwind CSS](https://tailwindcss.com) 4.x with `@theme inline` design tokens |
+| Search | Custom static index (`/search.json`) + Thai n-gram tokenizer (`/search-thai-tokens.js`) + bilingual hint dictionary (`/search-dictionary.json`) — all client-side, no server, no WASM |
+| QR codes | [`qrcode`](https://www.npmjs.com/package/qrcode) — build-time SVG generation |
+| Vault sync | Custom Node script (`scripts/sync-vault.mjs`) + [`chokidar`](https://www.npmjs.com/package/chokidar) watcher |
 | Flowcharts | [Mermaid](https://mermaid.js.org) — rendered to static SVG at build time |
-| Images | [sharp](https://sharp.pixelplumbing.com) — WebP conversion + thumbnails |
-| Thai Font | [Sarabun](https://fonts.google.com/specimen/Sarabun) (self-hosted) |
+| Images | [`sharp`](https://sharp.pixelplumbing.com) — WebP conversion + thumbnails |
+| Thai Fonts | [Anuphan](https://fonts.google.com/specimen/Anuphan) (variable, headings) + [Sarabun](https://fonts.google.com/specimen/Sarabun) (body), both self-hosted as woff2 |
+| Tests | [`tsx`](https://www.npmjs.com/package/tsx) + `node:test` (no Jest, no Vitest) |
+| Performance | Lighthouse CI (`lighthouserc.cjs`) — Mobile Slow 4G profile, ≥90 thresholds |
 | Deploy | [Vercel](https://vercel.com) (auto-deploy from GitHub) |
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ (tested with 20.x)
+- Node.js 20+
 - npm
+- (Optional) An Obsidian vault checkout at `../KMCH HIS manual/` if you want to author content. The portal also works against the already-synced markdown in `src/content/`.
 
-### Install & Run
+### Install + Dev
 
 ```bash
 git clone https://github.com/npnatt12/KMCH-HIS-Wiki.git
 cd KMCH-HIS-Wiki
 npm install
-npm run build
-npx serve dist
+npm run dev    # vault watcher + Astro dev server, concurrent
 ```
 
-Open `http://localhost:3000` in your browser.
+Open [http://localhost:4321](http://localhost:4321).
 
-### Development
+### Other commands
 
 ```bash
-npm run dev          # Start Astro dev server (hot reload)
-npm run build        # Build static site + Pagefind index
-npm run preview      # Preview built site
+npm run build           # Sync vault → build static site (250 pages)
+npm run preview         # Preview the built site locally
+npm test                # Run all tsx + node:test files (67 tests)
+npm run sync            # Sync vault once (no Astro)
+npm run sync:watch      # Sync vault in watch mode
 ```
 
-### Rebuild Everything (local only)
+### Updating content
 
-If you have the original `.docx` manuals at `../KMCH HIS manual/`:
+Two paths depending on where the source of truth is:
+
+**A. Edit the Obsidian vault (preferred):**
+1. Edit `.md` files in `../KMCH HIS manual/{modules,workflows,concepts,entities,roles}/`
+2. The `npm run dev` watcher re-syncs into `src/content/` automatically
+3. Commit both vault and portal changes
+4. Push to GitHub — Vercel auto-deploys
+
+**B. Edit `src/content/` directly:**
+1. Edit `.md` files in `src/content/...`
+2. `npm run build` to verify
+3. Push — note that the sync script will overwrite these on the next vault sync run, so prefer path A unless the vault is unavailable
+
+### Re-extracting Mermaid flowcharts
+
+If you need to regenerate the flowchart SVGs from `.mmd` source files:
 
 ```bash
-npm run build:images   # Extract screenshots from docx → WebP
-npm run build:charts   # Render Mermaid flowcharts → SVG
-npm run build          # Build Astro + Pagefind
-```
-
-Or all at once:
-
-```bash
-npm run build:local
+npm run build:charts
 ```
 
 ## Project Structure
@@ -91,46 +107,46 @@ npm run build:local
 ```
 kmch-portal/
 ├── src/
-│   ├── components/        # Astro components (Navbar, Lightbox, AccordionCard, etc.)
-│   ├── content/           # Wiki markdown files (modules, workflows, concepts, entities, faq)
-│   ├── layouts/           # Base.astro, Print.astro, PrintCheatSheet.astro (single-page A4)
-│   ├── lib/               # Module metadata, wikilink transformer, hospital-flow-data
-│   ├── pages/             # Route templates (modules/, workflows/, faq/, print/, cheatsheet/, master-flow)
-│   └── styles/            # Tailwind + print CSS
+│   ├── components/       # Astro components (TopBar, RoleGrid, MetaStrip, QRCorner, PDPABanner, etc.)
+│   ├── content/          # Synced wiki markdown (modules, workflows, concepts, entities, roles, faq, cheatsheets)
+│   ├── content/config.ts # Zod schemas for content collections
+│   ├── layouts/          # BaseV2.astro, LandingV2.astro, ArticleV2.astro, Print.astro (legacy cheat-sheet layout)
+│   ├── lib/              # roles metadata, role-content-map, format-date (BE), article-meta, slug, search-index, thai-tokens
+│   ├── pages/            # Route templates: roles/[role]/, workflows/[...slug]/, entities/[...slug]/, concepts/[...slug]/, modules/[...slug]/, cheatsheet/, print/, faq/, pdpa.astro, master-flow.astro
+│   └── styles/           # Tailwind 4 design tokens + motion + prose
 ├── public/
-│   ├── charts/            # Pre-rendered Mermaid SVGs (42 charts — modules + workflows)
-│   ├── fonts/             # Sarabun woff2 files
-│   └── screenshots/       # 1,042 extracted WebP images + thumbnails + manifest.json
+│   ├── charts/           # Pre-rendered Mermaid SVGs
+│   ├── fonts/            # Self-hosted Anuphan + Sarabun + JetBrains Mono woff2
+│   ├── screenshots/      # 1,042 v1 MEDHIS WebP captures + thumbnails
+│   ├── print.css         # A4 portrait @media print stylesheet
+│   ├── search.json       # Static search index
+│   ├── search-thai-tokens.js  # Runtime Thai n-gram tokenizer (~1 KB IIFE)
+│   └── search-dictionary.json # Bilingual hint groups
 ├── scripts/
-│   ├── extract-images.mjs # Docx → WebP extraction pipeline
-│   └── render-mermaid.mjs # Mermaid → SVG rendering
-└── dist/                  # Built static site (generated)
+│   ├── sync-vault.mjs    # Vault → portal sync entrypoint
+│   ├── sync-vault/       # vault-index, transform (wikilinks, comments)
+│   └── lint-vault.mjs    # PII regex scaffold (deferred runtime)
+├── lighthouserc.cjs      # Lighthouse CI config (Mobile Slow 4G)
+├── lighthouse-reports/   # Baseline + iteration reports
+└── dist/                 # Built static site (generated)
 ```
 
-## Content Source
+## Design Decisions
 
-All content originates from 18 MEDHIS system manuals (`.docx` format), deeply extracted into a structured Obsidian wiki (104 markdown pages), then rendered into this static portal. The wiki serves as the single source of truth — every field, button, permission, and edge case from the original manuals has been captured.
-
-### Updating Content
-
-1. Edit the markdown files in `src/content/`
-2. Run `npm run build`
-3. Push to GitHub — Vercel auto-deploys
-
-### Re-extracting Screenshots
-
-If the original `.docx` manuals are updated:
-
-1. Place updated `.docx` files in `../KMCH HIS manual/`
-2. Run `npm run build:images`
-3. Commit the new screenshots
-4. Push to GitHub
+- **Static-first.** Pure HTML / CSS / minimal JS works on any server, USB drive, or intranet
+- **Thai-primary.** Content authors in Thai; English MEDHIS terms (OPD, IPD, EMR) preserved as-is. `<html lang="th">` sitewide. Self-hosted Thai fonts because hospital networks frequently firewall Google Fonts CDN
+- **Role-first IA.** Staff land on a role hub; the cross-cutting wiki sits underneath. Tier 1 (clinical) is verified-on-UAT or pending; Tier 2 (admin / operations) is `tier-2-pending`
+- **PDPA discipline.** Screen captures display a bilingual disclaimer where they appear. Frontmatter `mock-data: false` opt-out is provided but defaults assume a screen *is* a mock unless declared otherwise. PII patterns (Thai national ID, HN, phone) live in `scripts/lint-vault.mjs` and will run against codex's incoming OCR captions
+- **Hospital-reality print.** `Cmd+P` on any article works without a separate print URL — the layout is the document. A4 portrait, bilingual BE+CE date footer, full URLs inlined for paper-to-screen handoff
+- **Terminal-to-phone QR.** Workflow / entity / concept pages render a build-time SVG QR in the header so a nurse at a workstation can scan to her phone before walking to the patient bay
+- **Elderly-friendly.** Large tap targets (≥48px), high contrast, clear labels, simple navigation
+- **Zero JS framework runtime.** Astro emits HTML; the only client JS is the search UI, the Thai tokenizer, the lightbox, the QR click-to-zoom, and the print button (~25 KB total, all self-hosted)
 
 ## Deployment
 
-The site auto-deploys to Vercel on every push to `main`. No server configuration needed — the output is pure static HTML/CSS/JS.
+The site auto-deploys to Vercel on every push to `main`. Output is pure static; no server runtime, no environment variables required.
 
-### Manual Deploy
+### Manual deploy
 
 ```bash
 npx vercel deploy --prod
@@ -138,16 +154,16 @@ npx vercel deploy --prod
 
 ### Self-hosting
 
-Copy the `dist/` folder to any static file server (Apache, Nginx, hospital intranet share, etc.). No Node.js or server runtime needed.
+Copy `dist/` to any static file server (Apache, Nginx, hospital intranet share, USB drive). No Node.js or server runtime required to serve.
 
-## Design Decisions
+## Content Source
 
-- **Static-first:** Pure HTML/CSS output works on any server, USB drive, or intranet
-- **Thai-primary:** Source manuals are Thai; English MEDHIS terms (OPD, IPD, Billing) preserved as-is
-- **Progressive disclosure:** Accordion cards show titles first, expand for details
-- **Elderly-friendly:** Large tap targets (48px+), clear labels, high contrast, simple navigation
-- **Zero-JS content:** Only JS is for search (Pagefind), lightbox, and mobile menu toggle (~19KB total)
-- **Print-optimized:** Single-page A4 cheat sheets with flowchart hero, plus A3 poster for Master Flow
+All content originates from:
+- **18 MEDHIS `.docx` manuals** (initial v1 extraction)
+- **Phase-4 UAT documents** (Odoo ERP user manual, Telemedicine training docs, MEDHIS-Odoo interface spec)
+- **UAT walkthrough recon** (planned — populates `verified-on-uat` dates as roles are validated against the live UAT environment)
+
+Source-of-truth is the Obsidian vault at `../KMCH HIS manual/`. The portal is a thin presentation layer over that vault.
 
 ## License
 
@@ -155,4 +171,4 @@ Internal use — KMCH hospital staff reference material.
 
 ## Credits
 
-Built with [Claude Code](https://claude.ai/code) using the LLM Wiki pattern for knowledge compilation.
+Built with [Claude Code](https://claude.ai/code) using the LLM-assisted documentation pattern. Thanks to the Anuphan and Sarabun font teams, the Astro / Tailwind communities, and the KMCH IT and clinical teams.
