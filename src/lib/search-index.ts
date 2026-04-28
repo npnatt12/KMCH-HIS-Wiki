@@ -65,13 +65,17 @@ export async function getSearchRecords(): Promise<SearchRecord[]> {
     buckets.push({ collection, entries: entries as unknown as SearchEntryInput[] });
   }
 
-  return buildSearchRecords(buckets);
+  const native = buildSearchRecords(buckets);
+  const manifest = await loadPhase4Manifest();
+  return injectPhase4Records(native, manifest);
 }
 
 export async function getSearchRecordsByCollection(target: SearchCollection): Promise<SearchRecord[]> {
   const { getCollection } = await import('astro:content');
   const entries = await getCollection(target);
-  return buildSearchRecords([{ collection: target, entries: entries as unknown as SearchEntryInput[] }]);
+  const native = buildSearchRecords([{ collection: target, entries: entries as unknown as SearchEntryInput[] }]);
+  const manifest = await loadPhase4Manifest();
+  return injectPhase4Records(native, manifest);
 }
 
 export function buildSearchRecords(
@@ -260,4 +264,95 @@ function typeRank(type: SearchType) {
     case 'concept':
       return 6;
   }
+}
+
+export interface Phase4Asset {
+  file: string;
+  thumb: string;
+  caption: string;
+  ocrTerms: string[];
+  filename: string;
+  sourceSlug: string;
+  page: string;
+  searchable: boolean;
+}
+
+export interface Phase4Page {
+  displayName: string;
+  totalCount: number;
+  displayCount: string;
+  assets: Phase4Asset[];
+}
+
+export interface Phase4Manifest {
+  generatedAt: string;
+  pages: Record<string, Phase4Page>;
+}
+
+function urlToSlug(url: string): string | null {
+  const cleanUrl = url.split('#')[0];
+  const m = /^\/[^/]+\/([^/]+)\/$/.exec(cleanUrl);
+  return m ? m[1] : null;
+}
+
+export function injectPhase4Records(
+  records: SearchRecord[],
+  manifest: Phase4Manifest,
+): SearchRecord[] {
+  const seenSlugs = new Set<string>();
+  const phase4Records: SearchRecord[] = [];
+
+  for (const r of records) {
+    const slug = urlToSlug(r.url);
+    if (!slug || seenSlugs.has(slug)) continue;
+    seenSlugs.add(slug);
+    const page = manifest.pages[slug];
+    if (!page) continue;
+    for (const asset of page.assets) {
+      if (!asset.searchable) continue;
+      const body = [asset.caption, asset.ocrTerms.join(', ')]
+        .filter((s) => s && s.length > 0)
+        .join('\n\n');
+      const keywords = [
+        asset.filename.toLowerCase(),
+        ...asset.ocrTerms.map((t) => t.toLowerCase()),
+      ];
+      phase4Records.push({
+        id: `${r.type}:${slug}:phase-4:${asset.filename}`,
+        title: r.title,
+        section: `Screenshot: ${asset.filename}`,
+        type: r.type,
+        url: r.url,
+        module: r.module,
+        summary: asset.caption.slice(0, 240),
+        body,
+        keywords,
+        priority: 4,
+      });
+    }
+  }
+
+  return [...records, ...phase4Records];
+}
+
+let phase4ManifestCache: Phase4Manifest | null = null;
+
+async function loadPhase4Manifest(): Promise<Phase4Manifest> {
+  if (phase4ManifestCache !== null) return phase4ManifestCache;
+  try {
+    const fs = await import('node:fs/promises');
+    const path = await import('node:path');
+    const cwd = process.cwd();
+    const manifestPath = path.resolve(cwd, 'public', 'phase-4-manifest.json');
+    const raw = await fs.readFile(manifestPath, 'utf-8');
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === 'object' && 'pages' in parsed) {
+      phase4ManifestCache = parsed as Phase4Manifest;
+    } else {
+      phase4ManifestCache = { generatedAt: '', pages: {} };
+    }
+  } catch (e) {
+    phase4ManifestCache = { generatedAt: '', pages: {} };
+  }
+  return phase4ManifestCache;
 }
