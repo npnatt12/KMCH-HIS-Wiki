@@ -12,12 +12,20 @@ let cachedIndex: IndexEntry[] | null = null;
 async function loadIndex(): Promise<IndexEntry[]> {
   if (cachedIndex) return cachedIndex;
   try {
-    const res = await fetch('/search.json');
-    if (!res.ok) return [];
-    const data = await res.json();
-    // Unwrap { records: SearchRecord[] } shape from search.json.ts
-    const raw: Array<{ title?: string; url?: string; href?: string; type?: string; body?: string; keywords?: string[] }> =
-      Array.isArray(data) ? data : (data.records ?? []);
+    const COLLECTIONS = ['modules', 'workflows', 'entities', 'concepts', 'faq'];
+    const buckets = await Promise.all(
+      COLLECTIONS.map((name) =>
+        fetch(`/search-${name}.json`).then((r) => (r.ok ? r.json() : { records: [] })),
+      ),
+    );
+    const raw: Array<{
+      title?: string;
+      url?: string;
+      href?: string;
+      type?: string;
+      body?: string;
+      keywords?: string[];
+    }> = buckets.flatMap((b) => b.records ?? []);
     cachedIndex = raw.map((r) => ({
       title: r.title ?? '',
       href: r.url ?? r.href ?? '/',

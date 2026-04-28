@@ -1,8 +1,8 @@
 (function () {
   var indexPromise = null;
   var records = [];
-
   var expansions = [];
+  var dyMDictionary = [];
 
   function normalize(value) {
     return String(value || '')
@@ -40,26 +40,56 @@
 
   function loadIndex() {
     if (!indexPromise) {
+      var COLLECTIONS = ['modules', 'workflows', 'entities', 'concepts', 'faq'];
       indexPromise = Promise.all([
-        fetch('/search.json').then(function (r) {
-          if (!r.ok) throw new Error('Search index failed to load');
+        fetch('/search-manifest.json').then(function (r) {
+          if (!r.ok) throw new Error('Manifest failed to load');
           return r.json();
         }),
-        fetch('/search-dictionary.json').then(function (r) {
-          if (!r.ok) throw new Error('Dictionary failed to load');
+      ].concat(COLLECTIONS.map(function (name) {
+        return fetch('/search-' + name + '.json').then(function (r) {
+          if (!r.ok) throw new Error('Collection ' + name + ' failed to load');
           return r.json();
-        }),
-      ]).then(function (results) {
-        var payload = results[0];
-        var dict = results[1];
-        records = payload.records || [];
-        expansions = (dict.groups || []).map(function (g) {
-          return { match: new RegExp(g.match, 'i'), terms: g.terms };
         });
+      }))).then(function (results) {
+        var manifest = results[0];
+        var buckets = results.slice(1);
+        records = buckets.reduce(function (acc, bucket) {
+          return acc.concat(bucket.records || []);
+        }, []);
+        expansions = (manifest.hints || []).map(function (term) {
+          return { match: new RegExp(escapeRegex(term), 'i'), terms: [term] };
+        });
+        var dymTerms = [];
+        records.forEach(function (r) {
+          if (r.title) dymTerms.push(r.title.toLowerCase());
+          if (r.section && r.section !== 'Overview') dymTerms.push(r.section.toLowerCase());
+          if (r.module) dymTerms.push(r.module.toLowerCase());
+        });
+        (manifest.hints || []).forEach(function (term) {
+          dymTerms.push(String(term).toLowerCase());
+        });
+        dyMDictionary = Array.from(new Set(dymTerms));
         return records;
       });
     }
     return indexPromise;
+  }
+
+  function escapeRegex(s) {
+    return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function highlight(source, tokens) {
+    if (!source) return '';
+    var escaped = escapeHtml(source);
+    var usable = (tokens || [])
+      .map(function (t) { return String(t || '').trim(); })
+      .filter(function (t) { return t.length >= 1; });
+    if (usable.length === 0) return escaped;
+    usable.sort(function (a, b) { return b.length - a.length; });
+    var pattern = new RegExp(usable.map(escapeRegex).join('|'), 'gi');
+    return escaped.replace(pattern, function (match) { return '<mark>' + match + '</mark>'; });
   }
 
   function score(record, query, tokens) {
@@ -101,9 +131,8 @@
 
   function search(query) {
     var tokens = tokenize(query);
-    if (!normalize(query)) return [];
-
-    return records
+    if (!normalize(query)) return { records: [], topScore: 0 };
+    var scored = records
       .map(function (record) {
         return { record: record, score: score(record, query, tokens) };
       })
@@ -113,10 +142,11 @@
       .sort(function (a, b) {
         return b.score - a.score;
       })
-      .slice(0, 8)
-      .map(function (result) {
-        return result.record;
-      });
+      .slice(0, 8);
+    return {
+      records: scored.map(function (r) { return r.record; }),
+      topScore: scored.length > 0 ? scored[0].score : 0,
+    };
   }
 
   function escapeHtml(value) {
@@ -139,38 +169,76 @@
     return labels[type] || type;
   }
 
-  function render(resultsEl, statusEl, results, query) {
+  function logSearch(query, hits, ms) {
+    var q = String(query || '').trim();
+    if (!q || q.length < 2) return;
+    try {
+      var body = JSON.stringify({
+        q: q,
+        results_count: (hits.records || []).length,
+        top_score: hits.topScore || 0,
+        ms: ms,
+      });
+      if (navigator.sendBeacon) {
+        var blob = new Blob([body], { type: 'application/json' });
+        navigator.sendBeacon('/api/log-search', blob);
+      } else {
+        fetch('/api/log-search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: body,
+          keepalive: true,
+        }).catch(function () {});
+      }
+    } catch (_) {
+      // ignore — telemetry is best-effort
+    }
+  }
+
+  function render(resultsEl, statusEl, hits, query) {
     if (!query.trim()) {
       resultsEl.innerHTML = '';
       statusEl.textContent = 'พิมพ์อาการจริงที่เจอในระบบ หรือเลือกตัวอย่างด้านบน';
       return;
     }
+    var results = hits.records;
+    var topScore = hits.topScore;
+    var dymWord = window.KMCHDidYouMean && dyMDictionary.length
+      ? window.KMCHDidYouMean.suggest(query, dyMDictionary)
+      : null;
 
     if (!results.length) {
-      resultsEl.innerHTML = '<div class="kmch-search-empty">ไม่พบผลลัพธ์ ลองใช้คำกว้างขึ้น เช่น ชื่อแผนก, ปุ่ม, สถานะ หรือ HN</div>';
+      var dymHtml = dymWord
+        ? '<button type="button" class="kmch-search-dym" data-search-dym="' + escapeHtml(dymWord) + '">หมายถึง <strong>' + escapeHtml(dymWord) + '</strong>?</button>'
+        : '';
+      resultsEl.innerHTML = '<div class="kmch-search-empty">ไม่พบผลลัพธ์ ลองใช้คำกว้างขึ้น เช่น ชื่อแผนก, ปุ่ม, สถานะ หรือ HN ' + dymHtml + '</div>';
       statusEl.textContent = 'ไม่พบผลลัพธ์';
       return;
     }
 
     statusEl.textContent = 'พบ ' + results.length + ' ผลลัพธ์ที่น่าจะเกี่ยวข้อง';
-    resultsEl.innerHTML = results
-      .map(function (record) {
-        var module = record.module ? '<span>' + escapeHtml(record.module) + '</span>' : '';
-        var section = record.section && record.section !== 'Overview' ? '<span>' + escapeHtml(record.section) + '</span>' : '';
+    var queryTokens = tokenize(query);
+    var listHtml = results.map(function (record) {
+      var module = record.module ? '<span>' + escapeHtml(record.module) + '</span>' : '';
+      var section = record.section && record.section !== 'Overview' ? '<span>' + escapeHtml(record.section) + '</span>' : '';
+      return [
+        '<a class="kmch-search-card" role="listitem" href="' + escapeHtml(record.url) + '">',
+        '<div class="kmch-search-card-top">',
+        '<span class="kmch-search-type">' + escapeHtml(typeLabel(record.type)) + '</span>',
+        module,
+        section,
+        '</div>',
+        '<div class="kmch-search-card-title">' + highlight(record.title, queryTokens) + '</div>',
+        '<p>' + highlight(record.summary, queryTokens) + '</p>',
+        '</a>',
+      ].join('');
+    }).join('');
 
-        return [
-          '<a class="kmch-search-card" role="listitem" href="' + escapeHtml(record.url) + '">',
-          '<div class="kmch-search-card-top">',
-          '<span class="kmch-search-type">' + escapeHtml(typeLabel(record.type)) + '</span>',
-          module,
-          section,
-          '</div>',
-          '<div class="kmch-search-card-title">' + escapeHtml(record.title) + '</div>',
-          '<p>' + escapeHtml(record.summary) + '</p>',
-          '</a>',
-        ].join('');
-      })
-      .join('');
+    var lowScoreDymHtml = (topScore < 50 && dymWord)
+      ? '<button type="button" class="kmch-search-dym" data-search-dym="' + escapeHtml(dymWord) + '">หมายถึง <strong>' + escapeHtml(dymWord) + '</strong>?</button>'
+      : '';
+
+    resultsEl.innerHTML = listHtml + lowScoreDymHtml;
   }
 
   function bind(root) {
@@ -191,14 +259,27 @@
 
       clearTimeout(timer);
       timer = setTimeout(function () {
+        var startedAt = Date.now();
         loadIndex()
           .then(function () {
-            render(results, status, search(query), query);
+            var hits = search(query);
+            render(results, status, hits, query);
+            attachDymHandler(input);
+            logSearch(query, hits, Date.now() - startedAt);
           })
           .catch(function () {
             status.textContent = 'โหลดระบบค้นหาไม่สำเร็จ';
           });
       }, 80);
+    }
+
+    function attachDymHandler(inputEl) {
+      var btn = root.querySelector('[data-search-dym]');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        inputEl.value = btn.getAttribute('data-search-dym') || '';
+        run();
+      });
     }
 
     input.addEventListener('input', run);

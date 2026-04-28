@@ -12,10 +12,11 @@
     "preview": "astro preview",
     "sync": "node scripts/sync-vault.mjs",
     "sync:prune": "node scripts/sync-vault.mjs --prune",
-    "test": "find src/lib/__tests__ scripts -type f \\( -name '*.test.ts' -o -name '*.test.mjs' \\) -not -path '*/node_modules/*' -print0 | xargs -0 tsx --test"
+    "test": "find src/lib/__tests__ src/pages/api/__tests__ scripts -type f \\( -name '*.test.ts' -o -name '*.test.mjs' \\) -not -path '*/node_modules/*' -print0 | xargs -0 tsx --test"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
+    "@astrojs/vercel": "^7.8.2",
     "@tailwindcss/vite": "^4.2.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

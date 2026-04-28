@@ -4,10 +4,12 @@ import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildVaultIndex } from './sync-vault/vault-index.mjs';
 import { transformMarkdown } from './sync-vault/transform.mjs';
+import { loadOcrMap, applyOcrCaptions } from './sync-vault/ocr-captions.mjs';
 
 const PORTAL_ROOT = dirname(fileURLToPath(import.meta.url)) + '/..';
 const VAULT_ROOT = join(PORTAL_ROOT, '..', 'KMCH HIS manual');
 const PORTAL_CONTENT = join(PORTAL_ROOT, 'src', 'content');
+const OCR_MAP_PATH = join(VAULT_ROOT, 'ocr-captions.json');
 
 const COLLECTIONS = [
   { vault: 'workflows', portal: 'workflows' },
@@ -49,9 +51,11 @@ async function listMarkdown(dir) {
   }
 }
 
-async function syncOne(vaultFile, portalFile, index) {
+async function syncOne(vaultFile, portalFile, index, ocrMap) {
   const raw = await readFile(vaultFile, 'utf-8');
   const { content, warnings } = transformMarkdown(raw, index, { collectWarnings: true });
+  const pageId = relative(VAULT_ROOT, vaultFile);
+  const enriched = applyOcrCaptions(content, pageId, ocrMap);
 
   for (const w of warnings) {
     warn(`unresolved [[${w.target}]] in ${relative(PORTAL_ROOT, vaultFile)}`);
@@ -69,10 +73,10 @@ async function syncOne(vaultFile, portalFile, index) {
     if (err.code !== 'ENOENT') throw err;
   }
 
-  if (existing === content) return { changed: false };
+  if (existing === enriched) return { changed: false };
 
   await mkdir(dirname(portalFile), { recursive: true });
-  await writeFile(portalFile, content, 'utf-8');
+  await writeFile(portalFile, enriched, 'utf-8');
   log(`wrote ${relative(PORTAL_ROOT, portalFile)}`);
   return { changed: true };
 }
@@ -80,6 +84,8 @@ async function syncOne(vaultFile, portalFile, index) {
 async function syncAll() {
   const index = await buildVaultIndex(VAULT_ROOT);
   log(`indexed ${index.size} vault pages`);
+  const ocrMap = await loadOcrMap(OCR_MAP_PATH);
+  if (ocrMap.size > 0) log(`OCR map: ${ocrMap.size} pages with captions`);
 
   let changed = 0;
   let total = 0;
@@ -91,7 +97,7 @@ async function syncAll() {
     const files = await listMarkdown(vaultDir);
     for (const file of files) {
       total++;
-      const r = await syncOne(join(vaultDir, file), join(portalDir, file), index);
+      const r = await syncOne(join(vaultDir, file), join(portalDir, file), index, ocrMap);
       if (r.changed) changed++;
       portalFilesWritten.add(join(portalDir, file));
     }
@@ -102,7 +108,7 @@ async function syncAll() {
     const portalFile = join(PORTAL_CONTENT, portalPath);
     try {
       total++;
-      const r = await syncOne(vaultFile, portalFile, index);
+      const r = await syncOne(vaultFile, portalFile, index, ocrMap);
       if (r.changed) changed++;
       portalFilesWritten.add(portalFile);
     } catch (err) {
