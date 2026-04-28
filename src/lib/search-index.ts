@@ -17,7 +17,14 @@ export interface SearchRecord {
   priority: number;
 }
 
-const SEARCH_COLLECTIONS = ['modules', 'workflows', 'concepts', 'entities', 'faq'] as const;
+export const SEARCH_COLLECTIONS = ['modules', 'workflows', 'concepts', 'entities', 'faq'] as const;
+export type SearchCollection = (typeof SEARCH_COLLECTIONS)[number];
+
+export interface SearchEntryInput {
+  id: string;
+  body?: string;
+  data: { title: string; tags?: string[] };
+}
 
 const TROUBLE_TERMS = [
   'ไม่ได้',
@@ -51,11 +58,22 @@ const QUERY_HINTS: Array<{ match: RegExp; terms: string[] }> = dictionary.groups
 
 export async function getSearchRecords(): Promise<SearchRecord[]> {
   const { getCollection } = await import('astro:content');
-  const records: SearchRecord[] = [];
+  const buckets: Array<{ collection: SearchCollection; entries: SearchEntryInput[] }> = [];
 
   for (const collection of SEARCH_COLLECTIONS) {
     const entries = await getCollection(collection);
+    buckets.push({ collection, entries: entries as unknown as SearchEntryInput[] });
+  }
 
+  return buildSearchRecords(buckets);
+}
+
+export function buildSearchRecords(
+  buckets: Array<{ collection: SearchCollection; entries: SearchEntryInput[] }>,
+): SearchRecord[] {
+  const records: SearchRecord[] = [];
+
+  for (const { collection, entries } of buckets) {
     for (const entry of entries) {
       const title = entry.data.title;
       const body = entry.body ?? '';
