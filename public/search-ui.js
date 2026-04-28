@@ -40,26 +40,34 @@
 
   function loadIndex() {
     if (!indexPromise) {
+      var COLLECTIONS = ['modules', 'workflows', 'entities', 'concepts', 'faq'];
       indexPromise = Promise.all([
-        fetch('/search.json').then(function (r) {
-          if (!r.ok) throw new Error('Search index failed to load');
+        fetch('/search-manifest.json').then(function (r) {
+          if (!r.ok) throw new Error('Manifest failed to load');
           return r.json();
         }),
-        fetch('/search-dictionary.json').then(function (r) {
-          if (!r.ok) throw new Error('Dictionary failed to load');
+      ].concat(COLLECTIONS.map(function (name) {
+        return fetch('/search-' + name + '.json').then(function (r) {
+          if (!r.ok) throw new Error('Collection ' + name + ' failed to load');
           return r.json();
-        }),
-      ]).then(function (results) {
-        var payload = results[0];
-        var dict = results[1];
-        records = payload.records || [];
-        expansions = (dict.groups || []).map(function (g) {
-          return { match: new RegExp(g.match, 'i'), terms: g.terms };
+        });
+      }))).then(function (results) {
+        var manifest = results[0];
+        var buckets = results.slice(1);
+        records = buckets.reduce(function (acc, bucket) {
+          return acc.concat(bucket.records || []);
+        }, []);
+        expansions = (manifest.hints || []).map(function (term) {
+          return { match: new RegExp(escapeRegex(term), 'i'), terms: [term] };
         });
         return records;
       });
     }
     return indexPromise;
+  }
+
+  function escapeRegex(s) {
+    return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
   function score(record, query, tokens) {
