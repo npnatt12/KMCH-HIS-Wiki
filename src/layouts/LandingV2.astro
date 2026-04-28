@@ -1,6 +1,6 @@
 ---
 import BaseV2 from './BaseV2.astro';
-interface Props { title: string; activeRole?: string; }
-const { title, activeRole } = Astro.props;
+interface Props { title: string; activeRole?: string; hideFooter?: boolean; }
+const { title, activeRole, hideFooter = true } = Astro.props;
 ---
-<BaseV2 title={title} activeRole={activeRole}><main><slot /></main></BaseV2>
+<BaseV2 title={title} activeRole={activeRole} hideFooter={hideFooter}><main><slot /></main></BaseV2>

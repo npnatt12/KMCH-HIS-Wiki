@@ -6,7 +6,7 @@
 @media print {
   nav, footer, .nav, .site-footer,
   [data-print="hide"],
-  [data-component="reveal"],
+  [data-reveal],
   [data-component="qr-corner"],
   [data-component="article-toolbar"],
   .search-box, .role-pill-nav { display: none !important; }
