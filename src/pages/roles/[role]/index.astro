@@ -1,32 +1,134 @@
 ---
+import { getCollection, type CollectionEntry } from 'astro:content';
 import { ROLES, ROLES_BY_SLUG } from '../../../lib/roles';
+import { ROLE_CONTENT } from '../../../lib/role-content-map';
 import LandingV2 from '../../../layouts/LandingV2.astro';
 import EyebrowPill from '../../../components/ui/EyebrowPill.astro';
+import Card from '../../../components/ui/Card.astro';
+import Reveal from '../../../components/ui/Reveal.astro';
 import FooterV2 from '../../../components/home/FooterV2.astro';
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
   return ROLES.map((r) => ({ params: { role: r.slug } }));
 }
+
 const role = ROLES_BY_SLUG[Astro.params.role!];
+const content = ROLE_CONTENT[role.slug] ?? { daily_flows: [], reference_screens: [], concepts: [] };
+
+const [workflows, entities, concepts] = await Promise.all([
+  getCollection('workflows'),
+  getCollection('entities'),
+  getCollection('concepts'),
+]);
+
+function lookup<C extends 'workflows' | 'entities' | 'concepts'>(
+  arr: CollectionEntry<C>[],
+  slugs: string[],
+  roleSlug: string,
+): CollectionEntry<C>[] {
+  const out: CollectionEntry<C>[] = [];
+  for (const s of slugs) {
+    const found = arr.find((p) => p.slug === s);
+    if (found) out.push(found);
+    else console.warn(`role-content-map: ${roleSlug} references unknown slug "${s}"`);
+  }
+  return out;
+}
+
+const flows = lookup(workflows, content.daily_flows, role.slug);
+const screens = lookup(entities, content.reference_screens, role.slug);
+const conceptList = lookup(concepts, content.concepts, role.slug);
 ---
 <LandingV2 title={role.nameEn} activeRole={role.slug}>
-  <section class="pt-12 pb-16 lg:pt-20 lg:pb-24" style={`background: linear-gradient(180deg, var(--color-bg) 0%, color-mix(in srgb, ${role.accent}10, var(--color-bg)) 100%);`}>
+  <section class="pt-12 pb-12 lg:pt-20 lg:pb-16 border-b border-[var(--color-border)]"
+           style={`background: linear-gradient(180deg, var(--color-bg) 0%, color-mix(in srgb, ${role.accent}10, var(--color-bg)) 100%);`}>
     <div class="mx-auto px-4" style="max-width: min(calc(100% - 32px), 1080px);">
       <EyebrowPill>บทบาท / ROLE</EyebrowPill>
       <h1 class="mt-4 text-[clamp(2rem,4.8vw,3rem)] font-semibold tracking-tight" style={`color:${role.accent}`}>{role.nameEn}</h1>
       <p class="text-lg text-[var(--color-ink-muted)]">{role.nameTh}</p>
       <p class="mt-6 text-base max-w-prose">{role.description}</p>
       {role.tier === 2 && (
-        <p class="mt-4 inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider" style="background: var(--color-accent-soft); color: var(--color-accent-primary);">
+        <p class="mt-4 inline-block px-3 py-1 rounded-full text-xs uppercase tracking-wider"
+           style="background: var(--color-accent-soft); color: var(--color-accent-primary);">
           Tier 2 — UAT verification pending
         </p>
       )}
+      <div class="mt-8 flex flex-wrap gap-3 text-sm">
+        <span class="px-4 py-2 rounded-full bg-[var(--color-surface-tint)] border border-[var(--color-border)]">{flows.length} workflows</span>
+        <span class="px-4 py-2 rounded-full bg-[var(--color-surface-tint)] border border-[var(--color-border)]">{screens.length} screens</span>
+        <span class="px-4 py-2 rounded-full bg-[var(--color-surface-tint)] border border-[var(--color-border)]">{conceptList.length} concepts</span>
+      </div>
     </div>
   </section>
-  <section class="py-12">
+
+  {flows.length > 0 && (
+    <section class="py-16 lg:py-20">
+      <div class="mx-auto px-4" style="max-width: min(calc(100% - 32px), 1080px);">
+        <Reveal>
+          <EyebrowPill>งานหลักประจำวัน / DAILY FLOWS</EyebrowPill>
+          <h2 class="mt-4 text-[clamp(1.6rem,3.4vw,2.5rem)] font-semibold tracking-tight">Workflow ที่ใช้ทุกวัน</h2>
+        </Reveal>
+        <div class="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {flows.map((p, idx) => (
+            <Reveal delay={idx * 80}>
+              <Card href={`/workflows/${p.slug}/`}>
+                <h3 class="text-lg font-semibold">{p.data.title}</h3>
+                {p.data.titleTh && <p class="text-sm text-[var(--color-ink-muted)]">{p.data.titleTh}</p>}
+              </Card>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {screens.length > 0 && (
+    <section class="py-16 lg:py-20 bg-[var(--color-bg-strong)]">
+      <div class="mx-auto px-4" style="max-width: min(calc(100% - 32px), 1080px);">
+        <Reveal>
+          <EyebrowPill>หน้าจอที่ใช้บ่อย / REFERENCE SCREENS</EyebrowPill>
+          <h2 class="mt-4 text-[clamp(1.6rem,3.4vw,2.5rem)] font-semibold tracking-tight">Screens you'll see daily</h2>
+        </Reveal>
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {screens.map((p, idx) => (
+            <Reveal delay={idx * 60}>
+              <Card href={`/entities/${p.slug}/`}>
+                <h3 class="text-base font-semibold">{p.data.title}</h3>
+                {p.data.titleTh && <p class="text-sm text-[var(--color-ink-muted)]">{p.data.titleTh}</p>}
+              </Card>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {conceptList.length > 0 && (
+    <section class="py-16 lg:py-20">
+      <div class="mx-auto px-4" style="max-width: min(calc(100% - 32px), 1080px);">
+        <Reveal>
+          <EyebrowPill>แนวคิดที่ควรรู้ / CONCEPTS TO KNOW</EyebrowPill>
+          <h2 class="mt-4 text-[clamp(1.6rem,3.4vw,2.5rem)] font-semibold tracking-tight">Reference concepts</h2>
+        </Reveal>
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {conceptList.map((p, idx) => (
+            <Reveal delay={idx * 50}>
+              <a href={`/concepts/${p.slug}/`} class="block p-4 rounded-2xl border border-[var(--color-border)] hover:bg-[var(--color-surface-tint)]">
+                <span class="text-sm font-medium">{p.data.title}</span>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="py-12 bg-[var(--color-bg-strong)]">
     <div class="mx-auto px-4" style="max-width: min(calc(100% - 32px), 1080px);">
-      <p class="text-[var(--color-ink-muted)]">Daily flows, reference screens, and permissions populated in next iteration. See the <a href="/" class="underline">homepage</a> or browse <a href="/master-flow/" class="underline">Master Flow</a>.</p>
+      <EyebrowPill>สิทธิ์การใช้งาน / PERMISSIONS</EyebrowPill>
+      <p class="mt-4 text-[var(--color-ink-muted)]">Full permission matrix populates after UAT recon (Phase 1 of v2.0 plan).</p>
     </div>
   </section>
+
   <FooterV2 />
 </LandingV2>
