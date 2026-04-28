@@ -1,0 +1,33 @@
+---
+title: Patient
+type: role
+role-id: Patient
+icon: user-circle
+accent: '#A0726E'
+verified-on-uat: pending
+status: tier-2-pending
+sources: ["phase-4-uat-documents/3. Telemed/4. Telemed - เอกสารการอบรมการใช้งาน และการดูแลระบบ.pdf", "phase-4-uat-documents/3. Telemed/เอกสารแนบงวดที่ 4 - Telemed /เอกสารแนบ 5 เอกสารขั้นตอนการใช้งานระบบแพทย์ทางไกล (Telemedicine).pdf"]
+created: 2026-04-28
+updated: 2026-04-28
+tags: [role, patient, telemedicine, mobile-app]
+---
+
+# Patient
+
+## Scope
+
+ผู้ป่วยที่ใช้ [Telemedicine Mobile App](/entities/telemedicine-mobile-app/) สำหรับยืนยันตัวตน ดูนัดหมาย รับสายแพทย์ แชท ให้คะแนน และรับข้อมูลจัดส่งยา/เอกสารผ่านช่องทางที่โรงพยาบาลกำหนด.
+
+## Daily Pages
+
+- [Telemedicine Mobile App](/entities/telemedicine-mobile-app/)
+- [Telemedicine Visit Workflow](/workflows/telemedicine-visit-workflow/)
+
+## Responsibilities / Actions
+
+- Verify account using HN, date of birth, and national ID.
+- Keep app logged in so doctor can call at appointment time.
+- Accept or decline doctor call.
+- Provide payment proof and delivery address through LINE OA when required.
+- Rate doctor after consultation.
+
