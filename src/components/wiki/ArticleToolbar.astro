@@ -1,0 +1,26 @@
+---
+import QRCorner from './QRCorner.astro';
+import PrintButton from './PrintButton.astro';
+
+interface Props {
+  url: string;
+}
+const { url } = Astro.props;
+---
+<div data-component="article-toolbar" class="article-toolbar">
+  <PrintButton />
+  <QRCorner url={url} />
+</div>
+<style>
+  .article-toolbar {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    min-height: 80px;
+  }
+  @media (max-width: 640px) {
+    .article-toolbar { min-height: auto; justify-content: flex-start; }
+  }
+</style>

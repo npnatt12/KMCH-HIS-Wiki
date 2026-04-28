@@ -1,0 +1,22 @@
+---
+---
+<button type="button" data-print-trigger class="print-button">
+  พิมพ์ / Print
+</button>
+<script>
+  document.querySelectorAll('[data-print-trigger]').forEach((el) => {
+    el.addEventListener('click', () => window.print());
+  });
+</script>
+<style>
+  .print-button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border: 1px solid var(--color-border, #e5e5e5);
+    border-radius: 999px;
+    background: var(--color-surface-tint, #f7f5f2);
+    color: var(--color-ink, #1a1a1a);
+    cursor: pointer;
+  }
+  .print-button:hover { background: var(--color-bg-strong, #efece6); }
+</style>

@@ -2,8 +2,8 @@
 import '../styles/global.css';
 import TopBar from '../components/nav/TopBar.astro';
 import Lightbox from '../components/Lightbox.astro';
-interface Props { title: string; activeRole?: string; }
-const { title, activeRole } = Astro.props;
+interface Props { title: string; activeRole?: string; hideFooter?: boolean; }
+const { title, activeRole, hideFooter = false } = Astro.props;
 ---
 <html lang="th">
 <head>
@@ -13,10 +13,23 @@ const { title, activeRole } = Astro.props;
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preload" href="/fonts/Anuphan-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/Anuphan-600.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/print.css" media="print" />
 </head>
 <body class="min-h-screen">
   <TopBar activeRole={activeRole} />
   <slot />
+  {!hideFooter && (
+    <footer class="border-t border-[var(--color-border)] bg-[var(--color-bg-strong)] mt-12">
+      <div class="mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[var(--color-ink-muted)]" style="max-width: min(calc(100% - 32px), 1080px);">
+        <span>© {new Date().getFullYear()} KMCH HIS Wiki</span>
+        <nav class="flex gap-6">
+          <a href="/master-flow/" class="hover:underline">Master Flow</a>
+          <a href="/faq/" class="hover:underline">FAQ</a>
+          <a href="/pdpa/" class="hover:underline">นโยบายข้อมูลส่วนบุคคล / PDPA</a>
+        </nav>
+      </div>
+    </footer>
+  )}
   <Lightbox />
   <script>
     import '../lib/reveal';

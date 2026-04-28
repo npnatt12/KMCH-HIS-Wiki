@@ -1,0 +1,50 @@
+@page {
+  size: A4 portrait;
+  margin: 18mm 16mm 22mm 16mm;
+}
+
+@media print {
+  nav, footer, .nav, .site-footer,
+  [data-print="hide"],
+  [data-reveal],
+  [data-component="qr-corner"],
+  [data-component="article-toolbar"],
+  .search-box, .role-pill-nav { display: none !important; }
+
+  * { animation: none !important; transition: none !important; }
+
+  body {
+    background: white;
+    color: #000;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+
+  .kmch-prose { max-width: none; }
+
+  ol li, ul li, table, pre, blockquote, figure {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+
+  a[href^="http"]::after,
+  a[href^="/"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #555;
+  }
+
+  body::after {
+    content: var(--print-footer, "");
+    display: block;
+    margin-top: 8mm;
+    padding-top: 4mm;
+    border-top: 1px solid #999;
+    font-size: 9pt;
+    color: #333;
+    white-space: pre-wrap;
+  }
+}

@@ -7,6 +7,7 @@ const wikiSchema = z.object({
   sources: z.array(z.string()).optional(),
   roles: z.array(z.string()).optional(),
   'verified-on-uat': z.coerce.string().optional(),
+  'mock-data': z.boolean().optional(),
   created: z.coerce.string().optional(),
   updated: z.coerce.string().optional(),
   tags: z.array(z.string()).optional(),

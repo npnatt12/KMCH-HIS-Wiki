@@ -1,0 +1,55 @@
+---
+import BaseV2 from '../layouts/BaseV2.astro';
+---
+<BaseV2 title="นโยบายข้อมูลส่วนบุคคล / PDPA">
+  <main class="mx-auto px-4 lg:px-6 py-8 lg:py-12 max-w-[820px] kmch-prose">
+    <h1>นโยบายข้อมูลส่วนบุคคล / PDPA</h1>
+    <p><em>Last updated: 28 April 2026</em></p>
+
+    <h2>1. ขอบเขต / Scope</h2>
+    <p>
+      KMCH HIS Wiki (kmch-wiki.vercel.app) เป็นเอกสารคู่มือการใช้งานระบบ HIS ของโรงพยาบาลกระทุ่มแม่เจดีย์
+      ไม่เก็บข้อมูลผู้ใช้ ไม่มี analytics ที่ติดตามตัวบุคคล
+    </p>
+    <p>
+      <em>This wiki is a static documentation site for KMCH HIS users. It does not collect personal data
+      about visitors and uses no person-tracking analytics.</em>
+    </p>
+
+    <h2>2. ภาพหน้าจอ / Screenshots</h2>
+    <p>
+      ภาพหน้าจอทุกภาพในเว็บไซต์นี้มาจากระบบ UAT (User Acceptance Testing) ของ KMCH
+      ซึ่งใช้ข้อมูลตัวอย่างไม่ใช่ข้อมูลผู้ป่วยจริง ภาพถูกตรวจสอบและซ่อนข้อมูลที่อาจระบุตัวบุคคล
+      (เช่น เลขประจำตัวประชาชน, HN, ชื่อ-สกุล, เบอร์โทรศัพท์) ก่อนนำเผยแพร่
+    </p>
+    <p>
+      <em>All screen captures originate from KMCH's UAT environment with mock data — no real patient
+      information. Captures are reviewed and identifiers (Thai national ID, HN, names, phone numbers)
+      are masked before publication.</em>
+    </p>
+
+    <h2>3. การรายงานปัญหา / Reporting an issue</h2>
+    <p>
+      หากพบภาพหน้าจอที่อาจมีข้อมูลผู้ป่วยจริงหลุดเข้ามา หรือพบเนื้อหาที่ต้องแก้ไข
+      โปรดติดต่อ <strong>ทีม IT KMCH ผ่านอีเมล (ช่องทางจะระบุภายหลัง)</strong>
+      ทีมจะลบหรือซ่อนภาพภายใน 24 ชั่วโมงนับจากที่ได้รับแจ้ง
+    </p>
+    <p>
+      <em>If you find a screen capture containing real patient data, or content that needs correction,
+      contact <strong>KMCH IT team via email (channel TBD)</strong>. Captures will be removed
+      or masked within 24 hours of report.</em>
+    </p>
+
+    <h2>4. หลัก PDPA / PDPA basis</h2>
+    <p>
+      เนื้อหาในเว็บไซต์นี้เป็นเอกสารทางเทคนิคสำหรับเจ้าหน้าที่โรงพยาบาล ไม่ใช่การประมวลผลข้อมูลส่วนบุคคล
+      ตามนิยามของ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 มาตรา 24 และ 26 หากภาพหน้าจอมีข้อมูลส่วนบุคคล
+      ปรากฏโดยไม่ตั้งใจ ถือว่าเป็นข้อผิดพลาดและจะถูกแก้ไขทันที
+    </p>
+    <p>
+      <em>Content here is technical documentation for hospital staff and does not constitute personal-data
+      processing under PDPA 2562 (2019) Sections 24 and 26. If a screenshot inadvertently shows personal
+      data, it is treated as an error and corrected immediately.</em>
+    </p>
+  </main>
+</BaseV2>
