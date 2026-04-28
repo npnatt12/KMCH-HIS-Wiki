@@ -23,7 +23,7 @@ const { Content } = await entry.render();
 
 const related = await getRelated('entities', slug!, entry.data.roles);
 ---
-<ArticleV2 title={entry.data.title}>
+<ArticleV2 title={entry.data.title} route="entity">
   <Breadcrumb items={[
     { label: 'Screens', href: '/' },
     { label: entry.data.title },

@@ -1,14 +1,28 @@
 ---
 import BaseV2 from './BaseV2.astro';
+import ArticleToolbar from '../components/wiki/ArticleToolbar.astro';
+import { formatBE, formatGregorian } from '../lib/format-date';
+
+type Route = 'workflow' | 'entity' | 'concept' | 'module' | 'hub';
 
 interface Props {
   title: string;
   activeRole?: string;
+  route?: Route;
 }
-const { title, activeRole } = Astro.props;
+const { title, activeRole, route = 'hub' } = Astro.props;
+
+const showToolbar = route === 'workflow' || route === 'entity' || route === 'concept';
+const canonicalUrl = `https://kmch-wiki.vercel.app${Astro.url.pathname}`;
+const today = new Date();
+const printFooter = `${canonicalUrl} · พิมพ์เมื่อ ${formatBE(today)} / ${formatGregorian(today)}`;
 ---
 <BaseV2 title={title} activeRole={activeRole}>
-  <main class="mx-auto px-4 lg:px-6 py-8 lg:py-12 max-w-[820px]">
+  <main
+    class="mx-auto px-4 lg:px-6 py-8 lg:py-12 max-w-[820px]"
+    style={`--print-footer: "${printFooter.replace(/"/g, '\\"')}";`}
+  >
+    {showToolbar && <ArticleToolbar url={canonicalUrl} />}
     <slot />
   </main>
 </BaseV2>
