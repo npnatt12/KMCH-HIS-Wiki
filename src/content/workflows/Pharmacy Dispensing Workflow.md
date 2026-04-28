@@ -17,7 +17,7 @@ verified-on-uat: pending
 
 ## 1. OP Dispensing (Allocate & Dispense Daily Order)
 
-กระบวนการหลักสำหรับผู้ป่วยนอก — ใบสั่งยามาจากแพทย์ผ่าน [[modules/Order Entry]]
+กระบวนการหลักสำหรับผู้ป่วยนอก — ใบสั่งยามาจากแพทย์ผ่าน modules/Order Entry
 
 ```
 Doctor สั่งยาใน MEDHIS
@@ -147,7 +147,7 @@ Status ใน Future Order: Executed
 2. เภสัชกรอ่านรายละเอียด + ระบุเหตุผลในการพิจารณาจ่ายยา
 3. กด Save → ดำเนินการต่อได้
 
-ดู [[entities/Drug Alert Popup]] สำหรับ 11 ประเภท alert
+ดู entities/Drug Alert Popup สำหรับ 11 ประเภท alert
 
 ---
 
@@ -158,14 +158,14 @@ Status ใน Future Order: Executed
 - Billing In Progress
 - Financial Discharge
 
-ดู [[entities/Pharmacy Dispensing Screen#Cancel Restrictions]]
+ดู entities/Pharmacy Dispensing Screen#Cancel Restrictions
 
 ---
 
 ## Related
 
-- [[entities/Pharmacy Dispensing Screen]] — หน้าจอรายละเอียด
-- [[workflows/Pharmacy Med Reject Return Workflow]] — Med Reject + Med Return
-- [[modules/Pharmacy]] — ภาพรวม module
-- [[modules/Order Entry]] — ต้นทาง order
-- [[modules/IPD]] — ผู้ป่วยในที่ใช้ IP Fill
+- entities/Pharmacy Dispensing Screen — หน้าจอรายละเอียด
+- workflows/Pharmacy Med Reject Return Workflow — Med Reject + Med Return
+- modules/Pharmacy — ภาพรวม module
+- modules/Order Entry — ต้นทาง order
+- modules/IPD — ผู้ป่วยในที่ใช้ IP Fill

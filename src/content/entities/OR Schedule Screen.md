@@ -80,6 +80,6 @@ verified-on-uat: pending
 
 ## Related
 
-- [[workflows/OR Surgery Request to Record Workflow]] — กระบวนการตั้งแต่ Request ถึง Record
-- [[entities/OR Record Screen]] — บันทึกรายละเอียดผ่าตัด
-- [[modules/OR]] — ภาพรวม module ห้องผ่าตัด
+- workflows/OR Surgery Request to Record Workflow — กระบวนการตั้งแต่ Request ถึง Record
+- entities/OR Record Screen — บันทึกรายละเอียดผ่าตัด
+- modules/OR — ภาพรวม module ห้องผ่าตัด

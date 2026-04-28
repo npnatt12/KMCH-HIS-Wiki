@@ -11,15 +11,15 @@ verified-on-uat: pending
 
 # ANC Chart Screen
 
-หน้าจอหลักของระบบ [[ANC]] สำหรับบันทึกข้อมูลฝากครรภ์
+หน้าจอหลักของระบบ [ANC](/modules/anc/) สำหรับบันทึกข้อมูลฝากครรภ์
 
 ## Access
 
-[[EMR Doctor|EMR]] menu → ANC → tab **ANC CHART**
+[EMR](/modules/emr-doctor/) menu → ANC → tab **ANC CHART**
 
 ## Sections
 
-1. **Current Pregnancy Detail** — Trimester, [[EDC Calculation|EDC]], GA
+1. **Current Pregnancy Detail** — Trimester, [EDC](/concepts/edc-calculation/), GA
 2. **Delivery History** — ประวัติการคลอดก่อนหน้า (รองรับหลายครั้ง)
 3. **Obstetric Summary** — สรุปสูติกรรม (Gravida, Para, Abortions ฯลฯ)
 4. **General Appearance** — น้ำหนัก/ส่วนสูงก่อนตั้งครรภ์ + BMI อัตโนมัติ
@@ -84,7 +84,7 @@ Gravida, Para, Full term, Premature, Still Birth, No of Live Births, Abortion at
 
 ## Related
 
-- [[ANC]] — module page
-- [[ANC Visit Workflow]] — step-by-step workflow
-- [[EDC Calculation]] — auto-calculation logic
-- [[Labour and Newborn]] — ใช้ข้อมูล Obstetric Summary + EDC
+- [ANC](/modules/anc/) — module page
+- [ANC Visit Workflow](/workflows/anc-visit-workflow/) — step-by-step workflow
+- [EDC Calculation](/concepts/edc-calculation/) — auto-calculation logic
+- [Labour and Newborn](/modules/labour-and-newborn/) — ใช้ข้อมูล Obstetric Summary + EDC

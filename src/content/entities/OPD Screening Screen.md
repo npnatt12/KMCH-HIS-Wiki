@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # OPD Screening Screen (หน้าจอคัดกรองผู้ป่วยนอก)
 
-หน้าจอที่ใช้สำหรับบันทึก Vital Signs และเปลี่ยนสถานะผู้ป่วยในกระบวนการคัดกรองของ [[OPD]]
+หน้าจอที่ใช้สำหรับบันทึก Vital Signs และเปลี่ยนสถานะผู้ป่วยในกระบวนการคัดกรองของ [OPD](/modules/opd/)
 
 ## Access Path
 
@@ -41,7 +41,7 @@ OPD → OPD Worklist → Click ผู้ป่วย (Status: Registered) → Vi
 
 **หลังบันทึก:** ข้อมูล Vital Signs แสดงใน:
 - EMR → ส่วน **Observation**
-- **[[Patient Banner]]** (ตามที่ตั้งค่าให้แสดง)
+- **[Patient Banner](/entities/patient-banner/)** (ตามที่ตั้งค่าให้แสดง)
 
 ## Panels (CHARTING)
 
@@ -70,11 +70,11 @@ OPD → OPD Worklist → Click ผู้ป่วย (Status: Registered) → Vi
 
 ## Related Workflows
 
-- [[OPD Patient Flow]] — ขั้นตอน Registered → Arrived → Screening Completed
+- [OPD Patient Flow](/workflows/opd-patient-flow/) — ขั้นตอน Registered → Arrived → Screening Completed
 
 ## Related
 
-- [[OPD]] — module page
-- [[OPD Worklist Screen]] — หน้าจอหลัก OPD
-- [[Patient Banner]] — แสดง Vital Signs หลังบันทึก
-- [[OPD Patient Status]] — 8 สถานะผู้ป่วยนอก
+- [OPD](/modules/opd/) — module page
+- [OPD Worklist Screen](/entities/opd-worklist-screen/) — หน้าจอหลัก OPD
+- [Patient Banner](/entities/patient-banner/) — แสดง Vital Signs หลังบันทึก
+- [OPD Patient Status](/concepts/opd-patient-status/) — 8 สถานะผู้ป่วยนอก

@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # Patient Search Screen
 
-หน้าจอค้นหาผู้ป่วย — เป็นหน้าจอแรกเมื่อเข้า [[Registration]] → OP Registration
+หน้าจอค้นหาผู้ป่วย — เป็นหน้าจอแรกเมื่อเข้า [Registration](/modules/registration/) → OP Registration
 
 ## Purpose
 
@@ -19,7 +19,7 @@ verified-on-uat: pending
 
 ## Access Path
 
-- [[Registration]] → OP Registration (ใช้ทุกรูปแบบยกเว้น Emergency / Mass Casualty / Bulk / Pre-Registration)
+- [Registration](/modules/registration/) → OP Registration (ใช้ทุกรูปแบบยกเว้น Emergency / Mass Casualty / Bulk / Pre-Registration)
 
 ## Fields (Search)
 
@@ -49,8 +49,8 @@ verified-on-uat: pending
 |--------|------------|--------|--------|
 | Search | กรอกข้อมูลค้นหาแล้ว | ค้นหาผู้ป่วยในระบบ | แสดงรายการ หรือ Error Box ถ้าไม่พบ |
 | OK (Error Box) | ไม่พบผู้ป่วย | ปิด Error Box | กลับสู่หน้า Search |
-| New | ไม่พบผู้ป่วย | สร้างผู้ป่วยใหม่ | เปิด [[Patient Demographics Screen]] ว่าง |
-| Select | พบผู้ป่วย + เลือกแล้ว | เลือกผู้ป่วย | เปิด [[Patient Demographics Screen]] พร้อมข้อมูล |
+| New | ไม่พบผู้ป่วย | สร้างผู้ป่วยใหม่ | เปิด [Patient Demographics Screen](/entities/patient-demographics-screen/) ว่าง |
+| Select | พบผู้ป่วย + เลือกแล้ว | เลือกผู้ป่วย | เปิด [Patient Demographics Screen](/entities/patient-demographics-screen/) พร้อมข้อมูล |
 
 ## Behavior
 
@@ -70,11 +70,11 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[New Patient Registration]] — กรณีไม่พบผู้ป่วย
-- [[Appointment Registration]] — กรณีผู้ป่วยมีนัด
-- [[Registration Update Merge Workflow]] — กรณีต้องการอัปเดท/แก้ไขข้อมูล
+- [New Patient Registration](/workflows/new-patient-registration/) — กรณีไม่พบผู้ป่วย
+- [Appointment Registration](/workflows/appointment-registration/) — กรณีผู้ป่วยมีนัด
+- [Registration Update Merge Workflow](/workflows/registration-update-merge-workflow/) — กรณีต้องการอัปเดท/แก้ไขข้อมูล
 
 ## Related Entities
 
-- [[Patient Demographics Screen]] — หน้าจอถัดไปหลังค้นหา
-- [[Patient Banner]] — แสดงข้อมูลสรุปผู้ป่วย
+- [Patient Demographics Screen](/entities/patient-demographics-screen/) — หน้าจอถัดไปหลังค้นหา
+- [Patient Banner](/entities/patient-banner/) — แสดงข้อมูลสรุปผู้ป่วย

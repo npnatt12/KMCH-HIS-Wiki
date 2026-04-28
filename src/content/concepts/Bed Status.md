@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # Bed Status (สถานะเตียง)
 
-สถานะเตียงผู้ป่วยในระบบ [[IPD]] / [[Admission]]
+สถานะเตียงผู้ป่วยในระบบ [IPD](/modules/ipd/) / [Admission](/modules/admission/)
 
 ## สถานะ
 
@@ -19,17 +19,17 @@ verified-on-uat: pending
 |--------|---------|-------------|
 | **Vacant Bed** | สีเขียว | เตียงว่าง พร้อมรับผู้ป่วยใหม่ |
 | **Occupied Bed** | — | มีผู้ป่วยอยู่ |
-| **Discharge Stage** | — | ผู้ป่วยอยู่ในขั้นตอนจำหน่าย ([[IPD Discharge Process]]) |
+| **Discharge Stage** | — | ผู้ป่วยอยู่ในขั้นตอนจำหน่าย ([IPD Discharge Process](/workflows/ipd-discharge-process/)) |
 | **Under Maintenance** | — | เตียงไม่พร้อมใช้งาน |
 
 ## การเปลี่ยนสถานะ
 
-- **Vacant → Occupied**: เมื่อ [[Admission]] สำเร็จ + พยาบาลกด Arrive
-- **Occupied → Discharge Stage**: เมื่อเริ่ม [[IPD Discharge Process]]
+- **Vacant → Occupied**: เมื่อ [Admission](/modules/admission/) สำเร็จ + พยาบาลกด Arrive
+- **Occupied → Discharge Stage**: เมื่อเริ่ม [IPD Discharge Process](/workflows/ipd-discharge-process/)
 - **Discharge Stage → Vacant**: เมื่อ Final Discharge เสร็จ
 - **Occupied → Vacant**: เมื่อ Cancel Admission (ก่อน Arrive)
 
 ## ที่ใช้งาน
 
-- [[Ward Board]] — แสดงสถานะเตียงทั้ง Ward
-- [[Admission]] — Bed Selection ตอน Admit
+- [Ward Board](/entities/ward-board/) — แสดงสถานะเตียงทั้ง Ward
+- [Admission](/modules/admission/) — Bed Selection ตอน Admit

@@ -13,7 +13,7 @@ verified-on-uat: pending
 
 ## Overview
 
-แพทย์เลือกผู้ป่วยจาก [[entities/Doctor Worklist Screen|Doctor Worklist]] → เข้า EMR → บันทึกประวัติ → สั่งการรักษา → จบ Consultation หรือส่ง Consult/Admit
+แพทย์เลือกผู้ป่วยจาก Doctor Worklist → เข้า EMR → บันทึกประวัติ → สั่งการรักษา → จบ Consultation หรือส่ง Consult/Admit
 
 ---
 
@@ -34,7 +34,7 @@ verified-on-uat: pending
 1. คลิกชื่อผู้ป่วยใน OutPatients box
 2. ระบบแสดง Popup เวลาเริ่มพบแพทย์ → กด **START**
 3. สถานะผู้ป่วยเปลี่ยนเป็น **Consultation Started**
-4. ระบบเข้าสู่หน้าจอ [[entities/EMR Form Screen|OPD EMR]]
+4. ระบบเข้าสู่หน้าจอ OPD EMR
 
 ### 3. ตรวจสอบประวัติผู้ป่วย
 
@@ -70,9 +70,9 @@ verified-on-uat: pending
 
 ### 6. สั่งการรักษา (Order)
 
-จาก EMR → เปิด [[entities/Order Entry Screen|Order Entry Screen]] (คลิก Order icon หรือ Order menu)
+จาก EMR → เปิด Order Entry Screen (คลิก Order icon หรือ Order menu)
 
-ดูรายละเอียดการสั่ง → [[modules/Order Entry|Order Entry Module]]
+ดูรายละเอียดการสั่ง → Order Entry Module
 
 ### 7. ออกใบรับรองแพทย์ (ถ้าต้องการ)
 
@@ -138,11 +138,11 @@ Registered
 
 ## Modules Involved
 
-- [[modules/EMR Doctor|EMR Doctor]] — บันทึก EMR
-- [[modules/OPD|OPD]] — Worklist, Screening
-- [[modules/Order Entry|Order Entry]] — CPOE
-- [[modules/Pharmacy|Pharmacy]] — รับใบสั่งยา
-- [[modules/LAB|LAB]] — รับคำสั่ง Lab
-- [[modules/XRAY|XRAY]] — รับคำสั่ง Radiology
-- [[modules/Admission|Admission]] — ขอ Admit
-- [[modules/Billing|Billing]] — Financial Discharge
+- EMR Doctor — บันทึก EMR
+- OPD — Worklist, Screening
+- Order Entry — CPOE
+- Pharmacy — รับใบสั่งยา
+- LAB — รับคำสั่ง Lab
+- XRAY — รับคำสั่ง Radiology
+- Admission — ขอ Admit
+- Billing — Financial Discharge

@@ -40,7 +40,7 @@ verified-on-uat: pending
 
 **ผู้ดำเนินการ:** แผนกที่ขอเบิก (switch location ไปที่แผนกของตน)
 
-### [[CSSD Request Screen]] — Fields
+### [CSSD Request Screen](/entities/cssd-request-screen/) — Fields
 
 | Field | Required | Description |
 |-------|----------|-------------|
@@ -127,11 +127,11 @@ Switch Location → เลือกแผนก CSSD
 
 ## Workflow
 
-- [[CSSD Request to Sterilize Workflow]] — Request → Issue → Return → Clean/Pack/Sterilize
+- [CSSD Request to Sterilize Workflow](/workflows/cssd-request-to-sterilize-workflow/) — Request → Issue → Return → Clean/Pack/Sterilize
 
 ## Entities
 
-- [[CSSD Request Screen]] — หน้าจอขอเบิกเวชภัณฑ์ปลอดเชื้อ
+- [CSSD Request Screen](/entities/cssd-request-screen/) — หน้าจอขอเบิกเวชภัณฑ์ปลอดเชื้อ
 
 ## Permissions
 
@@ -146,6 +146,6 @@ Switch Location → เลือกแผนก CSSD
 
 | Module | Integration |
 |--------|-------------|
-| [[OR]] | เครื่องมือผ่าตัด — Request OR field, surgical instrument sets |
+| [OR](/modules/or/) | เครื่องมือผ่าตัด — Request OR field, surgical instrument sets |
 | All Wards | เวชภัณฑ์ปลอดเชื้อทั่วไป (sterile supplies) |
-| [[Inventory]] | Tray master items อาจเชื่อมกับสต็อก |
+| [Inventory](/modules/inventory/) | Tray master items อาจเชื่อมกับสต็อก |

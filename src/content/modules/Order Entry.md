@@ -17,8 +17,8 @@ verified-on-uat: pending
 ## Access
 
 เข้าจาก:
-- **[[EMR Doctor]] → Order icon** จากหน้าจอ Worklist
-- **[[EMR Doctor]] → View OPD EMR** → เมนู Order
+- **[EMR Doctor](/modules/emr-doctor/) → Order icon** จากหน้าจอ Worklist
+- **[EMR Doctor](/modules/emr-doctor/) → View OPD EMR** → เมนู Order
 
 ---
 
@@ -404,10 +404,10 @@ Filter: ค้นหาคำสั่งตาม Order Item ได้
 
 | Module | Integration |
 |--------|-------------|
-| [[EMR Doctor]] | Entry point — เข้าสั่งการรักษาจากหน้า EMR |
-| [[Pharmacy]] | รับใบสั่งยา → Dispensing workflow; Drug Alerts |
-| [[LAB]] | รับคำสั่ง Lab → Lab workflow |
-| [[XRAY]] | รับคำสั่ง Radiology → Radiology workflow |
-| [[Billing]] | คำสั่งการรักษา → charges ส่งเข้า Billing |
-| [[OPD]] / [[IPD]] | Nursing Worklist — พยาบาลดำเนินการตามคำสั่ง |
-| [[Admission]] | Pre-Admit Daily/Continuous Orders |
+| [EMR Doctor](/modules/emr-doctor/) | Entry point — เข้าสั่งการรักษาจากหน้า EMR |
+| [Pharmacy](/modules/pharmacy/) | รับใบสั่งยา → Dispensing workflow; Drug Alerts |
+| [LAB](/modules/lab/) | รับคำสั่ง Lab → Lab workflow |
+| [XRAY](/modules/xray/) | รับคำสั่ง Radiology → Radiology workflow |
+| [Billing](/modules/billing/) | คำสั่งการรักษา → charges ส่งเข้า Billing |
+| [OPD](/modules/opd/) / [IPD](/modules/ipd/) | Nursing Worklist — พยาบาลดำเนินการตามคำสั่ง |
+| [Admission](/modules/admission/) | Pre-Admit Daily/Continuous Orders |

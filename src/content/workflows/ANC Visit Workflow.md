@@ -11,19 +11,19 @@ verified-on-uat: pending
 
 # ขั้นตอนการฝากครรภ์ (ANC Visit Workflow)
 
-ขั้นตอนการบันทึกข้อมูลฝากครรภ์ในระบบ [[ANC]] ตั้งแต่เปิดหน้าจอจนบันทึกเสร็จ
+ขั้นตอนการบันทึกข้อมูลฝากครรภ์ในระบบ [ANC](/modules/anc/) ตั้งแต่เปิดหน้าจอจนบันทึกเสร็จ
 
 ## ขั้นตอน
 
 ### 1. เปิดหน้าจอ ANC
 
-- เข้า [[EMR Doctor|EMR]] menu ของผู้ป่วย
+- เข้า [EMR](/modules/emr-doctor/) menu ของผู้ป่วย
 - Click เมนู **ANC** ด้านขวามือ
-- ระบบแสดงหน้าจอ [[ANC Chart Screen|ANC CHART]]
+- ระบบแสดงหน้าจอ [ANC CHART](/entities/anc-chart-screen/)
 
 ### 2. บันทึก Current Pregnancy Detail
 
-- ระบุ [[EDC Calculation|EDC Calculation Method]] (LMP / U/S / Manual)
+- ระบุ [EDC Calculation Method](/concepts/edc-calculation/) (LMP / U/S / Manual)
 - ถ้าเลือก LMP → ระบุ LMP date → ระบบคำนวณ EDC, GA, Trimester อัตโนมัติ
 
 ### 3. บันทึก Delivery History (ถ้ามี)
@@ -94,7 +94,7 @@ Pelvic Assessment, Nipple Assessment
 
 ## ขั้นตอนละเอียด — Father Details
 
-1. หา toggle ส่วน Father Details ใน [[ANC Chart Screen]]
+1. หา toggle ส่วน Father Details ใน [ANC Chart Screen](/entities/anc-chart-screen/)
 2. **Slide ปุ่มเปิดทางขวา** เพื่อแสดง fields บิดา
 3. กรอกข้อมูลบิดา (หรือเลือกใช้ข้อมูลจากการฝากครรภ์ครั้งก่อน)
 
@@ -125,8 +125,8 @@ Pelvic Assessment, Nipple Assessment
 
 ## Modules Involved
 
-- [[ANC]] — หน้าจอหลัก
-- [[EMR Doctor]] — จุดเข้าถึง
-- [[LAB]] — ผลตรวจเลือด
-- [[XRAY]] — ผลรังสีวิทยา
-- [[Labour and Newborn]] — ข้อมูล Obstetric Summary + EDC ส่งต่อ
+- [ANC](/modules/anc/) — หน้าจอหลัก
+- [EMR Doctor](/modules/emr-doctor/) — จุดเข้าถึง
+- [LAB](/modules/lab/) — ผลตรวจเลือด
+- [XRAY](/modules/xray/) — ผลรังสีวิทยา
+- [Labour and Newborn](/modules/labour-and-newborn/) — ข้อมูล Obstetric Summary + EDC ส่งต่อ

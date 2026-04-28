@@ -339,19 +339,19 @@ Status Flow: `Approval Required → Approve → Completed / Cancel → Cancelled
 
 ## Workflows
 
-- [[Inventory Receive Workflow]] — ขั้นตอนรับสินค้า GRN ครบวงจร
-- [[Inventory Transfer Request Workflow]] — Request → Approve → Transfer/Issue
+- [Inventory Receive Workflow](/workflows/inventory-receive-workflow/) — ขั้นตอนรับสินค้า GRN ครบวงจร
+- [Inventory Transfer Request Workflow](/workflows/inventory-transfer-request-workflow/) — Request → Approve → Transfer/Issue
 
 ## Entities
 
-- [[Inventory Receive Screen]] — หน้าจอรับสินค้า
-- [[Inventory Transfer Screen]] — หน้าจอโอน/ตัดจ่ายสินค้า
+- [Inventory Receive Screen](/entities/inventory-receive-screen/) — หน้าจอรับสินค้า
+- [Inventory Transfer Screen](/entities/inventory-transfer-screen/) — หน้าจอโอน/ตัดจ่ายสินค้า
 
 ## Integration Points
 
 | Module | Integration |
 |--------|-------------|
-| [[Pharmacy]] | คลังสินค้ายา — Stock management, GRNRET, Stock Ledger |
+| [Pharmacy](/modules/pharmacy/) | คลังสินค้ายา — Stock management, GRNRET, Stock Ledger |
 | All Departments | ขอเบิกสินค้า (Stock Request — Issue type) |
 | Back Office | PO → Goods Receive (RCVPUR) |
-| [[CSSD]] | เวชภัณฑ์ปลอดเชื้อ — Tray master items |
+| [CSSD](/modules/cssd/) | เวชภัณฑ์ปลอดเชื้อ — Tray master items |

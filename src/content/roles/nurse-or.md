@@ -19,19 +19,19 @@ tags: [role, clinical, nursing, surgical]
 
 ## Daily flows
 
-- [OR Surgery Request to Record Workflow](/workflows/or-surgery-request-to-record-workflow/) — Surgery Request → OR Schedule → OR Worklist → OR Record → Recovery Room
+- workflows/OR Surgery Request to Record Workflow — Surgery Request → OR Schedule → OR Worklist → OR Record → Recovery Room
 
 ## Reference screens
 
-- [OR Schedule Screen](/entities/or-schedule-screen/)
-- [OR Record Screen](/entities/or-record-screen/)
-- [Patient Banner](/entities/patient-banner/)
+- entities/OR Schedule Screen
+- entities/OR Record Screen
+- entities/Patient Banner
 
 ## Permissions
 
-Permission matrix wires after Phase 1 UAT recon.
+See _role-permission-matrix#NurseOR (populated in Phase 5).
 
 ## Concepts to know
 
-- [Visit Types](/concepts/visit-types/)
-- [Order Types](/concepts/order-types/)
+- concepts/Visit Types
+- concepts/Order Types

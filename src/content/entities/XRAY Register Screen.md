@@ -61,7 +61,7 @@ verified-on-uat: pending
 | Button | เงื่อนไข | ผลลัพธ์ |
 |--------|---------|---------|
 | **Execute** | Status = Registered | เปิดหน้า Execute Radiology Order |
-| **Report Entry** | Status = Executed; Role = Radiologist | เปิดหน้า [[XRAY Report Screen]] |
+| **Report Entry** | Status = Executed; Role = Radiologist | เปิดหน้า [XRAY Report Screen](/entities/xray-report-screen/) |
 | **Approve Result** | Status = Report Entered; Role = Radiologist | Status → Report Authorized |
 | **Result View** | Status = Report Authorized | แสดงผลที่บันทึก |
 | **Print Report** | Status = Report Authorized | พิมพ์รายงานผล |
@@ -82,5 +82,5 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[XRAY Order to Report Workflow]] — ขั้นตอนที่ 2 (Register) และ 3 (Execute)
-- [[XRAY]] — ข้อมูลโมดูลรังสีวินิจฉัย
+- [XRAY Order to Report Workflow](/workflows/xray-order-to-report-workflow/) — ขั้นตอนที่ 2 (Register) และ 3 (Execute)
+- [XRAY](/modules/xray/) — ข้อมูลโมดูลรังสีวินิจฉัย

@@ -19,17 +19,17 @@ tags: [role, clinical, radiology]
 
 ## Daily flows
 
-- [XRAY Order to Report Workflow](/workflows/xray-order-to-report-workflow/) — Order → Register → Execute (technician steps)
+- workflows/XRAY Order to Report Workflow — Order → Register → Execute (technician steps)
 
 ## Reference screens
 
-- [XRAY Register Screen](/entities/xray-register-screen/)
-- [Patient Banner](/entities/patient-banner/)
+- entities/XRAY Register Screen
+- entities/Patient Banner
 
 ## Permissions
 
-Permission matrix wires after Phase 1 UAT recon.
+See _role-permission-matrix#XRayTech (populated in Phase 5).
 
 ## Concepts to know
 
-- [Lab and Radiology Order Status](/concepts/lab-and-radiology-order-status/)
+- concepts/Lab and Radiology Order Status

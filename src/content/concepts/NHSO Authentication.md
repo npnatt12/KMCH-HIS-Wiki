@@ -15,17 +15,17 @@ verified-on-uat: pending
 
 ## ขั้นตอน
 
-1. ระบุเลขบัตรประชาชนใน [[Patient Demographics Screen]] → Basic Details
+1. ระบุเลขบัตรประชาชนใน [Patient Demographics Screen](/entities/patient-demographics-screen/) → Basic Details
 2. กดปุ่ม **เช็คสิทธิ**
 3. ระบบแสดงรายละเอียดสิทธิการรักษาของผู้ป่วย
-4. เลือกสิทธิที่ต้องการ → ระบบระบุใน [[Payor and Treatment Rights|Payor Details]] อัตโนมัติ
+4. เลือกสิทธิที่ต้องการ → ระบบระบุใน [Payor Details](/concepts/payor-and-treatment-rights/) อัตโนมัติ
 
 ## ที่ใช้งาน
 
-- [[Registration]] → Demographics → Basic Details → กดเช็คสิทธิ
-- [[Billing]] → Modify Payor (ตรวจสอบสิทธิ์เพิ่มเติมตอนออกบิล)
+- [Registration](/modules/registration/) → Demographics → Basic Details → กดเช็คสิทธิ
+- [Billing](/modules/billing/) → Modify Payor (ตรวจสอบสิทธิ์เพิ่มเติมตอนออกบิล)
 
 ## Related
 
-- [[Payor and Treatment Rights]] — ระบบสิทธิ์การรักษาทั้งหมด
-- [[Patient Demographics Screen]] — หน้าจอที่ใช้เช็คสิทธิ
+- [Payor and Treatment Rights](/concepts/payor-and-treatment-rights/) — ระบบสิทธิ์การรักษาทั้งหมด
+- [Patient Demographics Screen](/entities/patient-demographics-screen/) — หน้าจอที่ใช้เช็คสิทธิ

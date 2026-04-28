@@ -106,5 +106,5 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[OP Billing Workflow]]
-- [[Billing IP Settlement Workflow]]
+- [OP Billing Workflow](/workflows/op-billing-workflow/)
+- [Billing IP Settlement Workflow](/workflows/billing-ip-settlement-workflow/)

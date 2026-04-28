@@ -69,5 +69,5 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[Lab Order to Result]] — ขั้นตอนที่ 4: ลงผล และขั้นตอนที่ 5: รายงานผล
-- [[LAB]] — ข้อมูลโมดูลห้องปฏิบัติการ
+- [Lab Order to Result](/workflows/lab-order-to-result/) — ขั้นตอนที่ 4: ลงผล และขั้นตอนที่ 5: รายงานผล
+- [LAB](/modules/lab/) — ข้อมูลโมดูลห้องปฏิบัติการ

@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # ขั้นตอนการตรวจทางรังสีวินิจฉัย (XRAY Order to Report)
 
-ขั้นตอนเต็มตั้งแต่แพทย์สั่งตรวจจนผลออกใน [[XRAY]] module
+ขั้นตอนเต็มตั้งแต่แพทย์สั่งตรวจจนผลออกใน [XRAY](/modules/xray/) module
 
 ## Flow Diagram
 
@@ -57,7 +57,7 @@ verified-on-uat: pending
 
 **ผู้ดำเนินการ:** เจ้าหน้าที่รังสีเทคนิค
 
-**หน้าจอ:** [[XRAY Register Screen]] (Radiology → Radiology Worklist → Tab NEW)
+**หน้าจอ:** [XRAY Register Screen](/entities/xray-register-screen/) (Radiology → Radiology Worklist → Tab NEW)
 
 **ขั้นตอน:**
 1. ค้นหารายการด้วย Filter (Department / Ward / Modality / Patient / Order No. / Date)
@@ -93,7 +93,7 @@ verified-on-uat: pending
 
 **ผู้ดำเนินการ:** **Radiologist เท่านั้น** (Role ต้องถูกกำหนดเป็น Radiologist ในระบบ)
 
-**หน้าจอ:** [[XRAY Report Screen]] (Radiology Worklist → Tab INPROGRESS → เลือกรายการ Executed → Report Entry)
+**หน้าจอ:** [XRAY Report Screen](/entities/xray-report-screen/) (Radiology Worklist → Tab INPROGRESS → เลือกรายการ Executed → Report Entry)
 
 **ขั้นตอน:**
 1. เลือกรายการ Status = Executed
@@ -158,7 +158,7 @@ verified-on-uat: pending
 
 ## เปรียบเทียบกับ LAB
 
-| | [[Lab Order to Result]] | XRAY Order to Report |
+| | [Lab Order to Result](/workflows/lab-order-to-result/) | XRAY Order to Report |
 |---|------------------------|---------------------|
 | ขั้นตอนพิเศษ | Specimen Collection + Accept/Reject | Register + Execute |
 | ขั้นตอนทั้งหมด | 6 | 5 |
@@ -169,4 +169,4 @@ verified-on-uat: pending
 
 ## Modules Involved
 
-[[EMR Doctor]] (สั่ง) → [[XRAY]] (Register + Execute + Report) → EMR (แสดงผล)
+[EMR Doctor](/modules/emr-doctor/) (สั่ง) → [XRAY](/modules/xray/) (Register + Execute + Report) → EMR (แสดงผล)

@@ -25,8 +25,8 @@ verified-on-uat: pending
 ### MRD Folders — การสร้างและดูสถานะแฟ้ม
 
 ระบบสร้างแฟ้มอัตโนมัติตาม App Setting:
-- **OPD Folder** — สร้างเมื่อ New Register / New HN ([[Registration|ลงทะเบียนผู้ป่วยใหม่]])
-- **IPD Folder** — สร้างใหม่ทุกครั้งที่ [[Admission|Admit]] / Visit Number
+- **OPD Folder** — สร้างเมื่อ New Register / New HN ([ลงทะเบียนผู้ป่วยใหม่](/modules/registration/))
+- **IPD Folder** — สร้างใหม่ทุกครั้งที่ [Admit](/modules/admission/) / Visit Number
 
 > ตั้งค่าจาก: Framework > App Setting > Registration > **MRD Auto file request**
 
@@ -45,7 +45,7 @@ verified-on-uat: pending
 
 ---
 
-### [[MRD Worklist Screen]] — รายการเวชระเบียน (4 tabs)
+### [MRD Worklist Screen](/entities/mrd-worklist-screen/) — รายการเวชระเบียน (4 tabs)
 
 หน้าจอหลักสำหรับเรียกดู ค้นหา และจัดการแฟ้มทั้งหมดในแต่ละวัน
 
@@ -181,7 +181,7 @@ verified-on-uat: pending
 
 รวม HN ที่ซ้ำกัน — กรณีผู้ป่วยมี 2 HN ซ้ำซ้อน หรือข้อมูล Demographic เหมือนกัน ให้เหลือ 1 HN
 
-ดูรายละเอียดกระบวนการเต็มที่ [[Registration Update Merge Workflow]]
+ดูรายละเอียดกระบวนการเต็มที่ [Registration Update Merge Workflow](/workflows/registration-update-merge-workflow/)
 
 **ขั้นตอน Patient Merge:**
 
@@ -255,7 +255,7 @@ Requested → Issued → Returned
 
 | Module | Integration |
 |--------|-------------|
-| [[Registration]] | สร้าง OPD Folder อัตโนมัติเมื่อ New Register |
-| [[Admission]] | สร้าง IPD Folder อัตโนมัติเมื่อ Admit |
-| [[OPD]] | Appointment Issue — จ่ายแฟ้มตามนัดหมาย |
+| [Registration](/modules/registration/) | สร้าง OPD Folder อัตโนมัติเมื่อ New Register |
+| [Admission](/modules/admission/) | สร้าง IPD Folder อัตโนมัติเมื่อ Admit |
+| [OPD](/modules/opd/) | Appointment Issue — จ่ายแฟ้มตามนัดหมาย |
 | All Departments | Folder Request — ยืมแฟ้ม, Folder Transfer — โอนย้ายแฟ้ม |

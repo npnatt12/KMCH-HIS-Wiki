@@ -13,24 +13,24 @@ verified-on-uat: pending
 
 ## Overview
 
-กระบวนการขอย้ายผู้ป่วยไปยังเตียงหรือหอผู้ป่วยอื่น โดยต้องผ่านการอนุมัติจากแผนก [[Admission]]
+กระบวนการขอย้ายผู้ป่วยไปยังเตียงหรือหอผู้ป่วยอื่น โดยต้องผ่านการอนุมัติจากแผนก [Admission](/modules/admission/)
 
 ## Steps
 
 ### พยาบาล/เจ้าหน้าที่ Ward (ต้นทาง)
 
-1. [[Ward Board]] → เลือกผู้ป่วยที่ต้องการย้าย
+1. [Ward Board](/entities/ward-board/) → เลือกผู้ป่วยที่ต้องการย้าย
 2. กดสัญลักษณ์ **Transfer Request**
-3. ระบบแสดง [[IPD Transfer Screen]]
+3. ระบบแสดง [IPD Transfer Screen](/entities/ipd-transfer-screen/)
 4. เลือก **Ward** หรือ **เตียง** ปลายทางที่ต้องการ
 5. กด **SAVE** → คำขอส่งไปรอ Admission อนุมัติ
-6. ติดต่อประสานงานแผนก [[Admission]] เพื่อขออนุมัติการย้าย
+6. ติดต่อประสานงานแผนก [Admission](/modules/admission/) เพื่อขออนุมัติการย้าย
 
 ### เจ้าหน้าที่ Admission
 
 7. ตรวจสอบข้อมูลผู้ป่วยและเตียงปลายทาง
 8. กด **TRANSFER** เพื่ออนุมัติ
-9. ผู้ป่วยย้ายเตียงสำเร็จ — [[Ward Board]] ปลายทางแสดงชื่อผู้ป่วย
+9. ผู้ป่วยย้ายเตียงสำเร็จ — [Ward Board](/entities/ward-board/) ปลายทางแสดงชื่อผู้ป่วย
 
 ## Flow Diagram
 
@@ -43,9 +43,9 @@ Ward Board → Transfer Request → เลือก Ward/เตียง → SAV
 ## เงื่อนไข
 
 - Ward เองไม่สามารถย้ายได้โดยตรง ต้องผ่านการอนุมัติจาก Admission เสมอ
-- เตียงปลายทางต้องมีสถานะ [[Bed Status|Vacant Bed]] จึงจะสามารถเลือกได้
+- เตียงปลายทางต้องมีสถานะ [Vacant Bed](/concepts/bed-status/) จึงจะสามารถเลือกได้
 
 ## Modules Involved
 
-- [[IPD]] — [[Ward Board]], [[IPD Transfer Screen]]
-- [[Admission]] — อนุมัติการย้าย (กด TRANSFER)
+- [IPD](/modules/ipd/) — [Ward Board](/entities/ward-board/), [IPD Transfer Screen](/entities/ipd-transfer-screen/)
+- [Admission](/modules/admission/) — อนุมัติการย้าย (กด TRANSFER)

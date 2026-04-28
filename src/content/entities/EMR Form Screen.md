@@ -81,8 +81,8 @@ verified-on-uat: pending
 | Time Line | ไทม์ไลน์ | ดูประวัติแบบช่วงเวลา |
 | Medicine | Drug Profile | รายการยาทั้งหมดที่เคยสั่ง |
 | Vaccines Chart | วัคซีน | ประวัติการรับวัคซีน |
-| Laboratory | Lab | ผลตรวจ [[LAB]] |
-| Radiology | Radiology | ผลตรวจ [[XRAY]] |
+| Laboratory | Lab | ผลตรวจ [LAB](/modules/lab/) |
+| Radiology | Radiology | ผลตรวจ [XRAY](/modules/xray/) |
 | Pathology | Pathology | ผลตรวจ Pathology |
 | Doctor Fee | DF | Doctor Fee ของแพทย์ Login |
 | Procedure | หัตถการ | ประวัติหัตถการ |
@@ -97,6 +97,21 @@ verified-on-uat: pending
 | TABULAR CHART | ตารางตัวเลข |
 | TPR CHART | กราฟ T/P/R/BP |
 | CHARTING | กราฟที่ผู้ใช้เลือกเอง |
+
+---
+
+## IPD EMR — 6 tabs (UAT verified)
+
+The IPD EMR template (`app/emr/ipdemr.tmpl.html` on UAT 2026-04-28) renders **6 tabs**:
+
+1. **Daily Progress** — Progress notes, vitals over time
+2. **Summary** — Admission summary, assessments
+3. **Laboratory** — Lab results inline
+4. **Radiology** — Radiology reports inline
+5. **Pathology** — Pathology / specimen results
+6. **Discharge Summary** — Final discharge documentation
+
+OPD EMR (the existing 11-section layout documented above) and IPD EMR are distinct templates. The IPD layout is tab-based; the OPD layout is the section-stack already documented.
 
 ---
 
@@ -129,7 +144,7 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[modules/EMR Doctor|EMR Doctor Module]] — การใช้งานระบบ EMR แพทย์ครบถ้วน
-- [[workflows/OPD Patient Flow|OPD Patient Flow]] — ขั้นตอนผู้ป่วยนอก
-- [[entities/Doctor Worklist Screen|Doctor Worklist Screen]] — หน้าจอก่อนเข้า EMR
-- [[entities/Order Entry Screen|Order Entry Screen]] — บันทึกคำสั่งการรักษา
+- EMR Doctor Module — การใช้งานระบบ EMR แพทย์ครบถ้วน
+- OPD Patient Flow — ขั้นตอนผู้ป่วยนอก
+- Doctor Worklist Screen — หน้าจอก่อนเข้า EMR
+- Order Entry Screen — บันทึกคำสั่งการรักษา

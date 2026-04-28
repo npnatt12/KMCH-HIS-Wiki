@@ -90,4 +90,4 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[Inventory Transfer Request Workflow]]
+- [Inventory Transfer Request Workflow](/workflows/inventory-transfer-request-workflow/)

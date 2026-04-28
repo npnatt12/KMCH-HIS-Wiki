@@ -29,7 +29,7 @@ verified-on-uat: pending
 
 ## 1. Surgery Request (จากแผนกอื่น)
 
-เข้าถึงจาก [[modules/EMR Doctor]]:
+เข้าถึงจาก modules/EMR Doctor:
 
 ```
 EMR → Referral → Tab Surgery
@@ -68,7 +68,7 @@ Operating Room → **Surgery Request List**
 
 ## 3. OR Schedule — จองห้องผ่าตัด
 
-หน้าจอ [[entities/OR Schedule Screen]] — ข้อมูลจาก Surgery Request ถูกดึงมาล่วงหน้า
+หน้าจอ entities/OR Schedule Screen — ข้อมูลจาก Surgery Request ถูกดึงมาล่วงหน้า
 
 ```
 Click ช่องเวลาที่ต้องการ
@@ -123,7 +123,7 @@ Click ชื่อผู้ป่วย → ระบบแสดงเมนู
 
 ## 6. OR Record — บันทึกการผ่าตัด
 
-[[entities/OR Record Screen]] — บันทึกรายละเอียดระหว่างและหลังผ่าตัด
+entities/OR Record Screen — บันทึกรายละเอียดระหว่างและหลังผ่าตัด
 
 ```
 Click OR Record → ระบบดึงข้อมูลจาก Schedule มาแสดง (แก้ไขได้)
@@ -181,16 +181,16 @@ Completed
 
 | Module | เชื่อมต่ออย่างไร |
 |--------|----------------|
-| [[modules/EMR Doctor]] | Surgery Request จาก EMR Referral Tab |
-| [[modules/IPD]] | ผู้ป่วยในส่งผ่าตัด |
-| [[modules/ER]] | Emergency → OR |
-| [[modules/Admission]] | ผู้ป่วย OR อาจต้อง Admit |
-| [[modules/Billing]] | OR charges |
+| modules/EMR Doctor | Surgery Request จาก EMR Referral Tab |
+| modules/IPD | ผู้ป่วยในส่งผ่าตัด |
+| modules/ER | Emergency → OR |
+| modules/Admission | ผู้ป่วย OR อาจต้อง Admit |
+| modules/Billing | OR charges |
 
 ---
 
 ## Related
 
-- [[entities/OR Schedule Screen]] — ตารางนัดห้องผ่าตัด (fields, actions)
-- [[entities/OR Record Screen]] — OR Worklist menus + Record fields
-- [[modules/OR]] — ภาพรวม module
+- entities/OR Schedule Screen — ตารางนัดห้องผ่าตัด (fields, actions)
+- entities/OR Record Screen — OR Worklist menus + Record fields
+- modules/OR — ภาพรวม module

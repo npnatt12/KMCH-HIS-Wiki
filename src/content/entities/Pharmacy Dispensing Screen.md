@@ -11,9 +11,22 @@ verified-on-uat: pending
 
 # Pharmacy Dispensing Screen — หน้าจอจ่ายยา
 
-หน้าจอหลักของ [[modules/Pharmacy|Pharmacy]] สำหรับตรวจสอบและจ่ายยา/เวชภัณฑ์ผู้ป่วยนอกและผู้ป่วยใน
+หน้าจอหลักของ Pharmacy สำหรับตรวจสอบและจ่ายยา/เวชภัณฑ์ผู้ป่วยนอกและผู้ป่วยใน
 
 **เข้าถึง:** Pharmacy Worklist → Tab **Dispensing**
+
+---
+
+## ⚠ UAT verification — 4 dispense tabs
+
+The Pharmacy Dispense Workbench (`triangular.dispenseworkbench`, file `app/pharmacy/dispenseworkbench.tmpl.html`) on UAT 2026-04-28 renders **4 tabs**:
+
+1. **Dispensing** — main dispense queue
+2. **Med Non-Stock** — non-stock medication handling
+3. **IP Fill** — inpatient fill queue
+4. **Returns** — med return handling
+
+The 5-step Dispense flow documented below operates within the Dispensing tab. IP Fill and Returns are sibling tabs, not subsections of the main flow.
 
 ---
 
@@ -63,7 +76,7 @@ verified-on-uat: pending
 | เอกสารแนบ | ฟอร์มที่แนบกับรายการยา | คลิกดูเอกสาร |
 | Drug Duplicate | สั่งยาซ้ำ (รายการ/ชนิด/กลุ่ม) | คลิกดูรายละเอียด + เหตุผล |
 
-ดู [[entities/Drug Alert Popup]] สำหรับรายละเอียดครบถ้วน 11 ประเภท
+ดู entities/Drug Alert Popup สำหรับรายละเอียดครบถ้วน 11 ประเภท
 
 ---
 
@@ -106,7 +119,7 @@ verified-on-uat: pending
 
 ## IP Fill Tab
 
-สำหรับผู้ป่วยใน — ดู [[entities/Pharmacy Dispensing Screen#IP Fill]] หรือ [[workflows/Pharmacy Dispensing Workflow]]
+สำหรับผู้ป่วยใน — ดู entities/Pharmacy Dispensing Screen#IP Fill หรือ workflows/Pharmacy Dispensing Workflow
 
 สถานะ IP Fill:
 - **Dispensed** — ตัดจ่ายทุกรายการสมบูรณ์
@@ -137,8 +150,8 @@ verified-on-uat: pending
 
 ## Related
 
-- [[workflows/Pharmacy Dispensing Workflow]] — ขั้นตอนครบ
-- [[workflows/Pharmacy Med Reject Return Workflow]] — Med Reject + Med Return
-- [[modules/Pharmacy]] — ภาพรวม module
-- [[entities/Drug Alert Popup]] — 11 ประเภท alert icons
-- [[modules/Order Entry]] — ต้นทาง order จากแพทย์
+- workflows/Pharmacy Dispensing Workflow — ขั้นตอนครบ
+- workflows/Pharmacy Med Reject Return Workflow — Med Reject + Med Return
+- modules/Pharmacy — ภาพรวม module
+- entities/Drug Alert Popup — 11 ประเภท alert icons
+- modules/Order Entry — ต้นทาง order จากแพทย์

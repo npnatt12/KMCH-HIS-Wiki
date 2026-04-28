@@ -19,32 +19,32 @@ tags: [role, admin]
 
 ## Daily flows
 
-- [New Patient Registration](/workflows/new-patient-registration/)
-- [MRD Folder Issue Return Workflow](/workflows/mrd-folder-issue-return-workflow/)
-- [OP Billing Workflow](/workflows/op-billing-workflow/)
-- [Billing IP Settlement Workflow](/workflows/billing-ip-settlement-workflow/)
-- [Inventory Receive Workflow](/workflows/inventory-receive-workflow/)
-- [Inventory Transfer Request Workflow](/workflows/inventory-transfer-request-workflow/)
-- [Diet Order to Kitchen Workflow](/workflows/diet-order-to-kitchen-workflow/)
-- [CSSD Request to Sterilize Workflow](/workflows/cssd-request-to-sterilize-workflow/)
+- workflows/New Patient Registration
+- workflows/MRD Folder Issue Return Workflow
+- workflows/OP Billing Workflow
+- workflows/Billing IP Settlement Workflow
+- workflows/Inventory Receive Workflow
+- workflows/Inventory Transfer Request Workflow
+- workflows/Diet Order to Kitchen Workflow
+- workflows/CSSD Request to Sterilize Workflow
 
 ## Reference screens
 
-- [Patient Search Screen](/entities/patient-search-screen/)
-- [Patient Demographics Screen](/entities/patient-demographics-screen/)
-- [MRD Worklist Screen](/entities/mrd-worklist-screen/)
-- [Billing Settlement Screen](/entities/billing-settlement-screen/)
-- [Inventory Receive Screen](/entities/inventory-receive-screen/)
-- [Inventory Transfer Screen](/entities/inventory-transfer-screen/)
-- [Diet Order Entry Screen](/entities/diet-order-entry-screen/)
-- [CSSD Request Screen](/entities/cssd-request-screen/)
+- entities/Patient Search Screen
+- entities/Patient Demographics Screen
+- entities/MRD Worklist Screen
+- entities/Billing Settlement Screen
+- entities/Inventory Receive Screen
+- entities/Inventory Transfer Screen
+- entities/Diet Order Entry Screen
+- entities/CSSD Request Screen
 
 ## Permissions
 
-Permission matrix wires after Phase 1 UAT recon.
+See _role-permission-matrix#AdminSystem (populated in Phase 5).
 
 ## Concepts to know
 
-- [Payor and Treatment Rights](/concepts/payor-and-treatment-rights/)
-- [Patient Types](/concepts/patient-types/)
-- [Payment Modes](/concepts/payment-modes/)
+- concepts/Payor and Treatment Rights
+- concepts/Patient Types
+- concepts/Payment Modes

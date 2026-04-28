@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # EDC Calculation (Expected Date of Confinement)
 
-การคำนวณวันกำหนดคลอด (EDC) ในระบบ [[ANC]]
+การคำนวณวันกำหนดคลอด (EDC) ในระบบ [ANC](/modules/anc/)
 
 ## วิธีการคำนวณ
 
@@ -31,5 +31,5 @@ MEDHIS รองรับ 3 วิธี:
 
 ## ที่ใช้งาน
 
-- [[ANC Chart Screen]] → Current Pregnancy Detail section
-- [[ANC Visit Workflow]] → ขั้นตอนที่ 2
+- [ANC Chart Screen](/entities/anc-chart-screen/) → Current Pregnancy Detail section
+- [ANC Visit Workflow](/workflows/anc-visit-workflow/) → ขั้นตอนที่ 2

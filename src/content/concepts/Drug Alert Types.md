@@ -14,8 +14,8 @@ verified-on-uat: pending
 ระบบ MEDHIS มีการแจ้งเตือน **11 ประเภท** เมื่อสั่งยาหรือจ่ายยา เพื่อความปลอดภัยของผู้ป่วย
 
 Alert แสดงทั้งสองจุด:
-1. **ตอนสั่งยา** ([[Order Entry]] → Order Details หน้าจอ)
-2. **ตอนจ่ายยา** ([[Pharmacy]] → Allocate step)
+1. **ตอนสั่งยา** ([Order Entry](/modules/order-entry/) → Order Details หน้าจอ)
+2. **ตอนจ่ายยา** ([Pharmacy](/modules/pharmacy/) → Allocate step)
 
 ---
 
@@ -41,13 +41,13 @@ Alert แสดงทั้งสองจุด:
 
 ### Order Entry (ขณะสั่งยา)
 
-- Alert icons แสดงในคอลัมน์ **Alert** ของแต่ละแถวรายการยาบนหน้าจอ [[Order Entry Screen]]
+- Alert icons แสดงในคอลัมน์ **Alert** ของแต่ละแถวรายการยาบนหน้าจอ [Order Entry Screen](/entities/order-entry-screen/)
 - แพทย์คลิก icon เพื่อดูรายละเอียด
 - ระบบไม่บังคับหยุดสั่งยา — แพทย์เห็นและตัดสินใจเองได้
 
 ### Pharmacy (ขณะ Allocate)
 
-- ระบบแสดง Alert popup [[Drug Alert Popup]] เมื่อกด Allocate
+- ระบบแสดง Alert popup [Drug Alert Popup](/entities/drug-alert-popup/) เมื่อกด Allocate
 - เภสัชกรต้องระบุ **เหตุผลในการพิจารณาจ่ายยา** ก่อน Save
 - ไม่สามารถ Skip ได้เมื่อมี Alert ประเภทที่บังคับ
 
@@ -60,7 +60,7 @@ Alert แสดงทั้งสองจุด:
 | **Generic Name** | แพ้ชื่อสามัญ — เตือนทุกยาที่มี Generic Name ตรงกัน |
 | **Trade Name** | แพ้ชื่อการค้า — เตือนเฉพาะยา Code ตรงกัน |
 | **Drug Group** | แพ้กลุ่มยา — เตือนทุกยาในกลุ่มนั้น |
-| **Free Text** | บันทึกอิสระ — ไม่ผูกกับระบบสั่งยา (แสดงบน [[Patient Banner]] เท่านั้น) |
+| **Free Text** | บันทึกอิสระ — ไม่ผูกกับระบบสั่งยา (แสดงบน [Patient Banner](/entities/patient-banner/) เท่านั้น) |
 
 ข้อมูลเพิ่มเติมที่บันทึกกับประวัติแพ้ยา:
 - **Severity** — ระดับความรุนแรงของอาการแพ้
@@ -73,6 +73,6 @@ Alert แสดงทั้งสองจุด:
 
 ## ที่ใช้งาน
 
-- [[Order Entry]] → [[Order Entry Screen]] — Alert icons คอลัมน์ Alert
-- [[Pharmacy]] → [[Pharmacy Dispensing Screen]] → Allocate step — [[Drug Alert Popup]]
-- [[Patient Banner]] — แสดงข้อมูลแพ้ยา (Allergy)
+- [Order Entry](/modules/order-entry/) → [Order Entry Screen](/entities/order-entry-screen/) — Alert icons คอลัมน์ Alert
+- [Pharmacy](/modules/pharmacy/) → [Pharmacy Dispensing Screen](/entities/pharmacy-dispensing-screen/) → Allocate step — [Drug Alert Popup](/entities/drug-alert-popup/)
+- [Patient Banner](/entities/patient-banner/) — แสดงข้อมูลแพ้ยา (Allergy)

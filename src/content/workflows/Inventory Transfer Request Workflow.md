@@ -91,9 +91,9 @@ Stock Issue:
 
 ## Modules Involved
 
-- [[Inventory]] — กระบวนการหลัก
-- [[Pharmacy]] — คลังยา — Stock Transfer ระหว่าง Main Pharmacy และ Sub-stores
+- [Inventory](/modules/inventory/) — กระบวนการหลัก
+- [Pharmacy](/modules/pharmacy/) — คลังยา — Stock Transfer ระหว่าง Main Pharmacy และ Sub-stores
 
 ## Entities
 
-- [[Inventory Transfer Screen]]
+- [Inventory Transfer Screen](/entities/inventory-transfer-screen/)

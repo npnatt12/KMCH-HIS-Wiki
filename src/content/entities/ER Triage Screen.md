@@ -11,16 +11,16 @@ verified-on-uat: pending
 
 # ER Triage Screen (หน้าจอคัดกรองผู้ป่วยฉุกเฉิน)
 
-หน้าจอสำหรับบันทึกการคัดกรองผู้ป่วยฉุกเฉินในระบบ [[ER]] ตาม Emergency Severity Index (ESI)
+หน้าจอสำหรับบันทึกการคัดกรองผู้ป่วยฉุกเฉินในระบบ [ER](/modules/er/) ตาม Emergency Severity Index (ESI)
 
 ## Access Path
 
-Emergency → [[Whiteboard]] → Click ชื่อผู้ป่วย → Visit Detail → Icon **Triage**
+Emergency → [Whiteboard](/entities/whiteboard/) → Click ชื่อผู้ป่วย → Visit Detail → Icon **Triage**
 
 ## Purpose
 
 - บันทึกอาการสำคัญและการเจ็บป่วยปัจจุบัน
-- ประเมิน [[ESI Level]] (1–5)
+- ประเมิน [ESI Level](/concepts/esi-level/) (1–5)
 - บันทึก Glasgow Coma Scale
 - เปลี่ยนสถานะผู้ป่วยเป็น **Triaged**
 - ดูประวัติการคัดกรองเก่า
@@ -35,7 +35,7 @@ Emergency → [[Whiteboard]] → Click ชื่อผู้ป่วย → Vis
 | ESI Level | Dropdown/Auto | Yes | ระดับ 1–5 — แสดงอัตโนมัติเมื่อประเมิน |
 | Glasgow Coma Scale | Composite | No | Eye (E) / Verbal (V) / Motor (M) |
 
-## [[ESI Level]] — ระบบประเมินและแสดงสี
+## [ESI Level](/concepts/esi-level/) — ระบบประเมินและแสดงสี
 
 | ESI Level | ความหมาย | สี (Whiteboard) |
 |-----------|----------|----------------|
@@ -86,10 +86,10 @@ Emergency → [[Whiteboard]] → Click ชื่อผู้ป่วย → Vis
 
 ## Related Workflows
 
-- [[Emergency Registration]] — ลงทะเบียนก่อนมาที่ Triage
+- [Emergency Registration](/workflows/emergency-registration/) — ลงทะเบียนก่อนมาที่ Triage
 
 ## Related
 
-- [[ER]] — module page
-- [[Whiteboard]] — หน้าจอรายชื่อผู้ป่วย ER
-- [[ESI Level]] — ระดับความรุนแรงฉุกเฉิน
+- [ER](/modules/er/) — module page
+- [Whiteboard](/entities/whiteboard/) — หน้าจอรายชื่อผู้ป่วย ER
+- [ESI Level](/concepts/esi-level/) — ระดับความรุนแรงฉุกเฉิน

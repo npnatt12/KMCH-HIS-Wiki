@@ -17,24 +17,24 @@ tags: [role, clinical, pharmacy]
 
 ## Daily flows
 
-- [Pharmacy Dispensing Workflow](/workflows/pharmacy-dispensing-workflow/) — 5-step dispense (OP), IP Fill, OP Refills
-- [Pharmacy Med Reject Return Workflow](/workflows/pharmacy-med-reject-return-workflow/) — Med Reject, Med Return OP, GRNRET, Dispensed Return IP
+- workflows/Pharmacy Dispensing Workflow — 5-step dispense (OP), IP Fill, OP Refills
+- workflows/Pharmacy Med Reject Return Workflow — Med Reject, Med Return OP, GRNRET, Dispensed Return IP
 
 ## Reference screens
 
-- [Pharmacy Dispensing Screen](/entities/pharmacy-dispensing-screen/) — Filter, Alert icons (11), action buttons
-- [Drug Alert Popup](/entities/drug-alert-popup/) — 11 alert types
-- [Patient Banner](/entities/patient-banner/)
-- [Order Entry Screen](/entities/order-entry-screen/) — read for context
+- entities/Pharmacy Dispensing Screen — Filter, Alert icons (11), action buttons
+- entities/Drug Alert Popup — 11 alert types
+- entities/Patient Banner
+- entities/Order Entry Screen — read for context
 
 ## Permissions
 
-Permission matrix wires after Phase 1 UAT recon.
+See _role-permission-matrix#Pharmacist. Highlights:
 - **Read+Write:** Pharmacy Dispensing, IP Fill, Med Reject/Return, Drug Alert review
 - **Read-only:** Order Entry (no create), Stock Ledger
 - **Hidden:** EMR Form write, Inventory Receive
 
 ## Concepts to know
 
-- [Drug Alert Types](/concepts/drug-alert-types/)
-- [Order Types](/concepts/order-types/)
+- concepts/Drug Alert Types
+- concepts/Order Types

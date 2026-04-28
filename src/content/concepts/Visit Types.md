@@ -62,15 +62,15 @@ verified-on-uat: pending
 
 | Type | Module | Description |
 |------|--------|-------------|
-| **OPD** (Outpatient) | [[OPD]] / [[Registration]] | ผู้ป่วยนอก — เปิด visit และกลับบ้านในวันเดียวกัน |
-| **ER** (Emergency) | [[ER]] / [[Emergency Registration]] | ฉุกเฉิน — Department = Emergency (default) |
-| **IPD** (Inpatient) | [[Admission]] / [[IPD]] | ผู้ป่วยใน — Admit เข้า Ward พักค้างคืน |
-| **Pre-Admit** | [[Admission]] | เตรียม Admit ล่วงหน้า — สั่งคำสั่งก่อน Admit จริง |
+| **OPD** (Outpatient) | [OPD](/modules/opd/) / [Registration](/modules/registration/) | ผู้ป่วยนอก — เปิด visit และกลับบ้านในวันเดียวกัน |
+| **ER** (Emergency) | [ER](/modules/er/) / [Emergency Registration](/workflows/emergency-registration/) | ฉุกเฉิน — Department = Emergency (default) |
+| **IPD** (Inpatient) | [Admission](/modules/admission/) / [IPD](/modules/ipd/) | ผู้ป่วยใน — Admit เข้า Ward พักค้างคืน |
+| **Pre-Admit** | [Admission](/modules/admission/) | เตรียม Admit ล่วงหน้า — สั่งคำสั่งก่อน Admit จริง |
 
 ## ที่ใช้งาน
 
-- [[Registration]] — Visit Detail section ใน [[Patient Demographics Screen]]
-- [[Emergency Registration]] — Visit Detail (default Department: Emergency)
-- [[OPD]] — OPD Worklist
-- [[Admission]] — Admission Detail (IPD/Pre-Admit)
-- [[ER]] — Whiteboard + Triage (Encounter Type filter)
+- [Registration](/modules/registration/) — Visit Detail section ใน [Patient Demographics Screen](/entities/patient-demographics-screen/)
+- [Emergency Registration](/workflows/emergency-registration/) — Visit Detail (default Department: Emergency)
+- [OPD](/modules/opd/) — OPD Worklist
+- [Admission](/modules/admission/) — Admission Detail (IPD/Pre-Admit)
+- [ER](/modules/er/) — Whiteboard + Triage (Encounter Type filter)

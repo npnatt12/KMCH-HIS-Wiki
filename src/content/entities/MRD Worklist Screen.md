@@ -98,12 +98,12 @@ MRD > MRD Worklist
 
 ## Related Workflows
 
-- [[MRD Folder Issue Return Workflow]] — กระบวนการจ่ายและรับคืนแฟ้ม
+- [MRD Folder Issue Return Workflow](/workflows/mrd-folder-issue-return-workflow/) — กระบวนการจ่ายและรับคืนแฟ้ม
 
 ## Related Entities
 
-- [[MRD Module|MRD]] — module หลัก
+- MRD — module หลัก
 
 ## Related Concepts
 
-- [[modules/MRD|MRD]] — Folder statuses, Auto file request settings
+- MRD — Folder statuses, Auto file request settings
