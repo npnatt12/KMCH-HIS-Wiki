@@ -1,0 +1,156 @@
+{
+  "groups": [
+    {
+      "match": "save|บันทึก|กดไม่ได้|required|mandatory|password",
+      "terms": ["save", "บันทึกไม่ได้", "mandatory", "required", "password", "validation", "ฟิลด์บังคับ"]
+    },
+    {
+      "match": "worklist|ไม่ขึ้น|ไม่แสดง|หาไม่เจอ|ไม่พบ|ผู้ป่วย",
+      "terms": ["worklist", "filter", "visit", "hn", "search patient", "ผู้ป่วยไม่แสดง", "clear filter"]
+    },
+    {
+      "match": "บิล|billing|การเงิน|จ่ายเงิน|financial|แถบแดง|deposit",
+      "terms": ["billing", "financial discharge", "pending order", "แถบแดง", "deposit", "settlement"]
+    },
+    {
+      "match": "ยา|pharmacy|drug|allergy|แพ้ยา|interaction|alert|med reject|จ่ายยา|จ่ายยา",
+      "terms": ["pharmacy", "drug alert", "allergy", "interaction", "med reject", "dispense", "ยาไม่ได้", "การจ่ายยา"]
+    },
+    {
+      "match": "lab|specimen|สิ่งส่งตรวจ|reject|xray|ผลตรวจ|ผลไม่ออก",
+      "terms": ["lab", "specimen reject", "collected", "verified", "xray", "result", "ผลไม่แสดง"]
+    },
+    {
+      "match": "admit|admission|ipd|ward|เตียง|ย้าย|transfer|discharge",
+      "terms": ["admission", "ipd", "ward", "bed", "transfer", "discharge", "accept transfer", "รับผู้ป่วยใน"]
+    },
+    {
+      "match": "hn|national|บัตรประชาชน|เลขบัตร|ซ้ำ|merge|mrd",
+      "terms": ["hn", "national id", "duplicate", "merge", "mrd", "เลขบัตรประชาชนซ้ำ"]
+    },
+    {
+      "match": "stock|สต็อก|ของหมด|inventory|no stock|allocate",
+      "terms": ["stock", "no stock", "inventory", "allocate", "batch", "ของหมด"]
+    },
+    {
+      "match": "นัด|appointment|future order|refill",
+      "terms": ["appointment", "future order", "refill", "นัดหมาย", "op refills"]
+    },
+    {
+      "match": "prescription|ใบสั่งยา|rx",
+      "terms": ["prescription", "ใบสั่งยา", "rx", "doctor order", "การสั่งยา"]
+    },
+    {
+      "match": "ออกจากโรงพยาบาล|จำหน่าย|d/c|discharge",
+      "terms": ["discharge", "ออกจากโรงพยาบาล", "จำหน่าย", "d/c", "discharge summary"]
+    },
+    {
+      "match": "vital|สัญญาณชีพ|bp|hr|rr|temp",
+      "terms": ["vital signs", "สัญญาณชีพ", "bp", "hr", "rr", "temperature", "vital sign abnormal"]
+    },
+    {
+      "match": "consult|ปรึกษา|consultation|refer",
+      "terms": ["consultation", "ปรึกษา", "consult note", "refer", "ส่งต่อ", "การส่งปรึกษา"]
+    },
+    {
+      "match": "triage|คัดกรอง|esi|emergency severity",
+      "terms": ["triage", "คัดกรอง", "esi level", "er triage", "emergency severity"]
+    },
+    {
+      "match": "anc|ฝากครรภ์|antenatal",
+      "terms": ["anc", "ฝากครรภ์", "antenatal care", "anc visit"]
+    },
+    {
+      "match": "or|ผ่าตัด|surgery|operating",
+      "terms": ["or", "ผ่าตัด", "or schedule", "or record", "operation", "surgery"]
+    },
+    {
+      "match": "cssd|sterilize|ฆ่าเชื้อ",
+      "terms": ["cssd", "sterilize", "ฆ่าเชื้อ", "sterile request", "instrument"]
+    },
+    {
+      "match": "diet|อาหาร|nutrition",
+      "terms": ["diet order", "อาหาร", "nutrition", "diet entry"]
+    },
+    {
+      "match": "screening|opd screening|คัดกรอง opd",
+      "terms": ["opd screening", "screening screen", "คัดกรอง opd"]
+    },
+    {
+      "match": "demographic|ข้อมูลผู้ป่วย|patient detail",
+      "terms": ["patient demographics", "ข้อมูลผู้ป่วย", "demographics screen"]
+    },
+    {
+      "match": "registration|ลงทะเบียน|new patient",
+      "terms": ["registration", "ลงทะเบียน", "new patient", "patient registration"]
+    },
+    {
+      "match": "icd|diagnosis|วินิจฉัย",
+      "terms": ["icd", "diagnosis code", "วินิจฉัย", "principal diagnosis", "icd-10"]
+    },
+    {
+      "match": "ward board|whiteboard|แดชบอร์ด",
+      "terms": ["ward board", "whiteboard", "แดชบอร์ด ipd", "bed map"]
+    },
+    {
+      "match": "emr|เวชระเบียน|medical record",
+      "terms": ["emr", "เวชระเบียน อิเล็กทรอนิกส์", "emr form", "doctor emr"]
+    },
+    {
+      "match": "csmis|payor|treatment right|สิทธิรักษา",
+      "terms": ["payor", "treatment right", "สิทธิรักษา", "ucs", "scheme", "csmis"]
+    },
+    {
+      "match": "nhso|สปสช|สิทธิ|authentication",
+      "terms": ["nhso", "สปสช", "nhso authentication", "สิทธิตรวจสอบ"]
+    },
+    {
+      "match": "deposit|มัดจำ|เงินมัดจำ",
+      "terms": ["deposit", "มัดจำ", "เงินมัดจำ", "down payment"]
+    },
+    {
+      "match": "settlement|ชำระเงิน|finalize",
+      "terms": ["settlement", "ชำระเงิน", "finalize bill", "billing settlement"]
+    },
+    {
+      "match": "transfer ipd|ย้ายเตียง|ย้ายหอ|transfer between",
+      "terms": ["ipd transfer", "ย้ายเตียง", "ย้ายหอ", "transfer between wards"]
+    },
+    {
+      "match": "drug interaction|ปฏิกิริยา|interact",
+      "terms": ["drug interaction", "ปฏิกิริยายา", "interact alert"]
+    },
+    {
+      "match": "drug allergy|แพ้ยา|allergy alert",
+      "terms": ["drug allergy", "แพ้ยา", "allergy alert", "การแพ้ยา"]
+    },
+    {
+      "match": "duplicate|ซ้ำ|merge patient",
+      "terms": ["duplicate hn", "ซ้ำ", "merge patient", "mrd merge", "consolidate"]
+    },
+    {
+      "match": "lab result|ผลแลบ|ผลตรวจเลือด",
+      "terms": ["lab result", "ผลแลบ", "ผลตรวจเลือด", "lab verified"]
+    },
+    {
+      "match": "xray report|ผลเอกซเรย์|รายงาน xray",
+      "terms": ["xray report", "ผลเอกซเรย์", "รายงานเอกซเรย์", "xray verified"]
+    },
+    {
+      "match": "patient banner|แถบผู้ป่วย|banner",
+      "terms": ["patient banner", "แถบผู้ป่วย", "patient header"]
+    },
+    {
+      "match": "appointment registration|นัดล่วงหน้า|future appointment",
+      "terms": ["appointment registration", "นัดล่วงหน้า", "future appointment"]
+    },
+    {
+      "match": "anc chart|กราฟฝากครรภ์|chart anc",
+      "terms": ["anc chart", "กราฟฝากครรภ์", "antenatal chart"]
+    },
+    {
+      "match": "opd patient status|สถานะผู้ป่วย opd",
+      "terms": ["opd patient status", "สถานะผู้ป่วย opd", "status flow"]
+    }
+  ]
+}

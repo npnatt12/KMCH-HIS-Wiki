@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import { slugify } from './slug';
+import dictionary from './search-dictionary.json';
 
 type SearchType = 'module' | 'workflow' | 'concept' | 'entity' | 'how-to' | 'troubleshooting';
 
@@ -44,44 +45,9 @@ const TROUBLE_TERMS = [
   'disabled',
 ];
 
-const QUERY_HINTS: Array<{ match: RegExp; terms: string[] }> = [
-  {
-    match: /save|บันทึก|กดไม่ได้|required|mandatory|password/i,
-    terms: ['save', 'บันทึกไม่ได้', 'mandatory', 'required', 'password', 'validation', 'ฟิลด์บังคับ'],
-  },
-  {
-    match: /worklist|ไม่ขึ้น|ไม่แสดง|หาไม่เจอ|ไม่พบ|ผู้ป่วย/i,
-    terms: ['worklist', 'filter', 'visit', 'hn', 'search patient', 'ผู้ป่วยไม่แสดง', 'clear filter'],
-  },
-  {
-    match: /บิล|billing|การเงิน|จ่ายเงิน|financial|แถบแดง|deposit/i,
-    terms: ['billing', 'financial discharge', 'pending order', 'แถบแดง', 'deposit', 'settlement'],
-  },
-  {
-    match: /ยา|pharmacy|drug|allergy|แพ้ยา|interaction|alert|med reject|จ่ายยา/i,
-    terms: ['pharmacy', 'drug alert', 'allergy', 'interaction', 'med reject', 'dispense', 'ยาไม่ได้'],
-  },
-  {
-    match: /lab|specimen|สิ่งส่งตรวจ|reject|xray|ผลตรวจ|ผลไม่ออก/i,
-    terms: ['lab', 'specimen reject', 'collected', 'verified', 'xray', 'result', 'ผลไม่แสดง'],
-  },
-  {
-    match: /admit|admission|ipd|ward|เตียง|ย้าย|transfer|discharge/i,
-    terms: ['admission', 'ipd', 'ward', 'bed', 'transfer', 'discharge', 'accept transfer'],
-  },
-  {
-    match: /hn|national|บัตรประชาชน|เลขบัตร|ซ้ำ|merge|mrd/i,
-    terms: ['hn', 'national id', 'duplicate', 'merge', 'mrd', 'เลขบัตรประชาชนซ้ำ'],
-  },
-  {
-    match: /stock|สต็อก|ของหมด|inventory|no stock|allocate/i,
-    terms: ['stock', 'no stock', 'inventory', 'allocate', 'batch', 'ของหมด'],
-  },
-  {
-    match: /นัด|appointment|future order|refill/i,
-    terms: ['appointment', 'future order', 'refill', 'นัดหมาย', 'op refills'],
-  },
-];
+const QUERY_HINTS: Array<{ match: RegExp; terms: string[] }> = dictionary.groups.map(
+  (g) => ({ match: new RegExp(g.match, 'i'), terms: g.terms }),
+);
 
 export async function getSearchRecords(): Promise<SearchRecord[]> {
   const records: SearchRecord[] = [];
