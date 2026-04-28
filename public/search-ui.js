@@ -81,6 +81,18 @@
     return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
+  function highlight(source, tokens) {
+    if (!source) return '';
+    var escaped = escapeHtml(source);
+    var usable = (tokens || [])
+      .map(function (t) { return String(t || '').trim(); })
+      .filter(function (t) { return t.length >= 1; });
+    if (usable.length === 0) return escaped;
+    usable.sort(function (a, b) { return b.length - a.length; });
+    var pattern = new RegExp(usable.map(escapeRegex).join('|'), 'gi');
+    return escaped.replace(pattern, function (match) { return '<mark>' + match + '</mark>'; });
+  }
+
   function score(record, query, tokens) {
     var phrase = normalize(query);
     var title = normalize(record.title);
@@ -190,8 +202,8 @@
         module,
         section,
         '</div>',
-        '<div class="kmch-search-card-title">' + escapeHtml(record.title) + '</div>',
-        '<p>' + escapeHtml(record.summary) + '</p>',
+        '<div class="kmch-search-card-title">' + highlight(record.title, tokenize(query)) + '</div>',
+        '<p>' + highlight(record.summary, tokenize(query)) + '</p>',
         '</a>',
       ].join('');
     }).join('');

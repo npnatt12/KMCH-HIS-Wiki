@@ -360,6 +360,14 @@ a:hover {
   font-weight: 600;
 }
 
+.kmch-search-card mark {
+  background: #ffe8a3;
+  color: inherit;
+  padding: 0 1px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
 @media print {
   nav, footer, .no-print { display: none !important; }
   body { background: white !important; }
