@@ -1,7 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import Base from '../../layouts/Base.astro';
-import QuickPrintButton from '../../components/QuickPrintButton.astro';
+import ArticleV2 from '../../layouts/ArticleV2.astro';
+import Breadcrumb from '../../components/article/Breadcrumb.astro';
+import MetaStrip from '../../components/article/MetaStrip.astro';
+import RelatedSection from '../../components/article/RelatedSection.astro';
+import { getRelated } from '../../lib/article-helpers';
 
 export async function getStaticPaths() {
   const entries = await getCollection('entities');
@@ -15,26 +18,29 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const { slug } = Astro.params;
 const { Content } = await entry.render();
----
-<Base title={entry.data.title} showBackLink={true}>
-  <div class="mb-6">
-    <div class="flex items-center justify-between flex-wrap gap-2 mb-1">
-      <div class="flex items-center gap-2">
-        <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">Entity</span>
-      </div>
-      <QuickPrintButton />
-    </div>
-    <h1 class="text-2xl font-bold text-gray-900">{entry.data.title}</h1>
-  </div>
 
-  <div
-    data-pagefind-body
-    class="prose prose-sm max-w-none
-           prose-headings:text-gray-800 prose-h2:text-lg prose-h2:font-bold prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-1 prose-h2:mb-3
-           prose-table:text-xs prose-th:bg-gray-50 prose-td:py-1
-           prose-a:text-blue-700 prose-a:no-underline hover:prose-a:underline
-           prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded prose-code:text-xs">
+const related = await getRelated('entities', slug!, entry.data.roles);
+---
+<ArticleV2 title={entry.data.title}>
+  <Breadcrumb items={[
+    { label: 'Screens', href: '/' },
+    { label: entry.data.title },
+  ]} />
+
+  <article class="kmch-prose">
+    <h1>{entry.data.title}</h1>
+    <MetaStrip
+      type="entity"
+      roles={entry.data.roles}
+      verifiedOn={entry.data['verified-on-uat']}
+      sources={entry.data.sources}
+      updated={entry.data.updated}
+    />
+
     <Content />
-  </div>
-</Base>
+  </article>
+
+  <RelatedSection items={related} />
+</ArticleV2>

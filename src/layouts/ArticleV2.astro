@@ -1,0 +1,14 @@
+---
+import BaseV2 from './BaseV2.astro';
+
+interface Props {
+  title: string;
+  activeRole?: string;
+}
+const { title, activeRole } = Astro.props;
+---
+<BaseV2 title={title} activeRole={activeRole}>
+  <main class="mx-auto px-4 lg:px-6 py-8 lg:py-12 max-w-[820px]">
+    <slot />
+  </main>
+</BaseV2>

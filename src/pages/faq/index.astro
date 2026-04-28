@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
-import Base from '../../layouts/Base.astro';
+import ArticleV2 from '../../layouts/ArticleV2.astro';
+import Breadcrumb from '../../components/article/Breadcrumb.astro';
+import EyebrowPill from '../../components/ui/EyebrowPill.astro';
+import TroubleshootSearch from '../../components/TroubleshootSearch.astro';
 
 const faqEntries = await getCollection('faq');
 const howTo = faqEntries.find(e => e.id.includes('how-to'));
@@ -9,76 +12,155 @@ const troubleshooting = faqEntries.find(e => e.id.includes('troubleshooting'));
 const howToRendered = howTo ? await howTo.render() : null;
 const troubleshootingRendered = troubleshooting ? await troubleshooting.render() : null;
 ---
-<Base title="FAQ / ศูนย์ช่วยเหลือ" showBackLink={true}>
-  <div class="mb-6">
-    <h1 class="text-2xl font-bold text-gray-900">FAQ / ศูนย์ช่วยเหลือ</h1>
-    <p class="text-sm text-gray-500 mt-1">คำถามที่พบบ่อยและวิธีแก้ไขปัญหา</p>
+<ArticleV2 title="FAQ / ศูนย์ช่วยเหลือ">
+  <Breadcrumb items={[{ label: 'FAQ' }]} />
+
+  <header class="mb-8">
+    <EyebrowPill>FAQ / SUPPORT CENTER</EyebrowPill>
+    <h1 class="kmch-prose mt-3" style="margin-bottom: 0;">FAQ / ศูนย์ช่วยเหลือ</h1>
+    <p class="text-[var(--color-ink-muted)] mt-2">คำถามที่พบบ่อยและวิธีแก้ไขปัญหาในระบบ MEDHIS</p>
+  </header>
+
+  <div class="mb-8">
+    <TroubleshootSearch id="faq-search" />
   </div>
 
-  <!-- Tab buttons -->
-  <div class="flex gap-2 mb-6 border-b border-gray-200 pb-0">
-    <button
-      id="tab-howto"
-      class="px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-blue-500 bg-blue-50 text-blue-700 -mb-px"
-      onclick="switchTab('howto')"
-    >
-      วิธีการใช้งาน
-    </button>
-    <button
-      id="tab-troubleshoot"
-      class="px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-gray-300 bg-gray-50 text-gray-500 -mb-px"
-      onclick="switchTab('troubleshoot')"
-    >
-      แก้ไขปัญหา
-    </button>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-8">
+    <a href="#troubleshoot" class="block p-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-strong)] hover:bg-[var(--color-surface-tint)] transition-colors">
+      <div class="text-xs uppercase tracking-wider text-[var(--color-ink-muted)]">แก้ปัญหา</div>
+      <div class="text-base font-semibold text-[var(--color-ink)] mt-1">Troubleshooting</div>
+      <p class="text-sm text-[var(--color-ink-muted)] mt-1">เมื่อระบบไม่ทำงานตามที่คาดหวัง</p>
+    </a>
+    <a href="#howto" class="block p-5 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-strong)] hover:bg-[var(--color-surface-tint)] transition-colors">
+      <div class="text-xs uppercase tracking-wider text-[var(--color-ink-muted)]">วิธีใช้</div>
+      <div class="text-base font-semibold text-[var(--color-ink)] mt-1">How-To Guides</div>
+      <p class="text-sm text-[var(--color-ink-muted)] mt-1">ขั้นตอนการใช้งานทั่วไป</p>
+    </a>
   </div>
 
-  <!-- How-to content -->
-  <div id="panel-howto" data-pagefind-body>
-    {howToRendered && (
-      <div class="prose prose-sm max-w-none
-                  prose-headings:text-gray-800 prose-h2:text-lg prose-h2:font-bold prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-1 prose-h2:mb-3 prose-h2:mt-6
-                  prose-h3:text-base prose-h3:font-semibold prose-h3:text-blue-800 prose-h3:mt-4
-                  prose-table:text-xs prose-th:bg-gray-50 prose-td:py-1
-                  prose-a:text-blue-700 prose-a:no-underline hover:prose-a:underline
-                  prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded prose-code:text-xs">
-        <howToRendered.Content />
-      </div>
-    )}
-  </div>
-
-  <!-- Troubleshooting content -->
-  <div id="panel-troubleshoot" class="hidden" data-pagefind-body>
+  <section id="troubleshoot" class="mb-12">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-semibold tracking-tight">Troubleshooting</h2>
+      <span class="text-xs uppercase tracking-wider text-[var(--color-ink-muted)]">แก้ปัญหา</span>
+    </div>
     {troubleshootingRendered && (
-      <div class="prose prose-sm max-w-none
-                  prose-headings:text-gray-800 prose-h2:text-lg prose-h2:font-bold prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-1 prose-h2:mb-3 prose-h2:mt-6
-                  prose-h3:text-base prose-h3:font-semibold prose-h3:text-red-700 prose-h3:mt-4
-                  prose-table:text-xs prose-th:bg-gray-50 prose-td:py-1
-                  prose-a:text-blue-700 prose-a:no-underline hover:prose-a:underline
-                  prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded prose-code:text-xs">
+      <div class="kmch-prose kmch-faq" data-section="troubleshoot">
         <troubleshootingRendered.Content />
       </div>
     )}
-  </div>
+  </section>
 
-  <script is:inline>
-    function switchTab(tab) {
-      var howtoPanel = document.getElementById('panel-howto');
-      var troubleshootPanel = document.getElementById('panel-troubleshoot');
-      var howtoTab = document.getElementById('tab-howto');
-      var troubleshootTab = document.getElementById('tab-troubleshoot');
+  <section id="howto" class="mb-12">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-2xl font-semibold tracking-tight">How-To Guides</h2>
+      <span class="text-xs uppercase tracking-wider text-[var(--color-ink-muted)]">วิธีใช้</span>
+    </div>
+    {howToRendered && (
+      <div class="kmch-prose kmch-faq" data-section="howto">
+        <howToRendered.Content />
+      </div>
+    )}
+  </section>
+</ArticleV2>
 
-      if (tab === 'howto') {
-        howtoPanel.classList.remove('hidden');
-        troubleshootPanel.classList.add('hidden');
-        howtoTab.className = 'px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-blue-500 bg-blue-50 text-blue-700 -mb-px';
-        troubleshootTab.className = 'px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-gray-300 bg-gray-50 text-gray-500 -mb-px';
-      } else {
-        howtoPanel.classList.add('hidden');
-        troubleshootPanel.classList.remove('hidden');
-        troubleshootTab.className = 'px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-blue-500 bg-blue-50 text-blue-700 -mb-px';
-        howtoTab.className = 'px-4 py-2 text-sm font-medium rounded-t-lg border border-b-0 border-gray-300 bg-gray-50 text-gray-500 -mb-px';
-      }
-    }
-  </script>
-</Base>
+<script is:inline>
+  // FAQ accordion: each H2/H3 inside .kmch-faq becomes a collapsible item.
+  // Default closed; clicking toggles. Q/A pattern: heading is the question,
+  // following content (until next heading) is the answer.
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.kmch-faq').forEach((root) => {
+      const headings = Array.from(root.querySelectorAll('h2, h3'));
+      headings.forEach((h, idx) => {
+        // Find the answer block: all siblings until next H2/H3
+        const answer = document.createElement('div');
+        answer.className = 'kmch-faq-answer';
+        answer.style.display = 'none';
+        let next = h.nextElementSibling;
+        while (next && next.tagName !== 'H2' && next.tagName !== 'H3') {
+          const toMove = next;
+          next = next.nextElementSibling;
+          answer.appendChild(toMove);
+        }
+        // Wrap the heading + answer
+        const item = document.createElement('div');
+        item.className = 'kmch-faq-item';
+        h.parentNode.insertBefore(item, h);
+        h.classList.add('kmch-faq-question');
+        h.setAttribute('role', 'button');
+        h.setAttribute('aria-expanded', 'false');
+        h.setAttribute('tabindex', '0');
+        item.appendChild(h);
+        item.appendChild(answer);
+
+        const toggle = () => {
+          const open = answer.style.display !== 'none';
+          answer.style.display = open ? 'none' : 'block';
+          h.setAttribute('aria-expanded', String(!open));
+          h.classList.toggle('kmch-faq-open', !open);
+        };
+        h.addEventListener('click', toggle);
+        h.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+          }
+        });
+      });
+    });
+  });
+</script>
+
+<style>
+.kmch-faq-item {
+  border: 1px solid var(--color-border);
+  border-radius: 0.85rem;
+  margin: 0.75rem 0;
+  overflow: hidden;
+  background: var(--color-surface);
+}
+.kmch-faq-question {
+  cursor: pointer;
+  margin: 0 !important;
+  padding: 1rem 1.25rem !important;
+  border: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  background: var(--color-surface);
+  transition: background 0.15s;
+}
+.kmch-faq-question:hover {
+  background: var(--color-surface-tint);
+}
+.kmch-faq-question::after {
+  content: '+';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent-primary);
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.kmch-faq-question.kmch-faq-open::after {
+  content: '−';
+  background: var(--color-accent-primary);
+  color: white;
+}
+.kmch-faq-answer {
+  padding: 0.5rem 1.25rem 1.25rem;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-strong);
+}
+.kmch-faq-answer > *:first-child {
+  margin-top: 0.6rem;
+}
+</style>

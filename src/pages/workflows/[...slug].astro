@@ -1,7 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
-import Base from '../../layouts/Base.astro';
+import ArticleV2 from '../../layouts/ArticleV2.astro';
+import Breadcrumb from '../../components/article/Breadcrumb.astro';
+import MetaStrip from '../../components/article/MetaStrip.astro';
+import RelatedSection from '../../components/article/RelatedSection.astro';
 import PrintButton from '../../components/PrintButton.astro';
+import { getRelated } from '../../lib/article-helpers';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -9,10 +13,7 @@ export async function getStaticPaths() {
   const entries = await getCollection('workflows');
   return entries.map((entry) => {
     const slug = entry.id.replace(/\.md$/, '').toLowerCase().replace(/\s+/g, '-');
-    return {
-      params: { slug },
-      props: { entry },
-    };
+    return { params: { slug }, props: { entry } };
   });
 }
 
@@ -23,31 +24,57 @@ const { Content } = await entry.render();
 const svgPath = join(process.cwd(), 'public', 'charts', `${slug}.svg`);
 const hasSvg = existsSync(svgPath);
 const svgContent = hasSvg ? readFileSync(svgPath, 'utf-8') : null;
+
+const related = await getRelated('workflows', slug!, entry.data.roles);
 ---
-<Base title={entry.data.title} showBackLink={true}>
-  <div class="mb-6">
-    <div class="flex items-center justify-between flex-wrap gap-2 mb-1">
-      <div class="flex items-center gap-2">
-        <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-green-100 text-green-700">Workflow</span>
-      </div>
+<ArticleV2 title={entry.data.title}>
+  <Breadcrumb items={[
+    { label: 'Workflows', href: '/' },
+    { label: entry.data.title },
+  ]} />
+
+  <article class="kmch-prose">
+    <h1>{entry.data.title}</h1>
+    <MetaStrip
+      type="workflow"
+      roles={entry.data.roles}
+      verifiedOn={entry.data['verified-on-uat']}
+      sources={entry.data.sources}
+      updated={entry.data.updated}
+    />
+
+    {hasSvg && svgContent && (
+      <figure class="my-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl p-4 overflow-x-auto not-prose">
+        <Fragment set:html={svgContent} />
+        <figcaption class="text-xs text-[var(--color-ink-muted)] mt-2 text-center">Workflow flowchart</figcaption>
+      </figure>
+    )}
+
+    <Content />
+
+    <div class="mt-8 not-prose">
       <PrintButton slug={`workflow/${slug}`} />
     </div>
-    <h1 class="text-2xl font-bold text-gray-900">{entry.data.title}</h1>
-  </div>
+  </article>
 
-  {hasSvg && svgContent && (
-    <div class="mb-6 bg-white border border-gray-200 rounded-lg p-4 overflow-x-auto">
-      <Fragment set:html={svgContent} />
-    </div>
-  )}
+  <RelatedSection items={related} />
+</ArticleV2>
 
-  <div
-    data-pagefind-body
-    class="prose prose-sm max-w-none
-           prose-headings:text-gray-800 prose-h2:text-lg prose-h2:font-bold prose-h2:border-b prose-h2:border-gray-200 prose-h2:pb-1 prose-h2:mb-3
-           prose-table:text-xs prose-th:bg-gray-50 prose-td:py-1
-           prose-a:text-blue-700 prose-a:no-underline hover:prose-a:underline
-           prose-code:bg-gray-100 prose-code:px-1 prose-code:rounded prose-code:text-xs">
-    <Content />
-  </div>
-</Base>
+<script is:inline>
+  // Workflow step pattern enhancement: any H3 starting with "Step <n>" or "ขั้นตอน <n>" gets numbered badge.
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.kmch-prose h3').forEach((h3) => {
+      const t = h3.textContent || '';
+      const m = t.match(/^\s*(?:Step|ขั้นตอนที่|ขั้นตอน)\s+(\d+)/i);
+      if (m) {
+        h3.classList.add('kmch-step');
+        h3.setAttribute('data-step', m[1]);
+        // Strip the number from text since the badge shows it
+        const node = h3.firstChild;
+        if (node && node.nodeType === Node.TEXT_NODE) {
+          node.textContent = t.replace(/^\s*(?:Step|ขั้นตอนที่|ขั้นตอน)\s+\d+\s*[:\-—.\s]\s*/i, '');
+        }
+      }
+    });
+  });
+</script>

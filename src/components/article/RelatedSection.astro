@@ -1,0 +1,23 @@
+---
+interface Item { title: string; href: string; type: string; }
+interface Props { items: Item[]; }
+const { items } = Astro.props;
+---
+{items.length > 0 && (
+  <section class="mt-14 pt-8 border-t border-[var(--color-border)] not-prose">
+    <h2 class="text-lg font-semibold mb-4">เนื้อหาที่เกี่ยวข้อง / Related</h2>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+      {items.map((it) => (
+        <li>
+          <a
+            href={it.href}
+            class="block p-3 rounded-xl border border-[var(--color-border)] hover:bg-[var(--color-surface-tint)] hover:border-[var(--color-border-strong)] transition-colors"
+          >
+            <div class="text-[10px] uppercase tracking-wider text-[var(--color-ink-muted)]">{it.type}</div>
+            <div class="text-sm font-medium text-[var(--color-ink)] mt-0.5">{it.title}</div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

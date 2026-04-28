@@ -1,0 +1,71 @@
+---
+interface Props {
+  type?: string;
+  roles?: string[];
+  verifiedOn?: string;
+  sources?: string[];
+  updated?: string;
+}
+const { type, roles = [], verifiedOn, sources = [], updated } = Astro.props;
+
+const ROLE_SLUG: Record<string, string> = {
+  Doctor: 'doctor',
+  NurseIPD: 'nurse-ipd',
+  NurseOPD: 'nurse-opd',
+  NurseOR: 'nurse-or',
+  Pharmacist: 'pharmacist',
+  XRayTech: 'xray-tech',
+  AdminSystem: 'admin-system',
+  ITSupport: 'it-support',
+};
+
+const TYPE_PILL: Record<string, { label: string; bg: string; fg: string }> = {
+  module: { label: 'Module', bg: '#FFF7E5', fg: '#92400e' },
+  workflow: { label: 'Workflow', bg: '#E8F5E9', fg: '#166534' },
+  entity: { label: 'Screen', bg: '#E0F2FE', fg: '#0369a1' },
+  concept: { label: 'Concept', bg: '#F3E8FF', fg: '#6b21a8' },
+  faq: { label: 'FAQ', bg: 'var(--color-surface-tint)', fg: 'var(--color-ink-muted)' },
+};
+const pill = type ? TYPE_PILL[type] : null;
+---
+<div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-[var(--color-ink-muted)] mb-6 pb-5 border-b border-[var(--color-border)]">
+  {pill && (
+    <span class="text-xs uppercase tracking-wider px-2.5 py-1 rounded-full font-medium" style={`background: ${pill.bg}; color: ${pill.fg};`}>
+      {pill.label}
+    </span>
+  )}
+  {verifiedOn && verifiedOn !== 'pending' && (
+    <span class="inline-flex items-center gap-1 text-[var(--color-success)]">
+      <span aria-hidden="true">✓</span> Verified {verifiedOn}
+    </span>
+  )}
+  {verifiedOn === 'pending' && (
+    <span class="inline-flex items-center gap-1 text-[var(--color-warning)]">
+      <span aria-hidden="true">⚠</span> UAT verification pending
+    </span>
+  )}
+  {roles.length > 0 && (
+    <>
+      {pill && <span aria-hidden="true">·</span>}
+      <span class="text-xs uppercase tracking-wider">For:</span>
+      {roles.map((r) => (
+        <a
+          href={`/roles/${ROLE_SLUG[r] ?? r.toLowerCase()}/`}
+          class="text-xs uppercase tracking-wider px-2 py-0.5 rounded-full bg-[var(--color-surface-tint)] hover:bg-[var(--color-accent-soft)]"
+        >{r}</a>
+      ))}
+    </>
+  )}
+  {sources.length > 0 && (
+    <>
+      <span aria-hidden="true">·</span>
+      <span class="text-xs">Source: {sources.join(', ')}</span>
+    </>
+  )}
+  {updated && (
+    <>
+      <span aria-hidden="true">·</span>
+      <span class="text-xs">Updated {updated}</span>
+    </>
+  )}
+</div>

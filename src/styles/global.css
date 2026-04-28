@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './motion.css';
+@import './prose.css';
 
 @theme inline {
   /* Surface */

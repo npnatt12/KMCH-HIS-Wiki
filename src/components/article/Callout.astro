@@ -1,0 +1,16 @@
+---
+interface Props { variant?: 'info' | 'caution' | 'warning' | 'success'; title?: string; }
+const { variant = 'info', title } = Astro.props;
+const style = {
+  info:    { bg: 'var(--color-surface-tint)', bd: 'var(--color-border-strong)', fg: 'var(--color-ink)',   icon: 'ℹ' },
+  caution: { bg: '#FEF3C7',                   bd: '#F59E0B',                    fg: '#78350F',           icon: '⚠' },
+  warning: { bg: '#FEE2E2',                   bd: 'var(--color-danger)',        fg: '#991B1B',           icon: '⚠' },
+  success: { bg: '#DCFCE7',                   bd: 'var(--color-success)',       fg: '#14532D',           icon: '✓' },
+}[variant];
+---
+<div class="my-5 rounded-2xl border-l-4 px-4 py-3 not-prose" style={`background:${style.bg}; border-left-color:${style.bd}; color:${style.fg};`}>
+  {title && <div class="font-semibold mb-1 flex items-center gap-2"><span aria-hidden="true">{style.icon}</span>{title}</div>}
+  <div class="text-sm leading-relaxed">
+    <slot />
+  </div>
+</div>
