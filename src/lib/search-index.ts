@@ -1,4 +1,5 @@
 import { getCollection } from 'astro:content';
+import { slugify } from './slug';
 
 type SearchType = 'module' | 'workflow' | 'concept' | 'entity' | 'how-to' | 'troubleshooting';
 
@@ -246,16 +247,6 @@ function inferModule(id: string, tags: string[], body: string) {
   ] as const;
 
   return modules.find(([, pattern]) => pattern.test(text))?.[0];
-}
-
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/\.md$/, '')
-    .normalize('NFKD')
-    .replace(/[^\p{Letter}\p{Number}\s-]/gu, '')
-    .trim()
-    .replace(/\s+/g, '-');
 }
 
 function typeRank(type: SearchType) {

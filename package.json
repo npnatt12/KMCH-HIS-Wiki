@@ -8,7 +8,8 @@
     "build:images": "node scripts/extract-images.mjs",
     "build": "astro build",
     "build:local": "npm run build:images && npm run build:charts && npm run build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "find src/lib/__tests__ scripts -type f \\( -name '*.test.ts' -o -name '*.test.mjs' \\) -not -path '*/node_modules/*' -print0 | xargs -0 tsx --test"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
@@ -23,7 +24,8 @@
   "devDependencies": {
     "@xmldom/xmldom": "^0.9.9",
     "adm-zip": "^0.5.17",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0"
   },
   "optionalDependencies": {
     "@mermaid-js/mermaid-cli": "^11.12.0"
