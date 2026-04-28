@@ -21,7 +21,7 @@ Phase-4 OCR adapter — codex's 248 routed captions and 945 PNGs are now searcha
 ### Stats
 - 945 PNGs → 945 WebP + 945 thumbs (~38 MB committed under `public/screenshots/phase-4/`)
 - 31 wiki pages with phase-4 galleries; 248 assets routed (codex's per-section tables are curated subsets — full 945 inventory available as files but only the curated 248 surface in UI/search)
-- ~30% of caption rows filtered out of search records (D2: generic "HIS ERP Interface" with no OCR terms); all kept in gallery
+- D2 filter live (drops generic "HIS ERP Interface" rows with empty OCR terms from search records, keeps them in gallery); zero rows match in current page-map but the guard remains for future inputs
 - 17 new tests (8 manifest parser, 4 asset optimizer, 5 search injection); total ≥ 120 passing
 - 0 new dependencies (sharp already a dep)
 
