@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # ขั้นตอนลงทะเบียนผู้ป่วยอุบัติภัยหมู่ (Mass Casualty Registration)
 
-การลงทะเบียนผู้ป่วยหลายรายพร้อมกันจากเหตุอุบัติภัยหมู่ในระบบ [[ER]]
+การลงทะเบียนผู้ป่วยหลายรายพร้อมกันจากเหตุอุบัติภัยหมู่ในระบบ [ER](/modules/er/)
 
 ## ขั้นตอน
 
@@ -31,11 +31,11 @@ verified-on-uat: pending
 
 ## After Registration
 
-- ผู้ป่วยแสดงใน [[Whiteboard]]
-- ดำเนินการ Triage ([[ESI Level]]) ต่อทีละราย
+- ผู้ป่วยแสดงใน [Whiteboard](/entities/whiteboard/)
+- ดำเนินการ Triage ([ESI Level](/concepts/esi-level/)) ต่อทีละราย
 
 ## Related
 
-- [[Emergency Registration]] — ลงทะเบียนฉุกเฉินรายเดียว
-- [[ER]] — module page
-- [[Registration]] — Registration module (Mass Casualty section)
+- [Emergency Registration](/workflows/emergency-registration/) — ลงทะเบียนฉุกเฉินรายเดียว
+- [ER](/modules/er/) — module page
+- [Registration](/modules/registration/) — Registration module (Mass Casualty section)

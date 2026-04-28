@@ -88,6 +88,6 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[XRAY Order to Report Workflow]] — ขั้นตอนที่ 4 (Report Entry) และ 5 (Approve)
-- [[XRAY]] — ข้อมูลโมดูลรังสีวินิจฉัย
-- [[Lab and Radiology Order Status]] — สถานะ Radiology ทั้งหมด
+- [XRAY Order to Report Workflow](/workflows/xray-order-to-report-workflow/) — ขั้นตอนที่ 4 (Report Entry) และ 5 (Approve)
+- [XRAY](/modules/xray/) — ข้อมูลโมดูลรังสีวินิจฉัย
+- [Lab and Radiology Order Status](/concepts/lab-and-radiology-order-status/) — สถานะ Radiology ทั้งหมด

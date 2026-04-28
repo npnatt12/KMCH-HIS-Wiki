@@ -16,17 +16,17 @@ verified-on-uat: pending
 ## การทำนัด
 
 ### วิธี 1: เมนูหลัก
-- [[OPD]] → **Appointments** → เลือก Department/Careprovider → เลือกวัน/เวลา → Book → SAVE → Print บัตรนัด
+- [OPD](/modules/opd/) → **Appointments** → เลือก Department/Careprovider → เลือกวัน/เวลา → Book → SAVE → Print บัตรนัด
 
 ### วิธี 2: Day View (หลายคลินิก/แพทย์)
 - Appointments → **Day View** → ดูตารางหลายคลินิก/แพทย์พร้อมกัน
 - ช่องสีฟ้า = มีนัดแล้ว
 
 ### วิธี 3: จาก EMR (แพทย์)
-- [[EMR Doctor]] → Appointment icon → ระบุ Duration/Period/Time → Search → Book
+- [EMR Doctor](/modules/emr-doctor/) → Appointment icon → ระบุ Duration/Period/Time → Search → Book
 
 ### วิธี 4: จาก Ward Board (IPD)
-- [[Ward Board]] → เลือกผู้ป่วย → Appointment → ระบุ Department/Careprovider/Date/Time
+- [Ward Board](/entities/ward-board/) → เลือกผู้ป่วย → Appointment → ระบุ Department/Careprovider/Date/Time
 
 ## Features
 
@@ -36,7 +36,7 @@ verified-on-uat: pending
 
 ## การลงทะเบียนจากนัด (2 วิธี)
 
-ดูกระบวนการครบที่ [[Appointment Registration]]
+ดูกระบวนการครบที่ [Appointment Registration](/workflows/appointment-registration/)
 
 **วิธีที่ 1:** Registration → OP Registration → Patient Search → Select (ระบบแสดง Appointments list) → เลือกนัด → Patient Demographics (Link to Appt) → SAVE
 - ระบบดึง Department + Careprovider จากนัดหมายอัตโนมัติ
@@ -46,9 +46,9 @@ verified-on-uat: pending
 
 ## Future Orders (คำสั่งล่วงหน้าสำหรับนัด)
 
-แพทย์สามารถสั่ง [[Order Types|Future Orders]] ล่วงหน้าจากหน้าจอนัดหมาย:
+แพทย์สามารถสั่ง [Future Orders](/concepts/order-types/) ล่วงหน้าจากหน้าจอนัดหมาย:
 - หน้าจอนัดหมาย → แถว Future → Toggle เป็น Add → เลือกรายการ → Order
-- เมื่อผู้ป่วยมาตามนัด → [[Order Entry]] → แถบ FUTURE ORDERS → Select นำมาสั่งใช้
+- เมื่อผู้ป่วยมาตามนัด → [Order Entry](/modules/order-entry/) → แถบ FUTURE ORDERS → Select นำมาสั่งใช้
 
 ## Appointment Slip
 
@@ -58,9 +58,9 @@ verified-on-uat: pending
 
 ## ที่ใช้งาน
 
-- [[OPD]] — นัดหมาย OPD + Appointments tab ใน OPD Worklist
-- [[IPD]] — นัดหมายจาก Ward Board
-- [[Registration]] — ลงทะเบียนจากนัด
-- [[EMR Doctor]] — แพทย์ทำนัดจาก Appointment icon; Tasks → Follow Up
-- [[OR]] — OR Schedule สำหรับจองห้องผ่าตัด
-- [[Order Entry]] — Future Orders เชื่อมกับนัดหมาย
+- [OPD](/modules/opd/) — นัดหมาย OPD + Appointments tab ใน OPD Worklist
+- [IPD](/modules/ipd/) — นัดหมายจาก Ward Board
+- [Registration](/modules/registration/) — ลงทะเบียนจากนัด
+- [EMR Doctor](/modules/emr-doctor/) — แพทย์ทำนัดจาก Appointment icon; Tasks → Follow Up
+- [OR](/modules/or/) — OR Schedule สำหรับจองห้องผ่าตัด
+- [Order Entry](/modules/order-entry/) — Future Orders เชื่อมกับนัดหมาย

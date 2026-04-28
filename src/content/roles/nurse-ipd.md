@@ -31,7 +31,7 @@ tags: [role, clinical, nursing]
 
 ## Permissions
 
-Permission matrix wires after Phase 1 UAT recon.
+See _role-permission-matrix. Highlights:
 - **Read+Write:** Ward Board, Nursing Worklist, IPD Transfer (request), Vitals entry
 - **Read-only:** EMR Form, Order Entry (cannot create orders)
 - **Hidden:** Order Entry write, Pharmacy Dispense, OR Schedule

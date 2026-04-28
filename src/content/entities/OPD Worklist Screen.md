@@ -11,7 +11,20 @@ verified-on-uat: pending
 
 # OPD Worklist Screen
 
-หน้าจอหลักของระบบ [[OPD]] แสดงรายชื่อผู้ป่วยนอกและเครื่องมือจัดการ
+หน้าจอหลักของระบบ [OPD](/modules/opd/) แสดงรายชื่อผู้ป่วยนอกและเครื่องมือจัดการ
+
+## ⚠ UAT verification — 6 tabs
+
+The OPD Workbench (`triangular.opdworkbench`) renders **6 tabs** (confirmed from `app/opd/opdworkbench.tmpl.html` on UAT 2026-04-28):
+
+1. **Patients** — main OPD patient list
+2. **Appointments** — scheduled appointments view
+3. **Referrals** — incoming/outgoing referrals
+4. **Orders** — order list across patients
+5. **IPD Consults** — IPD consult requests routed to OPD
+6. **Tasks** — task queue
+
+The Lab Specimen / Appointment / Centrix Form references currently in this page are subsections within those tabs, not parallel top-level surfaces.
 
 ## Access
 
@@ -21,7 +34,7 @@ OPD → OPD Worklist
 
 ### Group By
 - **None** — เรียงตามเวลาลงทะเบียน (ascending/descending)
-- **Status** — จัดตาม [[OPD Patient Status]] (8 สถานะ)
+- **Status** — จัดตาม [OPD Patient Status](/concepts/opd-patient-status/) (8 สถานะ)
 - **Care provider** — จัดตามรายชื่อแพทย์
 
 ### Tabs
@@ -112,7 +125,7 @@ OPD → OPD Worklist
 
 ## Related
 
-- [[OPD]] — module page
-- [[OPD Patient Flow]] — workflow
-- [[OPD Patient Status]] — 8 สถานะ
-- [[OPD Screening Screen]] — หน้าจอ Vital Signs / Charting
+- [OPD](/modules/opd/) — module page
+- [OPD Patient Flow](/workflows/opd-patient-flow/) — workflow
+- [OPD Patient Status](/concepts/opd-patient-status/) — 8 สถานะ
+- [OPD Screening Screen](/entities/opd-screening-screen/) — หน้าจอ Vital Signs / Charting

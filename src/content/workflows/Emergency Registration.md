@@ -35,7 +35,7 @@ verified-on-uat: pending
 - ผู้ป่วยใหม่: ระบบแสดง Popup สร้าง **MRN** (Medical Record Number) อัตโนมัติ
 - ผู้ป่วยเก่า: ระบบแสดง Popup ยืนยันการสร้าง Visit
 
-## เปรียบเทียบกับ [[New Patient Registration]]
+## เปรียบเทียบกับ [New Patient Registration](/workflows/new-patient-registration/)
 
 | | Emergency Registration | New Patient Registration |
 |---|---|---|
@@ -46,11 +46,11 @@ verified-on-uat: pending
 
 ## หลังลงทะเบียน — ขั้นตอน ER ต่อเนื่อง
 
-เมื่อลงทะเบียนเสร็จแล้ว ผู้ป่วยจะปรากฏใน [[Whiteboard]] → ดำเนินการต่อดังนี้:
+เมื่อลงทะเบียนเสร็จแล้ว ผู้ป่วยจะปรากฏใน [Whiteboard](/entities/whiteboard/) → ดำเนินการต่อดังนี้:
 
 ### ขั้นตอน Triage
-1. [[Whiteboard]] → Click ชื่อผู้ป่วย → Visit Detail → Icon **Triage**
-2. กรอก: Triaged By / Chief Complaints / Present Illness / [[ESI Level]] / Glasgow Coma Scale
+1. [Whiteboard](/entities/whiteboard/) → Click ชื่อผู้ป่วย → Visit Detail → Icon **Triage**
+2. กรอก: Triaged By / Chief Complaints / Present Illness / [ESI Level](/concepts/esi-level/) / Glasgow Coma Scale
 3. **Save** → Status เปลี่ยนเป็น **Triaged** → สีแสดงที่ Whiteboard
 
 ### ขั้นตอน Emergency Discharge
@@ -59,10 +59,10 @@ verified-on-uat: pending
 3. เลือก Discharge Status:
    - **Discharge** → กลับบ้าน
    - **Death** → บันทึกรายละเอียดการเสียชีวิต
-   - **Referred to Admission** → รับ IPD → ส่ง [[Admission]]
+   - **Referred to Admission** → รับ IPD → ส่ง [Admission](/modules/admission/)
    - **Referred to Other Hospital** → เตรียมเอกสาร ส่งตัว
-   - **Send to OR** → ส่ง [[OR]]
-4. **Save** → Status → **Medical Discharge** → เข้า [[Billing]]
+   - **Send to OR** → ส่ง [OR](/modules/or/)
+4. **Save** → Status → **Medical Discharge** → เข้า [Billing](/modules/billing/)
 
 ## Mass Casualty — ขั้นตอนเพิ่มเติม
 
@@ -74,9 +74,9 @@ verified-on-uat: pending
    - Brought by Next of Kin: ถ้า ON → Escort Name (Required), Mobile, Comment
 3. **Save** → Popup แสดงจำนวน → ระบบสร้าง Visit อัตโนมัติ
 4. ชื่อผู้ป่วยถูกตั้งอัตโนมัติ: `"Incident Detail Adult/Child_เพศ_ลำดับ"` → แก้ไขชื่อจริงภายหลัง
-5. ผู้ป่วยทั้งหมดปรากฏใน [[Whiteboard]] → Triage ทีละราย
+5. ผู้ป่วยทั้งหมดปรากฏใน [Whiteboard](/entities/whiteboard/) → Triage ทีละราย
 
-## เปรียบเทียบกับ [[New Patient Registration]]
+## เปรียบเทียบกับ [New Patient Registration](/workflows/new-patient-registration/)
 
 | | Emergency Registration | New Patient Registration |
 |---|---|---|
@@ -87,9 +87,9 @@ verified-on-uat: pending
 
 ## Related
 
-- [[Registration]] — module page
-- [[ER]] — Emergency Room module
-- [[Mass Casualty Registration]] — สำหรับเหตุอุบัติภัยหมู่
-- [[Whiteboard]] — รายชื่อผู้ป่วยฉุกเฉินหลังลงทะเบียน
-- [[ER Triage Screen]] — หน้าจอ Triage
-- [[ER Discharge Screen]] — หน้าจอจำหน่าย
+- [Registration](/modules/registration/) — module page
+- [ER](/modules/er/) — Emergency Room module
+- [Mass Casualty Registration](/workflows/mass-casualty-registration/) — สำหรับเหตุอุบัติภัยหมู่
+- [Whiteboard](/entities/whiteboard/) — รายชื่อผู้ป่วยฉุกเฉินหลังลงทะเบียน
+- [ER Triage Screen](/entities/er-triage-screen/) — หน้าจอ Triage
+- [ER Discharge Screen](/entities/er-discharge-screen/) — หน้าจอจำหน่าย

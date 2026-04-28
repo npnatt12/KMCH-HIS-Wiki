@@ -55,10 +55,10 @@ verified-on-uat: pending
 
 ## Modules Involved
 
-- [[Billing]] — กระบวนการหลัก
-- [[IPD]] — Medical Discharge trigger
-- [[Registration]] — [[Payor and Treatment Rights|Payor information]]
-- [[Pharmacy]] — Drug order status ต้องพร้อม
+- [Billing](/modules/billing/) — กระบวนการหลัก
+- [IPD](/modules/ipd/) — Medical Discharge trigger
+- [Registration](/modules/registration/) — [Payor information](/concepts/payor-and-treatment-rights/)
+- [Pharmacy](/modules/pharmacy/) — Drug order status ต้องพร้อม
 
 ## Error / Edge Cases
 

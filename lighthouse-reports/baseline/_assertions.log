@@ -1,0 +1,4 @@
+$ npx @lhci/cli@latest assert --config=./lighthouserc.cjs
+Checking assertions against 3 URL(s), 9 total run(s)
+
+All results processed!

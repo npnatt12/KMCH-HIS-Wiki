@@ -20,8 +20,8 @@ verified-on-uat: pending
 
 ## Key Screens
 
-### [[Ward Board]]
-หน้าจอหลักแสดงเตียงและผู้ป่วยใน Ward — ดู [[Bed Status]] สำหรับสถานะเตียง
+### [Ward Board](/entities/ward-board/)
+หน้าจอหลักแสดงเตียงและผู้ป่วยใน Ward — ดู [Bed Status](/concepts/bed-status/) สำหรับสถานะเตียง
 
 **Action Icons บน Ward Board:**
 
@@ -30,11 +30,11 @@ verified-on-uat: pending
 | **Arrive** | รับผู้ป่วยเข้า Ward | กด YES เพื่อยืนยัน สัญลักษณ์ Arrive หายไปหลังยืนยัน |
 | **Charting** | บันทึก Vital Signs | → Charting → OBSERVATION → Vital Sign Chart |
 | **Appointment** | ทำนัดหมาย | ระบุ Department/Careprovider/Date/Time + Future Orders |
-| **Transfer Request** | ขอย้ายเตียง/Ward | ต้องรอ [[Admission]] อนุมัติ |
+| **Transfer Request** | ขอย้ายเตียง/Ward | ต้องรอ [Admission](/modules/admission/) อนุมัติ |
 | **Dispense Return** | คืนยา | แสดงรายการยา + จำนวนที่ใช้แล้ว |
 | **Discharge Plan** | เริ่มกระบวนการจำหน่าย | เปิด Discharge Plan 4 ขั้นตอน |
 
-### [[Nursing Worklist Screen]]
+### [Nursing Worklist Screen](/entities/nursing-worklist-screen/)
 รายการคำสั่งแพทย์ทั้งหมด ค้นหาตาม Ward / Search Patients
 
 **Group by** (6 แบบ):
@@ -62,7 +62,7 @@ verified-on-uat: pending
 ## Key Workflows
 
 ### 1. Patient Arrive (รับผู้ป่วยเข้า Ward)
-- [[Ward Board]] → เลือกผู้ป่วย → **Arrive** → YES
+- [Ward Board](/entities/ward-board/) → เลือกผู้ป่วย → **Arrive** → YES
 - สัญลักษณ์ Arrive หายไป → เริ่มบันทึกการรักษาในสถานะผู้ป่วยใน
 
 ### 2. Cancel Admission (ยกเลิกก่อน Arrive)
@@ -73,7 +73,7 @@ verified-on-uat: pending
 - Visit Detail → **Charting** → OBSERVATION → Vital Sign Chart → บันทึก → Save
 
 ### 4. Nursing Worklist (รับคำสั่งแพทย์)
-- Inpatient → [[Nursing Worklist Screen]] → เลือก order → Update → **Execute Order** → SAVE
+- Inpatient → [Nursing Worklist Screen](/entities/nursing-worklist-screen/) → เลือก order → Update → **Execute Order** → SAVE
 
 ### 5. Appointment (นัดหมาย)
 - Ward Board → เลือกผู้ป่วย → **Appointment** → ระบุ Department/Careprovider/Date/Time
@@ -88,17 +88,17 @@ verified-on-uat: pending
 - Nursing Worklist → **IPD Consults** → Assign Careprovider ถ้าแพทย์ยังไม่ระบุ (Modify → ระบุชื่อ → SAVE)
 - ประสานงานแผนกที่รับ Consult
 
-### 8. [[IPD Transfer Between Wards Workflow|Transfer]] (ย้ายเตียง/Ward)
-- [[Ward Board]] → เลือกผู้ป่วย → **Transfer Request** → เลือก Ward/เตียง → SAVE
-- ติดต่อแผนก [[Admission]] เพื่ออนุมัติ → Admission กด **TRANSFER**
-- ดู [[IPD Transfer Screen]] สำหรับรายละเอียดหน้าจอ
+### 8. [Transfer](/workflows/ipd-transfer-between-wards-workflow/) (ย้ายเตียง/Ward)
+- [Ward Board](/entities/ward-board/) → เลือกผู้ป่วย → **Transfer Request** → เลือก Ward/เตียง → SAVE
+- ติดต่อแผนก [Admission](/modules/admission/) เพื่ออนุมัติ → Admission กด **TRANSFER**
+- ดู [IPD Transfer Screen](/entities/ipd-transfer-screen/) สำหรับรายละเอียดหน้าจอ
 
 ### 9. Dispense Return (คืนยา)
 - เลือกผู้ป่วย → **Dispense Return** → แสดงรายการยาทั้งหมด + จำนวนที่ใช้แล้ว
 - เลือกรายการ → ระบุจำนวนคืนจาก Batches → SAVE
 - ใช้กรณี: กลับบ้าน หรือแพทย์ยกเลิก order
 
-### 10. [[IPD Discharge Process]] (จำหน่าย — 4 ขั้นตอน)
+### 10. [IPD Discharge Process](/workflows/ipd-discharge-process/) (จำหน่าย — 4 ขั้นตอน)
 
 **Dispense Return ก่อน Discharge:**
 - เลือกผู้ป่วย → **Dispense Return** → เลือกรายการ → ระบุจำนวนจาก Batches → SAVE
@@ -107,7 +107,7 @@ verified-on-uat: pending
 |------|-------------|--------|
 | 1. Discharge Advice | แพทย์ | วางแผนวัน/เวลากลับบ้าน → SAVE |
 | 2. Discharge Order | แพทย์ | คำสั่งกลับบ้าน, Discharge Summary, การวินิจฉัย → SAVE |
-| 3. Medical Discharge | พยาบาล | คืนยา, Close Orders → บันทึก → ส่ง[[Billing|การเงิน]] |
+| 3. Medical Discharge | พยาบาล | คืนยา, Close Orders → บันทึก → ส่ง[การเงิน](/modules/billing/) |
 | 4. Final Discharge | พยาบาล | SAVE ได้เมื่อ billing เสร็จ (สัญลักษณ์ "$") → ผู้ป่วยออกจาก Ward |
 
 - **REVERT**: ยกเลิกสถานะในแต่ละขั้นตอนได้
@@ -143,12 +143,12 @@ verified-on-uat: pending
 ## Error / Edge Cases
 
 - **Arrive แล้ว Cancel ไม่ได้**: หลังกด Arrive ต้องผ่าน Discharge Process เท่านั้น
-- **Final Discharge กด SAVE ไม่ได้**: ต้องรอสัญลักษณ์ "$" (billing ชำระเสร็จ) จาก [[Billing]]
+- **Final Discharge กด SAVE ไม่ได้**: ต้องรอสัญลักษณ์ "$" (billing ชำระเสร็จ) จาก [Billing](/modules/billing/)
 - **Transfer ต้องรอ Admission**: Ward เองย้ายไม่ได้โดยตรง ต้องให้แผนก Admission อนุมัติ
 - **Consult ไม่มีแพทย์**: พยาบาลต้อง Assign Careprovider เองจาก Nursing Worklist → Modify
 - **Appointment ที่มี Follow-up Order**: ต้องเปิด Add Future Orders ด้วย
 
-## [[Bed Status]]
+## [Bed Status](/concepts/bed-status/)
 
 | Status | Display | Description |
 |--------|---------|-------------|
@@ -161,10 +161,10 @@ verified-on-uat: pending
 
 | Module | Integration |
 |--------|-------------|
-| [[Admission]] | Admit สำเร็จ → แสดงใน Ward Board; Transfer ต้อง Admission อนุมัติ |
-| [[OPD]] | Request Admission จาก OPD |
-| [[ER]] | Referred to Admission จาก ER |
-| [[Billing]] | Medical Discharge → IP Billing; Final Discharge ต้องรอ billing |
-| [[LAB]] | Specimen Collection |
-| [[Pharmacy]] | Dispense Return, Drug orders |
-| [[EMR Doctor]] | แพทย์สั่ง orders ผ่าน EMR |
+| [Admission](/modules/admission/) | Admit สำเร็จ → แสดงใน Ward Board; Transfer ต้อง Admission อนุมัติ |
+| [OPD](/modules/opd/) | Request Admission จาก OPD |
+| [ER](/modules/er/) | Referred to Admission จาก ER |
+| [Billing](/modules/billing/) | Medical Discharge → IP Billing; Final Discharge ต้องรอ billing |
+| [LAB](/modules/lab/) | Specimen Collection |
+| [Pharmacy](/modules/pharmacy/) | Dispense Return, Drug orders |
+| [EMR Doctor](/modules/emr-doctor/) | แพทย์สั่ง orders ผ่าน EMR |

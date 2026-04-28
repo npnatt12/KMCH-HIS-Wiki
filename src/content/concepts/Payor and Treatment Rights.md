@@ -35,7 +35,7 @@ verified-on-uat: pending
 ผู้ป่วยเก่าสามารถ Copy สิทธิการรักษาจาก visit เก่าได้:
 - กดปุ่ม Copy → เลือก Checkbox ของ Payor ที่ต้องการ
 
-## [[NHSO Authentication|สปสช. (NHSO) Authentication]]
+## [สปสช. (NHSO) Authentication](/concepts/nhso-authentication/)
 
 ตรวจสอบสิทธิการรักษาออนไลน์ผ่านระบบ สปสช.:
 1. ระบุเลขบัตรประชาชนใน Basic Details
@@ -45,7 +45,7 @@ verified-on-uat: pending
 
 ## Payment Modes (5 รูปแบบ) ในการชำระ
 
-เมื่อ Settle บิลในระบบ [[Billing]] สามารถเลือกรูปแบบการชำระ:
+เมื่อ Settle บิลในระบบ [Billing](/modules/billing/) สามารถเลือกรูปแบบการชำระ:
 
 | Mode | รายละเอียดที่ต้องระบุ |
 |------|---------------------|
@@ -56,11 +56,11 @@ verified-on-uat: pending
 | **Cheque** | Bank Name, Due Date, Transaction Number |
 
 - รองรับ **mixed payment** (หลายรูปแบบใน 1 ใบเสร็จ)
-- ดูรายละเอียดครบที่ [[Payment Modes]]
+- ดูรายละเอียดครบที่ [Payment Modes](/concepts/payment-modes/)
 
 ## Payor ในบริบท Billing
 
-ขั้นตอนการเรียกเก็บใน [[Billing]]:
+ขั้นตอนการเรียกเก็บใน [Billing](/modules/billing/):
 1. **Lock** — เปลี่ยนสถานะเป็น Billing In Progress
 2. **Allocate Bill** — ระบบคำนวณค่ารักษาแยกตาม Payor Rank
 3. **Modify Payor** — แก้ไข/เพิ่มสิทธิ์ได้ขณะออกบิล + ตรวจสอบสิทธิ สปสช. เพิ่มเติมได้
@@ -71,7 +71,7 @@ verified-on-uat: pending
 
 ## ที่ใช้งาน
 
-- [[Registration]] — Payor Details section ใน [[Patient Demographics Screen]]
-- [[Billing]] — ใช้ Payor Details ในการคำนวณค่ารักษา + Modify Payor ขณะออกบิล
-- [[NHSO Authentication]] — ตรวจสอบสิทธิ สปสช. ออนไลน์
-- [[Payment Modes]] — รูปแบบการชำระเงิน 5 ประเภท
+- [Registration](/modules/registration/) — Payor Details section ใน [Patient Demographics Screen](/entities/patient-demographics-screen/)
+- [Billing](/modules/billing/) — ใช้ Payor Details ในการคำนวณค่ารักษา + Modify Payor ขณะออกบิล
+- [NHSO Authentication](/concepts/nhso-authentication/) — ตรวจสอบสิทธิ สปสช. ออนไลน์
+- [Payment Modes](/concepts/payment-modes/) — รูปแบบการชำระเงิน 5 ประเภท

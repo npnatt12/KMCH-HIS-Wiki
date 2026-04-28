@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # Order Types (ประเภทคำสั่งการรักษา)
 
-ประเภทคำสั่งในระบบ [[Order Entry]] (CPOE) กำหนดพฤติกรรมการจ่ายยาและวงจรชีวิตของคำสั่ง
+ประเภทคำสั่งในระบบ [Order Entry](/modules/order-entry/) (CPOE) กำหนดพฤติกรรมการจ่ายยาและวงจรชีวิตของคำสั่ง
 
 ---
 
@@ -49,7 +49,7 @@ verified-on-uat: pending
 | End Date | ถ้าไม่มี End Date = เภสัชกรส่งยาต่อเนื่องทุกวัน |
 | ยกเลิก | Cancel ได้เฉพาะ **ก่อน Fill ยา**; หลัง Fill ต้องใช้ Stop (ระบุ End Time) |
 | Discontinue | คลิก Stop → ระบุ **End Time** (default = ปัจจุบัน) → แสดง "(Closed)" + สีแดง + เวลาหยุด |
-| IP Fill | [[Pharmacy]] Generate IP Fill รายคนหรือทั้ง Ward |
+| IP Fill | [Pharmacy](/modules/pharmacy/) Generate IP Fill รายคนหรือทั้ง Ward |
 | เข้าถึง | คลิก + จากตาราง CONTINUOUS หรือ เมนู Orders → เปลี่ยน Type เป็น Continuous |
 
 ### 3. Discharge Medication (ยากลับบ้าน)
@@ -115,7 +115,7 @@ Discontinued / Closed
 
 ## ที่ใช้งาน
 
-- [[Order Entry]] → [[Order Entry Screen]] — ทุกประเภท
-- [[Pharmacy]] → IP Fill รองรับเฉพาะ Continuous Order
-- [[EMR Doctor]] → Doctor Worklist → เข้า Order Entry
-- [[Appointment System]] — สร้าง Future Orders จากหน้านัดหมาย
+- [Order Entry](/modules/order-entry/) → [Order Entry Screen](/entities/order-entry-screen/) — ทุกประเภท
+- [Pharmacy](/modules/pharmacy/) → IP Fill รองรับเฉพาะ Continuous Order
+- [EMR Doctor](/modules/emr-doctor/) → Doctor Worklist → เข้า Order Entry
+- [Appointment System](/concepts/appointment-system/) — สร้าง Future Orders จากหน้านัดหมาย

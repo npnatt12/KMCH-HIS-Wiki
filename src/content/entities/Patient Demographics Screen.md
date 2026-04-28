@@ -19,10 +19,10 @@ verified-on-uat: pending
 
 ## Access Path
 
-- [[Registration]] → OP Registration → [[Patient Search Screen]] → New (ผู้ป่วยใหม่)
-- [[Registration]] → OP Registration → [[Patient Search Screen]] → Select (ผู้ป่วยเก่า)
-- [[OPD]] → OPD Worklist → icon → Modify Demographics
-- [[IPD]] → Ward Board → icon → Modify Demographics
+- [Registration](/modules/registration/) → OP Registration → [Patient Search Screen](/entities/patient-search-screen/) → New (ผู้ป่วยใหม่)
+- [Registration](/modules/registration/) → OP Registration → [Patient Search Screen](/entities/patient-search-screen/) → Select (ผู้ป่วยเก่า)
+- [OPD](/modules/opd/) → OPD Worklist → icon → Modify Demographics
+- [IPD](/modules/ipd/) → Ward Board → icon → Modify Demographics
 
 ---
 
@@ -107,9 +107,9 @@ verified-on-uat: pending
 
 | Field | Type | Description |
 |-------|------|-------------|
-| VIP | Toggle + Dropdown | เปิด VIP → เลือก VIP Type → ระบบแสดงสัญลักษณ์บน [[Patient Banner]] |
+| VIP | Toggle + Dropdown | เปิด VIP → เลือก VIP Type → ระบบแสดงสัญลักษณ์บน [Patient Banner](/entities/patient-banner/) |
 | Anonymous Patient | Checkbox | ปกปิดชื่อผู้ป่วย → แสดงเป็น **** สำหรับผู้ไม่มีสิทธิ์ |
-| Interpreter Reqd | Checkbox | ต้องการล่าม → แสดง "Interpreter Reqd" บน [[Patient Banner]] |
+| Interpreter Reqd | Checkbox | ต้องการล่าม → แสดง "Interpreter Reqd" บน [Patient Banner](/entities/patient-banner/) |
 | Nationality | Text/Search | สัญชาติ |
 | Religion | Dropdown | ศาสนา |
 | Race | Dropdown | เชื้อชาติ |
@@ -202,12 +202,12 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[New Patient Registration]] — workflow ผู้ป่วยใหม่
-- [[Appointment Registration]] — ผู้ป่วยนัด
-- [[Emergency Registration]] — ผู้ป่วยฉุกเฉิน
-- [[Registration Update Merge Workflow]] — อัปเดท / แก้ไข Demographics
+- [New Patient Registration](/workflows/new-patient-registration/) — workflow ผู้ป่วยใหม่
+- [Appointment Registration](/workflows/appointment-registration/) — ผู้ป่วยนัด
+- [Emergency Registration](/workflows/emergency-registration/) — ผู้ป่วยฉุกเฉิน
+- [Registration Update Merge Workflow](/workflows/registration-update-merge-workflow/) — อัปเดท / แก้ไข Demographics
 
 ## Related Entities
 
-- [[Patient Search Screen]] — หน้าจอก่อนหน้า
-- [[Patient Banner]] — แสดง VIP / Anonymous / Interpreter flags
+- [Patient Search Screen](/entities/patient-search-screen/) — หน้าจอก่อนหน้า
+- [Patient Banner](/entities/patient-banner/) — แสดง VIP / Anonymous / Interpreter flags

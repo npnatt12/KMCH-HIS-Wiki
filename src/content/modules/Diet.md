@@ -125,16 +125,16 @@ verified-on-uat: pending
 
 ## Workflows
 
-- [[Diet Order to Kitchen Workflow]] — สั่งอาหาร → Kitchen Worklist → เตรียม
+- [Diet Order to Kitchen Workflow](/workflows/diet-order-to-kitchen-workflow/) — สั่งอาหาร → Kitchen Worklist → เตรียม
 
 ## Entities
 
-- [[Diet Order Entry Screen]] — หน้าจอสั่งอาหาร 3 มื้อ
+- [Diet Order Entry Screen](/entities/diet-order-entry-screen/) — หน้าจอสั่งอาหาร 3 มื้อ
 
 ## Integration Points
 
 | Module | Integration |
 |--------|-------------|
-| [[IPD]] | อาหารผู้ป่วยใน (Inpatient meals) — จัด 3 มื้อตาม ward |
-| [[OPD]] | ผู้ป่วยนอก consult โภชนาการ |
-| [[EMR Doctor]] | ดูประวัติโภชนาการของผู้ป่วยจาก EMR |
+| [IPD](/modules/ipd/) | อาหารผู้ป่วยใน (Inpatient meals) — จัด 3 มื้อตาม ward |
+| [OPD](/modules/opd/) | ผู้ป่วยนอก consult โภชนาการ |
+| [EMR Doctor](/modules/emr-doctor/) | ดูประวัติโภชนาการของผู้ป่วยจาก EMR |

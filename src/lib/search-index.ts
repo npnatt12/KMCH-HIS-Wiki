@@ -1,4 +1,6 @@
-import { getCollection } from 'astro:content';
+import { slugify } from './slug';
+import dictionary from './search-dictionary.json';
+import { tokenizeThai } from './thai-tokens';
 
 type SearchType = 'module' | 'workflow' | 'concept' | 'entity' | 'how-to' | 'troubleshooting';
 
@@ -15,7 +17,14 @@ export interface SearchRecord {
   priority: number;
 }
 
-const SEARCH_COLLECTIONS = ['modules', 'workflows', 'concepts', 'entities', 'faq'] as const;
+export const SEARCH_COLLECTIONS = ['modules', 'workflows', 'concepts', 'entities', 'faq'] as const;
+export type SearchCollection = (typeof SEARCH_COLLECTIONS)[number];
+
+export interface SearchEntryInput {
+  id: string;
+  body?: string;
+  data: { title: string; tags?: string[] };
+}
 
 const TROUBLE_TERMS = [
   'ไม่ได้',
@@ -43,51 +52,28 @@ const TROUBLE_TERMS = [
   'disabled',
 ];
 
-const QUERY_HINTS: Array<{ match: RegExp; terms: string[] }> = [
-  {
-    match: /save|บันทึก|กดไม่ได้|required|mandatory|password/i,
-    terms: ['save', 'บันทึกไม่ได้', 'mandatory', 'required', 'password', 'validation', 'ฟิลด์บังคับ'],
-  },
-  {
-    match: /worklist|ไม่ขึ้น|ไม่แสดง|หาไม่เจอ|ไม่พบ|ผู้ป่วย/i,
-    terms: ['worklist', 'filter', 'visit', 'hn', 'search patient', 'ผู้ป่วยไม่แสดง', 'clear filter'],
-  },
-  {
-    match: /บิล|billing|การเงิน|จ่ายเงิน|financial|แถบแดง|deposit/i,
-    terms: ['billing', 'financial discharge', 'pending order', 'แถบแดง', 'deposit', 'settlement'],
-  },
-  {
-    match: /ยา|pharmacy|drug|allergy|แพ้ยา|interaction|alert|med reject|จ่ายยา/i,
-    terms: ['pharmacy', 'drug alert', 'allergy', 'interaction', 'med reject', 'dispense', 'ยาไม่ได้'],
-  },
-  {
-    match: /lab|specimen|สิ่งส่งตรวจ|reject|xray|ผลตรวจ|ผลไม่ออก/i,
-    terms: ['lab', 'specimen reject', 'collected', 'verified', 'xray', 'result', 'ผลไม่แสดง'],
-  },
-  {
-    match: /admit|admission|ipd|ward|เตียง|ย้าย|transfer|discharge/i,
-    terms: ['admission', 'ipd', 'ward', 'bed', 'transfer', 'discharge', 'accept transfer'],
-  },
-  {
-    match: /hn|national|บัตรประชาชน|เลขบัตร|ซ้ำ|merge|mrd/i,
-    terms: ['hn', 'national id', 'duplicate', 'merge', 'mrd', 'เลขบัตรประชาชนซ้ำ'],
-  },
-  {
-    match: /stock|สต็อก|ของหมด|inventory|no stock|allocate/i,
-    terms: ['stock', 'no stock', 'inventory', 'allocate', 'batch', 'ของหมด'],
-  },
-  {
-    match: /นัด|appointment|future order|refill/i,
-    terms: ['appointment', 'future order', 'refill', 'นัดหมาย', 'op refills'],
-  },
-];
+const QUERY_HINTS: Array<{ match: RegExp; terms: string[] }> = dictionary.groups.map(
+  (g) => ({ match: new RegExp(g.match, 'i'), terms: g.terms }),
+);
 
 export async function getSearchRecords(): Promise<SearchRecord[]> {
-  const records: SearchRecord[] = [];
+  const { getCollection } = await import('astro:content');
+  const buckets: Array<{ collection: SearchCollection; entries: SearchEntryInput[] }> = [];
 
   for (const collection of SEARCH_COLLECTIONS) {
     const entries = await getCollection(collection);
+    buckets.push({ collection, entries: entries as unknown as SearchEntryInput[] });
+  }
 
+  return buildSearchRecords(buckets);
+}
+
+export function buildSearchRecords(
+  buckets: Array<{ collection: SearchCollection; entries: SearchEntryInput[] }>,
+): SearchRecord[] {
+  const records: SearchRecord[] = [];
+
+  for (const { collection, entries } of buckets) {
     for (const entry of entries) {
       const title = entry.data.title;
       const body = entry.body ?? '';
@@ -195,12 +181,17 @@ function summarize(text: string) {
   return (candidates[0] || text).slice(0, 240).trim();
 }
 
-function buildKeywords(title: string, heading: string, tags: string[], body: string) {
+export function buildKeywords(title: string, heading: string, tags: string[], body: string) {
   const set = new Set<string>();
   const base = `${title} ${heading} ${tags.join(' ')}`;
 
   for (const word of base.split(/[^a-z0-9ก-๙]+/i)) {
     if (word.length > 1) set.add(word.toLowerCase());
+  }
+
+  const thaiSources = `${title} ${heading} ${body}`;
+  for (const tok of tokenizeThai(thaiSources)) {
+    set.add(tok.toLowerCase());
   }
 
   for (const hint of QUERY_HINTS) {
@@ -209,7 +200,7 @@ function buildKeywords(title: string, heading: string, tags: string[], body: str
     }
   }
 
-  return Array.from(set).slice(0, 48);
+  return Array.from(set).slice(0, 96);
 }
 
 function scorePriority(type: SearchType, heading: string, body: string) {
@@ -246,16 +237,6 @@ function inferModule(id: string, tags: string[], body: string) {
   ] as const;
 
   return modules.find(([, pattern]) => pattern.test(text))?.[0];
-}
-
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .replace(/\.md$/, '')
-    .normalize('NFKD')
-    .replace(/[^\p{Letter}\p{Number}\s-]/gu, '')
-    .trim()
-    .replace(/\s+/g, '-');
 }
 
 function typeRank(type: SearchType) {

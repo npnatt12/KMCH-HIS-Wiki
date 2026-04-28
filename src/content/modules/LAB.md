@@ -20,7 +20,7 @@ verified-on-uat: pending
 - **Laboratory → Specimen Collection** — เก็บสิ่งส่งตรวจ
 - **Laboratory → Lab Worklist** — Accept/Reject, Manual Result
 
-## [[Lab Order to Result|Status Flow]]
+## [Status Flow](/workflows/lab-order-to-result/)
 
 ```
 Ordered → Specimen Collected → Specimen Accepted → [Test Executed] → Report Entered → Report Authorized
@@ -44,7 +44,7 @@ Ordered → Specimen Collected → Specimen Accepted → [Test Executed] → Rep
 
 ### 2. Specimen Collection (เก็บสิ่งส่งตรวจ)
 
-#### หน้าจอ [[Lab Specimen Collection Screen]]
+#### หน้าจอ [Lab Specimen Collection Screen](/entities/lab-specimen-collection-screen/)
 
 - Laboratory → Specimen Collection → Tab **NEW** (Default)
 - **Filter**: Department, Ward, Careprovider, Patient, Encounter Type, Order No., Date From–To, Status
@@ -205,9 +205,9 @@ Ordered → Specimen Collected → Specimen Accepted → [Test Executed] → Rep
 
 | Module | Integration |
 |--------|-------------|
-| [[OPD]] | สั่ง Lab จาก EMR, Specimen Collection |
-| [[IPD]] | สั่ง Lab จาก EMR, Specimen Collection |
-| [[EMR Doctor]] | สั่งตรวจ, ดูผล |
-| [[ANC]] | Lab tab ใน ANC Chart |
-| [[Billing]] | Lab orders ส่งต่อ Billing |
+| [OPD](/modules/opd/) | สั่ง Lab จาก EMR, Specimen Collection |
+| [IPD](/modules/ipd/) | สั่ง Lab จาก EMR, Specimen Collection |
+| [EMR Doctor](/modules/emr-doctor/) | สั่งตรวจ, ดูผล |
+| [ANC](/modules/anc/) | Lab tab ใน ANC Chart |
+| [Billing](/modules/billing/) | Lab orders ส่งต่อ Billing |
 | LIS | เชื่อมต่อระบบ Lab อัตโนมัติ (ถ้ามี) |

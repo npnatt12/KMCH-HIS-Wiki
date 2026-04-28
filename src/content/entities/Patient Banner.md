@@ -23,9 +23,9 @@ verified-on-uat: pending
 
 ## ที่ใช้งาน
 
-ปรากฏในหน้าจอทุกโมดูลที่เกี่ยวข้องกับผู้ป่วย ข้อมูลมาจาก [[Patient Demographics Screen]] → Additional Detail
+ปรากฏในหน้าจอทุกโมดูลที่เกี่ยวข้องกับผู้ป่วย ข้อมูลมาจาก [Patient Demographics Screen](/entities/patient-demographics-screen/) → Additional Detail
 
 ## Related
 
-- [[Patient Types]] — VIP, Anonymous, Interpreter flags
-- [[Registration]] — กำหนดค่าใน Additional Detail
+- [Patient Types](/concepts/patient-types/) — VIP, Anonymous, Interpreter flags
+- [Registration](/modules/registration/) — กำหนดค่าใน Additional Detail

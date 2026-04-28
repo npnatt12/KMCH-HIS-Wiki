@@ -39,7 +39,7 @@ verified-on-uat: pending
 | สิทธิ์การรักษา | Dropdown | Yes | สิทธิ์ที่ใช้สำหรับ Admit ครั้งนี้ |
 | สิทธิ์เบิก | Dropdown | No | สิทธิ์เบิกเพิ่มเติม |
 
-→ รายละเอียดสิทธิ์: [[Payor and Treatment Rights]]
+→ รายละเอียดสิทธิ์: [Payor and Treatment Rights](/concepts/payor-and-treatment-rights/)
 
 ### Section 3: Episode Detail
 
@@ -68,9 +68,9 @@ verified-on-uat: pending
 |-------|------|----------|-------------|
 | Ward | Dropdown | Yes | หอผู้ป่วยที่ต้องการ Admit |
 | Room Type | Dropdown | Yes | ประเภทห้อง (ตามสิทธิ์/ความต้องการของผู้ป่วย) |
-| Bed | Select | Yes | เลือกเตียงจากรายการเตียงว่าง ([[Bed Status|Vacant Bed]] เท่านั้น) |
+| Bed | Select | Yes | เลือกเตียงจากรายการเตียงว่าง ([Vacant Bed](/concepts/bed-status/) เท่านั้น) |
 
-- เตียงที่ถูกเลือกได้ต้องมีสถานะ [[Bed Status|Vacant]] (สีเขียว)
+- เตียงที่ถูกเลือกได้ต้องมีสถานะ [Vacant](/concepts/bed-status/) (สีเขียว)
 
 ### Section 7: Visit Detail
 
@@ -91,6 +91,6 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[Admission Workflow]] — กระบวนการ Admit ทั้ง 2 วิธี
-- [[Bed Status]] — สถานะเตียงสำหรับ Bed Selection
-- [[Payor and Treatment Rights]] — ข้อมูลสิทธิ์การรักษา
+- [Admission Workflow](/workflows/admission-workflow/) — กระบวนการ Admit ทั้ง 2 วิธี
+- [Bed Status](/concepts/bed-status/) — สถานะเตียงสำหรับ Bed Selection
+- [Payor and Treatment Rights](/concepts/payor-and-treatment-rights/) — ข้อมูลสิทธิ์การรักษา

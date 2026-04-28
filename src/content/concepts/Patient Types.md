@@ -15,7 +15,7 @@ verified-on-uat: pending
 
 ## Patient Type (ชนิดของผู้ป่วย)
 
-เลือกใน [[Patient Demographics Screen]] → Basic Details:
+เลือกใน [Patient Demographics Screen](/entities/patient-demographics-screen/) → Basic Details:
 
 | Type | Description |
 |------|-------------|
@@ -27,18 +27,18 @@ verified-on-uat: pending
 
 ### VIP
 - เปิด VIP → เลือก VIP Type
-- ระบบแสดงสัญลักษณ์พิเศษบน [[Patient Banner]]
+- ระบบแสดงสัญลักษณ์พิเศษบน [Patient Banner](/entities/patient-banner/)
 
 ### Anonymous Patient
 - เปิดเพื่อปกปิดชื่อผู้ป่วย
-- ระบบแสดงชื่อเป็น `****` บน [[Patient Banner]]
+- ระบบแสดงชื่อเป็น `****` บน [Patient Banner](/entities/patient-banner/)
 - เฉพาะผู้ใช้ที่ได้รับสิทธิ์เท่านั้นจึงดูข้อมูลได้
 
 ### Interpreter Required
 - เปิดเมื่อผู้ป่วยต้องการล่าม
-- ระบบแสดง "Interpreter Reqd" บน [[Patient Banner]]
+- ระบบแสดง "Interpreter Reqd" บน [Patient Banner](/entities/patient-banner/)
 
 ## ที่ใช้งาน
 
-- [[Registration]] — Basic Details + Additional Detail
-- [[Patient Demographics Screen]] — หน้าจอกรอกข้อมูล
+- [Registration](/modules/registration/) — Basic Details + Additional Detail
+- [Patient Demographics Screen](/entities/patient-demographics-screen/) — หน้าจอกรอกข้อมูล

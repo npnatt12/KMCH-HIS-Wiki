@@ -33,7 +33,7 @@ tags: [role, clinical]
 
 ## Permissions
 
-Permission matrix wires after Phase 1 UAT recon.
+See _role-permission-matrix for the full screen × action matrix. Highlights:
 - **Read+Write:** Doctor Worklist, EMR Form, Order Entry, Consult, Admit, Refer, Medical Certificate
 - **Read-only:** Lab Result, XRAY Report, Pharmacy Dispensing (their orders)
 - **Hidden:** OR Schedule book, Inventory, Diet Order, CSSD Request

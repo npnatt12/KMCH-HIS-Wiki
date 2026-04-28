@@ -99,4 +99,4 @@ New → Save → [Approval Required] → Approve → [Raised] (สต็อก�
 
 ## Related Workflows
 
-- [[Inventory Receive Workflow]]
+- [Inventory Receive Workflow](/workflows/inventory-receive-workflow/)

@@ -58,4 +58,4 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[Diet Order to Kitchen Workflow]]
+- [Diet Order to Kitchen Workflow](/workflows/diet-order-to-kitchen-workflow/)

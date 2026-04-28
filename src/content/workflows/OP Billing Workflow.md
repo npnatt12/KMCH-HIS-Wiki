@@ -11,12 +11,12 @@ verified-on-uat: pending
 
 # กระบวนการออกบิลผู้ป่วยนอก (OP Billing Workflow)
 
-ขั้นตอนการออกเอกสารทางการเงินสำหรับผู้ป่วยนอกใน [[Billing]] module
+ขั้นตอนการออกเอกสารทางการเงินสำหรับผู้ป่วยนอกใน [Billing](/modules/billing/) module
 
 ## ขั้นตอน
 
 ### 1. ผู้ป่วยมาถึงการเงิน
-- ผู้ป่วย Medical Discharge จาก [[OPD]] / [[ER]]
+- ผู้ป่วย Medical Discharge จาก [OPD](/modules/opd/) / [ER](/modules/er/)
 - ชื่อแสดงใน **OP Cashier Worklist** → Tab Medical Discharges
 
 ### 2. Lock (ล็อคผู้ป่วย)
@@ -24,7 +24,7 @@ verified-on-uat: pending
 - แผนกอื่นสั่ง/ยกเลิกรายการไม่ได้
 
 ### 3. Allocate Bill
-- กด **Allocate Bill** → ระบบแสดงค่ารักษาแยกตาม[[Payor and Treatment Rights|สิทธิ์]]
+- กด **Allocate Bill** → ระบบแสดงค่ารักษาแยกตาม[สิทธิ์](/concepts/payor-and-treatment-rights/)
 
 ### 4. Modify Payor (ถ้าจำเป็น)
 - กด **Modify Payor** → เพิ่ม/แก้ไขสิทธิ์ → จัดเรียง **Rank** → Save
@@ -54,6 +54,6 @@ Medical Discharge → Lock → Allocate → [Modify Payor] → Allocate All → 
 
 ## Modules Involved
 
-- [[OPD]] / [[ER]] — ต้นทาง Medical Discharge
-- [[Registration]] — Payor Details
-- [[Pharmacy]] — Drug order status ต้องพร้อม
+- [OPD](/modules/opd/) / [ER](/modules/er/) — ต้นทาง Medical Discharge
+- [Registration](/modules/registration/) — Payor Details
+- [Pharmacy](/modules/pharmacy/) — Drug order status ต้องพร้อม

@@ -29,7 +29,7 @@ tags: [role, clinical, pharmacy]
 
 ## Permissions
 
-Permission matrix wires after Phase 1 UAT recon.
+See _role-permission-matrix. Highlights:
 - **Read+Write:** Pharmacy Dispensing, IP Fill, Med Reject/Return, Drug Alert review
 - **Read-only:** Order Entry (no create), Stock Ledger
 - **Hidden:** EMR Form write, Inventory Receive

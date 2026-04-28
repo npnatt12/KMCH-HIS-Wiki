@@ -22,16 +22,16 @@ verified-on-uat: pending
 ### Access Points
 
 สามารถเข้าถึงได้จาก 3 จุด:
-1. [[Registration]] → OP Registration → icon บนกล่องรายชื่อผู้ป่วย → **Modify Demographics**
-2. [[OPD]] → OPD Worklist → icon บนกล่องรายชื่อผู้ป่วย → **Modify Demographics**
-3. [[IPD]] → Ward Board → icon บนกล่องรายชื่อผู้ป่วย → **Modify Demographics**
+1. [Registration](/modules/registration/) → OP Registration → icon บนกล่องรายชื่อผู้ป่วย → **Modify Demographics**
+2. [OPD](/modules/opd/) → OPD Worklist → icon บนกล่องรายชื่อผู้ป่วย → **Modify Demographics**
+3. [IPD](/modules/ipd/) → Ward Board → icon บนกล่องรายชื่อผู้ป่วย → **Modify Demographics**
 
 ### Steps
 
 1. เข้าถึง Modify Demographics จาก module ที่ต้องการ
-2. ระบบแสดงหน้า [[Patient Demographics Screen]] พร้อมข้อมูลผู้ป่วย
+2. ระบบแสดงหน้า [Patient Demographics Screen](/entities/patient-demographics-screen/) พร้อมข้อมูลผู้ป่วย
 3. กดปุ่ม **ปลดล็อค** เพื่ออนุญาตให้แก้ไขข้อมูล
-4. แก้ไขข้อมูลที่ต้องการใน [[Patient Demographics Screen]]
+4. แก้ไขข้อมูลที่ต้องการใน [Patient Demographics Screen](/entities/patient-demographics-screen/)
 5. กด **Save** เพื่อบันทึก
 
 > **หมายเหตุ:** การเข้าถึงข้อมูลผู้ป่วยขึ้นอยู่กับสิทธิ์การเข้าถึงของผู้ใช้งาน
@@ -45,9 +45,9 @@ verified-on-uat: pending
 
 ### Modules Involved
 
-- [[Registration]] — จุดหลักสำหรับ Modify Demographics
-- [[OPD]] — เข้าจาก OPD Worklist
-- [[IPD]] — เข้าจาก Ward Board
+- [Registration](/modules/registration/) — จุดหลักสำหรับ Modify Demographics
+- [OPD](/modules/opd/) — เข้าจาก OPD Worklist
+- [IPD](/modules/ipd/) — เข้าจาก Ward Board
 
 ---
 
@@ -57,7 +57,7 @@ verified-on-uat: pending
 
 รวม HN ที่ซ้ำซ้อน — กรณีผู้ป่วยมี 2 HN หรือมีข้อมูล Demographic เหมือนกัน ให้เหลือ 1 HN
 
-**Navigation:** [[MRD]] → Patient Merge
+**Navigation:** [MRD](/modules/mrd/) → Patient Merge
 
 ### Steps
 
@@ -103,8 +103,8 @@ verified-on-uat: pending
 
 ### Modules Involved
 
-- [[MRD]] — Patient Merge menu
-- [[Registration]] — ข้อมูล Demographic
+- [MRD](/modules/mrd/) — Patient Merge menu
+- [Registration](/modules/registration/) — ข้อมูล Demographic
 
 ---
 

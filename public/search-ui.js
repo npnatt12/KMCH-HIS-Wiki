@@ -2,17 +2,7 @@
   var indexPromise = null;
   var records = [];
 
-  var expansions = [
-    { match: /save|บันทึก|required|mandatory|password/i, terms: ['save', 'บันทึกไม่ได้', 'mandatory', 'required', 'password', 'validation', 'ฟิลด์บังคับ'] },
-    { match: /worklist|ไม่ขึ้น|ไม่แสดง|หาไม่เจอ|ไม่พบ|ผู้ป่วย/i, terms: ['worklist', 'filter', 'visit', 'hn', 'search patient', 'ผู้ป่วยไม่แสดง', 'clear filter'] },
-    { match: /บิล|billing|การเงิน|financial|แถบแดง|deposit/i, terms: ['billing', 'financial discharge', 'pending order', 'แถบแดง', 'deposit', 'settlement'] },
-    { match: /ยา|pharmacy|drug|allergy|แพ้ยา|interaction|alert|med reject|จ่ายยา/i, terms: ['pharmacy', 'drug alert', 'allergy', 'interaction', 'med reject', 'dispense', 'ยาไม่ได้'] },
-    { match: /lab|specimen|สิ่งส่งตรวจ|reject|xray|ผลตรวจ|ผลไม่ออก/i, terms: ['lab', 'specimen reject', 'collected', 'verified', 'xray', 'result', 'ผลไม่แสดง'] },
-    { match: /admit|admission|ipd|ward|เตียง|ย้าย|transfer|discharge/i, terms: ['admission', 'ipd', 'ward', 'bed', 'transfer', 'discharge', 'accept transfer'] },
-    { match: /hn|national|บัตรประชาชน|เลขบัตร|ซ้ำ|merge|mrd/i, terms: ['hn', 'national id', 'duplicate', 'merge', 'mrd', 'เลขบัตรประชาชนซ้ำ'] },
-    { match: /stock|สต็อก|ของหมด|inventory|no stock|allocate/i, terms: ['stock', 'no stock', 'inventory', 'allocate', 'batch', 'ของหมด'] },
-    { match: /นัด|appointment|future order|refill/i, terms: ['appointment', 'future order', 'refill', 'นัดหมาย', 'op refills'] },
-  ];
+  var expansions = [];
 
   function normalize(value) {
     return String(value || '')
@@ -31,6 +21,12 @@
       return token.length > 1;
     });
 
+    // Thai segmentation: if query contains Thai, also produce sub-tokens.
+    if (window.KMCHThaiTokens && window.KMCHThaiTokens.hasThai(normalized)) {
+      var thaiTokens = window.KMCHThaiTokens.tokenizeThai(normalized);
+      for (var i = 0; i < thaiTokens.length; i++) tokens.push(normalize(thaiTokens[i]));
+    }
+
     expansions.forEach(function (rule) {
       if (rule.match.test(value)) {
         rule.terms.forEach(function (term) {
@@ -44,15 +40,24 @@
 
   function loadIndex() {
     if (!indexPromise) {
-      indexPromise = fetch('/search.json')
-        .then(function (response) {
-          if (!response.ok) throw new Error('Search index failed to load');
-          return response.json();
-        })
-        .then(function (payload) {
-          records = payload.records || [];
-          return records;
+      indexPromise = Promise.all([
+        fetch('/search.json').then(function (r) {
+          if (!r.ok) throw new Error('Search index failed to load');
+          return r.json();
+        }),
+        fetch('/search-dictionary.json').then(function (r) {
+          if (!r.ok) throw new Error('Dictionary failed to load');
+          return r.json();
+        }),
+      ]).then(function (results) {
+        var payload = results[0];
+        var dict = results[1];
+        records = payload.records || [];
+        expansions = (dict.groups || []).map(function (g) {
+          return { match: new RegExp(g.match, 'i'), terms: g.terms };
         });
+        return records;
+      });
     }
     return indexPromise;
   }

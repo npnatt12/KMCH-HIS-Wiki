@@ -54,7 +54,7 @@ New Register / New Admit
 
 ## Step 2 — Folder Request (สร้างคำขอยืมแฟ้ม)
 
-**Navigation:** [[MRD]] > Folder Requests
+**Navigation:** [MRD](/modules/mrd/) > Folder Requests
 
 ใช้เมื่อแผนกต่างๆ ต้องการยืมแฟ้มจากเวชระเบียน
 
@@ -77,16 +77,16 @@ New Register / New Admit
 
 ### วิธีที่ 1 — จาก MRD Worklist (Walk-in / Manual Request)
 
-**Navigation:** [[MRD]] > MRD Worklist → Tab **Registration Request** หรือ **Manual Request**
+**Navigation:** [MRD](/modules/mrd/) > MRD Worklist → Tab **Registration Request** หรือ **Manual Request**
 
-1. เปิด [[MRD Worklist Screen]]
+1. เปิด [MRD Worklist Screen](/entities/mrd-worklist-screen/)
 2. เลือก Tab ที่ต้องการ (Registration Request สำหรับ Walk-in / Manual Request สำหรับคำขอ manual)
 3. เลือกรายการสถานะ **Requested**
 4. กด **Issue** → สถานะเปลี่ยนเป็น **Issued**
 
 ### วิธีที่ 2 — Appointment Issue (ผู้ป่วยนัด)
 
-**Navigation:** [[MRD]] > Folder Issue > Appointment Issue
+**Navigation:** [MRD](/modules/mrd/) > Folder Issue > Appointment Issue
 
 1. ระบุ Department ที่ต้องการดูนัดหมาย
 2. ระบุ Date วันนัด
@@ -98,7 +98,7 @@ New Register / New Admit
 
 ### วิธีที่ 3 — Direct Issue (Walk-in รายแฟ้ม)
 
-**Navigation:** [[MRD]] > Folder Issue > Direct Issue
+**Navigation:** [MRD](/modules/mrd/) > Folder Issue > Direct Issue
 
 1. Search Patient — ค้นหาผู้ป่วย
 2. Select Folder — เลือกแฟ้ม
@@ -110,7 +110,7 @@ New Register / New Admit
 
 ## Step 4 — Folder Transfer (โอนย้ายแฟ้มระหว่างแผนก)
 
-**Navigation:** [[MRD]] > Folder Transfer
+**Navigation:** [MRD](/modules/mrd/) > Folder Transfer
 
 ใช้เมื่อแผนกหนึ่งส่งแฟ้มต่อให้อีกแผนก **โดยไม่ผ่านเวชระเบียน**
 
@@ -127,7 +127,7 @@ New Register / New Admit
 
 ## Step 5 — Folder Return (รับแฟ้มคืน)
 
-**Navigation:** [[MRD]] > Folder Return
+**Navigation:** [MRD](/modules/mrd/) > Folder Return
 
 เมื่อแผนกต่างๆ ส่งแฟ้มกลับหลังรวบรวมเอกสารเสร็จแล้ว
 
@@ -162,12 +162,12 @@ New Register / New Admit
 
 ## Modules Involved
 
-- [[MRD]] — ทุกขั้นตอน
-- [[Registration]] — ทริกเกอร์การสร้างแฟ้ม OPD อัตโนมัติ
-- [[Admission]] — ทริกเกอร์การสร้างแฟ้ม IPD อัตโนมัติ
-- [[OPD]] — Appointment Issue สำหรับผู้ป่วยนัด
+- [MRD](/modules/mrd/) — ทุกขั้นตอน
+- [Registration](/modules/registration/) — ทริกเกอร์การสร้างแฟ้ม OPD อัตโนมัติ
+- [Admission](/modules/admission/) — ทริกเกอร์การสร้างแฟ้ม IPD อัตโนมัติ
+- [OPD](/modules/opd/) — Appointment Issue สำหรับผู้ป่วยนัด
 - All Departments — Folder Request, Folder Transfer
 
 ## Related Entities
 
-- [[MRD Worklist Screen]] — หน้าจอหลักสำหรับจัดการแฟ้ม
+- [MRD Worklist Screen](/entities/mrd-worklist-screen/) — หน้าจอหลักสำหรับจัดการแฟ้ม

@@ -42,7 +42,7 @@ Inpatient → Admission → Search Patient → Select → Admission Detail
 | Section | Description |
 |---------|-------------|
 | **Careprovider Detail** | แผนก, แพทย์เจ้าของไข้, Comments จากแพทย์ OPD |
-| **[[Payor and Treatment Rights|Payor Detail]]** | สิทธิ์การรักษาสำหรับ Admit |
+| **[Payor Detail](/concepts/payor-and-treatment-rights/)** | สิทธิ์การรักษาสำหรับ Admit |
 | **Episode Detail** | การรักษาต่อเนื่อง |
 | **Medico Legal Case** | ข้อมูลกรณีเป็นเคสคดี |
 | **Referral Details** | กรณีผู้ป่วย refer เข้า |
@@ -51,7 +51,7 @@ Inpatient → Admission → Search Patient → Select → Admission Detail
 
 กด **Save** → ผู้ป่วยแสดงใน Admission List
 
-## [[Admission Detail Screen]] — รายละเอียดแต่ละ Section
+## [Admission Detail Screen](/entities/admission-detail-screen/) — รายละเอียดแต่ละ Section
 
 ### Section 1: Careprovider Detail
 
@@ -68,7 +68,7 @@ Inpatient → Admission → Search Patient → Select → Admission Detail
 | สิทธิ์การรักษา | Dropdown | Yes | สิทธิ์ที่ใช้ Admit ครั้งนี้ (อาจต่างจาก OPD) |
 | สิทธิ์เบิก | Dropdown | No | สิทธิ์เบิกเพิ่มเติม |
 
-→ ดูรายละเอียดสิทธิ์ทั้งหมดใน [[Payor and Treatment Rights]]
+→ ดูรายละเอียดสิทธิ์ทั้งหมดใน [Payor and Treatment Rights](/concepts/payor-and-treatment-rights/)
 
 ### Section 3: Episode Detail
 
@@ -99,7 +99,7 @@ Inpatient → Admission → Search Patient → Select → Admission Detail
 | Room Type | Dropdown | Yes | ประเภทห้อง (ตามสิทธิ์/ความต้องการ) |
 | Bed | Select | Yes | เลือกเตียงจากเตียงว่างที่มี |
 
-- เตียงว่างแสดงเป็น [[Bed Status|Vacant Bed]] (สีเขียว)
+- เตียงว่างแสดงเป็น [Vacant Bed](/concepts/bed-status/) (สีเขียว)
 - เลือกได้เฉพาะเตียงที่มีสถานะ Vacant เท่านั้น
 
 ### Section 7: Visit Detail
@@ -160,7 +160,7 @@ Inpatient → Admission → Search Patient → Select → Admission Detail
 
 | Module | Integration |
 |--------|-------------|
-| [[OPD]] | Request Admission จาก OPD EMR |
-| [[ER]] | Emergency Discharge → Referred to Admission |
-| [[IPD]] | Admit สำเร็จ → ผู้ป่วยแสดงใน [[Ward Board]] |
-| [[Billing]] | Payor Detail ส่งต่อ IP Billing |
+| [OPD](/modules/opd/) | Request Admission จาก OPD EMR |
+| [ER](/modules/er/) | Emergency Discharge → Referred to Admission |
+| [IPD](/modules/ipd/) | Admit สำเร็จ → ผู้ป่วยแสดงใน [Ward Board](/entities/ward-board/) |
+| [Billing](/modules/billing/) | Payor Detail ส่งต่อ IP Billing |

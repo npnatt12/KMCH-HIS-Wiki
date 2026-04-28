@@ -83,9 +83,9 @@ Inventory Management → Goods Receive → กด **New (+)**
 
 ## Modules Involved
 
-- [[Inventory]] — กระบวนการหลัก
-- [[Pharmacy]] — GRNRET รับคืนยาจากผู้ป่วย
+- [Inventory](/modules/inventory/) — กระบวนการหลัก
+- [Pharmacy](/modules/pharmacy/) — GRNRET รับคืนยาจากผู้ป่วย
 
 ## Entities
 
-- [[Inventory Receive Screen]]
+- [Inventory Receive Screen](/entities/inventory-receive-screen/)

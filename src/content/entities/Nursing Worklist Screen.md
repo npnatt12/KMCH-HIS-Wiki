@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # Nursing Worklist Screen
 
-หน้าจอรายการคำสั่งแพทย์สำหรับพยาบาล [[IPD]] — แสดง Orders ทั้งหมดของผู้ป่วยในตามลำดับ
+หน้าจอรายการคำสั่งแพทย์สำหรับพยาบาล [IPD](/modules/ipd/) — แสดง Orders ทั้งหมดของผู้ป่วยในตามลำดับ
 
 ## Purpose
 
@@ -60,10 +60,10 @@ Inpatient → **Nursing Worklist**
 
 ## Related Workflows
 
-- [[IPD]] — Execute Order workflow
-- [[Admission Workflow]] — ผู้ป่วยมาแสดงใน Nursing Worklist หลัง Arrive
+- [IPD](/modules/ipd/) — Execute Order workflow
+- [Admission Workflow](/workflows/admission-workflow/) — ผู้ป่วยมาแสดงใน Nursing Worklist หลัง Arrive
 
 ## Related
 
-- [[IPD]] — module page
-- [[Ward Board]] — หน้าจอหลัก IPD
+- [IPD](/modules/ipd/) — module page
+- [Ward Board](/entities/ward-board/) — หน้าจอหลัก IPD

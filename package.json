@@ -3,12 +3,16 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "concurrently -k -n sync,astro -c blue,magenta \"node scripts/sync-vault.mjs --watch --quiet\" \"astro dev\"",
+    "dev:astro-only": "astro dev",
     "build:charts": "node scripts/render-mermaid.mjs",
     "build:images": "node scripts/extract-images.mjs",
-    "build": "astro build",
+    "build": "node scripts/sync-vault.mjs && astro build",
     "build:local": "npm run build:images && npm run build:charts && npm run build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "sync": "node scripts/sync-vault.mjs",
+    "sync:prune": "node scripts/sync-vault.mjs --prune",
+    "test": "find src/lib/__tests__ scripts -type f \\( -name '*.test.ts' -o -name '*.test.mjs' \\) -not -path '*/node_modules/*' -print0 | xargs -0 tsx --test"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
@@ -23,7 +27,10 @@
   "devDependencies": {
     "@xmldom/xmldom": "^0.9.9",
     "adm-zip": "^0.5.17",
-    "sharp": "^0.34.5"
+    "chokidar": "^5.0.0",
+    "concurrently": "^9.2.1",
+    "sharp": "^0.34.5",
+    "tsx": "^4.21.0"
   },
   "optionalDependencies": {
     "@mermaid-js/mermaid-cli": "^11.12.0"

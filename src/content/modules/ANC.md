@@ -16,17 +16,17 @@ verified-on-uat: pending
 
 ## Access
 
-เข้าผ่าน [[EMR Doctor|EMR]] menu → เมนู **ANC** ด้านขวามือ
+เข้าผ่าน [EMR](/modules/emr-doctor/) menu → เมนู **ANC** ด้านขวามือ
 
 ## Key Screens
 
-### 1. [[ANC Chart Screen|ANC CHART]]
+### 1. [ANC CHART](/entities/anc-chart-screen/)
 
 หน้าจอหลักสำหรับบันทึกข้อมูลฝากครรภ์ ประกอบด้วย:
 
 **Current Pregnancy Detail** — ประวัติการตั้งครรภ์ปัจจุบัน
-- **Trimester**: คำนวณอัตโนมัติจาก [[EDC Calculation|EDC]]
-- **[[EDC Calculation|EDC Calculation Method]]**: LMP, U/S, หรือ Manual
+- **Trimester**: คำนวณอัตโนมัติจาก [EDC](/concepts/edc-calculation/)
+- **[EDC Calculation Method](/concepts/edc-calculation/)**: LMP, U/S, หรือ Manual
   - เมื่อระบุ LMP date → EDC และ GA คำนวณอัตโนมัติ
 
 **Delivery History** — ประวัติการคลอดครั้งก่อน
@@ -170,7 +170,7 @@ verified-on-uat: pending
 - ผลเลือดบิดาที่นำมาจากภายนอกโรงพยาบาล
 - ชนิดผลเลือดสามารถเพิ่มเติมได้
 
-## [[EDC Calculation]] — 3 วิธี
+## [EDC Calculation](/concepts/edc-calculation/) — 3 วิธี
 
 | Method | ขั้นตอน | Auto-calculated |
 |--------|---------|----------------|
@@ -217,11 +217,11 @@ verified-on-uat: pending
 
 ## Integration Points
 
-- **[[EMR Doctor]]**: ANC เข้าถึงผ่าน EMR menu
-- **[[LAB]]**: ผลเลือดแสดงใน Laboratory tab
-- **[[XRAY]]**: ผลรังสีวิทยาแสดงใน Radiology tab
+- **[EMR Doctor](/modules/emr-doctor/)**: ANC เข้าถึงผ่าน EMR menu
+- **[LAB](/modules/lab/)**: ผลเลือดแสดงใน Laboratory tab
+- **[XRAY](/modules/xray/)**: ผลรังสีวิทยาแสดงใน Radiology tab
 - Pathology: ผลตรวจ Pathology แสดงใน Pathology tab
-- **[[Labour and Newborn]]**: ข้อมูล Obstetric Summary + EDC ส่งต่อห้องคลอด
+- **[Labour and Newborn](/modules/labour-and-newborn/)**: ข้อมูล Obstetric Summary + EDC ส่งต่อห้องคลอด
 
 ## Auto-Calculations
 

@@ -27,4 +27,4 @@ tags: [role, technical]
 
 ## Permissions
 
-Permission matrix wires after Phase 1 UAT recon.
+See _role-permission-matrix (populated in Phase 5).

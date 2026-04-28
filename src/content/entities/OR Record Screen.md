@@ -19,7 +19,7 @@ verified-on-uat: pending
 
 ## ข้อมูลที่ดึงมาให้อัตโนมัติ
 
-ระบบดึงข้อมูลจากการจองใน [[entities/OR Schedule Screen]] มาแสดงล่วงหน้า — สามารถแก้ไขได้
+ระบบดึงข้อมูลจากการจองใน [OR Schedule Screen](/entities/or-schedule-screen/) มาแสดงล่วงหน้า — สามารถแก้ไขได้
 
 ---
 
@@ -98,6 +98,6 @@ verified-on-uat: pending
 
 ## Related
 
-- [[entities/OR Schedule Screen]] — หน้าจอตารางนัดผ่าตัด
-- [[workflows/OR Surgery Request to Record Workflow]] — กระบวนการครบ
-- [[modules/OR]] — ภาพรวม module
+- [OR Schedule Screen](/entities/or-schedule-screen/) — หน้าจอตารางนัดผ่าตัด
+- [OR Surgery Request to Record Workflow](/workflows/or-surgery-request-to-record-workflow/) — กระบวนการครบ
+- [OR](/modules/or/) — ภาพรวม module

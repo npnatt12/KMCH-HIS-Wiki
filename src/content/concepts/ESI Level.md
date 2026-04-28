@@ -11,13 +11,13 @@ verified-on-uat: pending
 
 # ESI Level (Emergency Severity Index)
 
-ระดับความรุนแรงของผู้ป่วยฉุกเฉินที่ใช้ในการคัดกรอง (Triage) ระบบ [[ER]]
+ระดับความรุนแรงของผู้ป่วยฉุกเฉินที่ใช้ในการคัดกรอง (Triage) ระบบ [ER](/modules/er/)
 
 ## การประเมิน
 
 - ประเมินผ่านหน้าจอ **Triage** ในระบบ ER
 - ระบบแสดง ESI Level **อัตโนมัติ** เมื่อทำการประเมิน
-- แสดงเป็น**สี**ที่ [[Whiteboard]] เพื่อระบุระดับความรุนแรง
+- แสดงเป็น**สี**ที่ [Whiteboard](/entities/whiteboard/) เพื่อระบุระดับความรุนแรง
 
 ## ใช้ร่วมกับ
 
@@ -27,5 +27,5 @@ verified-on-uat: pending
 
 ## ที่ใช้งาน
 
-- [[ER]] → Triage Screen
-- [[Whiteboard]] → แสดงสีตาม ESI Level
+- [ER](/modules/er/) → Triage Screen
+- [Whiteboard](/entities/whiteboard/) → แสดงสีตาม ESI Level

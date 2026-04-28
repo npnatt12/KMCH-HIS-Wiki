@@ -57,13 +57,13 @@ verified-on-uat: pending
 
 ## Modules Involved
 
-- [[Diet]] — กระบวนการหลัก
-- [[IPD]] — ผู้ป่วยใน (Ward/Bed context)
-- [[EMR Doctor]] — ประวัติโภชนาการผู้ป่วยจาก EMR
+- [Diet](/modules/diet/) — กระบวนการหลัก
+- [IPD](/modules/ipd/) — ผู้ป่วยใน (Ward/Bed context)
+- [EMR Doctor](/modules/emr-doctor/) — ประวัติโภชนาการผู้ป่วยจาก EMR
 
 ## Entities
 
-- [[Diet Order Entry Screen]]
+- [Diet Order Entry Screen](/entities/diet-order-entry-screen/)
 
 ## Notes
 

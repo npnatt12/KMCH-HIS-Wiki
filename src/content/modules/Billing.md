@@ -39,9 +39,9 @@ verified-on-uat: pending
 | Search Patient | ค้นหา HN / ชื่อ-นามสกุล / เบอร์โทร / เลขบัตรประชาชน |
 | Incl. Financial Dischg. | เปิดเพื่อแสดงผู้ป่วยที่ Financial Discharge แล้ว |
 
-### [[OP Billing Workflow]] / [[Billing IP Settlement Workflow|IP Settlement Workflow]]
+### [OP Billing Workflow](/workflows/op-billing-workflow/) / [IP Settlement Workflow](/workflows/billing-ip-settlement-workflow/)
 
-ดู [[Billing IP Settlement Workflow]] สำหรับ IP billing
+ดู [Billing IP Settlement Workflow](/workflows/billing-ip-settlement-workflow/) สำหรับ IP billing
 
 **ขั้นตอน OP Billing:**
 1. **Lock** — กดรูปแม่กุญแจ → เปลี่ยน Medical Discharge → **Billing In Progress** (แผนกอื่นสั่ง/ยกเลิกรายการไม่ได้)
@@ -107,7 +107,7 @@ verified-on-uat: pending
 
 ## Deposit (เงินมัดจำ)
 
-### [[Billing Settlement Screen|รับเงินมัดจำ]]
+### [รับเงินมัดจำ](/entities/billing-settlement-screen/)
 
 OP Billing → Deposits → Search Patient:
 
@@ -174,12 +174,12 @@ IP Billing → Inpatient Expenses:
 ### IP Settlement
 
 เหมือน OP Billing แต่มีฟังก์ชันเพิ่ม:
-- ดู [[Billing IP Settlement Workflow]] สำหรับขั้นตอนสมบูรณ์
+- ดู [Billing IP Settlement Workflow](/workflows/billing-ip-settlement-workflow/) สำหรับขั้นตอนสมบูรณ์
 - รองรับ Deposit จาก IP encounter
 
 ## Screen Fields (Billing Settlement Screen)
 
-ดูรายละเอียดเต็มที่ [[Billing Settlement Screen]]
+ดูรายละเอียดเต็มที่ [Billing Settlement Screen](/entities/billing-settlement-screen/)
 
 ## Button Actions
 
@@ -215,8 +215,8 @@ IP Billing → Inpatient Expenses:
 
 | Module | Integration |
 |--------|-------------|
-| [[OPD]] | Medical Discharge → OP Cashier Worklist |
-| [[IPD]] | Medical Discharge → IP Cashier / Final Discharge ต้องรอ billing เสร็จ |
-| [[ER]] | Emergency Discharge → billing |
-| [[Registration]] | [[Payor and Treatment Rights|Payor Details]] จาก Registration |
-| [[Pharmacy]] | Drug order status ต้องพร้อมก่อนออกบิล |
+| [OPD](/modules/opd/) | Medical Discharge → OP Cashier Worklist |
+| [IPD](/modules/ipd/) | Medical Discharge → IP Cashier / Final Discharge ต้องรอ billing เสร็จ |
+| [ER](/modules/er/) | Emergency Discharge → billing |
+| [Registration](/modules/registration/) | [Payor Details](/concepts/payor-and-treatment-rights/) จาก Registration |
+| [Pharmacy](/modules/pharmacy/) | Drug order status ต้องพร้อมก่อนออกบิล |

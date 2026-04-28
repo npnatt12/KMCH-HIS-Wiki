@@ -46,4 +46,4 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[CSSD Request to Sterilize Workflow]]
+- [CSSD Request to Sterilize Workflow](/workflows/cssd-request-to-sterilize-workflow/)

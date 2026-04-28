@@ -81,5 +81,5 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[Lab Order to Result]] — ขั้นตอนที่ 2: เก็บสิ่งส่งตรวจ
-- [[LAB]] — ข้อมูลโมดูลห้องปฏิบัติการ
+- [Lab Order to Result](/workflows/lab-order-to-result/) — ขั้นตอนที่ 2: เก็บสิ่งส่งตรวจ
+- [LAB](/modules/lab/) — ข้อมูลโมดูลห้องปฏิบัติการ

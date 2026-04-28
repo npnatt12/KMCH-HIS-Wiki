@@ -11,11 +11,11 @@ verified-on-uat: pending
 
 # ER Discharge Screen (หน้าจอจำหน่ายผู้ป่วยฉุกเฉิน)
 
-หน้าจอสำหรับจำหน่ายผู้ป่วยฉุกเฉินในระบบ [[ER]] โดยรองรับ 5 ผลลัพธ์ของการจำหน่าย
+หน้าจอสำหรับจำหน่ายผู้ป่วยฉุกเฉินในระบบ [ER](/modules/er/) โดยรองรับ 5 ผลลัพธ์ของการจำหน่าย
 
 ## Access Path
 
-Emergency → [[Whiteboard]] → Click ชื่อผู้ป่วย → Visit Detail → Icon **Emergency Discharge**
+Emergency → [Whiteboard](/entities/whiteboard/) → Click ชื่อผู้ป่วย → Visit Detail → Icon **Emergency Discharge**
 
 ## Purpose
 
@@ -38,11 +38,11 @@ Emergency → [[Whiteboard]] → Click ชื่อผู้ป่วย → Vis
 
 | Status | ความหมาย | Fields เพิ่มเติมที่แสดง | ส่งต่อ |
 |--------|----------|----------------------|--------|
-| **Discharge** | จำหน่ายปกติกลับบ้าน | ไม่มีเพิ่มเติม | [[Billing]] |
-| **Death** | ผู้ป่วยเสียชีวิต | รายละเอียดการเสียชีวิต | [[Billing]] (บันทึกเสียชีวิต) |
-| **Referred to Admission** | รับเป็นผู้ป่วยใน | รายละเอียดการรับผู้ป่วยใน | [[Admission]] |
+| **Discharge** | จำหน่ายปกติกลับบ้าน | ไม่มีเพิ่มเติม | [Billing](/modules/billing/) |
+| **Death** | ผู้ป่วยเสียชีวิต | รายละเอียดการเสียชีวิต | [Billing](/modules/billing/) (บันทึกเสียชีวิต) |
+| **Referred to Admission** | รับเป็นผู้ป่วยใน | รายละเอียดการรับผู้ป่วยใน | [Admission](/modules/admission/) |
 | **Referred to Other Hospital** | ส่งตัวโรงพยาบาลอื่น | รายละเอียดการส่งตัว + ปลายทาง | (เตรียมเอกสาร) |
-| **Send to OR** | ส่งเข้าห้องผ่าตัด | รายละเอียดการผ่าตัด | [[OR]] |
+| **Send to OR** | ส่งเข้าห้องผ่าตัด | รายละเอียดการผ่าตัด | [OR](/modules/or/) |
 
 ## Status Transition
 
@@ -66,13 +66,13 @@ Emergency → [[Whiteboard]] → Click ชื่อผู้ป่วย → Vis
 
 ## Related Workflows
 
-- [[Emergency Registration]] — ขั้นตอนก่อน Discharge
+- [Emergency Registration](/workflows/emergency-registration/) — ขั้นตอนก่อน Discharge
 
 ## Related
 
-- [[ER]] — module page
-- [[Whiteboard]] — หน้าจอรายชื่อผู้ป่วย ER
-- [[ER Triage Screen]] — หน้าจอ Triage
-- [[Admission]] — กรณี Referred to Admission
-- [[OR]] — กรณี Send to OR
-- [[Billing]] — กระบวนการหลัง Medical Discharge
+- [ER](/modules/er/) — module page
+- [Whiteboard](/entities/whiteboard/) — หน้าจอรายชื่อผู้ป่วย ER
+- [ER Triage Screen](/entities/er-triage-screen/) — หน้าจอ Triage
+- [Admission](/modules/admission/) — กรณี Referred to Admission
+- [OR](/modules/or/) — กรณี Send to OR
+- [Billing](/modules/billing/) — กระบวนการหลัง Medical Discharge

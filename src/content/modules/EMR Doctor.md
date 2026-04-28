@@ -22,20 +22,20 @@ verified-on-uat: pending
 
 ## Doctor Worklist (Dashboard)
 
-[[entities/Doctor Worklist Screen|Doctor Worklist Screen]] แสดง 10 กล่องข้อมูล ทันทีที่ Login:
+[Doctor Worklist Screen](/entities/doctor-worklist-screen/) แสดง 10 กล่องข้อมูล ทันทีที่ Login:
 
 | # | Box | คำอธิบาย | หมายเหตุ |
 |---|-----|----------|---------|
 | 1 | OutPatients | รายชื่อผู้ป่วยนอกและจำนวนทั้งหมดที่รอตรวจ | อัปเดทแบบ Real-time |
-| 2 | Medicine Reject | รายชื่อผู้ป่วยที่เภสัชกรปฎิเสธการจ่ายยา เพื่อให้แพทย์ Review | เชื่อมกับ [[Pharmacy|Med Reject]] |
+| 2 | Medicine Reject | รายชื่อผู้ป่วยที่เภสัชกรปฎิเสธการจ่ายยา เพื่อให้แพทย์ Review | เชื่อมกับ [Med Reject](/modules/pharmacy/) |
 | 3 | Appointments | จำนวนผู้ป่วยนัดหมายของแพทย์ที่ Login | |
-| 4 | InPatients | จำนวนผู้ป่วยในที่แพทย์ Login เป็นเจ้าของไข้ | เชื่อมกับ [[IPD|Ward Board]] |
+| 4 | InPatients | จำนวนผู้ป่วยในที่แพทย์ Login เป็นเจ้าของไข้ | เชื่อมกับ [Ward Board](/modules/ipd/) |
 | 5 | Consult / Referrals | จำนวนผู้ป่วยที่มีการส่ง Consult มาที่แพทย์ Login | |
 | 6 | Cosign / Approval | จำนวนรายการรับคำสั่งที่รอ Co-Sign หรือ Approval — ตัวเลขหายเมื่อ Co-Sign แล้ว | |
 | 7 | Statistics | สถิติจำนวนผู้ป่วยและค่า DF ที่แพทย์ตรวจ | |
 | 8 | Doctor Fee | ข้อมูล DF ของแพทย์ที่ Login | |
-| 9 | Lab Reports | ผลตรวจ [[LAB|Lab]] ของผู้ป่วยที่แพทย์ Login เป็นผู้สั่ง | |
-| 10 | Radiology Reports | ผลตรวจ [[XRAY|Radiology]] ของผู้ป่วยที่แพทย์ Login เป็นผู้สั่ง | |
+| 9 | Lab Reports | ผลตรวจ [Lab](/modules/lab/) ของผู้ป่วยที่แพทย์ Login เป็นผู้สั่ง | |
+| 10 | Radiology Reports | ผลตรวจ [Radiology](/modules/xray/) ของผู้ป่วยที่แพทย์ Login เป็นผู้สั่ง | |
 
 ### OPD Patient Status (8 สถานะ)
 
@@ -76,7 +76,7 @@ verified-on-uat: pending
 
 ## OPD EMR Screen
 
-[[entities/EMR Form Screen|EMR Form Screen]] ประกอบด้วย 4 ส่วนหลัก:
+[EMR Form Screen](/entities/emr-form-screen/) ประกอบด้วย 4 ส่วนหลัก:
 
 | Section | Description |
 |---------|-------------|
@@ -263,8 +263,8 @@ verified-on-uat: pending
 | Time Line | ไทม์ไลน์ | ดูประวัติการรักษาแบบช่วงเวลา |
 | Medicine | Drug Profile | ดูรายการยาทั้งหมดที่เคยสั่งในระบบ |
 | Vaccines Chart | วัคซีน | ดูประวัติการได้รับวัคซีน |
-| Laboratory | Lab | ดูผลการตรวจ [[LAB|ห้องปฏิบัติการ]] |
-| Radiology | Radiology | ดูผลตรวจ [[XRAY|รังสีวิทยา]] |
+| Laboratory | Lab | ดูผลการตรวจ [ห้องปฏิบัติการ](/modules/lab/) |
+| Radiology | Radiology | ดูผลตรวจ [รังสีวิทยา](/modules/xray/) |
 | Pathology | Pathology | ดูผลตรวจ Pathology |
 | Doctor Fee | DF | ดูข้อมูล Doctor Fee ของแพทย์ Login |
 | Procedure | หัตถการ | ดูประวัติการทำหัตถการ |
@@ -365,8 +365,8 @@ verified-on-uat: pending
 | IPD Consult | ส่งปรึกษา IP | ส่ง/รับ Consult ผู้ป่วยใน |
 | DISCHARGE SUMMARY | สรุปการรักษา | บันทึกข้อมูล Discharge ผ่าน Template |
 | SUMMARY | ข้อมูลสรุป | ข้อมูลการตรวจรักษาผู้ป่วย |
-| LABORATORY | ผล Lab | ผลตรวจ [[LAB|ห้องปฏิบัติการ]] |
-| RADIOLOGY | ผล Xray | ผลตรวจ [[XRAY|รังสีวิทยา]] |
+| LABORATORY | ผล Lab | ผลตรวจ [ห้องปฏิบัติการ](/modules/lab/) |
+| RADIOLOGY | ผล Xray | ผลตรวจ [รังสีวิทยา](/modules/xray/) |
 | PATHOLOGY | ผล Pathology | ผลตรวจ Pathology |
 
 ### Progress Notes
@@ -460,11 +460,11 @@ verified-on-uat: pending
 
 | Module | Integration |
 |--------|-------------|
-| [[OPD]] | รายชื่อผู้ป่วย (OutPatients box) |
-| [[IPD]] | Ward Board (InPatients box), Physical Discharge |
-| [[LAB]] | ผลตรวจ Lab Reports, สั่ง Lab จาก EMR |
-| [[XRAY]] | ผลตรวจ Radiology Reports, สั่ง X-ray จาก EMR |
-| [[Pharmacy]] | Medicine Reject, Drug Alerts |
-| [[Order Entry]] | CPOE — สั่งการรักษาทุกประเภท |
-| [[Billing]] | Financial Discharge (Step 3) |
-| [[Admission]] | Request Admission, Pre-Admit Orders |
+| [OPD](/modules/opd/) | รายชื่อผู้ป่วย (OutPatients box) |
+| [IPD](/modules/ipd/) | Ward Board (InPatients box), Physical Discharge |
+| [LAB](/modules/lab/) | ผลตรวจ Lab Reports, สั่ง Lab จาก EMR |
+| [XRAY](/modules/xray/) | ผลตรวจ Radiology Reports, สั่ง X-ray จาก EMR |
+| [Pharmacy](/modules/pharmacy/) | Medicine Reject, Drug Alerts |
+| [Order Entry](/modules/order-entry/) | CPOE — สั่งการรักษาทุกประเภท |
+| [Billing](/modules/billing/) | Financial Discharge (Step 3) |
+| [Admission](/modules/admission/) | Request Admission, Pre-Admit Orders |

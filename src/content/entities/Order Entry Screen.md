@@ -149,7 +149,7 @@ verified-on-uat: pending
 
 ## Related Workflows
 
-- [[modules/Order Entry|Order Entry Module]] — รายละเอียดครบถ้วน
-- [[modules/EMR Doctor|EMR Doctor Module]] — Entry point
-- [[entities/Drug Alert Popup|Drug Alert Popup]] — Popup แจ้งเตือนยา
-- [[Pharmacy]] — Dispensing workflow
+- [Order Entry Module](/modules/order-entry/) — รายละเอียดครบถ้วน
+- [EMR Doctor Module](/modules/emr-doctor/) — Entry point
+- [Drug Alert Popup](/entities/drug-alert-popup/) — Popup แจ้งเตือนยา
+- [Pharmacy](/modules/pharmacy/) — Dispensing workflow

@@ -25,7 +25,7 @@ verified-on-uat: pending
 Ordered → Registered → Executed → Report Entered → Report Authorized
 ```
 
-ดูรายละเอียดสถานะใน [[Lab and Radiology Order Status]]
+ดูรายละเอียดสถานะใน [Lab and Radiology Order Status](/concepts/lab-and-radiology-order-status/)
 
 ## Key Workflows
 
@@ -41,7 +41,7 @@ Ordered → Registered → Executed → Report Entered → Report Authorized
 
 ### 2. Register Order (ลงทะเบียน)
 
-#### หน้าจอ [[XRAY Register Screen]]
+#### หน้าจอ [XRAY Register Screen](/entities/xray-register-screen/)
 
 - Radiology → Radiology Worklist → Tab **NEW** (Default)
 - รายการคำสั่งตรวจจากทุกหน่วยงานแสดงที่ Tab NEW
@@ -86,7 +86,7 @@ Ordered → Registered → Executed → Report Entered → Report Authorized
 - Radiology Worklist → Tab **INPROGRESS** → เลือกรายการ Executed
 - กด **Report Entry**
 
-#### หน้าจอ [[XRAY Report Screen]]
+#### หน้าจอ [XRAY Report Screen](/entities/xray-report-screen/)
 
 | ส่วน | คำอธิบาย |
 |-----|---------|
@@ -210,7 +210,7 @@ Ordered → Registered → Executed → Report Entered → Report Authorized
 
 ## เปรียบเทียบ LAB vs XRAY
 
-| | [[LAB]] | XRAY |
+| | [LAB](/modules/lab/) | XRAY |
 |---|---------|------|
 | Specimen | ต้องเก็บ + Accept/Reject | ไม่มี |
 | Register | ไม่มี (ไป Specimen Collection เลย) | ต้อง Register ก่อน |
@@ -225,8 +225,8 @@ Ordered → Registered → Executed → Report Entered → Report Authorized
 
 | Module | Integration |
 |--------|-------------|
-| [[OPD]] / [[IPD]] | สั่ง X-ray จาก EMR |
-| [[EMR Doctor]] | สั่งตรวจ, ดูผล |
-| [[ANC]] | Radiology tab ใน ANC Chart |
-| [[Billing]] | Radiology orders ส่งต่อ Billing |
+| [OPD](/modules/opd/) / [IPD](/modules/ipd/) | สั่ง X-ray จาก EMR |
+| [EMR Doctor](/modules/emr-doctor/) | สั่งตรวจ, ดูผล |
+| [ANC](/modules/anc/) | Radiology tab ใน ANC Chart |
+| [Billing](/modules/billing/) | Radiology orders ส่งต่อ Billing |
 | PACS | เชื่อมต่อระบบภาพถ่ายรังสี (optional) |

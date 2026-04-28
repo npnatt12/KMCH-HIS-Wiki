@@ -21,7 +21,7 @@ verified-on-uat: pending
 
 **แผนกที่ต้องการใช้เวชภัณฑ์:**
 1. CSSD → **Switch Location** → เลือกแผนกของตน
-2. กด **Add** → กรอก [[CSSD Request Screen]]:
+2. กด **Add** → กรอก [CSSD Request Screen](/entities/cssd-request-screen/):
    - Tray Master (ชื่อ Set)
    - Quantity
    - Request Date / Time
@@ -80,13 +80,13 @@ verified-on-uat: pending
 
 ## Modules Involved
 
-- [[CSSD]] — กระบวนการหลัก
-- [[OR]] — ใช้งานหลักสำหรับ surgical instruments (Request OR field)
+- [CSSD](/modules/cssd/) — กระบวนการหลัก
+- [OR](/modules/or/) — ใช้งานหลักสำหรับ surgical instruments (Request OR field)
 - All Wards — เวชภัณฑ์ปลอดเชื้อทั่วไป
 
 ## Entities
 
-- [[CSSD Request Screen]]
+- [CSSD Request Screen](/entities/cssd-request-screen/)
 
 ## Key Notes
 

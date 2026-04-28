@@ -16,7 +16,7 @@ verified-on-uat: pending
 
 ## Access
 
-- Inpatient → [[Ward Board]] → เลือก Ward ห้องคลอด → Click เตียงผู้ป่วย → Visit Detail → **Labour Detail** (สำหรับมารดา)
+- Inpatient → [Ward Board](/entities/ward-board/) → เลือก Ward ห้องคลอด → Click เตียงผู้ป่วย → Visit Detail → **Labour Detail** (สำหรับมารดา)
 - Visit Detail ของมารดา → **Newborn Detail** (สำหรับทารก)
 
 ## Labour Detail (ข้อมูลการคลอด)
@@ -30,7 +30,7 @@ verified-on-uat: pending
 | LMP Date | Date | วันประจำเดือนครั้งสุดท้าย |
 | EDC Date | Date/Auto | วันกำหนดคลอด (คำนวณ 3 วิธี) |
 | GA | Auto | อายุครรภ์ (สัปดาห์) — คำนวณอัตโนมัติ |
-| **EDC Method** | Select | LMP / U/S / Manual — ดู [[EDC Calculation]] |
+| **EDC Method** | Select | LMP / U/S / Manual — ดู [EDC Calculation](/concepts/edc-calculation/) |
 | Gravida | Number | จำนวนครั้งที่ตั้งครรภ์ทั้งหมด |
 | Full term | Number | จำนวนครรภ์ครบกำหนด |
 | Premature | Number | จำนวนครรภ์ก่อนกำหนด |
@@ -97,7 +97,7 @@ verified-on-uat: pending
 | Birth Weight | น้ำหนักแรกเกิด |
 | No of Gestation < 37 weeks | จำนวนครรภ์ก่อนกำหนด |
 
-→ ข้อมูลนี้ใช้ร่วมกับ [[ANC]] (Obstetric Summary section)
+→ ข้อมูลนี้ใช้ร่วมกับ [ANC](/modules/anc/) (Obstetric Summary section)
 
 ### Section 6: Labour Onset (Timeline)
 
@@ -201,10 +201,10 @@ verified-on-uat: pending
 
 ## Nursery Admission
 
-ทารกที่บันทึกแล้ว → **ส่ง [[Admission]] List อัตโนมัติ** → เจ้าหน้าที่:
-1. [[Ward Board]] → เลือกหอผู้ป่วยทารก
+ทารกที่บันทึกแล้ว → **ส่ง [Admission](/modules/admission/) List อัตโนมัติ** → เจ้าหน้าที่:
+1. [Ward Board](/entities/ward-board/) → เลือกหอผู้ป่วยทารก
 2. เลือกเตียงที่มีชื่อทารก → กด **Arrive**
-3. ดูแลในระบบ [[IPD]] ตามปกติ
+3. ดูแลในระบบ [IPD](/modules/ipd/) ตามปกติ
 
 ## Button Actions
 
@@ -228,7 +228,7 @@ verified-on-uat: pending
 
 | Module | Integration |
 |--------|-------------|
-| [[IPD]] | เข้าผ่าน Ward Board → Labour Detail; ทารกเข้าระบบ IPD หลัง Arrive |
-| [[ANC]] | EDC/Obstetric Summary shared concepts; ข้อมูลส่งต่อจาก ANC Visit |
-| [[Admission]] | ทารกส่ง Admission List อัตโนมัติหลัง Save Newborn Detail |
-| [[EMR Doctor]] | สั่ง orders ระหว่างคลอดผ่าน EMR |
+| [IPD](/modules/ipd/) | เข้าผ่าน Ward Board → Labour Detail; ทารกเข้าระบบ IPD หลัง Arrive |
+| [ANC](/modules/anc/) | EDC/Obstetric Summary shared concepts; ข้อมูลส่งต่อจาก ANC Visit |
+| [Admission](/modules/admission/) | ทารกส่ง Admission List อัตโนมัติหลัง Save Newborn Detail |
+| [EMR Doctor](/modules/emr-doctor/) | สั่ง orders ระหว่างคลอดผ่าน EMR |

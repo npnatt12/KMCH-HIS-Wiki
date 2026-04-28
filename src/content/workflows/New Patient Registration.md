@@ -17,7 +17,7 @@ verified-on-uat: pending
 
 ### 1. เปิดหน้าจอลงทะเบียน
 - เลือกเมนู **Registration → OP Registration**
-- ระบบแสดง [[Patient Search Screen]]
+- ระบบแสดง [Patient Search Screen](/entities/patient-search-screen/)
 
 ### 2. ค้นหาผู้ป่วย
 - พิมพ์ข้อมูลค้นหา (HN, ชื่อ, นามสกุล, เบอร์โทร, เลขบัตรประชาชน)
@@ -26,7 +26,7 @@ verified-on-uat: pending
 
 ### 3. สร้างผู้ป่วยใหม่
 - กดปุ่ม **New** เพื่อลงทะเบียนผู้ป่วยใหม่
-- ระบบแสดง [[Patient Demographics Screen]]
+- ระบบแสดง [Patient Demographics Screen](/entities/patient-demographics-screen/)
 
 ### 4. กรอกข้อมูลผู้ป่วย
 
@@ -37,14 +37,14 @@ verified-on-uat: pending
 - Blood Group, Gender, Date of Birth (หรือ DOB Unknown + ระบุอายุ)
 - Mobile, E-Mail
 - National ID (ตรวจสอบ MOD11) + Valid Upto
-- Patient Notes, [[Patient Types|Patient Type]], Type Area
+- Patient Notes, [Patient Type](/concepts/patient-types/), Type Area
 
 **Address Detail** — บ้านเลขที่, ค้นหาจากตำบล (Area) หรือรหัสไปรษณีย์ (Postcode)
 
-**[[Visit Types|Visit Detail]]** — Department, Careprovider, Visit Type, Priority (Normal/Urgent/Emergency), Transfer Mode, REVISIT
+**[Visit Detail](/concepts/visit-types/)** — Department, Careprovider, Visit Type, Priority (Normal/Urgent/Emergency), Transfer Mode, REVISIT
 - กด + เพื่อเพิ่มแผนกอื่นในวันเดียวกัน
 
-**[[Payor and Treatment Rights|Payor Details]]** — ระบบเพิ่ม SELFPAY (Rank 2) อัตโนมัติ, เพิ่มสิทธิอื่นได้, จัดเรียง Rank
+**[Payor Details](/concepts/payor-and-treatment-rights/)** — ระบบเพิ่ม SELFPAY (Rank 2) อัตโนมัติ, เพิ่มสิทธิอื่นได้, จัดเรียง Rank
 
 **Referral Detail** — ระบุ Referred By (ชื่อโรงพยาบาลที่ส่งมา)
 
@@ -66,6 +66,6 @@ verified-on-uat: pending
 
 ## Modules Involved
 
-- [[Registration]] — หน้าจอหลัก
-- [[Billing]] — Payor Details ส่งต่อ
+- [Registration](/modules/registration/) — หน้าจอหลัก
+- [Billing](/modules/billing/) — Payor Details ส่งต่อ
 - สปสช. (NHSO) — ตรวจสอบสิทธิ (optional)

@@ -15,11 +15,11 @@ verified-on-uat: pending
 
 ## Purpose
 
-ให้พยาบาล/เจ้าหน้าที่ Ward ส่งคำขอย้ายผู้ป่วยไปยังเตียงหรือหอผู้ป่วยอื่น โดยต้องรอการอนุมัติจากแผนก [[Admission]]
+ให้พยาบาล/เจ้าหน้าที่ Ward ส่งคำขอย้ายผู้ป่วยไปยังเตียงหรือหอผู้ป่วยอื่น โดยต้องรอการอนุมัติจากแผนก [Admission](/modules/admission/)
 
 ## Access Path
 
-[[Ward Board]] → เลือกผู้ป่วย → Icon **Transfer Request**
+[Ward Board](/entities/ward-board/) → เลือกผู้ป่วย → Icon **Transfer Request**
 
 ## Fields
 
@@ -36,16 +36,16 @@ verified-on-uat: pending
 
 ## กระบวนการหลัง Save
 
-1. ติดต่อประสานงานแผนก [[Admission]] เพื่อขออนุมัติ
+1. ติดต่อประสานงานแผนก [Admission](/modules/admission/) เพื่อขออนุมัติ
 2. แผนก Admission ตรวจสอบข้อมูลและกด **TRANSFER** เพื่ออนุมัติการย้าย
 3. ผู้ป่วยย้ายเตียงสำเร็จ
 
 ## Related Workflows
 
-- [[IPD Transfer Between Wards Workflow]] — กระบวนการย้ายเตียงแบบ End-to-End
+- [IPD Transfer Between Wards Workflow](/workflows/ipd-transfer-between-wards-workflow/) — กระบวนการย้ายเตียงแบบ End-to-End
 
 ## Related
 
-- [[Ward Board]] — เข้าผ่าน Transfer Request icon
-- [[IPD]] — module page
-- [[Admission]] — ต้องอนุมัติก่อน Transfer จะสำเร็จ
+- [Ward Board](/entities/ward-board/) — เข้าผ่าน Transfer Request icon
+- [IPD](/modules/ipd/) — module page
+- [Admission](/modules/admission/) — ต้องอนุมัติก่อน Transfer จะสำเร็จ

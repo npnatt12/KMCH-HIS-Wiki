@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # Whiteboard (รายชื่อผู้ป่วยฉุกเฉิน)
 
-หน้าจอแสดงรายชื่อผู้ป่วยฉุกเฉินทั้งหมดในระบบ [[ER]]
+หน้าจอแสดงรายชื่อผู้ป่วยฉุกเฉินทั้งหมดในระบบ [ER](/modules/er/)
 
 ## Access
 
@@ -22,7 +22,7 @@ Emergency → Whiteboard
 | Column | Description |
 |--------|-------------|
 | ชื่อผู้ป่วย | Click เพื่อเปิด Visit Detail |
-| **[[ESI Level]]** | แสดงสีตามระดับความรุนแรง |
+| **[ESI Level](/concepts/esi-level/)** | แสดงสีตามระดับความรุนแรง |
 | **Waiting Time** | ระยะเวลารอคอย (กดสัญลักษณ์เพื่อดู) |
 | **Status** | สถานะปัจจุบันของผู้ป่วย |
 
@@ -31,7 +31,7 @@ Emergency → Whiteboard
 | Column | Type | Description |
 |--------|------|-------------|
 | ชื่อผู้ป่วย | Link | Click เปิด Visit Detail |
-| [[ESI Level]] | Badge (สี) | แสดงสีระดับความรุนแรง 1–5 หลัง Triage |
+| [ESI Level](/concepts/esi-level/) | Badge (สี) | แสดงสีระดับความรุนแรง 1–5 หลัง Triage |
 | Waiting Time | Icon + Popup | กด icon แสดงระยะเวลารอคอย |
 | Status | Text | สถานะปัจจุบัน (เช่น Registered, Triaged, Medical Discharge) |
 
@@ -58,11 +58,11 @@ Emergency → Whiteboard
 
 ## Related Workflows
 
-- [[Emergency Registration]] — ลงทะเบียนผู้ป่วยฉุกเฉิน
-- [[Mass Casualty Registration]] — ลงทะเบียนอุบัติภัยหมู่
+- [Emergency Registration](/workflows/emergency-registration/) — ลงทะเบียนผู้ป่วยฉุกเฉิน
+- [Mass Casualty Registration](/workflows/mass-casualty-registration/) — ลงทะเบียนอุบัติภัยหมู่
 
 ## Related
 
-- [[ER]] — module page
-- [[ESI Level]] — ระดับความรุนแรง
-- [[ER Triage Screen]] — หน้าจอ Triage
+- [ER](/modules/er/) — module page
+- [ESI Level](/concepts/esi-level/) — ระดับความรุนแรง
+- [ER Triage Screen](/entities/er-triage-screen/) — หน้าจอ Triage

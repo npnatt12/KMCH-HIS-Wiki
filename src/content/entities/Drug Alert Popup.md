@@ -84,6 +84,6 @@ verified-on-uat: pending
 
 ## Related Pages
 
-- [[modules/Order Entry|Order Entry Module]] — การบันทึกคำสั่งยา
-- [[entities/Order Entry Screen|Order Entry Screen]] — หน้าจอ CPOE
-- [[modules/Pharmacy|Pharmacy Module]] — Dispensing + Drug Alert management
+- [Order Entry Module](/modules/order-entry/) — การบันทึกคำสั่งยา
+- [Order Entry Screen](/entities/order-entry-screen/) — หน้าจอ CPOE
+- [Pharmacy Module](/modules/pharmacy/) — Dispensing + Drug Alert management

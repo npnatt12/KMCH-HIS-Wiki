@@ -13,7 +13,7 @@ verified-on-uat: pending
 
 ## Overview
 
-การจำหน่ายผู้ป่วยออกจาก [[IPD]] มี **4 ขั้นตอน** แบ่งความรับผิดชอบระหว่างแพทย์ (Step 1–2) และพยาบาล/เจ้าหน้าที่ (Step 3–4)
+การจำหน่ายผู้ป่วยออกจาก [IPD](/modules/ipd/) มี **4 ขั้นตอน** แบ่งความรับผิดชอบระหว่างแพทย์ (Step 1–2) และพยาบาล/เจ้าหน้าที่ (Step 3–4)
 
 ## ผู้รับผิดชอบแต่ละขั้นตอน
 
@@ -28,7 +28,7 @@ verified-on-uat: pending
 
 ### Step 1: Discharge Advice (แพทย์)
 
-**Access:** [[Ward Board]] → เลือกผู้ป่วย → **Discharge Plan**
+**Access:** [Ward Board](/entities/ward-board/) → เลือกผู้ป่วย → **Discharge Plan**
 
 1. ระบบแสดงหน้าจอ **Discharge Plan**
 2. แพทย์กรอก **วันที่/เวลา** ที่ต้องการให้ผู้ป่วยกลับบ้าน
@@ -46,17 +46,17 @@ verified-on-uat: pending
 ### Step 3: Medical Discharge (พยาบาล)
 
 **ก่อน SAVE ต้องทำ:**
-1. **คืนยา** ([[IPD|Dispense Return]]): เลือกผู้ป่วย → Dispense Return → เลือกรายการยา → ระบุจำนวน (Batches) → SAVE
+1. **คืนยา** ([Dispense Return](/modules/ipd/)): เลือกผู้ป่วย → Dispense Return → เลือกรายการยา → ระบุจำนวน (Batches) → SAVE
 2. **ตรวจสอบ Close Orders**: ปิด Orders ที่ยังค้างอยู่ให้เสร็จสมบูรณ์
 3. บันทึกรายละเอียด **Medical Discharge**
-4. กด **SAVE** → ชื่อผู้ป่วยส่งไป[[Billing|ระบบการเงิน]] (IP Billing) เพื่อรอกระบวนการชำระเงิน
+4. กด **SAVE** → ชื่อผู้ป่วยส่งไป[ระบบการเงิน](/modules/billing/) (IP Billing) เพื่อรอกระบวนการชำระเงิน
 
 ### Step 4: Final Discharge (พยาบาล)
 
 1. **รอ Billing**: ระบบแสดงสัญลักษณ์ **"$"** เมื่อผู้ป่วย/ญาติชำระเงินเรียบร้อย และ/หรือรับยากลับบ้านแล้ว
 2. **กรณียังไม่ชำระ**: ปุ่ม SAVE ยังกดไม่ได้
 3. เมื่อ **"$"** ปรากฏ → กด **SAVE**
-4. ชื่อผู้ป่วยออกจาก Ward → เตียงกลายเป็น [[Bed Status|Vacant Bed]]
+4. ชื่อผู้ป่วยออกจาก Ward → เตียงกลายเป็น [Vacant Bed](/concepts/bed-status/)
 
 ## REVERT (ยกเลิก/ย้อนกลับ)
 
@@ -75,7 +75,7 @@ verified-on-uat: pending
 
 ## Modules Involved
 
-- [[IPD]] — [[Ward Board]] (Discharge Plan), Dispense Return
-- [[Billing]] — IP Billing (ส่งจาก Step 3, ยืนยันที่ Step 4)
-- [[Pharmacy]] — Dispense Return (คืนยาก่อน Step 3)
-- [[EMR Doctor]] — แพทย์บันทึก Discharge Summary/Orders (Step 2)
+- [IPD](/modules/ipd/) — [Ward Board](/entities/ward-board/) (Discharge Plan), Dispense Return
+- [Billing](/modules/billing/) — IP Billing (ส่งจาก Step 3, ยืนยันที่ Step 4)
+- [Pharmacy](/modules/pharmacy/) — Dispense Return (คืนยาก่อน Step 3)
+- [EMR Doctor](/modules/emr-doctor/) — แพทย์บันทึก Discharge Summary/Orders (Step 2)

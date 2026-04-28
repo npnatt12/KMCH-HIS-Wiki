@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # ขั้นตอนการตรวจทางห้องปฏิบัติการ (Lab Order to Result)
 
-ขั้นตอนเต็มตั้งแต่แพทย์สั่งตรวจจนผลออกใน [[LAB]] module
+ขั้นตอนเต็มตั้งแต่แพทย์สั่งตรวจจนผลออกใน [LAB](/modules/lab/) module
 
 ## Flow Diagram
 
@@ -57,7 +57,7 @@ verified-on-uat: pending
 
 **กรณีพิเศษ:**
 - **Duplicate Order**: ระบบแจ้งเตือน → ต้องระบุ Comments ก่อน Save (Comments แสดงที่ Order Detail)
-- **STAT**: รายการแสดง**สีแดง**ทุกหน้าจอ (Order Details / [[Lab Specimen Collection Screen]] / Lab Worklist)
+- **STAT**: รายการแสดง**สีแดง**ทุกหน้าจอ (Order Details / [Lab Specimen Collection Screen](/entities/lab-specimen-collection-screen/) / Lab Worklist)
 
 **Status หลังขั้นตอนนี้:** `Ordered`
 
@@ -67,7 +67,7 @@ verified-on-uat: pending
 
 **ผู้ดำเนินการ:** พยาบาล / เจ้าหน้าที่
 
-**หน้าจอ:** [[Lab Specimen Collection Screen]] (Laboratory → Specimen Collection → Tab NEW)
+**หน้าจอ:** [Lab Specimen Collection Screen](/entities/lab-specimen-collection-screen/) (Laboratory → Specimen Collection → Tab NEW)
 
 **ทีละรายการ:**
 1. ค้นหารายการด้วย Filter (Department / Ward / Patient / Order No. / Date / Status)
@@ -119,7 +119,7 @@ verified-on-uat: pending
 
 **ใช้สำหรับ:** รายการที่**ไม่เชื่อมต่อ**กับ LIS (Laboratory Information System)
 
-**หน้าจอ:** [[Lab Result Entry Screen]] (Lab Worklist → Manual Result)
+**หน้าจอ:** [Lab Result Entry Screen](/entities/lab-result-entry-screen/) (Lab Worklist → Manual Result)
 
 **ขั้นตอน:**
 1. เลือกรายการใน Tab INPROGRESS (Status = Specimen Accepted)
@@ -183,4 +183,4 @@ verified-on-uat: pending
 
 ## Modules Involved
 
-[[EMR Doctor]] (สั่ง) → [[OPD]]/[[IPD]] (เก็บ specimen) → [[LAB]] (Accept + Result) → EMR (แสดงผล)
+[EMR Doctor](/modules/emr-doctor/) (สั่ง) → [OPD](/modules/opd/)/[IPD](/modules/ipd/) (เก็บ specimen) → [LAB](/modules/lab/) (Accept + Result) → EMR (แสดงผล)
