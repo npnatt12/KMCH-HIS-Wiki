@@ -170,6 +170,32 @@
     return labels[type] || type;
   }
 
+  function logSearch(query, hits, ms) {
+    var q = String(query || '').trim();
+    if (!q || q.length < 2) return;
+    try {
+      var body = JSON.stringify({
+        q: q,
+        results_count: (hits.records || []).length,
+        top_score: hits.topScore || 0,
+        ms: ms,
+      });
+      if (navigator.sendBeacon) {
+        var blob = new Blob([body], { type: 'application/json' });
+        navigator.sendBeacon('/api/log-search', blob);
+      } else {
+        fetch('/api/log-search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: body,
+          keepalive: true,
+        }).catch(function () {});
+      }
+    } catch (_) {
+      // ignore — telemetry is best-effort
+    }
+  }
+
   function render(resultsEl, statusEl, hits, query) {
     if (!query.trim()) {
       resultsEl.innerHTML = '';
@@ -233,11 +259,13 @@
 
       clearTimeout(timer);
       timer = setTimeout(function () {
+        var startedAt = Date.now();
         loadIndex()
           .then(function () {
             var hits = search(query);
             render(results, status, hits, query);
             attachDymHandler(input);
+            logSearch(query, hits, Date.now() - startedAt);
           })
           .catch(function () {
             status.textContent = 'โหลดระบบค้นหาไม่สำเร็จ';
