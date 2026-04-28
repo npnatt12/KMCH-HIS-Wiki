@@ -10,6 +10,7 @@
     "dev:astro-only": "astro dev",
     "build:charts": "node scripts/render-mermaid.mjs",
     "build:images": "node scripts/extract-images.mjs",
+    "build:phase4": "node scripts/optimize-phase4-assets.mjs && node scripts/build-phase4-manifest.mjs",
     "build": "node scripts/sync-vault.mjs && astro build",
     "build:local": "npm run build:images && npm run build:charts && npm run build",
     "preview": "astro preview",

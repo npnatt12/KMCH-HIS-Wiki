@@ -48,7 +48,7 @@ try {
 
 const related = await getRelated('modules', slug, entry.data.roles);
 ---
-<ArticleV2 title={entry.data.title} route="module">
+<ArticleV2 title={entry.data.title} route="module" slug={slug}>
   <Breadcrumb items={[
     { label: 'Modules', href: '/' },
     { label: entry.data.title },
