@@ -340,6 +340,26 @@ a:hover {
 }
 
 /* === Existing @media print block — PRESERVED === */
+.kmch-search-dym {
+  display: inline-block;
+  margin-top: 0.5rem;
+  margin-left: 0.25rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-border-strong, #d4cfc6);
+  border-radius: 0.5rem;
+  background: var(--color-surface-tint, #f6f0e6);
+  color: var(--color-ink, #1f1b16);
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.kmch-search-dym:hover {
+  background: var(--color-bg-strong, #ede5d4);
+}
+.kmch-search-dym strong {
+  font-weight: 600;
+}
+
 @media print {
   nav, footer, .no-print { display: none !important; }
   body { background: white !important; }

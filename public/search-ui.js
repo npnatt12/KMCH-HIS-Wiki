@@ -60,6 +60,17 @@
         expansions = (manifest.hints || []).map(function (term) {
           return { match: new RegExp(escapeRegex(term), 'i'), terms: [term] };
         });
+        var dyMDictionary = [];
+        records.forEach(function (r) {
+          if (r.title) dyMDictionary.push(r.title.toLowerCase());
+          if (r.section && r.section !== 'Overview') dyMDictionary.push(r.section.toLowerCase());
+          if (r.module) dyMDictionary.push(r.module.toLowerCase());
+        });
+        (manifest.hints || []).forEach(function (term) {
+          dyMDictionary.push(String(term).toLowerCase());
+        });
+        dyMDictionary = Array.from(new Set(dyMDictionary));
+        window.__kmchDymDict = dyMDictionary;
         return records;
       });
     }
@@ -109,9 +120,8 @@
 
   function search(query) {
     var tokens = tokenize(query);
-    if (!normalize(query)) return [];
-
-    return records
+    if (!normalize(query)) return { records: [], topScore: 0 };
+    var scored = records
       .map(function (record) {
         return { record: record, score: score(record, query, tokens) };
       })
@@ -121,10 +131,11 @@
       .sort(function (a, b) {
         return b.score - a.score;
       })
-      .slice(0, 8)
-      .map(function (result) {
-        return result.record;
-      });
+      .slice(0, 8);
+    return {
+      records: scored.map(function (r) { return r.record; }),
+      topScore: scored.length > 0 ? scored[0].score : 0,
+    };
   }
 
   function escapeHtml(value) {
@@ -147,38 +158,49 @@
     return labels[type] || type;
   }
 
-  function render(resultsEl, statusEl, results, query) {
+  function render(resultsEl, statusEl, hits, query) {
     if (!query.trim()) {
       resultsEl.innerHTML = '';
       statusEl.textContent = 'พิมพ์อาการจริงที่เจอในระบบ หรือเลือกตัวอย่างด้านบน';
       return;
     }
+    var results = hits.records;
+    var topScore = hits.topScore;
+    var dymWord = window.KMCHDidYouMean && window.__kmchDymDict
+      ? window.KMCHDidYouMean.suggest(query, window.__kmchDymDict)
+      : null;
 
     if (!results.length) {
-      resultsEl.innerHTML = '<div class="kmch-search-empty">ไม่พบผลลัพธ์ ลองใช้คำกว้างขึ้น เช่น ชื่อแผนก, ปุ่ม, สถานะ หรือ HN</div>';
+      var dymHtml = dymWord
+        ? '<button type="button" class="kmch-search-dym" data-search-dym="' + escapeHtml(dymWord) + '">หมายถึง <strong>' + escapeHtml(dymWord) + '</strong>?</button>'
+        : '';
+      resultsEl.innerHTML = '<div class="kmch-search-empty">ไม่พบผลลัพธ์ ลองใช้คำกว้างขึ้น เช่น ชื่อแผนก, ปุ่ม, สถานะ หรือ HN ' + dymHtml + '</div>';
       statusEl.textContent = 'ไม่พบผลลัพธ์';
       return;
     }
 
     statusEl.textContent = 'พบ ' + results.length + ' ผลลัพธ์ที่น่าจะเกี่ยวข้อง';
-    resultsEl.innerHTML = results
-      .map(function (record) {
-        var module = record.module ? '<span>' + escapeHtml(record.module) + '</span>' : '';
-        var section = record.section && record.section !== 'Overview' ? '<span>' + escapeHtml(record.section) + '</span>' : '';
+    var listHtml = results.map(function (record) {
+      var module = record.module ? '<span>' + escapeHtml(record.module) + '</span>' : '';
+      var section = record.section && record.section !== 'Overview' ? '<span>' + escapeHtml(record.section) + '</span>' : '';
+      return [
+        '<a class="kmch-search-card" role="listitem" href="' + escapeHtml(record.url) + '">',
+        '<div class="kmch-search-card-top">',
+        '<span class="kmch-search-type">' + escapeHtml(typeLabel(record.type)) + '</span>',
+        module,
+        section,
+        '</div>',
+        '<div class="kmch-search-card-title">' + escapeHtml(record.title) + '</div>',
+        '<p>' + escapeHtml(record.summary) + '</p>',
+        '</a>',
+      ].join('');
+    }).join('');
 
-        return [
-          '<a class="kmch-search-card" role="listitem" href="' + escapeHtml(record.url) + '">',
-          '<div class="kmch-search-card-top">',
-          '<span class="kmch-search-type">' + escapeHtml(typeLabel(record.type)) + '</span>',
-          module,
-          section,
-          '</div>',
-          '<div class="kmch-search-card-title">' + escapeHtml(record.title) + '</div>',
-          '<p>' + escapeHtml(record.summary) + '</p>',
-          '</a>',
-        ].join('');
-      })
-      .join('');
+    var lowScoreDymHtml = (topScore < 50 && dymWord)
+      ? '<button type="button" class="kmch-search-dym" data-search-dym="' + escapeHtml(dymWord) + '">หมายถึง <strong>' + escapeHtml(dymWord) + '</strong>?</button>'
+      : '';
+
+    resultsEl.innerHTML = listHtml + lowScoreDymHtml;
   }
 
   function bind(root) {
@@ -201,12 +223,23 @@
       timer = setTimeout(function () {
         loadIndex()
           .then(function () {
-            render(results, status, search(query), query);
+            var hits = search(query);
+            render(results, status, hits, query);
+            attachDymHandler(input);
           })
           .catch(function () {
             status.textContent = 'โหลดระบบค้นหาไม่สำเร็จ';
           });
       }, 80);
+    }
+
+    function attachDymHandler(inputEl) {
+      var btn = root.querySelector('[data-search-dym]');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        inputEl.value = btn.getAttribute('data-search-dym') || '';
+        run();
+      });
     }
 
     input.addEventListener('input', run);
