@@ -1,0 +1,61 @@
+---
+interface Props {
+  id: string;
+  variant?: 'home' | 'compact';
+  placeholder?: string;
+}
+
+const {
+  id,
+  variant = 'home',
+  placeholder = 'ค้นหาอาการหรือปัญหา เช่น กด SAVE ไม่ได้, ผู้ป่วยไม่ขึ้น Worklist',
+} = Astro.props;
+
+const examples = [
+  'กด SAVE ไม่ได้',
+  'ผู้ป่วยไม่ขึ้น Worklist',
+  'ออกบิลไม่ได้ แถบแดง',
+  'Drug Alert แพ้ยา',
+  'Specimen Reject',
+  'ย้าย Ward ไม่สำเร็จ',
+];
+---
+
+<section
+  id={id}
+  class:list={['kmch-search', variant === 'compact' ? 'kmch-search--compact' : 'kmch-search--home']}
+  data-kmch-search
+>
+  <form class="kmch-search-form" role="search" autocomplete="off">
+    <label class="sr-only" for={`${id}-input`}>ค้นหาคู่มือ MEDHIS</label>
+    <div class="kmch-search-box">
+      <svg aria-hidden="true" viewBox="0 0 24 24" class="kmch-search-icon">
+        <path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" />
+      </svg>
+      <input
+        id={`${id}-input`}
+        class="kmch-search-input"
+        type="search"
+        inputmode="search"
+        placeholder={placeholder}
+        aria-describedby={`${id}-status`}
+      />
+      <button class="kmch-search-clear" type="button" aria-label="ล้างคำค้น" hidden>
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </form>
+
+  {variant === 'home' && (
+    <div class="kmch-search-examples" aria-label="ตัวอย่างปัญหา">
+      {examples.map((example) => (
+        <button type="button" data-search-example={example}>{example}</button>
+      ))}
+    </div>
+  )}
+
+  <div id={`${id}-status`} class="kmch-search-status" data-search-status aria-live="polite">
+    พิมพ์อาการจริงที่เจอในระบบ หรือเลือกตัวอย่างด้านบน
+  </div>
+  <div class="kmch-search-results" data-search-results role="list"></div>
+</section>
