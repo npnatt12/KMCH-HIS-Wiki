@@ -2,6 +2,9 @@
   "name": "kmch-portal",
   "type": "module",
   "version": "1.0.0",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "concurrently -k -n sync,astro -c blue,magenta \"node scripts/sync-vault.mjs --watch --quiet\" \"astro dev\"",
     "dev:astro-only": "astro dev",
