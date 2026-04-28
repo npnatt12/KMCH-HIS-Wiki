@@ -137,4 +137,99 @@ export const ROLE_CONTENT: Record<string, RoleContent> = {
     reference_screens: [],
     concepts: [],
   },
+  'finance-accounting': {
+    daily_flows: [
+      'odoo-purchase-to-pay-workflow',
+      'odoo-billing-and-receivables-workflow',
+      'medhis-odoo-revenue-interface-workflow',
+      'his-erp-interface-rerun-and-error-handling-workflow',
+      'telemedicine-medication-delivery-workflow',
+    ],
+    reference_screens: [
+      'odoo-customer-invoice-screen',
+      'odoo-billing-note-screen',
+      'odoo-payment-screen',
+      'odoo-vendor-bill-screen',
+      'odoo-accounting-forms',
+      'his-erp-interface-log-and-error-handling',
+    ],
+    concepts: [
+      'his-erp-interface',
+      'his-erp-interface-data-dictionary',
+    ],
+  },
+  procurement: {
+    daily_flows: ['odoo-purchase-to-pay-workflow'],
+    reference_screens: [
+      'odoo-purchase-order-screen',
+      'odoo-vendor-bill-screen',
+      'odoo-product-master-screen',
+      'odoo-payment-screen',
+      'odoo-inventory-operation-screen',
+    ],
+    concepts: ['phase-4-uat-coverage-matrix'],
+  },
+  'warehouse-staff': {
+    daily_flows: [
+      'odoo-internal-transfer-workflow',
+      'odoo-inventory-adjustment-and-reporting-workflow',
+      'medhis-odoo-inventory-interface-workflow',
+      'his-erp-interface-rerun-and-error-handling-workflow',
+    ],
+    reference_screens: [
+      'odoo-inventory-operation-screen',
+      'odoo-product-master-screen',
+      'odoo-internal-transfer-screen',
+      'odoo-inventory-adjustment-screen',
+      'his-erp-interface-log-and-error-handling',
+    ],
+    concepts: [
+      'his-erp-interface',
+      'his-erp-interface-data-dictionary',
+      'odoo-inventory-movement-types',
+    ],
+  },
+  'telemedicine-admin': {
+    daily_flows: [
+      'telemedicine-patient-onboarding-workflow',
+      'telemedicine-operations-support-workflow',
+    ],
+    reference_screens: [
+      'telemedicine-admin-portal',
+      'telemedicine-doctor-list-and-appointment-screens',
+      'telemedicine-consultation-session',
+      'telemedicine-it-service-stack',
+    ],
+    concepts: [
+      'telemedicine-appointment-status',
+      'phase-4-uat-and-go-live-evidence',
+      'phase-4-uat-coverage-matrix',
+    ],
+  },
+  'telemedicine-it-operator': {
+    daily_flows: ['telemedicine-operations-support-workflow'],
+    reference_screens: [
+      'telemedicine-it-service-stack',
+      'telemedicine-admin-portal',
+      'telemedicine-consultation-session',
+    ],
+    concepts: [
+      'telemedicine-appointment-status',
+      'phase-4-uat-and-go-live-evidence',
+      'phase-4-uat-coverage-matrix',
+    ],
+  },
+  patient: {
+    daily_flows: [
+      'telemedicine-patient-onboarding-workflow',
+      'telemedicine-visit-workflow',
+      'telemedicine-medication-delivery-workflow',
+    ],
+    reference_screens: [
+      'telemedicine-mobile-app',
+      'telemedicine-doctor-list-and-appointment-screens',
+      'telemedicine-consultation-session',
+    ],
+    concepts: ['telemedicine-appointment-status'],
+  },
 };
