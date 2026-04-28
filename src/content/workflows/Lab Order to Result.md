@@ -5,6 +5,8 @@ sources: ["9.MEDHIS Manual_LAB V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [workflow, lab, laboratory]
+roles: [Doctor, NurseOPD]
+verified-on-uat: pending
 ---
 
 # ขั้นตอนการตรวจทางห้องปฏิบัติการ (Lab Order to Result)

@@ -5,6 +5,8 @@ sources: ["7.MEDHIS_Manual_IPD V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, screen, ipd, transfer, inpatient]
+roles: [NurseIPD]
+verified-on-uat: pending
 ---
 
 # IPD Transfer Screen

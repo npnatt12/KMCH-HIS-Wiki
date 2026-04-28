@@ -5,6 +5,8 @@ sources: ["13.MEDHIS Manual_Pharmacy V.1.docx", "18.MEDHIS Manual_Order V.2.docx
 created: 2026-04-09
 updated: 2026-04-09
 tags: [concept, pharmacy, drug-alerts, safety, order-entry]
+roles: [Doctor, Pharmacist]
+verified-on-uat: pending
 ---
 
 # Drug Alert Types (ประเภทการแจ้งเตือนยา)

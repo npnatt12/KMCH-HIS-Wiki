@@ -5,6 +5,7 @@ sources: ["12.MEDHIS Manual_Laboor and Newborn V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, labour, newborn, obstetrics]
+verified-on-uat: pending
 ---
 
 # Labour and Newborn — ระบบงานห้องคลอดและทารกแรกคลอด

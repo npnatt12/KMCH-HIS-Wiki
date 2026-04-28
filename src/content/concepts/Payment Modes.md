@@ -5,6 +5,8 @@ sources: ["5.MEDHIS Manual_Billing V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [concept, billing, payment, finance]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # Payment Modes (รูปแบบการชำระเงิน)

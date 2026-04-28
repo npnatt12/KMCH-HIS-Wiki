@@ -5,6 +5,8 @@ sources: ["1.MEDHIS Manual_MRD_V2.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [workflow, mrd, folder, issue, return]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # MRD Folder Issue Return Workflow

@@ -5,6 +5,7 @@ sources: ["18.MEDHIS Manual_Order V.2.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, order, cpoe, prescription, drug-alerts]
+verified-on-uat: pending
 ---
 
 # Order Entry — ระบบคำสั่งการรักษา (CPOE)

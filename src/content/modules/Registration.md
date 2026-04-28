@@ -5,6 +5,7 @@ sources: ["2.MEDHIS Manual_Registration V.2.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, registration, patient]
+verified-on-uat: pending
 ---
 
 # Registration — ระบบงานลงทะเบียน

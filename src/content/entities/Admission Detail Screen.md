@@ -5,6 +5,8 @@ sources: ["6.MEDHIS Manual_Admission V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, screen, admission, inpatient]
+roles: [NurseIPD]
+verified-on-uat: pending
 ---
 
 # Admission Detail Screen

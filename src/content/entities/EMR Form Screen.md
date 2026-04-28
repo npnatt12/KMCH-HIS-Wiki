@@ -5,6 +5,8 @@ sources: ["17.MEDHIS Manual_EMR_Doctor V.2.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, emr, doctor, screen, opd, ipd]
+roles: [Doctor]
+verified-on-uat: pending
 ---
 
 # EMR Form Screen — หน้าจอบันทึกการตรวจรักษา

@@ -5,6 +5,7 @@ sources: ["6.MEDHIS Manual_Admission V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, admission, inpatient]
+verified-on-uat: pending
 ---
 
 # Admission — ระบบงานรับผู้ป่วยใน

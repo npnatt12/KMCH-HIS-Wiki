@@ -5,6 +5,8 @@ sources: ["5.MEDHIS Manual_Billing V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-08
 tags: [workflow, billing, finance]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # กระบวนการออกบิลผู้ป่วยนอก (OP Billing Workflow)

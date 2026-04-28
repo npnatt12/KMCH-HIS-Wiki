@@ -5,6 +5,8 @@ sources: ["2.MEDHIS Manual_Registration V.2.docx"]
 created: 2026-04-08
 updated: 2026-04-08
 tags: [workflow, registration, appointment]
+roles: [NurseOPD]
+verified-on-uat: pending
 ---
 
 # ขั้นตอนลงทะเบียนผู้ป่วยนัด (Appointment Patient Registration)

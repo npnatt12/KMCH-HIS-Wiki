@@ -5,6 +5,8 @@ sources: ["10.MEDHIS Manual_XRAY V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [workflow, xray, radiology]
+roles: [Doctor, XRayTech]
+verified-on-uat: pending
 ---
 
 # ขั้นตอนการตรวจทางรังสีวินิจฉัย (XRAY Order to Report)

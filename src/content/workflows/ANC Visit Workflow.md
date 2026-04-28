@@ -5,6 +5,8 @@ sources: ["8.MEDHIS Manual_ANC V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [workflow, anc, antenatal-care]
+roles: [Doctor, NurseOPD]
+verified-on-uat: pending
 ---
 
 # ขั้นตอนการฝากครรภ์ (ANC Visit Workflow)

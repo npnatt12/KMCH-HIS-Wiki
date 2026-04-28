@@ -5,6 +5,8 @@ sources: ["18.MEDHIS Manual_Order V.2.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, order, cpoe, screen, drug-alerts]
+roles: [Doctor, Pharmacist]
+verified-on-uat: pending
 ---
 
 # Order Entry Screen — หน้าจอบันทึกคำสั่งการรักษา (CPOE)

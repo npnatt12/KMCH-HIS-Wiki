@@ -5,6 +5,7 @@ sources: ["1.MEDHIS Manual_MRD_V2.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, mrd, medical-records, folder]
+verified-on-uat: pending
 ---
 
 # MRD — ระบบจัดเก็บเวชระเบียน (Medical Records Department)

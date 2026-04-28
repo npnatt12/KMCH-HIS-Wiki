@@ -5,6 +5,8 @@ sources: ["17.MEDHIS Manual_EMR_Doctor V.2.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [workflow, emr, doctor, ipd, progress-notes, discharge]
+roles: [Doctor]
+verified-on-uat: pending
 ---
 
 # IPD Doctor EMR Workflow — กระบวนการดูแลผู้ป่วยใน

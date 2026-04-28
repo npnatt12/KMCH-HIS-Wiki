@@ -18,6 +18,7 @@ export const ROLE_CONTENT: Record<string, RoleContent> = {
       'lab-order-to-result',
       'xray-order-to-report-workflow',
       'pharmacy-dispensing-workflow',
+      'anc-visit-workflow',
     ],
     reference_screens: [
       'doctor-worklist-screen',
@@ -25,12 +26,20 @@ export const ROLE_CONTENT: Record<string, RoleContent> = {
       'order-entry-screen',
       'drug-alert-popup',
       'patient-banner',
+      'anc-chart-screen',
+      'er-discharge-screen',
+      'er-triage-screen',
+      'lab-result-entry-screen',
+      'whiteboard',
+      'xray-report-screen',
     ],
     concepts: [
       'visit-types',
       'order-types',
       'drug-alert-types',
       'lab-and-radiology-order-status',
+      'edc-calculation',
+      'esi-level',
     ],
   },
   'nurse-ipd': {
@@ -38,6 +47,7 @@ export const ROLE_CONTENT: Record<string, RoleContent> = {
       'ipd-discharge-process',
       'ipd-transfer-between-wards-workflow',
       'pharmacy-dispensing-workflow',
+      'admission-workflow',
     ],
     reference_screens: [
       'ward-board',
@@ -49,14 +59,31 @@ export const ROLE_CONTENT: Record<string, RoleContent> = {
     concepts: ['bed-status', 'order-types', 'visit-types'],
   },
   'nurse-opd': {
-    daily_flows: ['opd-patient-flow', 'lab-order-to-result', 'appointment-registration'],
+    daily_flows: [
+      'opd-patient-flow',
+      'lab-order-to-result',
+      'appointment-registration',
+      'anc-visit-workflow',
+      'emergency-registration',
+      'mass-casualty-registration',
+    ],
     reference_screens: [
       'opd-worklist-screen',
       'opd-screening-screen',
       'patient-banner',
       'lab-specimen-collection-screen',
+      'anc-chart-screen',
+      'er-discharge-screen',
+      'er-triage-screen',
+      'whiteboard',
     ],
-    concepts: ['opd-patient-status', 'visit-types', 'appointment-system'],
+    concepts: [
+      'opd-patient-status',
+      'visit-types',
+      'appointment-system',
+      'edc-calculation',
+      'esi-level',
+    ],
   },
   'nurse-or': {
     daily_flows: ['or-surgery-request-to-record-workflow'],
@@ -75,7 +102,7 @@ export const ROLE_CONTENT: Record<string, RoleContent> = {
   },
   'xray-tech': {
     daily_flows: ['xray-order-to-report-workflow'],
-    reference_screens: ['xray-register-screen', 'patient-banner'],
+    reference_screens: ['xray-register-screen', 'patient-banner', 'xray-report-screen'],
     concepts: ['lab-and-radiology-order-status'],
   },
   'admin-system': {
@@ -88,6 +115,10 @@ export const ROLE_CONTENT: Record<string, RoleContent> = {
       'inventory-transfer-request-workflow',
       'diet-order-to-kitchen-workflow',
       'cssd-request-to-sterilize-workflow',
+      'admission-workflow',
+      'emergency-registration',
+      'mass-casualty-registration',
+      'registration-update-merge-workflow',
     ],
     reference_screens: [
       'patient-search-screen',
@@ -99,7 +130,7 @@ export const ROLE_CONTENT: Record<string, RoleContent> = {
       'diet-order-entry-screen',
       'cssd-request-screen',
     ],
-    concepts: ['payor-and-treatment-rights', 'patient-types', 'payment-modes'],
+    concepts: ['payor-and-treatment-rights', 'patient-types', 'payment-modes', 'nhso-authentication'],
   },
   'it-support': {
     daily_flows: [],

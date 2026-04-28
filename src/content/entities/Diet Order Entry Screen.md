@@ -5,6 +5,8 @@ sources: ["15.MEDHIS Manual_Diet V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, diet, nutrition, screen]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # Diet Order Entry Screen — หน้าจอสั่งอาหารผู้ป่วย

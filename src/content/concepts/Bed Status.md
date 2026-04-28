@@ -5,6 +5,8 @@ sources: ["7.MEDHIS_Manual_IPD V.1.docx", "6.MEDHIS Manual_Admission V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-08
 tags: [concept, bed, ipd, admission]
+roles: [NurseIPD]
+verified-on-uat: pending
 ---
 
 # Bed Status (สถานะเตียง)

@@ -5,6 +5,8 @@ sources: ["15.MEDHIS Manual_Diet V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [workflow, diet, nutrition, kitchen, meal]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # Diet Order to Kitchen Workflow — ขั้นตอนสั่งอาหารถึงห้องครัว

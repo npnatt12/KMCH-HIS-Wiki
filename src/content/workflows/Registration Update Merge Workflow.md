@@ -5,6 +5,8 @@ sources: ["2.MEDHIS Manual_Registration V.2.docx", "1.MEDHIS Manual_MRD_V2.docx"
 created: 2026-04-09
 updated: 2026-04-09
 tags: [workflow, registration, mrd, demographics, merge]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # Registration Update Merge Workflow

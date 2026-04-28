@@ -5,6 +5,7 @@ sources: ["16.MEDHIS Manual_CSSD V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, cssd, sterilization, sterile-supply]
+verified-on-uat: pending
 ---
 
 # CSSD — ระบบเวชภัณฑ์ปลอดเชื้อ (Central Sterile Supply Department)

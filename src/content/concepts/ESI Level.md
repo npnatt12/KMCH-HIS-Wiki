@@ -5,6 +5,8 @@ sources: ["4.MEDHIS Manual_ER V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-08
 tags: [concept, esi, triage, emergency]
+roles: [Doctor, NurseOPD]
+verified-on-uat: pending
 ---
 
 # ESI Level (Emergency Severity Index)

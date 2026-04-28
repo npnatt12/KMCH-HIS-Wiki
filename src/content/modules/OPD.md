@@ -5,6 +5,7 @@ sources: ["3.MEDHIS_Manual_OPD V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, opd, outpatient]
+verified-on-uat: pending
 ---
 
 # OPD — ระบบงานผู้ป่วยนอก (Outpatient Department)

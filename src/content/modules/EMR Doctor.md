@@ -5,6 +5,7 @@ sources: ["17.MEDHIS Manual_EMR_Doctor V.2.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, emr, doctor, clinical, opd, ipd]
+verified-on-uat: pending
 ---
 
 # EMR Doctor — ระบบบันทึกเวชระเบียนอิเล็กทรอนิกส์ (Doctor Interface)

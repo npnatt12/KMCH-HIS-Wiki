@@ -5,6 +5,7 @@ sources: ["13.MEDHIS Manual_Pharmacy V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, pharmacy, dispensing, drug-alerts, medication]
+verified-on-uat: pending
 ---
 
 # Pharmacy — ระบบเภสัชกรรม

@@ -5,6 +5,8 @@ sources: ["13.MEDHIS Manual_Pharmacy V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, pharmacy, dispensing, worklist, screen]
+roles: [Pharmacist]
+verified-on-uat: pending
 ---
 
 # Pharmacy Dispensing Screen — หน้าจอจ่ายยา

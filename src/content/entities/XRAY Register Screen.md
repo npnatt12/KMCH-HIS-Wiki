@@ -5,6 +5,8 @@ sources: ["10.MEDHIS Manual_XRAY V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, xray, radiology, screen]
+roles: [XRayTech]
+verified-on-uat: pending
 ---
 
 # XRAY Register Screen — หน้าจอ Radiology Worklist (Register + Execute)

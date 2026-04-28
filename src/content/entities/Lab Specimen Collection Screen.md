@@ -5,6 +5,8 @@ sources: ["9.MEDHIS Manual_LAB V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, lab, screen]
+roles: [NurseOPD]
+verified-on-uat: pending
 ---
 
 # Lab Specimen Collection Screen — หน้าจอบันทึกการเก็บสิ่งส่งตรวจ

@@ -5,6 +5,8 @@ sources: ["11.MEDHIS Manual_OR V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [workflow, or, surgery-request, schedule, or-record, recovery-room]
+roles: [NurseOR]
+verified-on-uat: pending
 ---
 
 # OR Surgery Request to Record Workflow — กระบวนการห้องผ่าตัดตั้งแต่ Request ถึง Record

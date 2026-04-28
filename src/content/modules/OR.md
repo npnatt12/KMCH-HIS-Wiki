@@ -5,6 +5,7 @@ sources: ["11.MEDHIS Manual_OR V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, or, operating-room, surgery]
+verified-on-uat: pending
 ---
 
 # OR — ระบบงานห้องผ่าตัด (Operating Room)

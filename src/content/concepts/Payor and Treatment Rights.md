@@ -5,6 +5,8 @@ sources: ["2.MEDHIS Manual_Registration V.2.docx", "5.MEDHIS Manual_Billing V.1.
 created: 2026-04-08
 updated: 2026-04-09
 tags: [concept, payor, billing, insurance, rights]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # Payor and Treatment Rights (สิทธิการรักษาพยาบาล)

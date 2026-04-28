@@ -5,6 +5,8 @@ sources: ["9.MEDHIS Manual_LAB V.1.docx", "10.MEDHIS Manual_XRAY V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [concept, lab, radiology, status]
+roles: [Doctor, XRayTech]
+verified-on-uat: pending
 ---
 
 # Lab and Radiology Order Status

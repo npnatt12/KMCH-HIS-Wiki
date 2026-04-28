@@ -5,6 +5,8 @@ sources: ["18.MEDHIS Manual_Order V.2.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, order, pharmacy, drug-safety, alert, popup]
+roles: [Doctor, Pharmacist]
+verified-on-uat: pending
 ---
 
 # Drug Alert Popup — ป๊อปอัปแจ้งเตือนยา

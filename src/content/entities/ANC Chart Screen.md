@@ -5,6 +5,8 @@ sources: ["8.MEDHIS Manual_ANC V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [entity, screen, anc]
+roles: [Doctor, NurseOPD]
+verified-on-uat: pending
 ---
 
 # ANC Chart Screen

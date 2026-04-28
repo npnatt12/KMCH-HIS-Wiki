@@ -5,6 +5,8 @@ sources: ["16.MEDHIS Manual_CSSD V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [workflow, cssd, sterilization, sterile-supply]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # CSSD Request to Sterilize Workflow — ขั้นตอนขอเบิกถึงทำปลอดเชื้อ

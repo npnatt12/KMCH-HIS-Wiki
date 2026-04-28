@@ -5,6 +5,8 @@ sources: ["2.MEDHIS Manual_Registration V.2.docx"]
 created: 2026-04-08
 updated: 2026-04-08
 tags: [concept, nhso, insurance, rights]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # NHSO Authentication (ตรวจสอบสิทธิ สปสช.)

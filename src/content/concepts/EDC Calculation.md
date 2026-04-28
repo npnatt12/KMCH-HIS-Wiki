@@ -5,6 +5,8 @@ sources: ["8.MEDHIS Manual_ANC V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-08
 tags: [concept, edc, anc, obstetrics, auto-calculation]
+roles: [Doctor, NurseOPD]
+verified-on-uat: pending
 ---
 
 # EDC Calculation (Expected Date of Confinement)

@@ -5,6 +5,8 @@ sources: ["2.MEDHIS Manual_Registration V.2.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [entity, screen, registration, demographics]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # Patient Demographics Screen

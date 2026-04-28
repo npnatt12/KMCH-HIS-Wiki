@@ -5,6 +5,8 @@ sources: ["16.MEDHIS Manual_CSSD V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, cssd, sterilization, screen]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # CSSD Request Screen — หน้าจอขอเบิกเวชภัณฑ์ปลอดเชื้อ

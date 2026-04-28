@@ -5,6 +5,7 @@ sources: ["4.MEDHIS Manual_ER V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, er, emergency]
+verified-on-uat: pending
 ---
 
 # ER — ระบบงานผู้ป่วยฉุกเฉิน (Emergency)

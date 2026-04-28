@@ -5,6 +5,8 @@ sources: ["4.MEDHIS Manual_ER V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, screen, er, discharge]
+roles: [Doctor, NurseOPD]
+verified-on-uat: pending
 ---
 
 # ER Discharge Screen (หน้าจอจำหน่ายผู้ป่วยฉุกเฉิน)

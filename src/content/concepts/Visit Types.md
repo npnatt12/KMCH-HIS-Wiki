@@ -5,6 +5,8 @@ sources: ["2.MEDHIS Manual_Registration V.2.docx", "4.MEDHIS Manual_ER V.1.docx"
 created: 2026-04-08
 updated: 2026-04-09
 tags: [concept, visit, registration]
+roles: [Doctor, NurseIPD, NurseOPD, NurseOR]
+verified-on-uat: pending
 ---
 
 # Visit Types

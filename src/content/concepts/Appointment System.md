@@ -5,6 +5,8 @@ sources: ["3.MEDHIS_Manual_OPD V.1.docx", "2.MEDHIS Manual_Registration V.2.docx
 created: 2026-04-08
 updated: 2026-04-09
 tags: [concept, appointment, scheduling]
+roles: [NurseOPD]
+verified-on-uat: pending
 ---
 
 # Appointment System (ระบบนัดหมาย)

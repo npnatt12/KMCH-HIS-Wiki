@@ -5,6 +5,8 @@ sources: ["11.MEDHIS Manual_OR V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, or, schedule, booking, surgery]
+roles: [NurseOR]
+verified-on-uat: pending
 ---
 
 # OR Schedule Screen — หน้าจอตารางนัดห้องผ่าตัด

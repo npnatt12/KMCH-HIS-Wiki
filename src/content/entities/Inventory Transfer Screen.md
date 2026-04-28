@@ -5,6 +5,8 @@ sources: ["14.MEDHIS Manual_Inventory V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [entity, inventory, stock, transfer, screen]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # Inventory Transfer Screen — หน้าจอโอน/ตัดจ่ายสินค้า

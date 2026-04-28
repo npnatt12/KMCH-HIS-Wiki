@@ -5,6 +5,8 @@ sources: ["2.MEDHIS Manual_Registration V.2.docx", "4.MEDHIS Manual_ER V.1.docx"
 created: 2026-04-08
 updated: 2026-04-08
 tags: [workflow, registration, emergency, mass-casualty]
+roles: [NurseOPD, AdminSystem]
+verified-on-uat: pending
 ---
 
 # ขั้นตอนลงทะเบียนผู้ป่วยอุบัติภัยหมู่ (Mass Casualty Registration)

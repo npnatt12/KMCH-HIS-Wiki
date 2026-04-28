@@ -5,6 +5,8 @@ sources: ["3.MEDHIS_Manual_OPD V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-08
 tags: [concept, opd, status, patient-flow]
+roles: [NurseOPD]
+verified-on-uat: pending
 ---
 
 # OPD Patient Status (สถานะผู้ป่วยนอก)

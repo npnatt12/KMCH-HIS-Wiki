@@ -5,6 +5,7 @@ sources: ["8.MEDHIS Manual_ANC V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, anc, antenatal-care, obstetrics]
+verified-on-uat: pending
 ---
 
 # ANC — ระบบงานฝากครรภ์ (Antenatal Care)

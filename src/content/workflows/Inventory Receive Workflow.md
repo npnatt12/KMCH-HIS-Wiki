@@ -5,6 +5,8 @@ sources: ["14.MEDHIS Manual_Inventory V.1.docx"]
 created: 2026-04-09
 updated: 2026-04-09
 tags: [workflow, inventory, goods-receive, grn]
+roles: [AdminSystem]
+verified-on-uat: pending
 ---
 
 # Inventory Receive Workflow — ขั้นตอนรับสินค้าเข้าคลัง (GRN)

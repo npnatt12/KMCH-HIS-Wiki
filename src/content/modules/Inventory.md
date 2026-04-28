@@ -5,6 +5,7 @@ sources: ["14.MEDHIS Manual_Inventory V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, inventory, stock, supply-chain]
+verified-on-uat: pending
 ---
 
 # Inventory — ระบบสินค้าคงคลัง (Inventory & Supply Chain)

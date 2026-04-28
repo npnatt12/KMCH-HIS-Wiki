@@ -5,6 +5,8 @@ sources: ["7.MEDHIS_Manual_IPD V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [workflow, ipd, discharge, inpatient]
+roles: [NurseIPD]
+verified-on-uat: pending
 ---
 
 # ขั้นตอนจำหน่ายผู้ป่วยใน (IPD Discharge Process)

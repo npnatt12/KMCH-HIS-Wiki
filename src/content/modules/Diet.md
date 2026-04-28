@@ -5,6 +5,7 @@ sources: ["15.MEDHIS Manual_Diet V.1.docx"]
 created: 2026-04-08
 updated: 2026-04-09
 tags: [module, diet, nutrition, kitchen, meal]
+verified-on-uat: pending
 ---
 
 # Diet — ระบบโภชนาการ (Diet & Nutrition)
