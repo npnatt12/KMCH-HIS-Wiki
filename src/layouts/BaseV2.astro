@@ -18,16 +18,6 @@ const { title, activeRole } = Astro.props;
 <body class="min-h-screen">
   <TopBar activeRole={activeRole} />
   <slot />
-  <footer class="border-t border-[var(--color-border)] bg-[var(--color-bg-strong)] mt-12">
-    <div class="mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[var(--color-ink-muted)]" style="max-width: min(calc(100% - 32px), 1080px);">
-      <span>© {new Date().getFullYear()} KMCH HIS Wiki</span>
-      <nav class="flex gap-6">
-        <a href="/master-flow/" class="hover:underline">Master Flow</a>
-        <a href="/faq/" class="hover:underline">FAQ</a>
-        <a href="/pdpa/" class="hover:underline">นโยบายข้อมูลส่วนบุคคล / PDPA</a>
-      </nav>
-    </div>
-  </footer>
   <Lightbox />
   <script>
     import '../lib/reveal';
