@@ -4,7 +4,7 @@ module.exports = {
       url: [
         'https://kmch-wiki.vercel.app/',
         'https://kmch-wiki.vercel.app/roles/doctor/',
-        'https://kmch-wiki.vercel.app/workflows/opd-patient-status/',
+        'https://kmch-wiki.vercel.app/workflows/opd-patient-flow/',
       ],
       numberOfRuns: 3,
       settings: {
