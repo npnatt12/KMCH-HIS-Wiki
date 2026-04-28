@@ -68,6 +68,12 @@ export async function getSearchRecords(): Promise<SearchRecord[]> {
   return buildSearchRecords(buckets);
 }
 
+export async function getSearchRecordsByCollection(target: SearchCollection): Promise<SearchRecord[]> {
+  const { getCollection } = await import('astro:content');
+  const entries = await getCollection(target);
+  return buildSearchRecords([{ collection: target, entries: entries as unknown as SearchEntryInput[] }]);
+}
+
 export function buildSearchRecords(
   buckets: Array<{ collection: SearchCollection; entries: SearchEntryInput[] }>,
 ): SearchRecord[] {
