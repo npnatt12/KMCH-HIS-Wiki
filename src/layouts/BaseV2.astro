@@ -18,6 +18,10 @@ const { title, activeRole } = Astro.props;
   <TopBar activeRole={activeRole} />
   <slot />
   <Lightbox />
-  <script>import '../lib/reveal';</script>
+  <script>
+    import '../lib/reveal';
+    import '../lib/cmd-k';
+  </script>
+  <script src="/search-ui.js" defer></script>
 </body>
 </html>
