@@ -2,6 +2,31 @@
 
 All notable changes to the KMCH HIS Wiki Portal are listed here. Versions follow [Semantic Versioning](https://semver.org/) and dates use ISO 8601 (`YYYY-MM-DD`).
 
+## [v2.4.1] — 2026-04-28
+
+Phase-4 OCR adapter — codex's 248 routed captions and 945 PNGs are now searchable and viewable.
+
+### Added
+- **Manifest builder** (`scripts/build-phase4-manifest.mjs`). Parses codex's `phase-4-image-page-map.md`, resolves `[[Wiki Page]]` to portal slug via `vault-index.mjs`, applies D1 (cap displayCount at "100+" when >100) and D2 (drop generic "X: HIS ERP Interface" captions from search records). Output: `public/phase-4-manifest.json` (31 pages, 248 assets).
+- **Asset optimizer** (`scripts/optimize-phase4-assets.mjs`). Sharp-based PNG → WebP (q=80) + 300px thumb (q=75). Idempotent. Output: 1890 files (945 full + 945 thumbs) in `public/screenshots/phase-4/{source-slug}/`. Total ~38 MB.
+- **`build:phase4` npm script.** Local-only — runs the optimizer + manifest builder in sequence. Vercel CI doesn't run it; reads the committed artifacts.
+- **Synthetic search records.** `getSearchRecords` and `getSearchRecordsByCollection` inject one record per searchable Phase-4 asset, attributed to the parent page URL with `section: "Screenshot: <filename>"` and `priority: 4`. ~128 phase-4 entity records in production.
+- **`ImageGalleryButton.countLabel` prop.** Optional override for the displayed count.
+- **Phase-4 gallery section.** `ArticleV2` reads the manifest and renders an `<ImageGalleryButton>` below the article body on entity/workflow/module/concept pages that have routed assets (31 pages). Heading: "ภาพประกอบจาก Phase 4 / Phase 4 Screenshots".
+
+### Changed
+- `getSearchRecords` and `getSearchRecordsByCollection` are now `async` injection points — no behavior change for existing callers.
+- 4 article route templates now pass `slug` to `ArticleV2`.
+
+### Stats
+- 945 PNGs → 945 WebP + 945 thumbs (~38 MB committed under `public/screenshots/phase-4/`)
+- 31 wiki pages with phase-4 galleries; 248 assets routed (codex's per-section tables are curated subsets — full 945 inventory available as files but only the curated 248 surface in UI/search)
+- ~30% of caption rows filtered out of search records (D2: generic "HIS ERP Interface" with no OCR terms); all kept in gallery
+- 17 new tests (8 manifest parser, 4 asset optimizer, 5 search injection); total ≥ 120 passing
+- 0 new dependencies (sharp already a dep)
+
+---
+
 ## [v2.4.0] — 2026-04-28
 
 Search optimization: per-collection index, did-you-mean, telemetry, OCR-caption sync hook.
