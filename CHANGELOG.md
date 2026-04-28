@@ -2,6 +2,29 @@
 
 All notable changes to the KMCH HIS Wiki Portal are listed here. Versions follow [Semantic Versioning](https://semver.org/) and dates use ISO 8601 (`YYYY-MM-DD`).
 
+## [v2.4.0] — 2026-04-28
+
+Search optimization: per-collection index, did-you-mean, telemetry, OCR-caption sync hook.
+
+### Added
+- **Per-collection search index.** `/search.json` (4.4 MB) split into five files (`/search-modules.json`, `/search-workflows.json`, `/search-entities.json`, `/search-concepts.json`, `/search-faq.json`) plus `/search-manifest.json` (counts + hint terms). Both clients (`public/search-ui.js`, `src/lib/cmd-k.ts`) fetch all five in parallel.
+- **Did-you-mean.** Levenshtein-based suggestion shown when top result score < 50 or 0 results. Click chip → re-runs search. Dictionary built from titles + section headings + module names + dictionary hints.
+- **Match highlighting.** `<mark>` wraps matched tokens in result titles and summaries. HTML-escaped first, regex-escaped tokens, longest-first sort to avoid double-wrap.
+- **Telemetry endpoint** (`/api/log-search`). POST. Validates `q` against `PII_PATTERNS` (Thai national ID, HN, phone). Caps `q` at 200 chars. Rate-limits 60/min per IP. Logs structured JSON via `console.log` for Vercel runtime logs — no DB.
+- **OCR-caption sync hook** (`scripts/sync-vault/ocr-captions.mjs`). Loads `KMCH HIS manual/ocr-captions.json` (codex's output target), filters to confidence ≥ 0.85, appends `## Screenshot: <file>` sections to parent page bodies before chunking. Missing file = no-op.
+- **Vercel adapter** (`@astrojs/vercel`) + `output: 'hybrid'`. All 250 wiki pages stay prerendered; only `/api/*` runs as a Function.
+
+### Changed
+- `/search.json` becomes a **deprecation shim** for one release. Sets `X-Deprecated` and `X-Deprecation-Removal: v2.5` headers. Will be removed in v2.5.
+- `package.json` `"test"` glob now includes `src/pages/api/__tests__`.
+
+### Stats
+- 250 pages (unchanged)
+- 103 tests passing (was 67) — 36 new across did-you-mean (11), highlight (8), log-search (8), search-collections (3), OCR sync hook (6)
+- 1 new dependency (`@astrojs/vercel`)
+
+---
+
 ## [v2.3.0] — 2026-04-28
 
 Thailand-context polish: print, terminal-to-phone QR handoff, and PDPA discipline.
