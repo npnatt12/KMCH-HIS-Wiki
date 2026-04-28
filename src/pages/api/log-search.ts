@@ -71,5 +71,6 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response('invalid json', { status: 400 });
   }
   const result = handlePayload(payload, clientIp(request));
-  return new Response(result.reason ?? '', { status: result.status });
+  const body = result.status === 204 ? null : (result.reason ?? '');
+  return new Response(body, { status: result.status });
 };
