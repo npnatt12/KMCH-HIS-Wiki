@@ -1,8 +1,8 @@
 (function () {
   var indexPromise = null;
   var records = [];
-
   var expansions = [];
+  var dyMDictionary = [];
 
   function normalize(value) {
     return String(value || '')
@@ -60,17 +60,16 @@
         expansions = (manifest.hints || []).map(function (term) {
           return { match: new RegExp(escapeRegex(term), 'i'), terms: [term] };
         });
-        var dyMDictionary = [];
+        var dymTerms = [];
         records.forEach(function (r) {
-          if (r.title) dyMDictionary.push(r.title.toLowerCase());
-          if (r.section && r.section !== 'Overview') dyMDictionary.push(r.section.toLowerCase());
-          if (r.module) dyMDictionary.push(r.module.toLowerCase());
+          if (r.title) dymTerms.push(r.title.toLowerCase());
+          if (r.section && r.section !== 'Overview') dymTerms.push(r.section.toLowerCase());
+          if (r.module) dymTerms.push(r.module.toLowerCase());
         });
         (manifest.hints || []).forEach(function (term) {
-          dyMDictionary.push(String(term).toLowerCase());
+          dymTerms.push(String(term).toLowerCase());
         });
-        dyMDictionary = Array.from(new Set(dyMDictionary));
-        window.__kmchDymDict = dyMDictionary;
+        dyMDictionary = Array.from(new Set(dymTerms));
         return records;
       });
     }
@@ -204,8 +203,8 @@
     }
     var results = hits.records;
     var topScore = hits.topScore;
-    var dymWord = window.KMCHDidYouMean && window.__kmchDymDict
-      ? window.KMCHDidYouMean.suggest(query, window.__kmchDymDict)
+    var dymWord = window.KMCHDidYouMean && dyMDictionary.length
+      ? window.KMCHDidYouMean.suggest(query, dyMDictionary)
       : null;
 
     if (!results.length) {
@@ -218,6 +217,7 @@
     }
 
     statusEl.textContent = 'พบ ' + results.length + ' ผลลัพธ์ที่น่าจะเกี่ยวข้อง';
+    var queryTokens = tokenize(query);
     var listHtml = results.map(function (record) {
       var module = record.module ? '<span>' + escapeHtml(record.module) + '</span>' : '';
       var section = record.section && record.section !== 'Overview' ? '<span>' + escapeHtml(record.section) + '</span>' : '';
@@ -228,8 +228,8 @@
         module,
         section,
         '</div>',
-        '<div class="kmch-search-card-title">' + highlight(record.title, tokenize(query)) + '</div>',
-        '<p>' + highlight(record.summary, tokenize(query)) + '</p>',
+        '<div class="kmch-search-card-title">' + highlight(record.title, queryTokens) + '</div>',
+        '<p>' + highlight(record.summary, queryTokens) + '</p>',
         '</a>',
       ].join('');
     }).join('');
