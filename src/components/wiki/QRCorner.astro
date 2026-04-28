@@ -1,0 +1,57 @@
+---
+import QRCode from 'qrcode';
+
+interface Props {
+  url: string;
+  size?: number;
+}
+const { url, size = 80 } = Astro.props;
+
+const svg = await QRCode.toString(url, {
+  type: 'svg',
+  margin: 1,
+  color: { dark: '#1a1a1a', light: '#ffffff' },
+  errorCorrectionLevel: 'M',
+  width: size,
+});
+---
+<div data-component="qr-corner" class="qr-corner" data-url={url}>
+  <Fragment set:html={svg} />
+  <span class="qr-label">สแกนเพื่อเปิดบนมือถือ</span>
+</div>
+<script>
+  document.querySelectorAll('[data-component="qr-corner"]').forEach((el) => {
+    el.addEventListener('click', () => el.classList.toggle('zoomed'));
+  });
+</script>
+<style>
+  .qr-corner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: zoom-in;
+    background: white;
+    padding: 6px;
+    border: 1px solid var(--color-border, #e5e5e5);
+    border-radius: 6px;
+    z-index: 5;
+  }
+  .qr-corner svg { display: block; width: 80px; height: 80px; }
+  .qr-corner.zoomed { z-index: 50; }
+  .qr-corner.zoomed svg {
+    width: 320px;
+    height: 320px;
+    transition: width 0.2s ease, height 0.2s ease;
+  }
+  .qr-label {
+    display: block;
+    text-align: center;
+    margin-top: 4px;
+    font-size: 0.65rem;
+    color: var(--color-ink-muted, #666);
+    line-height: 1.2;
+  }
+  @media (max-width: 640px) {
+    .qr-corner { display: none; }
+  }
+</style>
