@@ -2,22 +2,25 @@
 interface ImageItem {
   file: string;
   thumb: string;
-  section: string;
+  section?: string;
+  caption?: string;
 }
 
 interface Props {
   images: ImageItem[];
   moduleSlug: string;
+  countLabel?: string;
 }
 
-const { images, moduleSlug } = Astro.props;
+const { images, moduleSlug, countLabel } = Astro.props;
 const count = images.length;
+const displayed = countLabel ?? String(count);
 const imageListJson = JSON.stringify(
-  images.map(img => ({
+  images.map((img) => ({
     full: '/' + img.file,
     thumb: '/' + img.thumb,
-    caption: img.section,
-  }))
+    caption: img.caption ?? img.section ?? '',
+  })),
 );
 ---
 
@@ -29,6 +32,6 @@ const imageListJson = JSON.stringify(
     onclick="window.openLightbox(JSON.parse(this.dataset.galleryImages), 0)"
   >
     <span class="text-lg">&#128247;</span>
-    <span>ดูภาพ ({count})</span>
+    <span>ดูภาพ ({displayed})</span>
   </button>
 )}
