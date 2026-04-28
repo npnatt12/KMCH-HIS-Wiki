@@ -75,3 +75,38 @@ test('returns content+warnings shape when collectWarnings=true', () => {
   assert.equal(result.content, 'See [ANC](/modules/anc/).');
   assert.deepEqual(result.warnings, []);
 });
+
+test('resolves folder-prefix wikilink against bare filename', () => {
+  const out = transformMarkdown('See [[entities/Sample Screen]].', INDEX);
+  assert.equal(out, 'See [Sample Screen](/entities/sample-screen/).');
+});
+
+test('resolves folder-prefix wikilink with alias', () => {
+  const out = transformMarkdown('See [[entities/Sample Screen|that screen]].', INDEX);
+  assert.equal(out, 'See [that screen](/entities/sample-screen/).');
+});
+
+test('strips trailing backslash on wikilink target', () => {
+  const out = transformMarkdown('See [[Sample Screen\\]].', INDEX);
+  assert.equal(out, 'See [Sample Screen](/entities/sample-screen/).');
+});
+
+test('appends slugified anchor for [[Page#Section]]', () => {
+  const out = transformMarkdown('See [[Sample Screen#Validation Rules]].', INDEX);
+  assert.equal(out, 'See [Sample Screen](/entities/sample-screen/#validation-rules).');
+});
+
+test('handles combined folder prefix + anchor', () => {
+  const out = transformMarkdown('See [[entities/Sample Screen#Section]].', INDEX);
+  assert.equal(out, 'See [Sample Screen](/entities/sample-screen/#section).');
+});
+
+test('keeps Thai anchor characters in fragment slug', () => {
+  const out = transformMarkdown('See [[ANC#สถานะ]].', INDEX);
+  assert.equal(out, 'See [ANC](/modules/anc/#สถานะ).');
+});
+
+test('keeps unresolved folder-prefix wikilink as basename text', () => {
+  const out = transformMarkdown('See [[entities/Unknown Screen]].', INDEX);
+  assert.equal(out, 'See Unknown Screen.');
+});

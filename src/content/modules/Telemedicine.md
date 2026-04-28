@@ -51,10 +51,10 @@ flowchart LR
 
 | Actor | Functions |
 |-------|-----------|
-| Patient | Verify account, login, PIN/biometric, view doctors, view appointments, answer doctor call, chat, rate doctor, edit health/emergency-contact info |
+| [Patient](/roles/patient/) | Verify account, login, PIN/biometric, view doctors, view appointments, answer doctor call, chat, rate doctor, edit health/emergency-contact info |
 | Doctor / Nurse | Create/manage appointment in MEDHIS, call patient from [Doctor Worklist Screen](/entities/doctor-worklist-screen/), record treatment, order medication, issue medical certificate, discharge |
-| Telemedicine Admin | Call report, patient and doctor information, admin user management, app settings, legal documents, license information |
-| Telemedicine IT Operator | SSH/VPN access, Docker status/logs, server monitoring, disk checks, restart service |
+| [Telemedicine Admin](/roles/telemedicine-admin/) | Call report, patient and doctor information, admin user management, app settings, legal documents, license information |
+| [Telemedicine IT Operator](/roles/telemedicine-it-operator/) | SSH/VPN access, Docker status/logs, server monitoring, disk checks, restart service |
 
 ## Appointment Status
 

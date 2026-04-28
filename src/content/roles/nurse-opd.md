@@ -17,26 +17,26 @@ tags: [role, clinical, nursing]
 
 ## Daily flows
 
-- workflows/OPD Patient Flow — 8 statuses Registered → Financial Discharge
-- workflows/Lab Order to Result — Specimen collection step
-- workflows/Appointment Registration
+- [OPD Patient Flow](/workflows/opd-patient-flow/) — 8 statuses Registered → Financial Discharge
+- [Lab Order to Result](/workflows/lab-order-to-result/) — Specimen collection step
+- [Appointment Registration](/workflows/appointment-registration/)
 
 ## Reference screens
 
-- entities/OPD Worklist Screen
-- entities/OPD Screening Screen — Vital Signs entry, status transitions
-- entities/Patient Banner
-- entities/Lab Specimen Collection Screen
+- [OPD Worklist Screen](/entities/opd-worklist-screen/)
+- [OPD Screening Screen](/entities/opd-screening-screen/) — Vital Signs entry, status transitions
+- [Patient Banner](/entities/patient-banner/)
+- [Lab Specimen Collection Screen](/entities/lab-specimen-collection-screen/)
 
 ## Permissions
 
-See _role-permission-matrix#NurseOPD. Highlights:
+See _role-permission-matrix. Highlights:
 - **Read+Write:** OPD Worklist, OPD Screening (vitals), Lab Specimen Collection
 - **Read-only:** EMR Form, Order Entry, Appointment list
 - **Hidden:** Order Entry write, Pharmacy Dispense
 
 ## Concepts to know
 
-- concepts/OPD Patient Status
-- concepts/Visit Types
-- concepts/Appointment System
+- [OPD Patient Status](/concepts/opd-patient-status/)
+- [Visit Types](/concepts/visit-types/)
+- [Appointment System](/concepts/appointment-system/)

@@ -11,7 +11,7 @@ verified-on-uat: pending
 
 # Pharmacy Dispensing Screen — หน้าจอจ่ายยา
 
-หน้าจอหลักของ Pharmacy สำหรับตรวจสอบและจ่ายยา/เวชภัณฑ์ผู้ป่วยนอกและผู้ป่วยใน
+หน้าจอหลักของ [Pharmacy](/modules/pharmacy/) สำหรับตรวจสอบและจ่ายยา/เวชภัณฑ์ผู้ป่วยนอกและผู้ป่วยใน
 
 **เข้าถึง:** Pharmacy Worklist → Tab **Dispensing**
 
@@ -76,7 +76,7 @@ The 5-step Dispense flow documented below operates within the Dispensing tab. IP
 | เอกสารแนบ | ฟอร์มที่แนบกับรายการยา | คลิกดูเอกสาร |
 | Drug Duplicate | สั่งยาซ้ำ (รายการ/ชนิด/กลุ่ม) | คลิกดูรายละเอียด + เหตุผล |
 
-ดู entities/Drug Alert Popup สำหรับรายละเอียดครบถ้วน 11 ประเภท
+ดู [Drug Alert Popup](/entities/drug-alert-popup/) สำหรับรายละเอียดครบถ้วน 11 ประเภท
 
 ---
 
@@ -119,7 +119,7 @@ The 5-step Dispense flow documented below operates within the Dispensing tab. IP
 
 ## IP Fill Tab
 
-สำหรับผู้ป่วยใน — ดู entities/Pharmacy Dispensing Screen#IP Fill หรือ workflows/Pharmacy Dispensing Workflow
+สำหรับผู้ป่วยใน — ดู [Pharmacy Dispensing Screen](/entities/pharmacy-dispensing-screen/#ip-fill) หรือ [Pharmacy Dispensing Workflow](/workflows/pharmacy-dispensing-workflow/)
 
 สถานะ IP Fill:
 - **Dispensed** — ตัดจ่ายทุกรายการสมบูรณ์
@@ -150,8 +150,8 @@ The 5-step Dispense flow documented below operates within the Dispensing tab. IP
 
 ## Related
 
-- workflows/Pharmacy Dispensing Workflow — ขั้นตอนครบ
-- workflows/Pharmacy Med Reject Return Workflow — Med Reject + Med Return
-- modules/Pharmacy — ภาพรวม module
-- entities/Drug Alert Popup — 11 ประเภท alert icons
-- modules/Order Entry — ต้นทาง order จากแพทย์
+- [Pharmacy Dispensing Workflow](/workflows/pharmacy-dispensing-workflow/) — ขั้นตอนครบ
+- [Pharmacy Med Reject Return Workflow](/workflows/pharmacy-med-reject-return-workflow/) — Med Reject + Med Return
+- [Pharmacy](/modules/pharmacy/) — ภาพรวม module
+- [Drug Alert Popup](/entities/drug-alert-popup/) — 11 ประเภท alert icons
+- [Order Entry](/modules/order-entry/) — ต้นทาง order จากแพทย์

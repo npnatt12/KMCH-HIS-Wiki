@@ -22,7 +22,7 @@ verified-on-uat: pending
 
 | Screen | Description |
 |--------|-------------|
-| Pharmacy Dispensing Screen | Tab Dispensing — หน้าจอหลักจ่ายยา |
+| [Pharmacy Dispensing Screen](/entities/pharmacy-dispensing-screen/) | Tab Dispensing — หน้าจอหลักจ่ายยา |
 | OP Refills | เติมยาผู้ป่วยนอก ตามที่แพทย์กำหนดจำนวนครั้ง |
 | IP Fill | จ่ายยา Continuous Order ผู้ป่วยใน (Daily/Continue) |
 | Returns | Med Return (OP) + Dispensed Return (IP) |
@@ -40,11 +40,11 @@ Shortcut: **Allocate & Dispense** (รวมขั้นตอน Allocate + Ver
 - **Partially Allocated** — Stock ไม่พอ จ่ายบางส่วน (พิมพ์ใบค้างยาได้)
 - **Partially Dispensed** — IP Fill จ่ายบางรายการ
 
-ดูกระบวนการครบถ้วนที่ workflows/Pharmacy Dispensing Workflow
+ดูกระบวนการครบถ้วนที่ [Pharmacy Dispensing Workflow](/workflows/pharmacy-dispensing-workflow/)
 
 ## Drug Alerts (11 ประเภท)
 
-แสดงทั้งตอนสั่งยา (modules/Order Entry) และตอนจ่ายยา (Pharmacy)
+แสดงทั้งตอนสั่งยา ([Order Entry](/modules/order-entry/)) และตอนจ่ายยา (Pharmacy)
 
 | # | Alert Type | Trigger Condition |
 |---|-----------|------------------|
@@ -60,7 +60,7 @@ Shortcut: **Allocate & Dispense** (รวมขั้นตอน Allocate + Ver
 | 10 | Drug-Diagnosis | ยาไม่สอดคล้องกับการวินิจฉัย |
 | 11 | Drug-To-Diagnosis | ยาสำหรับการวินิจฉัยเฉพาะ |
 
-เมื่อพบ Alert ระหว่าง Allocate → ต้องระบุ **เหตุผลในการพิจารณาจ่ายยา** ก่อน Save ดู entities/Drug Alert Popup
+เมื่อพบ Alert ระหว่าง Allocate → ต้องระบุ **เหตุผลในการพิจารณาจ่ายยา** ก่อน Save ดู [Drug Alert Popup](/entities/drug-alert-popup/)
 
 ## Drug Allergy Recording (4 รูปแบบ)
 
@@ -77,7 +77,7 @@ Shortcut: **Allocate & Dispense** (รวมขั้นตอน Allocate + Ver
 - **Observed in Visit** — มีอาการแพ้ในวันที่ซักประวัติ
 - **Naranjo Algorithm** — ประเมินความน่าจะเป็นของ ADR (ระบบคำนวณคะแนน + สรุป Confirmation อัตโนมัติ)
 - **Closure Date** — ยกเลิกประวัติแพ้ยา → Status เปลี่ยนเป็น Inactive อัตโนมัติ
-- ข้อมูลแพ้ยาแสดงบน entities/Patient Banner
+- ข้อมูลแพ้ยาแสดงบน [Patient Banner](/entities/patient-banner/)
 
 ## Med Reconciliation
 
@@ -150,15 +150,15 @@ Stock Ledger แสดง: DateTime, Transaction type, In/Out, User, Batch ID, R
 ## Med Reject
 
 เภสัชกรส่งใบสั่งยากลับไปยังแพทย์ → ระบุเหตุผล → กด Confirm
-→ แพทย์ได้รับใน Medicine Reject box บน Doctor Worklist
+→ แพทย์ได้รับใน [Medicine Reject box](/entities/doctor-worklist-screen/) บน Doctor Worklist
 
-ดูกระบวนการครบที่ workflows/Pharmacy Med Reject Return Workflow
+ดูกระบวนการครบที่ [Pharmacy Med Reject Return Workflow](/workflows/pharmacy-med-reject-return-workflow/)
 
 ## Cancel Restrictions
 
 **ไม่สามารถยกเลิกคำสั่งยา/การจ่ายยาได้เมื่อ Patient Status:**
 - Medical Discharge
-- Billing In Progress
+- [Billing](/modules/billing/) In Progress
 - Financial Discharge
 
 → ต้องให้เจ้าหน้าที่ที่เกี่ยวข้องเปลี่ยนสถานะก่อน
@@ -177,9 +177,9 @@ Stock Ledger แสดง: DateTime, Transaction type, In/Out, User, Batch ID, R
 
 | Module | Integration |
 |--------|-------------|
-| modules/EMR Doctor / modules/Order Entry | รับใบสั่งยาจากแพทย์ |
-| modules/Billing | ตรวจสอบสถานะทางการเงินก่อนยกเลิก |
-| modules/IPD | Dispensed Return, IP Fill |
-| modules/Inventory | จัดการคลังสินค้ายา, Stock Ledger, GRNRET |
-| modules/EMR Doctor | Medicine Reject → ตีกลับใบสั่งยาไปยังแพทย์ |
-| modules/LAB | เภสัชกรดูผลตรวจ Lab จาก Pharmacy Worklist |
+| [EMR Doctor](/modules/emr-doctor/) / [Order Entry](/modules/order-entry/) | รับใบสั่งยาจากแพทย์ |
+| [Billing](/modules/billing/) | ตรวจสอบสถานะทางการเงินก่อนยกเลิก |
+| [IPD](/modules/ipd/) | Dispensed Return, IP Fill |
+| [Inventory](/modules/inventory/) | จัดการคลังสินค้ายา, Stock Ledger, GRNRET |
+| [EMR Doctor](/modules/emr-doctor/) | Medicine Reject → ตีกลับใบสั่งยาไปยังแพทย์ |
+| [LAB](/modules/lab/) | เภสัชกรดูผลตรวจ Lab จาก Pharmacy Worklist |

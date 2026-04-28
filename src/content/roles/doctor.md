@@ -17,30 +17,30 @@ tags: [role, clinical]
 
 ## Daily flows
 
-- workflows/OPD Doctor EMR Workflow — Doctor Worklist → EMR (11 sections) → Order → Consult/Admit/Refer
-- workflows/IPD Doctor EMR Workflow — Ward Board → IPD EMR → Progress Notes → Daily/Continuous Order → 4-Step Discharge
-- workflows/Lab Order to Result — Order entry, result review
-- workflows/XRAY Order to Report Workflow — Order entry, report review
-- workflows/Pharmacy Dispensing Workflow — Order side: drug alerts, DUE, alternatives
+- [OPD Doctor EMR Workflow](/workflows/opd-doctor-emr-workflow/) — Doctor Worklist → EMR (11 sections) → Order → Consult/Admit/Refer
+- [IPD Doctor EMR Workflow](/workflows/ipd-doctor-emr-workflow/) — Ward Board → IPD EMR → Progress Notes → Daily/Continuous Order → 4-Step Discharge
+- [Lab Order to Result](/workflows/lab-order-to-result/) — Order entry, result review
+- [XRAY Order to Report Workflow](/workflows/xray-order-to-report-workflow/) — Order entry, report review
+- [Pharmacy Dispensing Workflow](/workflows/pharmacy-dispensing-workflow/) — Order side: drug alerts, DUE, alternatives
 
 ## Reference screens
 
-- entities/Doctor Worklist Screen — Dashboard, 10 boxes
-- entities/EMR Form Screen — 11 record sections, Vital Signs 3 views
-- entities/Order Entry Screen — CPOE, 7 tabs, 11 drug alerts
-- entities/Drug Alert Popup — 11 alert types
-- entities/Patient Banner — VIP/Anonymous/Interpreter, vitals, allergies
+- [Doctor Worklist Screen](/entities/doctor-worklist-screen/) — Dashboard, 10 boxes
+- [EMR Form Screen](/entities/emr-form-screen/) — 11 record sections, Vital Signs 3 views
+- [Order Entry Screen](/entities/order-entry-screen/) — CPOE, 7 tabs, 11 drug alerts
+- [Drug Alert Popup](/entities/drug-alert-popup/) — 11 alert types
+- [Patient Banner](/entities/patient-banner/) — VIP/Anonymous/Interpreter, vitals, allergies
 
 ## Permissions
 
-See _role-permission-matrix#Doctor for the full screen × action matrix. Highlights:
+See _role-permission-matrix for the full screen × action matrix. Highlights:
 - **Read+Write:** Doctor Worklist, EMR Form, Order Entry, Consult, Admit, Refer, Medical Certificate
 - **Read-only:** Lab Result, XRAY Report, Pharmacy Dispensing (their orders)
 - **Hidden:** OR Schedule book, Inventory, Diet Order, CSSD Request
 
 ## Concepts to know
 
-- concepts/Visit Types
-- concepts/Order Types
-- concepts/Drug Alert Types
-- concepts/Lab and Radiology Order Status
+- [Visit Types](/concepts/visit-types/)
+- [Order Types](/concepts/order-types/)
+- [Drug Alert Types](/concepts/drug-alert-types/)
+- [Lab and Radiology Order Status](/concepts/lab-and-radiology-order-status/)

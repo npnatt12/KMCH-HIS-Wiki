@@ -19,17 +19,17 @@ tags: [role, clinical, radiology]
 
 ## Daily flows
 
-- workflows/XRAY Order to Report Workflow — Order → Register → Execute (technician steps)
+- [XRAY Order to Report Workflow](/workflows/xray-order-to-report-workflow/) — Order → Register → Execute (technician steps)
 
 ## Reference screens
 
-- entities/XRAY Register Screen
-- entities/Patient Banner
+- [XRAY Register Screen](/entities/xray-register-screen/)
+- [Patient Banner](/entities/patient-banner/)
 
 ## Permissions
 
-See _role-permission-matrix#XRayTech (populated in Phase 5).
+See _role-permission-matrix (populated in Phase 5).
 
 ## Concepts to know
 
-- concepts/Lab and Radiology Order Status
+- [Lab and Radiology Order Status](/concepts/lab-and-radiology-order-status/)

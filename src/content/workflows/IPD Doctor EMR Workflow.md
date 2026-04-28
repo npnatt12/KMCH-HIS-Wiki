@@ -13,7 +13,7 @@ verified-on-uat: pending
 
 ## Overview
 
-แพทย์เข้าดูผู้ป่วยในจาก Doctor Worklist หรือ Ward Board → เปิด IPD EMR → บันทึก Progress Notes → สั่งคำสั่ง Daily/Continuous → ส่ง Consult (ถ้าต้องการ) → ทำ Discharge เมื่อพร้อม
+แพทย์เข้าดูผู้ป่วยในจาก [Doctor Worklist](/entities/doctor-worklist-screen/) หรือ [Ward Board](/entities/ward-board/) → เปิด IPD EMR → บันทึก Progress Notes → สั่งคำสั่ง Daily/Continuous → ส่ง Consult (ถ้าต้องการ) → ทำ Discharge เมื่อพร้อม
 
 ---
 
@@ -46,7 +46,7 @@ verified-on-uat: pending
 
 1. ช่อง **Daily** → กด **+**
 2. ระบบเปิดเมนู Order (type = Daily)
-3. ทำขั้นตอนเหมือน OPD → ดู Order Entry Module
+3. ทำขั้นตอนเหมือน OPD → ดู [Order Entry Module](/modules/order-entry/)
 4. ระบุ Password → กด Save
 
 ### 5. สั่ง Continuous Order (ยาต่อเนื่อง)
@@ -144,9 +144,9 @@ Nurse:
 
 ## Modules Involved
 
-- EMR Doctor — IPD EMR, Progress Notes, Discharge Summary
-- IPD — Ward Board, Nursing Worklist
-- Order Entry — Daily/Continuous/Discharge Medication
-- Pharmacy — IP Fill, Med Return
-- Billing — Financial Discharge (Step 3–4)
-- IPD Discharge Process — รายละเอียด 4-Step Discharge
+- [EMR Doctor](/modules/emr-doctor/) — IPD EMR, Progress Notes, Discharge Summary
+- [IPD](/modules/ipd/) — Ward Board, Nursing Worklist
+- [Order Entry](/modules/order-entry/) — Daily/Continuous/Discharge Medication
+- [Pharmacy](/modules/pharmacy/) — IP Fill, Med Return
+- [Billing](/modules/billing/) — Financial Discharge (Step 3–4)
+- [IPD Discharge Process](/workflows/ipd-discharge-process/) — รายละเอียด 4-Step Discharge

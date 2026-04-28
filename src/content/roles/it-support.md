@@ -27,4 +27,4 @@ tags: [role, technical]
 
 ## Permissions
 
-See _role-permission-matrix#ITSupport (populated in Phase 5).
+See _role-permission-matrix (populated in Phase 5).

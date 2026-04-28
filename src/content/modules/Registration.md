@@ -33,8 +33,8 @@ verified-on-uat: pending
 | Patient Picture | ถ่ายจาก Webcam หรือ Upload ไฟล์ |
 | Basic Details | ชื่อ, นามสกุล, เพศ, วันเกิด, หมู่เลือด, National ID (MOD11), เบอร์โทร, อีเมล |
 | Address Detail | ที่อยู่ — ค้นหาจากตำบล/รหัสไปรษณีย์ |
-| Visit Detail | Department, Careprovider, Visit Type, Priority, Transfer Mode, REVISIT |
-| Payor Details | สิทธิการรักษา, Payor ranking, SELFPAY อัตโนมัติ |
+| Visit Detail | Department, Careprovider, [Visit Type](/concepts/visit-types/), Priority, Transfer Mode, REVISIT |
+| [Payor Details](/concepts/payor-and-treatment-rights/) | สิทธิการรักษา, Payor ranking, SELFPAY อัตโนมัติ |
 | Referral Detail | ข้อมูลการ refer จากโรงพยาบาลอื่น |
 | Episode Detail | กลุ่มการรักษาต่อเนื่อง (Episode Type) |
 | Additional Detail | VIP, Anonymous, Interpreter, สัญชาติ, ศาสนา, ภาษา, สถานะสมรส, อาชีพ |

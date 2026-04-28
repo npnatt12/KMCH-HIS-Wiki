@@ -19,18 +19,18 @@ export function transformMarkdown(input, index, opts = {}) {
   body = body.replace(COMMENT_RE, '');
 
   body = body.replace(ALIASED_WIKILINK_RE, (_, target, alias) => {
-    const url = index.get(target.trim());
+    const url = resolveWikilinkTarget(target, index);
     if (url) return `[${alias}](${url})`;
     warnings.push({ type: 'unresolved-wikilink', target: target.trim() });
     return alias;
   });
 
   body = body.replace(SIMPLE_WIKILINK_RE, (_, target) => {
-    const trimmed = target.trim();
-    const url = index.get(trimmed);
-    if (url) return `[${trimmed}](${url})`;
-    warnings.push({ type: 'unresolved-wikilink', target: trimmed });
-    return trimmed;
+    const url = resolveWikilinkTarget(target, index);
+    const display = stripWikilinkAnchor(target.trim()).replace(/^.*\//, '').replace(/\\+$/, '');
+    if (url) return `[${display}](${url})`;
+    warnings.push({ type: 'unresolved-wikilink', target: target.trim() });
+    return display;
   });
 
   // Restore fences
@@ -49,4 +49,47 @@ function splitFrontmatter(input) {
     frontmatter: match[0],
     body: input.slice(match[0].length),
   };
+}
+
+function stripWikilinkAnchor(value) {
+  const hashIdx = value.indexOf('#');
+  return hashIdx === -1 ? value : value.slice(0, hashIdx);
+}
+
+function anchorSlug(anchor) {
+  return anchor
+    .replace(/\.md$/, '')
+    .toLowerCase()
+    .replace(/[^\p{Letter}\p{Mark}\p{Number}\s-]/gu, '')
+    .trim()
+    .replace(/\s+/g, '-');
+}
+
+// Resolve a wikilink target to a portal URL. Handles three forms:
+//   - bare:        [[Page Name]]
+//   - folder:      [[entities/Page Name]] (vault-aware folder prefix is redundant; strip & retry)
+//   - anchor:      [[Page Name#Section]] (resolve page; append fragment)
+//   - combined:    [[entities/Page Name#Section]]
+// Trailing backslashes (markdown line-continuation artefacts) are stripped before lookup.
+// Returns the URL string or null if unresolvable.
+function resolveWikilinkTarget(target, index) {
+  const raw = String(target).trim();
+  let path = stripWikilinkAnchor(raw);
+  const anchor = raw.slice(path.length);
+  path = path.replace(/\\+$/, '').trim();
+
+  let url = index.get(path);
+  if (!url) {
+    const slashIdx = path.lastIndexOf('/');
+    if (slashIdx !== -1) {
+      url = index.get(path.slice(slashIdx + 1));
+    }
+  }
+  if (!url) return null;
+
+  if (anchor.length > 1) {
+    const slug = anchorSlug(anchor.slice(1));
+    if (slug) return `${url}#${slug}`;
+  }
+  return url;
 }

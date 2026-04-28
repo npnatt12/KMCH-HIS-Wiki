@@ -106,4 +106,4 @@ MRD > MRD Worklist
 
 ## Related Concepts
 
-- MRD — Folder statuses, Auto file request settings
+- [MRD](/modules/mrd/) — Folder statuses, Auto file request settings

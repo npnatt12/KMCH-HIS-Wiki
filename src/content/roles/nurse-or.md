@@ -19,19 +19,19 @@ tags: [role, clinical, nursing, surgical]
 
 ## Daily flows
 
-- workflows/OR Surgery Request to Record Workflow — Surgery Request → OR Schedule → OR Worklist → OR Record → Recovery Room
+- [OR Surgery Request to Record Workflow](/workflows/or-surgery-request-to-record-workflow/) — Surgery Request → OR Schedule → OR Worklist → OR Record → Recovery Room
 
 ## Reference screens
 
-- entities/OR Schedule Screen
-- entities/OR Record Screen
-- entities/Patient Banner
+- [OR Schedule Screen](/entities/or-schedule-screen/)
+- [OR Record Screen](/entities/or-record-screen/)
+- [Patient Banner](/entities/patient-banner/)
 
 ## Permissions
 
-See _role-permission-matrix#NurseOR (populated in Phase 5).
+See _role-permission-matrix (populated in Phase 5).
 
 ## Concepts to know
 
-- concepts/Visit Types
-- concepts/Order Types
+- [Visit Types](/concepts/visit-types/)
+- [Order Types](/concepts/order-types/)

@@ -144,7 +144,7 @@ OPD EMR (the existing 11-section layout documented above) and IPD EMR are distin
 
 ## Related Workflows
 
-- EMR Doctor Module — การใช้งานระบบ EMR แพทย์ครบถ้วน
-- OPD Patient Flow — ขั้นตอนผู้ป่วยนอก
-- Doctor Worklist Screen — หน้าจอก่อนเข้า EMR
-- Order Entry Screen — บันทึกคำสั่งการรักษา
+- [EMR Doctor Module](/modules/emr-doctor/) — การใช้งานระบบ EMR แพทย์ครบถ้วน
+- [OPD Patient Flow](/workflows/opd-patient-flow/) — ขั้นตอนผู้ป่วยนอก
+- [Doctor Worklist Screen](/entities/doctor-worklist-screen/) — หน้าจอก่อนเข้า EMR
+- [Order Entry Screen](/entities/order-entry-screen/) — บันทึกคำสั่งการรักษา
