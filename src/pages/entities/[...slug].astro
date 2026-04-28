@@ -26,7 +26,7 @@ const { Content } = await entry.render();
 const related = await getRelated('entities', slug!, entry.data.roles);
 const showPDPA = entry.data['mock-data'] !== false && hasImages(entry.body);
 ---
-<ArticleV2 title={entry.data.title} route="entity">
+<ArticleV2 title={entry.data.title} route="entity" slug={slug}>
   <Breadcrumb items={[
     { label: 'Screens', href: '/' },
     { label: entry.data.title },

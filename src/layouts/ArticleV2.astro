@@ -1,7 +1,9 @@
 ---
 import BaseV2 from './BaseV2.astro';
 import ArticleToolbar from '../components/wiki/ArticleToolbar.astro';
+import ImageGalleryButton from '../components/ImageGalleryButton.astro';
 import { formatBE, formatGregorian } from '../lib/format-date';
+import phase4Manifest from '../../public/phase-4-manifest.json';
 
 type Route = 'workflow' | 'entity' | 'concept' | 'module' | 'hub';
 
@@ -9,13 +11,19 @@ interface Props {
   title: string;
   activeRole?: string;
   route?: Route;
+  slug?: string;
 }
-const { title, activeRole, route = 'hub' } = Astro.props;
+const { title, activeRole, route = 'hub', slug } = Astro.props;
 
 const showToolbar = route === 'workflow' || route === 'entity' || route === 'concept';
 const canonicalUrl = `https://kmch-wiki.vercel.app${Astro.url.pathname}`;
 const today = new Date();
 const printFooter = `${canonicalUrl} · พิมพ์เมื่อ ${formatBE(today)} / ${formatGregorian(today)}`;
+
+const phase4Page =
+  slug && (phase4Manifest as any).pages?.[slug]
+    ? (phase4Manifest as any).pages[slug]
+    : null;
 ---
 <BaseV2 title={title} activeRole={activeRole}>
   <main
@@ -24,5 +32,15 @@ const printFooter = `${canonicalUrl} · พิมพ์เมื่อ ${formatB
   >
     {showToolbar && <ArticleToolbar url={canonicalUrl} />}
     <slot />
+    {phase4Page && (
+      <div class="mt-8 pt-6 border-t border-[var(--color-border)] no-print">
+        <h2 class="text-base font-semibold mb-3">ภาพประกอบจาก Phase 4 / Phase 4 Screenshots</h2>
+        <ImageGalleryButton
+          images={phase4Page.assets}
+          moduleSlug={slug}
+          countLabel={phase4Page.displayCount}
+        />
+      </div>
+    )}
   </main>
 </BaseV2>
