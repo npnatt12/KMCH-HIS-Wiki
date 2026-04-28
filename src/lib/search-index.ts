@@ -1,6 +1,6 @@
-import { getCollection } from 'astro:content';
 import { slugify } from './slug';
 import dictionary from './search-dictionary.json';
+import { tokenizeThai } from './thai-tokens';
 
 type SearchType = 'module' | 'workflow' | 'concept' | 'entity' | 'how-to' | 'troubleshooting';
 
@@ -50,6 +50,7 @@ const QUERY_HINTS: Array<{ match: RegExp; terms: string[] }> = dictionary.groups
 );
 
 export async function getSearchRecords(): Promise<SearchRecord[]> {
+  const { getCollection } = await import('astro:content');
   const records: SearchRecord[] = [];
 
   for (const collection of SEARCH_COLLECTIONS) {
@@ -162,12 +163,17 @@ function summarize(text: string) {
   return (candidates[0] || text).slice(0, 240).trim();
 }
 
-function buildKeywords(title: string, heading: string, tags: string[], body: string) {
+export function buildKeywords(title: string, heading: string, tags: string[], body: string) {
   const set = new Set<string>();
   const base = `${title} ${heading} ${tags.join(' ')}`;
 
   for (const word of base.split(/[^a-z0-9ก-๙]+/i)) {
     if (word.length > 1) set.add(word.toLowerCase());
+  }
+
+  const thaiSources = `${title} ${heading} ${body}`;
+  for (const tok of tokenizeThai(thaiSources)) {
+    set.add(tok.toLowerCase());
   }
 
   for (const hint of QUERY_HINTS) {
@@ -176,7 +182,7 @@ function buildKeywords(title: string, heading: string, tags: string[], body: str
     }
   }
 
-  return Array.from(set).slice(0, 48);
+  return Array.from(set).slice(0, 96);
 }
 
 function scorePriority(type: SearchType, heading: string, body: string) {
