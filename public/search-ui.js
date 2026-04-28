@@ -21,6 +21,12 @@
       return token.length > 1;
     });
 
+    // Thai segmentation: if query contains Thai, also produce sub-tokens.
+    if (window.KMCHThaiTokens && window.KMCHThaiTokens.hasThai(normalized)) {
+      var thaiTokens = window.KMCHThaiTokens.tokenizeThai(normalized);
+      for (var i = 0; i < thaiTokens.length; i++) tokens.push(normalize(thaiTokens[i]));
+    }
+
     expansions.forEach(function (rule) {
       if (rule.match.test(value)) {
         rule.terms.forEach(function (term) {
