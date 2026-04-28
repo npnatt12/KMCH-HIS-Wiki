@@ -44,6 +44,7 @@ verified-on-uat: "2026-04-28"
 
 - [Queue Worklist Screen](/entities/queue-worklist-screen/) — เจ้าหน้าที่ดูรายการคิว เรียก พัก ส่งต่อ และจบคิว
 - [Queue Dashboard](/entities/queue-dashboard/) — จอแสดงผลหมายเลขคิว สถานะ และช่องบริการแบบ Real-time
+- [Queue Department Room Configuration](/entities/queue-department-room-configuration/) — การตั้งค่าแผนก ห้อง Default Room และผลต่อการมองเห็น Worklist/Dashboard
 
 ## Key Workflow
 
@@ -74,4 +75,3 @@ verified-on-uat: "2026-04-28"
 - ถ้าผู้ป่วยยังไม่พร้อมเข้ารับบริการ ให้พักคิวแล้วเรียกซ้ำภายหลัง
 - ถ้าผู้ป่วยต้องรับบริการหลายแผนก ระบบต้องส่งต่อไปยังหน่วยงานถัดไปแทนการจบคิว
 - ถ้า login แบบระบุห้องผิด ห้องที่เห็นบน Worklist และ Dashboard จะถูกจำกัดตามห้องนั้น
-

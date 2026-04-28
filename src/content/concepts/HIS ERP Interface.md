@@ -90,7 +90,15 @@ flowchart LR
 - If mapped values are missing, Odoo should surface the error so users can fix the field and rerun.
 - Interface logs are retained under source-specified log paths such as `/exchange_logs/item-master`, `/exchange_logs/good-receipt`, `/exchange_logs/stock-adjust`, `/exchange_logs/mm`, and finance logs.
 
+## Deep Extraction Pages
+
+- [HIS ERP Interface Data Dictionary](/concepts/his-erp-interface-data-dictionary/) — payload fields for Master Data, Revenue, Inventory, Deposit, Budget, Payroll
+- [Odoo Inventory Movement Types](/concepts/odoo-inventory-movement-types/) — Z01/Z02/Z03/Z04/311 stock movement rules
+- [HIS ERP Interface Log and Error Handling](/entities/his-erp-interface-log-and-error-handling/) — log paths, sequence naming, and error handling rules
+- [HIS ERP Interface Rerun and Error Handling Workflow](/workflows/his-erp-interface-rerun-and-error-handling-workflow/) — rerun decisions and owner actions
+
 ## Related Workflows
 
 - [MEDHIS Odoo Revenue Interface Workflow](/workflows/medhis-odoo-revenue-interface-workflow/)
 - [MEDHIS Odoo Inventory Interface Workflow](/workflows/medhis-odoo-inventory-interface-workflow/)
+- [HIS ERP Interface Rerun and Error Handling Workflow](/workflows/his-erp-interface-rerun-and-error-handling-workflow/)

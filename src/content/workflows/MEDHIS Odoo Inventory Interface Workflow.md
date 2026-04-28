@@ -49,6 +49,8 @@ flowchart LR
 
 ## Movement Types
 
+See [Odoo Inventory Movement Types](/concepts/odoo-inventory-movement-types/) for sign rules, HN rules, batch/expiry behavior, and field-level movement mapping.
+
 | Movement | Meaning |
 |----------|---------|
 | Z01 | OPD sale |
@@ -71,4 +73,5 @@ flowchart LR
 - [Pharmacy](/modules/pharmacy/)
 - [Odoo ERP](/modules/odoo-erp/)
 - [HIS ERP Interface](/concepts/his-erp-interface/)
-
+- [HIS ERP Interface Data Dictionary](/concepts/his-erp-interface-data-dictionary/)
+- [HIS ERP Interface Log and Error Handling](/entities/his-erp-interface-log-and-error-handling/)

@@ -27,12 +27,12 @@ verified-on-uat: "2026-04-28"
 
 | Domain | Main Functions | Related Pages |
 |--------|----------------|---------------|
-| Master Data | Company, user, role/authorization, fiscal year, journal, chart of accounts, analytic account, taxes, payment terms, vendor, customer, product | [Odoo Accounting Forms](/entities/odoo-accounting-forms/) |
-| Inventory | Product/UOM, warehouse/location, routes/rules, lots, receipts, internal transfer, adjustments, scrap, returns, reordering, landed cost, stock reports | [Odoo Inventory Operation Screen](/entities/odoo-inventory-operation-screen/) |
+| Master Data | Company, user, role/authorization, fiscal year, journal, chart of accounts, analytic account, taxes, payment terms, vendor, customer, product | [Odoo Accounting Forms](/entities/odoo-accounting-forms/), [Odoo Product Master Screen](/entities/odoo-product-master-screen/) |
+| Inventory | Product/UOM, warehouse/location, routes/rules, lots, receipts, internal transfer, adjustments, scrap, returns, reordering, landed cost, stock reports | [Odoo Inventory Operation Screen](/entities/odoo-inventory-operation-screen/), [Odoo Internal Transfer Screen](/entities/odoo-internal-transfer-screen/), [Odoo Inventory Adjustment Screen](/entities/odoo-inventory-adjustment-screen/) |
 | Purchase A/P | RFQ, Purchase Order, borrow medicine purchase, PO cancellation, vendor bills, vendor payment | [Odoo Purchase Order Screen](/entities/odoo-purchase-order-screen/), [Odoo Vendor Bill Screen](/entities/odoo-vendor-bill-screen/), [Odoo Purchase to Pay Workflow](/workflows/odoo-purchase-to-pay-workflow/) |
-| Sales A/R | Customer invoice, credit note, debit note, billing note, customer payment | [Odoo Billing and Receivables Workflow](/workflows/odoo-billing-and-receivables-workflow/) |
+| Sales A/R | Customer invoice, credit note, debit note, billing note, customer payment | [Odoo Customer Invoice Screen](/entities/odoo-customer-invoice-screen/), [Odoo Billing Note Screen](/entities/odoo-billing-note-screen/), [Odoo Payment Screen](/entities/odoo-payment-screen/), [Odoo Billing and Receivables Workflow](/workflows/odoo-billing-and-receivables-workflow/) |
 | Accounting | Journal entry, tax reports, withholding tax, GL, trial balance, P&L, balance sheet, cash flow, vouchers, receipt/invoice printouts | [Odoo Accounting Forms](/entities/odoo-accounting-forms/) |
-| Interface | Product, Goods Receipt, Inventory Adjustment, Delivery/stock movement, Receipt, Invoice, Deposit, Onward, Budget, Payroll | [HIS ERP Interface](/concepts/his-erp-interface/) |
+| Interface | Product, Goods Receipt, Inventory Adjustment, Delivery/stock movement, Receipt, Invoice, Deposit, Onward, Budget, Payroll | [HIS ERP Interface](/concepts/his-erp-interface/), [HIS ERP Interface Data Dictionary](/concepts/his-erp-interface-data-dictionary/), [Odoo Inventory Movement Types](/concepts/odoo-inventory-movement-types/) |
 
 ## UAT Summary
 
@@ -57,13 +57,21 @@ verified-on-uat: "2026-04-28"
 
 - [Odoo Purchase to Pay Workflow](/workflows/odoo-purchase-to-pay-workflow/)
 - [Odoo Billing and Receivables Workflow](/workflows/odoo-billing-and-receivables-workflow/)
+- [Odoo Internal Transfer Workflow](/workflows/odoo-internal-transfer-workflow/)
+- [Odoo Inventory Adjustment and Reporting Workflow](/workflows/odoo-inventory-adjustment-and-reporting-workflow/)
 - [MEDHIS Odoo Revenue Interface Workflow](/workflows/medhis-odoo-revenue-interface-workflow/)
 - [MEDHIS Odoo Inventory Interface Workflow](/workflows/medhis-odoo-inventory-interface-workflow/)
+- [HIS ERP Interface Rerun and Error Handling Workflow](/workflows/his-erp-interface-rerun-and-error-handling-workflow/)
 
 ## Screens / Entities
 
 - [Odoo Purchase Order Screen](/entities/odoo-purchase-order-screen/)
 - [Odoo Vendor Bill Screen](/entities/odoo-vendor-bill-screen/)
 - [Odoo Inventory Operation Screen](/entities/odoo-inventory-operation-screen/)
+- [Odoo Product Master Screen](/entities/odoo-product-master-screen/)
+- [Odoo Customer Invoice Screen](/entities/odoo-customer-invoice-screen/)
+- [Odoo Billing Note Screen](/entities/odoo-billing-note-screen/)
+- [Odoo Payment Screen](/entities/odoo-payment-screen/)
+- [Odoo Internal Transfer Screen](/entities/odoo-internal-transfer-screen/)
+- [Odoo Inventory Adjustment Screen](/entities/odoo-inventory-adjustment-screen/)
 - [Odoo Accounting Forms](/entities/odoo-accounting-forms/)
-

@@ -21,9 +21,9 @@ Mobile application for patients to verify identity, view doctors/appointments, r
 |--------|---------------------|
 | Login / Verify Identity | HN, date of birth, national ID, password setup, PIN, biometrics |
 | Main Page | Entry point after login |
-| Doctor List | Department filter, specialty filter, search by doctor name, online/offline status, fee, working hours, profile |
-| Appointments | Upcoming and History tabs, appointment status, appointment detail |
-| Consultation Session | Doctor name, progress time, chat, microphone, video, hang up |
+| Doctor List | Department filter, specialty filter, search by doctor name, online/offline status, fee, working hours, profile. See [Telemedicine Doctor List and Appointment Screens](/entities/telemedicine-doctor-list-and-appointment-screens/). |
+| Appointments | Upcoming and History tabs, appointment status, appointment detail. See [Telemedicine Appointment Status](/concepts/telemedicine-appointment-status/). |
+| Consultation Session | Doctor name, progress time, chat, microphone, video, hang up. See [Telemedicine Consultation Session](/entities/telemedicine-consultation-session/). |
 | Profile / Settings | Personal info, address, contact info, health info, emergency contact, language, biometric, logout |
 
 ## Appointment Status Values
@@ -53,4 +53,5 @@ Mobile application for patients to verify identity, view doctors/appointments, r
 ## Related Workflow
 
 - [Telemedicine Visit Workflow](/workflows/telemedicine-visit-workflow/)
-
+- [Telemedicine Patient Onboarding Workflow](/workflows/telemedicine-patient-onboarding-workflow/)
+- [Telemedicine Medication Delivery Workflow](/workflows/telemedicine-medication-delivery-workflow/)

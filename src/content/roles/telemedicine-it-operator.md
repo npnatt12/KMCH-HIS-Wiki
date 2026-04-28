@@ -22,7 +22,22 @@ tags: [role, telemedicine, it, operations]
 
 - [Telemedicine](/modules/telemedicine/)
 - [Telemedicine Operations Support Workflow](/workflows/telemedicine-operations-support-workflow/)
+- [Telemedicine IT Service Stack](/entities/telemedicine-it-service-stack/)
 - [Telemedicine Admin Portal](/entities/telemedicine-admin-portal/)
+- [Telemedicine Consultation Session](/entities/telemedicine-consultation-session/)
+- [Phase 4 UAT and Go Live Evidence](/concepts/phase-4-uat-and-go-live-evidence/)
+- [Phase 4 UAT Coverage Matrix](/concepts/phase-4-uat-coverage-matrix/)
+
+## Phase 4 Operation Map
+
+See Phase 4 Role Operation Map.
+
+| Question | Start With |
+|----------|------------|
+| Service status, logs, restart checks | [Telemedicine IT Service Stack](/entities/telemedicine-it-service-stack/), [Telemedicine Operations Support Workflow](/workflows/telemedicine-operations-support-workflow/) |
+| Admin reports symptoms from portal | [Telemedicine Admin Portal](/entities/telemedicine-admin-portal/), [Telemedicine IT Service Stack](/entities/telemedicine-it-service-stack/) |
+| Patient call issue needs app/session context | [Telemedicine Consultation Session](/entities/telemedicine-consultation-session/), [Telemedicine Appointment Status](/concepts/telemedicine-appointment-status/) |
+| Go-live/readiness evidence | [Phase 4 UAT and Go Live Evidence](/concepts/phase-4-uat-and-go-live-evidence/), [Phase 4 UAT Coverage Matrix](/concepts/phase-4-uat-coverage-matrix/) |
 
 ## Responsibilities
 
@@ -30,4 +45,3 @@ tags: [role, telemedicine, it, operations]
 - Check Docker container status and logs.
 - Monitor CPU/RAM/processes and disk usage.
 - Restart unhealthy services and verify recovery.
-

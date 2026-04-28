@@ -62,9 +62,15 @@ verified-on-uat: 2026-04-28
 - LINE OA
 - Zoom teleconference module
 
+## Deep Subflows
+
+- [Telemedicine Patient Onboarding Workflow](/workflows/telemedicine-patient-onboarding-workflow/)
+- [Telemedicine Medication Delivery Workflow](/workflows/telemedicine-medication-delivery-workflow/)
+- [Telemedicine Appointment Status](/concepts/telemedicine-appointment-status/)
+- [Telemedicine Consultation Session](/entities/telemedicine-consultation-session/)
+
 ## Edge Cases
 
 - If patient has not logged into app, doctor cannot call patient.
 - If patient misses call, mobile app shows missed-call notification and call history.
 - If no medication and no extra payment, patient may only receive the medical certificate/follow-up information.
-

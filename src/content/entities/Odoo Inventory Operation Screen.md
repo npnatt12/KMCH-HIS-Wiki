@@ -65,4 +65,7 @@ For medicine and medical supplies, internal movement should be performed in MEDH
 
 - [Odoo ERP](/modules/odoo-erp/)
 - [HIS ERP Interface](/concepts/his-erp-interface/)
-
+- [Odoo Product Master Screen](/entities/odoo-product-master-screen/)
+- [Odoo Internal Transfer Screen](/entities/odoo-internal-transfer-screen/)
+- [Odoo Inventory Adjustment Screen](/entities/odoo-inventory-adjustment-screen/)
+- [Odoo Inventory Movement Types](/concepts/odoo-inventory-movement-types/)

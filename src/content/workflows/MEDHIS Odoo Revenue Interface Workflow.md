@@ -40,6 +40,8 @@ verified-on-uat: 2026-04-28
 
 ## Key Fields
 
+See [HIS ERP Interface Data Dictionary](/concepts/his-erp-interface-data-dictionary/) for full payload-level field mapping.
+
 | Field Group | Examples |
 |-------------|----------|
 | Patient and encounter | HN, patient_name, episode_type, VN/AN |
@@ -59,4 +61,5 @@ verified-on-uat: 2026-04-28
 - [Billing](/modules/billing/)
 - [Odoo ERP](/modules/odoo-erp/)
 - [HIS ERP Interface](/concepts/his-erp-interface/)
-
+- [HIS ERP Interface Data Dictionary](/concepts/his-erp-interface-data-dictionary/)
+- [HIS ERP Interface Log and Error Handling](/entities/his-erp-interface-log-and-error-handling/)

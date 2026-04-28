@@ -41,9 +41,10 @@ Portal for administrators to review call transactions, patient/doctor display da
 ## Related Workflow
 
 - [Telemedicine Operations Support Workflow](/workflows/telemedicine-operations-support-workflow/)
+- [Telemedicine IT Service Stack](/entities/telemedicine-it-service-stack/)
+- [Telemedicine Appointment Status](/concepts/telemedicine-appointment-status/)
 
 ## Security Notes
 
 - Admin portal credentials in source PDFs are not reproduced in this wiki.
 - Downloaded call detail may include video, chat transcript, and images; treat as sensitive clinical data.
-

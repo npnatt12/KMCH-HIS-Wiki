@@ -58,6 +58,8 @@ flowchart LR
 
 ## Appointment Status
 
+See [Telemedicine Appointment Status](/concepts/telemedicine-appointment-status/) for the full status model and transition points.
+
 | Status | Meaning |
 |--------|---------|
 | Booked | อยู่ระหว่างจองหรือรอยืนยัน |
@@ -71,12 +73,17 @@ flowchart LR
 ## Key Workflows
 
 - [Telemedicine Visit Workflow](/workflows/telemedicine-visit-workflow/)
+- [Telemedicine Patient Onboarding Workflow](/workflows/telemedicine-patient-onboarding-workflow/)
+- [Telemedicine Medication Delivery Workflow](/workflows/telemedicine-medication-delivery-workflow/)
 - [Telemedicine Operations Support Workflow](/workflows/telemedicine-operations-support-workflow/)
 
 ## Screens / Entities
 
 - [Telemedicine Mobile App](/entities/telemedicine-mobile-app/)
 - [Telemedicine Admin Portal](/entities/telemedicine-admin-portal/)
+- [Telemedicine Doctor List and Appointment Screens](/entities/telemedicine-doctor-list-and-appointment-screens/)
+- [Telemedicine Consultation Session](/entities/telemedicine-consultation-session/)
+- [Telemedicine IT Service Stack](/entities/telemedicine-it-service-stack/)
 
 ## Verification Evidence
 
@@ -90,4 +97,3 @@ flowchart LR
 - Source PDFs contain environment credentials. They are intentionally not copied into wiki pages.
 - Patient app requires HN/DOB/national ID verification and first-login acceptance of terms, privacy policy, and consent.
 - Personal demographics are read-only in app; corrections must go through [Registration](/modules/registration/) / เวชระเบียน.
-

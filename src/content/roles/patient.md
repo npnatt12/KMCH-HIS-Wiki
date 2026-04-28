@@ -21,7 +21,23 @@ tags: [role, patient, telemedicine, mobile-app]
 ## Daily Pages
 
 - [Telemedicine Mobile App](/entities/telemedicine-mobile-app/)
+- [Telemedicine Patient Onboarding Workflow](/workflows/telemedicine-patient-onboarding-workflow/)
 - [Telemedicine Visit Workflow](/workflows/telemedicine-visit-workflow/)
+- [Telemedicine Appointment Status](/concepts/telemedicine-appointment-status/)
+- [Telemedicine Doctor List and Appointment Screens](/entities/telemedicine-doctor-list-and-appointment-screens/)
+- [Telemedicine Consultation Session](/entities/telemedicine-consultation-session/)
+- [Telemedicine Medication Delivery Workflow](/workflows/telemedicine-medication-delivery-workflow/)
+
+## Phase 4 Operation Map
+
+See Phase 4 Role Operation Map.
+
+| Question | Start With |
+|----------|------------|
+| First-time app setup and appointment confirmation | [Telemedicine Patient Onboarding Workflow](/workflows/telemedicine-patient-onboarding-workflow/), [Telemedicine Mobile App](/entities/telemedicine-mobile-app/) |
+| Find doctor or review appointment | [Telemedicine Doctor List and Appointment Screens](/entities/telemedicine-doctor-list-and-appointment-screens/), [Telemedicine Appointment Status](/concepts/telemedicine-appointment-status/) |
+| Receive doctor call | [Telemedicine Consultation Session](/entities/telemedicine-consultation-session/), [Telemedicine Visit Workflow](/workflows/telemedicine-visit-workflow/) |
+| Medicine delivery or pickup after visit | [Telemedicine Medication Delivery Workflow](/workflows/telemedicine-medication-delivery-workflow/) |
 
 ## Responsibilities / Actions
 
@@ -30,4 +46,3 @@ tags: [role, patient, telemedicine, mobile-app]
 - Accept or decline doctor call.
 - Provide payment proof and delivery address through LINE OA when required.
 - Rate doctor after consultation.
-

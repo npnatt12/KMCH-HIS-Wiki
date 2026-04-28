@@ -57,4 +57,6 @@ verified-on-uat: 2026-04-28
 ## Entity
 
 - [Odoo Accounting Forms](/entities/odoo-accounting-forms/)
-
+- [Odoo Customer Invoice Screen](/entities/odoo-customer-invoice-screen/)
+- [Odoo Billing Note Screen](/entities/odoo-billing-note-screen/)
+- [Odoo Payment Screen](/entities/odoo-payment-screen/)
