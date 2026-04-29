@@ -224,6 +224,35 @@ export const CONNECTIONS: FlowConnection[] = [
   { from: 'billing', to: 'inventory' },
   { from: 'lab', to: 'emr-doctor' },
   { from: 'xray', to: 'emr-doctor' },
+
+  // ── Patient touchpoints → MEDHIS (cross-system, pink) ────────────
+  { from: 'mophrachom-app', to: 'telemedicine', kind: 'cross-system', interfaceSlug: 'booking' },
+  { from: 'walk-in', to: 'registration', kind: 'cross-system', interfaceSlug: 'booking' },
+  { from: 'phone-booking', to: 'registration', kind: 'cross-system', interfaceSlug: 'booking' },
+
+  // ── Telemedicine in-system (MEDHIS) ──────────────────────────────
+  { from: 'opd', to: 'telemedicine' },
+  { from: 'telemedicine', to: 'emr-doctor' },
+  { from: 'telemedicine', to: 'order-entry' },
+  { from: 'telemedicine', to: 'pharmacy' },
+
+  // ── Queue Management in-system (MEDHIS) ──────────────────────────
+  { from: 'registration', to: 'queue-management' },
+  { from: 'queue-management', to: 'opd' },
+  { from: 'queue-management', to: 'er' },
+  { from: 'queue-management', to: 'pharmacy' },
+  { from: 'queue-management', to: 'billing' },
+  { from: 'queue-management', to: 'or' },
+
+  // ── MEDHIS → Odoo (cross-system, gold) ──────────────────────────
+  { from: 'billing', to: 'odoo-finance', kind: 'cross-system', interfaceSlug: 'revenue' },
+  { from: 'inventory', to: 'odoo-inventory', kind: 'cross-system', interfaceSlug: 'inventory' },
+  { from: 'pharmacy', to: 'odoo-inventory', kind: 'cross-system', interfaceSlug: 'inventory' },
+  { from: 'inventory', to: 'odoo-procurement', kind: 'cross-system', interfaceSlug: 'procurement' },
+
+  // ── Odoo internal ────────────────────────────────────────────────
+  { from: 'odoo-procurement', to: 'odoo-inventory' },
+  { from: 'odoo-inventory', to: 'odoo-finance' },
 ];
 
 // ── 18 Flow Modules ────────────────────────────────────────────────

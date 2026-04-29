@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ZONES, FLOW_MODULES, SYSTEMS, ENTRY_POINTS } from '../hospital-flow-data';
+import { ZONES, FLOW_MODULES, SYSTEMS, ENTRY_POINTS, CONNECTIONS } from '../hospital-flow-data';
 
 test('every module slug listed in a zone exists in FLOW_MODULES', () => {
   const moduleSlugs = new Set(FLOW_MODULES.map(m => m.slug));
@@ -81,4 +81,31 @@ test('FLOW_MODULES contains the 5 new modules', () => {
 
 test('FLOW_MODULES has 23 entries (18 existing + 5 new)', () => {
   assert.equal(FLOW_MODULES.length, 23);
+});
+
+test('every connection from/to resolves to a module or entry point', () => {
+  const moduleSlugs = new Set(FLOW_MODULES.map(m => m.slug));
+  const entrySlugs = new Set(ENTRY_POINTS.map(e => e.slug));
+  const validIds = new Set([...moduleSlugs, ...entrySlugs]);
+  for (const conn of CONNECTIONS) {
+    assert.ok(
+      validIds.has(conn.from),
+      `Connection from "${conn.from}" → "${conn.to}": "from" is not a known module or entry point`,
+    );
+    assert.ok(
+      validIds.has(conn.to),
+      `Connection from "${conn.from}" → "${conn.to}": "to" is not a known module or entry point`,
+    );
+  }
+});
+
+test('every cross-system connection has interfaceSlug', () => {
+  for (const conn of CONNECTIONS) {
+    if (conn.kind === 'cross-system') {
+      assert.ok(
+        conn.interfaceSlug && conn.interfaceSlug.length > 0,
+        `Cross-system connection ${conn.from} → ${conn.to} is missing interfaceSlug`,
+      );
+    }
+  }
 });
