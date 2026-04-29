@@ -834,6 +834,7 @@ function getZone(id: string) {
         </div>
 
         <!-- Dual arrows -->
+        <!-- Dual arrows -->
         <div class="flow-split-arrows">
           <div class="flow-arrow">
             <div class="flow-arrow-line"></div>
@@ -845,10 +846,46 @@ function getZone(id: string) {
           </div>
         </div>
 
-        <!-- 7. Patient Discharged -->
+        <!-- 7. Patient Discharged pill -->
         <div class="flow-pill flow-pill-end">
           <span>&#x1F3E0;</span> ผู้ป่วยกลับบ้าน (Discharged)
         </div>
+
+        <!-- 8. Cross-system arrow: HIS → Odoo (gold) -->
+        <div class="flow-cross-arrow" aria-label="MEDHIS to Odoo">
+          <span class="flow-cross-line gold"></span>
+          {INTERFACES.filter(i => i.color === 'gold').map(i => (
+            i.workflowUrl
+              ? <a class="interface-chip gold" href={i.workflowUrl} title={i.labelTh}>{i.label}</a>
+              : <span class="interface-chip gold" title={i.labelTh}>{i.label}</span>
+          ))}
+          <span class="flow-cross-line gold"></span>
+        </div>
+
+        <!-- 9. Back-office band (Odoo) -->
+        {(() => {
+          const z = ZONES.find(z => z.id === 'back-office')!;
+          return (
+            <div class={`zone-box variant-${z.variant}`} style={`border-color: ${z.color};`}>
+              <div class="zone-header">
+                <span class="zone-label-en" style={`color: ${z.color};`}>{z.label}</span>
+                <span class="zone-label-th" style={`color: ${z.color};`}>{z.labelTh}</span>
+              </div>
+              <div class="zone-chips">
+                {z.modules.map(slug => {
+                  const m = moduleMap[slug];
+                  return (
+                    <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <span class="module-chip-icon">{m.icon}</span>
+                      {m.nameEn}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
+
 
         <!-- Print Legend (visible only in print) -->
         <div class="print-legend">
