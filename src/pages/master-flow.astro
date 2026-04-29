@@ -262,6 +262,40 @@ function getZone(id: string) {
       background: #475569;
     }
 
+    .flow-cross-arrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 700px;
+      padding: 8px 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .flow-cross-line {
+      flex: 1;
+      min-width: 30px;
+      height: 0;
+      border-top: 2px dashed #ec4899;
+    }
+    .flow-cross-line.gold { border-color: #facc15; }
+    .interface-chip {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 14px;
+      border: 1px solid #ec4899;
+      background: #1e293b;
+      color: #fbcfe8;
+      text-decoration: none;
+      font-family: 'Sarabun', sans-serif;
+      white-space: nowrap;
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .interface-chip.gold { border-color: #facc15; color: #fde68a; }
+    .interface-chip:hover { background: #334155; }
+
     .flow-decision {
       display: inline-flex;
       align-items: center;
@@ -306,6 +340,37 @@ function getZone(id: string) {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+    }
+
+    .zone-box.variant-patient {
+      border-style: dashed;
+      background: #50072422 !important;
+    }
+    .zone-box.variant-erp {
+      border-style: dashed;
+      background: #42200622 !important;
+    }
+    .entry-point-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid #ec4899;
+      background: #831843aa;
+      color: #fce7f3;
+      font-family: 'Sarabun', sans-serif;
+      transition: border-color 0.15s, transform 0.1s;
+    }
+    .entry-point-chip:hover { transform: translateY(-1px); }
+    .entry-point-chip.selected { border-color: #fff !important; }
+    .entry-point-chip.system-external {
+      border-color: #94a3b8;
+      background: #33415588;
+      color: #cbd5e1;
     }
 
     /* Module Chip */
@@ -407,6 +472,9 @@ function getZone(id: string) {
       .flow-decision { padding: 10px 18px; font-size: 13px; }
 
       .flow-pill { font-size: 13px; padding: 8px 18px; }
+
+      .interface-chip { min-height: 44px; padding: 12px 14px; font-size: 12px; }
+      .flow-cross-arrow { gap: 6px; }
     }
 
     @media (max-width: 480px) {
@@ -416,6 +484,11 @@ function getZone(id: string) {
         line-height: 0;
       }
       .version-chip-dot { margin-right: 0; }
+      .zone-box.variant-patient .zone-chips,
+      .zone-box.variant-erp .zone-chips {
+        flex-direction: column;
+        align-items: stretch;
+      }
     }
 
     /* Mobile panel overlay backdrop */
@@ -543,15 +616,34 @@ function getZone(id: string) {
       <!-- Flow Area -->
       <div class="flow-area" id="flow-area">
 
-        <!-- 1. Patient Arrives -->
-        <div class="flow-pill flow-pill-start">
-          <span>&#x1F3E5;</span> ผู้ป่วยมาถึง (Patient Arrives)
-        </div>
+        <!-- 1. Patient Touchpoints band -->
+        {(() => {
+          const z = ZONES.find(z => z.id === 'patient-touchpoints')!;
+          return (
+            <div class={`zone-box variant-${z.variant}`} style={`border-color: ${z.color};`}>
+              <div class="zone-header">
+                <span class="zone-label-en" style={`color: ${z.color};`}>{z.label}</span>
+                <span class="zone-label-th" style={`color: ${z.color};`}>{z.labelTh}</span>
+              </div>
+              <div class="zone-chips">
+                {ENTRY_POINTS.map(ep => (
+                  <button class={`entry-point-chip system-${ep.system}`} data-entrypoint={ep.slug}>
+                    <span class="module-chip-icon">{ep.icon}</span>
+                    {ep.nameEn}
+                  </button>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
 
-        <!-- Arrow -->
-        <div class="flow-arrow">
-          <div class="flow-arrow-line"></div>
-          <span>&#x25BC;</span>
+        <!-- Cross-system arrow: Patient → MEDHIS (pink) -->
+        <div class="flow-cross-arrow" aria-label="Patient to MEDHIS">
+          <span class="flow-cross-line"></span>
+          {INTERFACES.filter(i => i.color === 'pink').map(i => (
+            <span class="interface-chip" title={i.labelTh}>{i.label}</span>
+          ))}
+          <span class="flow-cross-line"></span>
         </div>
 
         <!-- 2. Registration Zone -->
