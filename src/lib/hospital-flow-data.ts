@@ -703,3 +703,44 @@ export const FLOW_MODULES: FlowModule[] = [
   },
 
 ];
+
+// ── Cross-system Interfaces (named labels on dashed arrows) ─────────
+
+export interface FlowInterface {
+  slug: string;
+  label: string;
+  labelTh: string;
+  color: 'gold' | 'pink';
+  workflowUrl: string | null;
+}
+
+export const INTERFACES: FlowInterface[] = [
+  {
+    slug: 'booking',
+    label: 'Booking & Arrival',
+    labelTh: 'จอง / มาถึง',
+    color: 'pink',
+    workflowUrl: null,
+  },
+  {
+    slug: 'revenue',
+    label: 'Revenue Interface',
+    labelTh: 'ส่งข้อมูลรายได้',
+    color: 'gold',
+    workflowUrl: '/workflows/medhis-odoo-revenue-interface-workflow/',
+  },
+  {
+    slug: 'inventory',
+    label: 'Inventory Interface',
+    labelTh: 'ส่งข้อมูลคลัง',
+    color: 'gold',
+    workflowUrl: '/workflows/medhis-odoo-inventory-interface-workflow/',
+  },
+  {
+    slug: 'procurement',
+    label: 'Procurement',
+    labelTh: 'จัดซื้อ',
+    color: 'gold',
+    workflowUrl: '/workflows/odoo-purchase-to-pay-workflow/',
+  },
+];
