@@ -1,5 +1,5 @@
 ---
-import { ZONES, FLOW_MODULES, CONNECTIONS } from '../lib/hospital-flow-data';
+import { ZONES, FLOW_MODULES, CONNECTIONS, SYSTEMS, ENTRY_POINTS, INTERFACES } from '../lib/hospital-flow-data';
 
 // Build a lookup map for quick zone color access
 const zoneColorMap: Record<string, string> = {};
@@ -72,6 +72,27 @@ function getZone(id: string) {
       transition: background 0.15s;
     }
     .top-bar a:hover, .top-bar button:hover { background: #334155; }
+    .version-chips {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .version-chip {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 14px;
+      border: 1px solid #475569;
+      background: #1e293b;
+      color: #94a3b8;
+      white-space: nowrap;
+    }
+    .version-chip-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+    .version-chip.medhis { border-color: #22c55e; color: #86efac; }
+    .version-chip.medhis .version-chip-dot { background: #22c55e; }
+    .version-chip.odoo { border-color: #facc15; color: #fde68a; }
+    .version-chip.odoo .version-chip-dot { background: #facc15; }
+    .version-chip.patient-app { border-color: #ec4899; color: #fbcfe8; }
+    .version-chip.patient-app .version-chip-dot { background: #ec4899; }
     .btn-print { background: #1e3a5f !important; border-color: #3b82f6 !important; color: #93c5fd !important; }
 
     .main-content {
@@ -105,6 +126,7 @@ function getZone(id: string) {
     .info-default .hint-icon { font-size: 36px; margin-bottom: 10px; }
     .info-module { display: none; }
     .info-module.active { display: flex; flex-direction: column; gap: 14px; }
+    .info-entrypoint { display: flex; flex-direction: column; gap: 14px; }
     .info-module-header {
       display: flex;
       align-items: center;
@@ -116,6 +138,29 @@ function getZone(id: string) {
     .info-module-names h2 { font-size: 16px; font-weight: 700; color: #f1f5f9; margin: 0; }
     .info-module-names .name-th { font-size: 13px; color: #94a3b8; margin: 0; }
     .info-purpose { font-size: 13px; color: #cbd5e1; line-height: 1.6; }
+    .info-system-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #94a3b8;
+      padding-bottom: 8px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid #334155;
+    }
+    .info-system-line .system-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .info-system-line.medhis .system-dot { background: #22c55e; }
+    .info-system-line.odoo .system-dot { background: #facc15; }
+    .info-system-line.patient-app .system-dot { background: #ec4899; }
+    .info-embedded-note {
+      font-size: 11.5px;
+      color: #cbd5e1;
+      font-style: italic;
+      padding: 4px 8px;
+      background: #33415544;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
     .info-section-title {
       font-size: 11px;
       font-weight: 700;
@@ -241,6 +286,40 @@ function getZone(id: string) {
       background: #475569;
     }
 
+    .flow-cross-arrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 700px;
+      padding: 8px 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .flow-cross-line {
+      flex: 1;
+      min-width: 30px;
+      height: 0;
+      border-top: 2px dashed #ec4899;
+    }
+    .flow-cross-line.gold { border-color: #facc15; }
+    .interface-chip {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 14px;
+      border: 1px solid #ec4899;
+      background: #1e293b;
+      color: #fbcfe8;
+      text-decoration: none;
+      font-family: 'Sarabun', sans-serif;
+      white-space: nowrap;
+      min-height: 24px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .interface-chip.gold { border-color: #facc15; color: #fde68a; }
+    .interface-chip:hover { background: #334155; }
+
     .flow-decision {
       display: inline-flex;
       align-items: center;
@@ -287,6 +366,37 @@ function getZone(id: string) {
       gap: 8px;
     }
 
+    .zone-box.variant-patient {
+      border-style: dashed;
+      background: #50072422 !important;
+    }
+    .zone-box.variant-erp {
+      border-style: dashed;
+      background: #42200622 !important;
+    }
+    .entry-point-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid #ec4899;
+      background: #831843aa;
+      color: #fce7f3;
+      font-family: 'Sarabun', sans-serif;
+      transition: border-color 0.15s, transform 0.1s;
+    }
+    .entry-point-chip:hover { transform: translateY(-1px); }
+    .entry-point-chip.selected { border-color: #fff !important; }
+    .entry-point-chip.system-external {
+      border-color: #94a3b8;
+      background: #33415588;
+      color: #cbd5e1;
+    }
+
     /* Module Chip */
     .module-chip {
       display: inline-flex;
@@ -304,6 +414,16 @@ function getZone(id: string) {
     }
     .module-chip:hover { transform: translateY(-1px); }
     .module-chip.selected { border-color: #fff !important; }
+    .module-chip[data-system="odoo"] {
+      box-shadow: inset 4px 0 0 #facc15;
+    }
+    .module-chip[data-system="patient-app"] {
+      box-shadow: inset 4px 0 0 #ec4899;
+    }
+    .module-chip[data-new="true"] {
+      outline: 2px dashed #fde68a;
+      outline-offset: 2px;
+    }
     .module-chip-icon { font-size: 15px; }
 
     /* Split Row */
@@ -381,11 +501,29 @@ function getZone(id: string) {
 
       .zone-box { max-width: 100%; min-width: 0; }
 
-      .module-chip { font-size: 12px; padding: 6px 10px; }
+      .module-chip { font-size: 12px; padding: 11px 12px; min-height: 44px; }
+      .entry-point-chip { font-size: 12px; padding: 11px 12px; min-height: 44px; }
 
       .flow-decision { padding: 10px 18px; font-size: 13px; }
 
       .flow-pill { font-size: 13px; padding: 8px 18px; }
+
+      .interface-chip { min-height: 44px; padding: 12px 14px; font-size: 12px; }
+      .flow-cross-arrow { gap: 6px; }
+    }
+
+    @media (max-width: 480px) {
+      .version-chip {
+        font-size: 0;
+        padding: 6px;
+        line-height: 0;
+      }
+      .version-chip-dot { margin-right: 0; }
+      .zone-box.variant-patient .zone-chips,
+      .zone-box.variant-erp .zone-chips {
+        flex-direction: column;
+        align-items: stretch;
+      }
     }
 
     /* Mobile panel overlay backdrop */
@@ -458,6 +596,12 @@ function getZone(id: string) {
       .flow-pill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .zone-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .module-chip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .version-chips { display: none !important; }
+      .entry-point-chip { -webkit-print-color-adjust: exact; print-color-adjust: exact; border-color: #1e293b; }
+      .interface-chip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .flow-cross-line { border-color: #94a3b8 !important; }
+      .zone-box.variant-patient,
+      .zone-box.variant-erp { border-style: dashed !important; }
       .flow-decision { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .flow-arrow { color: #94a3b8; }
       .flow-arrow-line { background: #94a3b8; }
@@ -496,6 +640,13 @@ function getZone(id: string) {
     <!-- Top Bar -->
     <div class="top-bar">
       <h1>Master Hospital Flow — KMCH HIS</h1>
+      <div class="version-chips" aria-label="Systems">
+        {SYSTEMS.map(s => (
+          <span class={`version-chip ${s.id}`} title={s.version} aria-label={`${s.shortLabel} ${s.version}`}>
+            <span class="version-chip-dot"></span>{s.label}
+          </span>
+        ))}
+      </div>
       <div class="top-bar-actions">
         <button class="btn-print" onclick="window.print()">Print A3 Poster</button>
         <a href="/">Back to Wiki</a>
@@ -506,15 +657,34 @@ function getZone(id: string) {
       <!-- Flow Area -->
       <div class="flow-area" id="flow-area">
 
-        <!-- 1. Patient Arrives -->
-        <div class="flow-pill flow-pill-start">
-          <span>&#x1F3E5;</span> ผู้ป่วยมาถึง (Patient Arrives)
-        </div>
+        <!-- 1. Patient Touchpoints band -->
+        {(() => {
+          const z = ZONES.find(z => z.id === 'patient-touchpoints')!;
+          return (
+            <div class={`zone-box variant-${z.variant}`} style={`border-color: ${z.color};`}>
+              <div class="zone-header">
+                <span class="zone-label-en" style={`color: ${z.color};`}>{z.label}</span>
+                <span class="zone-label-th" style={`color: ${z.color};`}>{z.labelTh}</span>
+              </div>
+              <div class="zone-chips">
+                {ENTRY_POINTS.map(ep => (
+                  <button class={`entry-point-chip system-${ep.system}`} data-entrypoint={ep.slug}>
+                    <span class="module-chip-icon">{ep.icon}</span>
+                    {ep.nameEn}
+                  </button>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
 
-        <!-- Arrow -->
-        <div class="flow-arrow">
-          <div class="flow-arrow-line"></div>
-          <span>&#x25BC;</span>
+        <!-- Cross-system arrow: Patient → MEDHIS (pink) -->
+        <div class="flow-cross-arrow" aria-label="Patient to MEDHIS">
+          <span class="flow-cross-line"></span>
+          {INTERFACES.filter(i => i.color === 'pink').map(i => (
+            <span class="interface-chip" title={i.labelTh}>{i.label}</span>
+          ))}
+          <span class="flow-cross-line"></span>
         </div>
 
         <!-- 2. Registration Zone -->
@@ -530,7 +700,7 @@ function getZone(id: string) {
                 {z.modules.map(slug => {
                   const m = moduleMap[slug];
                   return (
-                    <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                    <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                       <span class="module-chip-icon">{m.icon}</span>
                       {m.nameEn}
                     </button>
@@ -561,7 +731,7 @@ function getZone(id: string) {
                   {z.modules.map(slug => {
                     const m = moduleMap[slug];
                     return (
-                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                         <span class="module-chip-icon">{m.icon}</span>
                         {m.nameEn}
                       </button>
@@ -587,7 +757,7 @@ function getZone(id: string) {
                   {z.modules.map(slug => {
                     const m = moduleMap[slug];
                     return (
-                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                         <span class="module-chip-icon">{m.icon}</span>
                         {m.nameEn}
                       </button>
@@ -624,7 +794,7 @@ function getZone(id: string) {
                 {z.modules.map(slug => {
                   const m = moduleMap[slug];
                   return (
-                    <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                    <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                       <span class="module-chip-icon">{m.icon}</span>
                       {m.nameEn}
                     </button>
@@ -666,7 +836,7 @@ function getZone(id: string) {
                   {z.modules.map(slug => {
                     const m = moduleMap[slug];
                     return (
-                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                         <span class="module-chip-icon">{m.icon}</span>
                         {m.nameEn}
                       </button>
@@ -692,7 +862,7 @@ function getZone(id: string) {
                   {z.modules.map(slug => {
                     const m = moduleMap[slug];
                     return (
-                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                         <span class="module-chip-icon">{m.icon}</span>
                         {m.nameEn}
                       </button>
@@ -705,6 +875,7 @@ function getZone(id: string) {
         </div>
 
         <!-- Dual arrows -->
+        <!-- Dual arrows -->
         <div class="flow-split-arrows">
           <div class="flow-arrow">
             <div class="flow-arrow-line"></div>
@@ -716,10 +887,46 @@ function getZone(id: string) {
           </div>
         </div>
 
-        <!-- 7. Patient Discharged -->
+        <!-- 7. Patient Discharged pill -->
         <div class="flow-pill flow-pill-end">
           <span>&#x1F3E0;</span> ผู้ป่วยกลับบ้าน (Discharged)
         </div>
+
+        <!-- 8. Cross-system arrow: HIS → Odoo (gold) -->
+        <div class="flow-cross-arrow" aria-label="MEDHIS to Odoo">
+          <span class="flow-cross-line gold"></span>
+          {INTERFACES.filter(i => i.color === 'gold').map(i => (
+            i.workflowUrl
+              ? <a class="interface-chip gold" href={i.workflowUrl} title={i.labelTh}>{i.label}</a>
+              : <span class="interface-chip gold" title={i.labelTh}>{i.label}</span>
+          ))}
+          <span class="flow-cross-line gold"></span>
+        </div>
+
+        <!-- 9. Back-office band (Odoo) -->
+        {(() => {
+          const z = ZONES.find(z => z.id === 'back-office')!;
+          return (
+            <div class={`zone-box variant-${z.variant}`} style={`border-color: ${z.color};`}>
+              <div class="zone-header">
+                <span class="zone-label-en" style={`color: ${z.color};`}>{z.label}</span>
+                <span class="zone-label-th" style={`color: ${z.color};`}>{z.labelTh}</span>
+              </div>
+              <div class="zone-chips">
+                {z.modules.map(slug => {
+                  const m = moduleMap[slug];
+                  return (
+                    <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <span class="module-chip-icon">{m.icon}</span>
+                      {m.nameEn}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
+
 
         <!-- Print Legend (visible only in print) -->
         <div class="print-legend">
@@ -727,6 +934,13 @@ function getZone(id: string) {
             <div class="print-legend-item">
               <div class="print-legend-dot" style={`background: ${z.color};`}></div>
               <span>{z.label} ({z.labelTh})</span>
+            </div>
+          ))}
+          <div class="print-legend-item" style="font-weight:700;">| Systems:</div>
+          {SYSTEMS.map(s => (
+            <div class="print-legend-item">
+              <div class="print-legend-dot" style={`background: ${s.color};`}></div>
+              <span>{s.shortLabel}</span>
             </div>
           ))}
         </div>
@@ -752,6 +966,11 @@ function getZone(id: string) {
               <p class="name-th" id="info-name-th"></p>
             </div>
           </div>
+          <div class="info-system-line" id="info-system-line">
+            <span class="system-dot"></span>
+            <span id="info-system-label"></span>
+          </div>
+          <div class="info-embedded-note" id="info-embedded-note" style="display:none"></div>
           <p class="info-purpose" id="info-purpose"></p>
 
           <div>
@@ -774,6 +993,26 @@ function getZone(id: string) {
           </a>
         </div>
 
+        <!-- Entry-point variant (touchpoint actor) -->
+        <div class="info-entrypoint" id="info-entrypoint" style="display:none">
+          <div class="info-module-header">
+            <span class="info-module-icon" id="info-ep-icon"></span>
+            <div class="info-module-names">
+              <h2 id="info-ep-name-en"></h2>
+              <p class="name-th" id="info-ep-name-th"></p>
+            </div>
+          </div>
+          <div class="info-system-line" id="info-ep-system-line">
+            <span class="system-dot"></span>
+            <span id="info-ep-system-label"></span>
+          </div>
+          <p class="info-purpose" id="info-ep-description"></p>
+          <div id="info-ep-links-section" style="display:none">
+            <div class="info-section-title">Download</div>
+            <div class="info-connected" id="info-ep-links"></div>
+          </div>
+        </div>
+
         <!-- Legend (always at bottom) -->
         <div class="legend">
           <div class="legend-title">Zone Legend</div>
@@ -790,7 +1029,7 @@ function getZone(id: string) {
     </div>
   </div>
 
-  <script define:vars={{ FLOW_MODULES, ZONES }}>
+  <script define:vars={{ FLOW_MODULES, ZONES, SYSTEMS, ENTRY_POINTS }}>
     // Build lookup
     const modulesBySlug = {};
     FLOW_MODULES.forEach(m => { modulesBySlug[m.slug] = m; });
@@ -814,11 +1053,69 @@ function getZone(id: string) {
 
     let selectedSlug = null;
 
+    function showEntryPoint(slug) {
+      const ep = ENTRY_POINTS.find(e => e.slug === slug);
+      if (!ep) return;
+
+      // Update selected state
+      document.querySelectorAll('.module-chip, .entry-point-chip').forEach(el => {
+        el.classList.toggle(
+          'selected',
+          el.getAttribute('data-entrypoint') === slug,
+        );
+      });
+
+      infoDefault.style.display = 'none';
+      infoModule.classList.remove('active');
+      const epPanel = document.getElementById('info-entrypoint');
+      if (epPanel) epPanel.style.display = 'flex';
+
+      document.getElementById('info-ep-icon').textContent = ep.icon;
+      document.getElementById('info-ep-name-en').textContent = ep.nameEn;
+      document.getElementById('info-ep-name-th').textContent = ep.nameTh;
+      document.getElementById('info-ep-description').textContent = ep.description;
+
+      const sysLine = document.getElementById('info-ep-system-line');
+      const sysLabel = document.getElementById('info-ep-system-label');
+      if (ep.system === 'external') {
+        sysLine.className = 'info-system-line';
+        sysLine.querySelector('.system-dot').style.background = '#94a3b8';
+        sysLabel.textContent = 'External / Real-world';
+      } else {
+        const sys = SYSTEMS.find(s => s.id === ep.system);
+        sysLine.className = 'info-system-line ' + (sys ? sys.id : '');
+        sysLine.querySelector('.system-dot').style.background = '';
+        sysLabel.textContent = sys ? sys.label : ep.system;
+      }
+
+      const linksSection = document.getElementById('info-ep-links-section');
+      const linksContainer = document.getElementById('info-ep-links');
+      linksContainer.innerHTML = '';
+      if (ep.externalLinks && ep.externalLinks.length) {
+        linksSection.style.display = 'block';
+        ep.externalLinks.forEach(l => {
+          const a = document.createElement('a');
+          a.href = l.url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.className = 'info-connected-chip';
+          a.textContent = l.label;
+          linksContainer.appendChild(a);
+        });
+      } else {
+        linksSection.style.display = 'none';
+      }
+    }
+
     function showModule(slug) {
       const mod = modulesBySlug[slug];
       if (!mod) return;
 
       selectedSlug = slug;
+
+      // Hide entry-point panel when switching to a module
+      const epPanel = document.getElementById('info-entrypoint');
+      if (epPanel) epPanel.style.display = 'none';
 
       // Update selected state
       document.querySelectorAll('.module-chip').forEach(el => {
@@ -832,6 +1129,25 @@ function getZone(id: string) {
       infoIcon.textContent = mod.icon;
       infoNameEn.textContent = mod.nameEn;
       infoNameTh.textContent = mod.nameTh;
+
+      // System line
+      const sys = SYSTEMS.find(s => s.id === mod.system);
+      const sysLine = document.getElementById('info-system-line');
+      const sysLabel = document.getElementById('info-system-label');
+      const embedNote = document.getElementById('info-embedded-note');
+      if (sys && sysLine && sysLabel) {
+        sysLine.className = 'info-system-line ' + sys.id;
+        sysLabel.textContent = sys.label;
+      }
+      if (embedNote) {
+        if (mod.embeddedIn) {
+          embedNote.style.display = 'block';
+          embedNote.textContent = 'แอปแพทย์ฝังใน MEDHIS · แอปคนไข้ = หมอพระจอม';
+        } else {
+          embedNote.style.display = 'none';
+        }
+      }
+
       infoPurpose.textContent = mod.purpose;
 
       // Key screens
@@ -895,6 +1211,16 @@ function getZone(id: string) {
         const slug = el.getAttribute('data-slug');
         showModule(slug);
         // Auto-open panel on mobile when a chip is clicked
+        if (window.innerWidth <= 768) {
+          openPanel();
+        }
+      });
+    });
+
+    document.querySelectorAll('.entry-point-chip').forEach(el => {
+      el.addEventListener('click', () => {
+        const slug = el.getAttribute('data-entrypoint');
+        showEntryPoint(slug);
         if (window.innerWidth <= 768) {
           openPanel();
         }

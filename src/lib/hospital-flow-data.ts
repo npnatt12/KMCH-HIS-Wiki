@@ -1,5 +1,15 @@
 // hospital-flow-data.ts — Zone/connection/module data for Master Hospital Flow visualization
 
+export type SystemId = 'medhis' | 'odoo' | 'patient-app';
+
+export interface FlowSystem {
+  id: SystemId;
+  label: string;        // "MEDHIS · Phase 4"
+  shortLabel: string;
+  color: string;
+  version: string;
+}
+
 export interface FlowZone {
   id: string;
   label: string;
@@ -7,11 +17,15 @@ export interface FlowZone {
   color: string;
   borderColor: string;
   modules: string[];
+  band: 'top' | 'split' | 'full';
+  variant?: 'patient' | 'erp';
 }
 
 export interface FlowConnection {
   from: string;
   to: string;
+  kind?: 'in-system' | 'cross-system';
+  interfaceSlug?: string;
 }
 
 export interface FlowModule {
@@ -25,18 +39,101 @@ export interface FlowModule {
   primaryWorkflow: string[];
   connectedModules: string[];
   wikiUrl: string;
+  system: SystemId;
+  isNew?: boolean;
+  embeddedIn?: SystemId;
 }
 
-// ── 6 Department Zones ──────────────────────────────────────────────
+// ── Systems ─────────────────────────────────────────────────────────
+
+export const SYSTEMS: FlowSystem[] = [
+  {
+    id: 'medhis',
+    label: 'MEDHIS · Phase 4',
+    shortLabel: 'MEDHIS',
+    color: '#22c55e',
+    version: 'Phase 4 · Live 2025-10-20',
+  },
+  {
+    id: 'odoo',
+    label: 'Odoo Enterprise V16',
+    shortLabel: 'Odoo',
+    color: '#facc15',
+    version: 'Enterprise V16 · PostgreSQL 12.22',
+  },
+  {
+    id: 'patient-app',
+    label: 'หมอพระจอม · Flutter 3.29',
+    shortLabel: 'หมอพระจอม',
+    color: '#ec4899',
+    version: 'Flutter 3.29.2 · Play Store + App Store',
+  },
+];
+
+// ── Entry Points (patient-side actors) ──────────────────────────────
+
+export interface FlowEntryPoint {
+  slug: string;
+  nameEn: string;
+  nameTh: string;
+  icon: string;
+  system: SystemId | 'external';
+  description: string;
+  externalLinks?: { label: string; url: string }[];
+}
+
+export const ENTRY_POINTS: FlowEntryPoint[] = [
+  {
+    slug: 'mophrachom-app',
+    nameEn: 'หมอพระจอม Mobile App',
+    nameTh: 'แอปหมอพระจอม',
+    icon: '📱',
+    system: 'patient-app',
+    description: 'ผู้ป่วยจองและคุยกับแพทย์ผ่านแอป Flutter — เชื่อมตรงกับ Telemedicine module ใน MEDHIS',
+    externalLinks: [
+      { label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=th.kmutnb.kmch.telemed' },
+      { label: 'App Store', url: 'https://apps.apple.com/th/app/หมอพระจอม/id6473001234' },
+    ],
+  },
+  {
+    slug: 'walk-in',
+    nameEn: 'Walk-in',
+    nameTh: 'เดินมาเอง',
+    icon: '🚶',
+    system: 'external',
+    description: 'ผู้ป่วยมารับบริการที่โรงพยาบาลโดยตรง',
+  },
+  {
+    slug: 'phone-booking',
+    nameEn: 'Phone Booking',
+    nameTh: 'จองทางโทรศัพท์',
+    icon: '📞',
+    system: 'external',
+    description: 'ผู้ป่วยโทรศัพท์มาจองคิว เจ้าหน้าที่ลงทะเบียนให้',
+  },
+];
+
+// ── 8 Zones: Patient touchpoints + 6 clinical + Back-office ─────────
 
 export const ZONES: FlowZone[] = [
+  {
+    id: 'patient-touchpoints',
+    label: 'Patient Touchpoints',
+    labelTh: 'จุดเข้าโรงพยาบาล',
+    color: '#ec4899',
+    borderColor: '#db2777',
+    modules: [],
+    band: 'top',
+    variant: 'patient',
+  },
   {
     id: 'registration',
     label: 'Registration',
     labelTh: 'ลงทะเบียน',
     color: '#3b82f6',
     borderColor: '#2563eb',
-    modules: ['registration', 'mrd'],
+    modules: ['registration', 'mrd', 'queue-management'],
+    band: 'full',
   },
   {
     id: 'outpatient',
@@ -44,7 +141,8 @@ export const ZONES: FlowZone[] = [
     labelTh: 'ผู้ป่วยนอก',
     color: '#22c55e',
     borderColor: '#16a34a',
-    modules: ['opd', 'emr-doctor', 'order-entry', 'anc'],
+    modules: ['opd', 'emr-doctor', 'order-entry', 'anc', 'telemedicine'],
+    band: 'split',
   },
   {
     id: 'emergency',
@@ -53,6 +151,7 @@ export const ZONES: FlowZone[] = [
     color: '#ef4444',
     borderColor: '#dc2626',
     modules: ['er'],
+    band: 'split',
   },
   {
     id: 'clinical',
@@ -61,6 +160,7 @@ export const ZONES: FlowZone[] = [
     color: '#a855f7',
     borderColor: '#9333ea',
     modules: ['lab', 'xray', 'pharmacy', 'or'],
+    band: 'split',
   },
   {
     id: 'inpatient',
@@ -69,6 +169,7 @@ export const ZONES: FlowZone[] = [
     color: '#f97316',
     borderColor: '#ea580c',
     modules: ['admission', 'ipd', 'labour-and-newborn', 'diet', 'cssd'],
+    band: 'split',
   },
   {
     id: 'discharge',
@@ -77,6 +178,17 @@ export const ZONES: FlowZone[] = [
     color: '#06b6d4',
     borderColor: '#0891b2',
     modules: ['billing', 'inventory'],
+    band: 'full',
+  },
+  {
+    id: 'back-office',
+    label: 'Back-office · Odoo ERP V16',
+    labelTh: 'สำนักงานหลัง · Odoo ERP V16',
+    color: '#facc15',
+    borderColor: '#ca8a04',
+    modules: ['odoo-finance', 'odoo-inventory', 'odoo-procurement'],
+    band: 'full',
+    variant: 'erp',
   },
 ];
 
@@ -112,6 +224,35 @@ export const CONNECTIONS: FlowConnection[] = [
   { from: 'billing', to: 'inventory' },
   { from: 'lab', to: 'emr-doctor' },
   { from: 'xray', to: 'emr-doctor' },
+
+  // ── Patient touchpoints → MEDHIS (cross-system, pink) ────────────
+  { from: 'mophrachom-app', to: 'telemedicine', kind: 'cross-system', interfaceSlug: 'booking' },
+  { from: 'walk-in', to: 'registration', kind: 'cross-system', interfaceSlug: 'booking' },
+  { from: 'phone-booking', to: 'registration', kind: 'cross-system', interfaceSlug: 'booking' },
+
+  // ── Telemedicine in-system (MEDHIS) ──────────────────────────────
+  { from: 'opd', to: 'telemedicine' },
+  { from: 'telemedicine', to: 'emr-doctor' },
+  { from: 'telemedicine', to: 'order-entry' },
+  { from: 'telemedicine', to: 'pharmacy' },
+
+  // ── Queue Management in-system (MEDHIS) ──────────────────────────
+  { from: 'registration', to: 'queue-management' },
+  { from: 'queue-management', to: 'opd' },
+  { from: 'queue-management', to: 'er' },
+  { from: 'queue-management', to: 'pharmacy' },
+  { from: 'queue-management', to: 'billing' },
+  { from: 'queue-management', to: 'or' },
+
+  // ── MEDHIS → Odoo (cross-system, gold) ──────────────────────────
+  { from: 'billing', to: 'odoo-finance', kind: 'cross-system', interfaceSlug: 'revenue' },
+  { from: 'inventory', to: 'odoo-inventory', kind: 'cross-system', interfaceSlug: 'inventory' },
+  { from: 'pharmacy', to: 'odoo-inventory', kind: 'cross-system', interfaceSlug: 'inventory' },
+  { from: 'inventory', to: 'odoo-procurement', kind: 'cross-system', interfaceSlug: 'procurement' },
+
+  // ── Odoo internal ────────────────────────────────────────────────
+  { from: 'odoo-procurement', to: 'odoo-inventory' },
+  { from: 'odoo-inventory', to: 'odoo-finance' },
 ];
 
 // ── 18 Flow Modules ────────────────────────────────────────────────
@@ -134,6 +275,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['opd', 'er', 'mrd', 'billing', 'ipd'],
     wikiUrl: '/modules/registration',
+    system: 'medhis',
   },
   {
     slug: 'mrd',
@@ -152,6 +294,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['registration', 'opd', 'ipd'],
     wikiUrl: '/modules/mrd',
+    system: 'medhis',
   },
   {
     slug: 'opd',
@@ -170,6 +313,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['registration', 'er', 'emr-doctor', 'lab', 'xray', 'billing', 'admission'],
     wikiUrl: '/modules/opd',
+    system: 'medhis',
   },
   {
     slug: 'emr-doctor',
@@ -188,6 +332,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['opd', 'ipd', 'order-entry', 'anc', 'lab', 'xray', 'pharmacy', 'admission'],
     wikiUrl: '/modules/emr-doctor',
+    system: 'medhis',
   },
   {
     slug: 'order-entry',
@@ -206,6 +351,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['emr-doctor', 'lab', 'xray', 'pharmacy', 'or'],
     wikiUrl: '/modules/order-entry',
+    system: 'medhis',
   },
   {
     slug: 'anc',
@@ -224,6 +370,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['emr-doctor', 'labour-and-newborn', 'opd'],
     wikiUrl: '/modules/anc',
+    system: 'medhis',
   },
   {
     slug: 'er',
@@ -242,6 +389,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['registration', 'admission', 'or', 'billing', 'opd'],
     wikiUrl: '/modules/er',
+    system: 'medhis',
   },
   {
     slug: 'lab',
@@ -260,6 +408,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['order-entry', 'emr-doctor', 'opd', 'ipd'],
     wikiUrl: '/modules/lab',
+    system: 'medhis',
   },
   {
     slug: 'xray',
@@ -278,6 +427,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['order-entry', 'emr-doctor', 'opd', 'ipd'],
     wikiUrl: '/modules/xray',
+    system: 'medhis',
   },
   {
     slug: 'pharmacy',
@@ -296,6 +446,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['order-entry', 'emr-doctor', 'ipd', 'inventory', 'billing'],
     wikiUrl: '/modules/pharmacy',
+    system: 'medhis',
   },
   {
     slug: 'or',
@@ -314,6 +465,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['emr-doctor', 'er', 'order-entry', 'admission', 'ipd'],
     wikiUrl: '/modules/or',
+    system: 'medhis',
   },
   {
     slug: 'admission',
@@ -332,6 +484,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['opd', 'er', 'emr-doctor', 'ipd', 'or'],
     wikiUrl: '/modules/admission',
+    system: 'medhis',
   },
   {
     slug: 'ipd',
@@ -350,6 +503,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['admission', 'emr-doctor', 'pharmacy', 'lab', 'xray', 'diet', 'cssd', 'billing', 'labour-and-newborn'],
     wikiUrl: '/modules/ipd',
+    system: 'medhis',
   },
   {
     slug: 'labour-and-newborn',
@@ -368,6 +522,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['ipd', 'anc', 'admission'],
     wikiUrl: '/modules/labour-and-newborn',
+    system: 'medhis',
   },
   {
     slug: 'diet',
@@ -386,6 +541,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['ipd', 'order-entry'],
     wikiUrl: '/modules/diet',
+    system: 'medhis',
   },
   {
     slug: 'cssd',
@@ -404,6 +560,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['ipd', 'or', 'inventory'],
     wikiUrl: '/modules/cssd',
+    system: 'medhis',
   },
   {
     slug: 'billing',
@@ -422,6 +579,7 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['opd', 'er', 'ipd', 'registration', 'pharmacy', 'inventory'],
     wikiUrl: '/modules/billing',
+    system: 'medhis',
   },
   {
     slug: 'inventory',
@@ -440,5 +598,149 @@ export const FLOW_MODULES: FlowModule[] = [
     ],
     connectedModules: ['pharmacy', 'billing', 'cssd'],
     wikiUrl: '/modules/inventory',
+    system: 'medhis',
+  },
+  {
+    slug: 'telemedicine',
+    nameEn: 'Telemedicine',
+    nameTh: 'การแพทย์ทางไกล',
+    icon: '📞',
+    zone: 'outpatient',
+    purpose: 'ระบบการแพทย์ทางไกลของ KMCH ฝังในแอปแพทย์ MEDHIS (Doctor Worklist) สำหรับฝั่งแพทย์ และให้บริการแก่ผู้ป่วยผ่านแอปมือถือ "หมอพระจอม" ครอบคลุมการนัดหมาย คุยภาพและเสียง บันทึกการตรวจ สั่งยา และจัดส่งยาให้ผู้ป่วย',
+    keyScreens: ['Doctor Worklist Telemedicine Tab', 'Telemedicine Mobile App', 'Telemedicine Admin Portal', 'Consultation Session Screen'],
+    primaryWorkflow: [
+      'ผู้ป่วยจองนัดผ่านแอปหมอพระจอม',
+      'แพทย์เห็น appointment ใน Doctor Worklist',
+      'แพทย์โทรหาผู้ป่วยผ่าน Zoom integration',
+      'บันทึก EMR + สั่งยาเหมือน OPD ปกติ',
+      'จัดส่งยาให้ผู้ป่วย (Medication Delivery Workflow)',
+    ],
+    connectedModules: ['opd', 'emr-doctor', 'order-entry', 'pharmacy'],
+    wikiUrl: '/modules/telemedicine/',
+    system: 'medhis',
+    isNew: true,
+    embeddedIn: 'medhis',
+  },
+  {
+    slug: 'queue-management',
+    nameEn: 'Queue Management',
+    nameTh: 'บริหารคิว',
+    icon: '🪧',
+    zone: 'registration',
+    purpose: 'ระบบจัดลำดับและส่งต่อคิวผู้ป่วยตั้งแต่ลงทะเบียนจนสิ้นสุดการรับบริการ ครอบคลุม Registration / OPD / ER / Pharmacy / Cashier / OR queues และจอ Queue Dashboard แบบ Real-time',
+    keyScreens: ['Queue Worklist Screen', 'Queue Dashboard', 'Queue Department Room Configuration'],
+    primaryWorkflow: [
+      'ลงทะเบียน → สร้าง Queue Number จาก 4 หลักท้าย VN',
+      'เจ้าหน้าที่ Login เข้า Worklist (ห้องหรือทั้งแผนก)',
+      'กด Call → ชื่อผู้ป่วยขึ้น Queue Dashboard',
+      'พัก / ส่งต่อ / จบคิว ตาม Forward Point ที่ตั้งไว้',
+      'Worklist refresh ทุก 2 นาที, Dashboard ทุก 1 นาที',
+    ],
+    connectedModules: ['registration', 'opd', 'er', 'pharmacy', 'billing', 'or'],
+    wikiUrl: '/modules/queue-management/',
+    system: 'medhis',
+    isNew: true,
+  },
+  {
+    slug: 'odoo-finance',
+    nameEn: 'Odoo Finance',
+    nameTh: 'บัญชี Odoo (A/R + A/P)',
+    icon: '💼',
+    zone: 'back-office',
+    purpose: 'โมดูลบัญชี Odoo สำหรับ A/R (Customer Invoice, Billing Note, Payment) และ A/P (Vendor Bill, Payment) เชื่อมข้อมูลรายได้จาก MEDHIS Billing ผ่าน Revenue Interface',
+    keyScreens: ['Odoo Customer Invoice Screen', 'Odoo Billing Note Screen', 'Odoo Vendor Bill Screen', 'Odoo Payment Screen', 'Odoo Accounting Forms'],
+    primaryWorkflow: [
+      'รับ Revenue Interface จาก MEDHIS รายวัน',
+      'ออก Customer Invoice / Billing Note ใน Odoo',
+      'รับชำระ Customer Payment',
+      'รับ Vendor Bill จาก Procurement → จ่าย Vendor Payment',
+      'ปิดงบเดือน (GL, P&L, Balance Sheet)',
+    ],
+    connectedModules: ['billing', 'odoo-inventory', 'odoo-procurement'],
+    wikiUrl: '/modules/odoo-erp/',
+    system: 'odoo',
+    isNew: true,
+  },
+  {
+    slug: 'odoo-inventory',
+    nameEn: 'Odoo Inventory',
+    nameTh: 'คลัง Odoo',
+    icon: '📦',
+    zone: 'back-office',
+    purpose: 'โมดูลคลังของ Odoo ที่ทำหน้าที่เป็น Master ของยาและเวชภัณฑ์ (Location ต้องตรงกับ Store ใน HIS) รับข้อมูลการเคลื่อนย้ายจาก MEDHIS ทุกสิ้นวันผ่าน Inventory Interface',
+    keyScreens: ['Odoo Inventory Operation Screen', 'Odoo Internal Transfer Screen', 'Odoo Inventory Adjustment Screen', 'Odoo Product Master Screen'],
+    primaryWorkflow: [
+      'รับ Inventory Interface จาก MEDHIS รายวัน',
+      'อัปเดท Stock per Location',
+      'Internal Transfer / Adjustment ตามต้องการ',
+      'Lot tracking + landed cost',
+      'รายงาน Stock Balance / Ledger',
+    ],
+    connectedModules: ['inventory', 'pharmacy', 'odoo-finance', 'odoo-procurement'],
+    wikiUrl: '/modules/odoo-erp/',
+    system: 'odoo',
+    isNew: true,
+  },
+  {
+    slug: 'odoo-procurement',
+    nameEn: 'Odoo Procurement',
+    nameTh: 'จัดซื้อ Odoo',
+    icon: '🛒',
+    zone: 'back-office',
+    purpose: 'โมดูลจัดซื้อของ Odoo (Purchase A/P) ครอบคลุม RFQ, Purchase Order, Borrow Medicine PO, PO Cancellation, Vendor Bill, Vendor Payment',
+    keyScreens: ['Odoo Purchase Order Screen', 'Odoo Vendor Bill Screen'],
+    primaryWorkflow: [
+      'รับ trigger จัดซื้อจาก HIS Inventory (low stock / ขอเบิก)',
+      'สร้าง RFQ → PO',
+      'รับสินค้า → Goods Receipt (Odoo Inventory)',
+      'รับ Vendor Bill → ส่งไป Odoo Finance',
+      'จ่าย Vendor Payment',
+    ],
+    connectedModules: ['inventory', 'odoo-inventory', 'odoo-finance'],
+    wikiUrl: '/modules/odoo-erp/',
+    system: 'odoo',
+    isNew: true,
+  },
+
+];
+
+// ── Cross-system Interfaces (named labels on dashed arrows) ─────────
+
+export interface FlowInterface {
+  slug: string;
+  label: string;
+  labelTh: string;
+  color: 'gold' | 'pink';
+  workflowUrl: string | null;
+}
+
+export const INTERFACES: FlowInterface[] = [
+  {
+    slug: 'booking',
+    label: 'Booking & Arrival',
+    labelTh: 'จอง / มาถึง',
+    color: 'pink',
+    workflowUrl: null,
+  },
+  {
+    slug: 'revenue',
+    label: 'Revenue Interface',
+    labelTh: 'ส่งข้อมูลรายได้',
+    color: 'gold',
+    workflowUrl: '/workflows/medhis-odoo-revenue-interface-workflow/',
+  },
+  {
+    slug: 'inventory',
+    label: 'Inventory Interface',
+    labelTh: 'ส่งข้อมูลคลัง',
+    color: 'gold',
+    workflowUrl: '/workflows/medhis-odoo-inventory-interface-workflow/',
+  },
+  {
+    slug: 'procurement',
+    label: 'Procurement',
+    labelTh: 'จัดซื้อ',
+    color: 'gold',
+    workflowUrl: '/workflows/odoo-purchase-to-pay-workflow/',
   },
 ];

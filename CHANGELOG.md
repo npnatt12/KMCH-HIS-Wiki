@@ -2,6 +2,40 @@
 
 All notable changes to the KMCH HIS Wiki Portal are listed here. Versions follow [Semantic Versioning](https://semver.org/) and dates use ISO 8601 (`YYYY-MM-DD`).
 
+## [v2.5.0] — 2026-04-29
+
+Master flow now visualizes the post-Phase-4 architecture: 3 systems, 8 zones, 23 modules, 4 named cross-system interfaces.
+
+### Added
+- **3 systems** in `SYSTEMS` export — MEDHIS · Phase 4 (green), Odoo Enterprise V16 (gold), หมอพระจอม Flutter 3.29 (pink). Top-bar version chips render system-color accents.
+- **2 new zones** — `patient-touchpoints` (dashed pink band, top) and `back-office · Odoo ERP V16` (dashed gold band, bottom).
+- **3 patient entry points** in `ENTRY_POINTS` — `mophrachom-app` (with Play/App Store links), `walk-in`, `phone-booking`. Click any chip → info-panel entry-point variant.
+- **5 new modules** — `telemedicine` (Outpatient, MEDHIS, embedded), `queue-management` (Registration, MEDHIS), `odoo-finance` / `odoo-inventory` / `odoo-procurement` (Back-office, Odoo). All marked `isNew: true` with dashed outline; flag will clear in v2.5.1.
+- **4 named interfaces** in `INTERFACES` — `booking` (pink, label-only), `revenue` / `inventory` / `procurement` (gold, link to existing Phase-4 workflow pages).
+- **19 new connections** — patient → MEDHIS (3 cross-system pink), telemedicine in-system (4), queue-management in-system (6), MEDHIS → Odoo (4 cross-system gold), Odoo internal (2).
+- **`hospital-flow-data.test.ts`** — 15 unit tests enforcing 7 invariants (zone-module integrity, connection endpoint resolution, cross-system interface coverage, workflow URL resolution, system-membership, https external links, entry-point existence).
+- **Module chip styling** — `data-system` attribute drives an inset color bar (gold for Odoo, pink for Patient App). `data-new="true"` adds a dashed outline.
+- **Info-panel "System" line** — every module detail now shows its system + version. Telemedicine shows an additional "embedded in MEDHIS · patient app = หมอพระจอม" note.
+- **Entry-point info-panel variant** — clicking หมอพระจอม / Walk-in / Phone shows a slim card with icon, name, system label, description, and external app-store links.
+- **Print stylesheet** updates — A3 landscape now prints the touchpoint band, back-office band, cross-system arrows, and a system legend in addition to the zone legend.
+
+### Changed
+- `FlowZone` extended with `band: 'top' | 'split' | 'full'` and optional `variant: 'patient' | 'erp'`.
+- `FlowModule` extended with `system: SystemId`, optional `isNew: boolean`, optional `embeddedIn: SystemId`.
+- `FlowConnection` extended with optional `kind: 'in-system' | 'cross-system'` and `interfaceSlug: string`.
+- 18 existing modules now carry `system: 'medhis'`.
+- `master-flow.astro` imports extended to include `SYSTEMS`, `ENTRY_POINTS`, `INTERFACES`.
+- Touch targets on mobile bumped to 44px min-height (Apple HIG / Material 3).
+- The original "Patient Arrives" pill is replaced by the patient-touchpoints band.
+
+### Stats
+- 250 pages (unchanged)
+- 135 tests passing (was 120) — 15 new in `hospital-flow-data.test.ts`
+- 0 new dependencies
+- `master-flow.astro` ~905 → ~1240 lines; `hospital-flow-data.ts` ~445 → ~700 lines
+
+---
+
 ## [v2.4.1] — 2026-04-28
 
 Phase-4 OCR adapter — codex's 248 routed captions and 945 PNGs are now searchable and viewable.
