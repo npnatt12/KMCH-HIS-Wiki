@@ -61,3 +61,24 @@ test('every entry-point externalLink is https://', () => {
     }
   }
 });
+
+test('every module has a system that exists in SYSTEMS', () => {
+  const systemIds = new Set(SYSTEMS.map(s => s.id));
+  for (const mod of FLOW_MODULES) {
+    assert.ok(
+      systemIds.has(mod.system),
+      `Module "${mod.slug}" has unknown system "${mod.system}"`,
+    );
+  }
+});
+
+test('FLOW_MODULES contains the 5 new modules', () => {
+  const slugs = new Set(FLOW_MODULES.map(m => m.slug));
+  for (const expected of ['telemedicine', 'queue-management', 'odoo-finance', 'odoo-inventory', 'odoo-procurement']) {
+    assert.ok(slugs.has(expected), `Missing module: ${expected}`);
+  }
+});
+
+test('FLOW_MODULES has 23 entries (18 existing + 5 new)', () => {
+  assert.equal(FLOW_MODULES.length, 23);
+});
