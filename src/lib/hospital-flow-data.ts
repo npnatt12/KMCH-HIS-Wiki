@@ -1,5 +1,15 @@
 // hospital-flow-data.ts — Zone/connection/module data for Master Hospital Flow visualization
 
+export type SystemId = 'medhis' | 'odoo' | 'patient-app';
+
+export interface FlowSystem {
+  id: SystemId;
+  label: string;        // "MEDHIS · Phase 4"
+  shortLabel: string;
+  color: string;
+  version: string;
+}
+
 export interface FlowZone {
   id: string;
   label: string;
@@ -7,11 +17,15 @@ export interface FlowZone {
   color: string;
   borderColor: string;
   modules: string[];
+  band: 'top' | 'split' | 'full';
+  variant?: 'patient' | 'erp';
 }
 
 export interface FlowConnection {
   from: string;
   to: string;
+  kind?: 'in-system' | 'cross-system';
+  interfaceSlug?: string;
 }
 
 export interface FlowModule {
@@ -25,18 +39,58 @@ export interface FlowModule {
   primaryWorkflow: string[];
   connectedModules: string[];
   wikiUrl: string;
+  system: SystemId;
+  isNew?: boolean;
+  embeddedIn?: SystemId;
 }
 
-// ── 6 Department Zones ──────────────────────────────────────────────
+// ── Systems ─────────────────────────────────────────────────────────
+
+export const SYSTEMS: FlowSystem[] = [
+  {
+    id: 'medhis',
+    label: 'MEDHIS · Phase 4',
+    shortLabel: 'MEDHIS',
+    color: '#22c55e',
+    version: 'Phase 4 · Live 2025-10-20',
+  },
+  {
+    id: 'odoo',
+    label: 'Odoo Enterprise V16',
+    shortLabel: 'Odoo',
+    color: '#facc15',
+    version: 'Enterprise V16 · PostgreSQL 12.22',
+  },
+  {
+    id: 'patient-app',
+    label: 'หมอพระจอม · Flutter 3.29',
+    shortLabel: 'หมอพระจอม',
+    color: '#ec4899',
+    version: 'Flutter 3.29.2 · Play Store + App Store',
+  },
+];
+
+// ── 8 Zones: Patient touchpoints + 6 clinical + Back-office ─────────
 
 export const ZONES: FlowZone[] = [
+  {
+    id: 'patient-touchpoints',
+    label: 'Patient Touchpoints',
+    labelTh: 'จุดเข้าโรงพยาบาล',
+    color: '#ec4899',
+    borderColor: '#db2777',
+    modules: [],
+    band: 'top',
+    variant: 'patient',
+  },
   {
     id: 'registration',
     label: 'Registration',
     labelTh: 'ลงทะเบียน',
     color: '#3b82f6',
     borderColor: '#2563eb',
-    modules: ['registration', 'mrd'],
+    modules: ['registration', 'mrd', 'queue-management'],
+    band: 'full',
   },
   {
     id: 'outpatient',
@@ -44,7 +98,8 @@ export const ZONES: FlowZone[] = [
     labelTh: 'ผู้ป่วยนอก',
     color: '#22c55e',
     borderColor: '#16a34a',
-    modules: ['opd', 'emr-doctor', 'order-entry', 'anc'],
+    modules: ['opd', 'emr-doctor', 'order-entry', 'anc', 'telemedicine'],
+    band: 'split',
   },
   {
     id: 'emergency',
@@ -53,6 +108,7 @@ export const ZONES: FlowZone[] = [
     color: '#ef4444',
     borderColor: '#dc2626',
     modules: ['er'],
+    band: 'split',
   },
   {
     id: 'clinical',
@@ -61,6 +117,7 @@ export const ZONES: FlowZone[] = [
     color: '#a855f7',
     borderColor: '#9333ea',
     modules: ['lab', 'xray', 'pharmacy', 'or'],
+    band: 'split',
   },
   {
     id: 'inpatient',
@@ -69,6 +126,7 @@ export const ZONES: FlowZone[] = [
     color: '#f97316',
     borderColor: '#ea580c',
     modules: ['admission', 'ipd', 'labour-and-newborn', 'diet', 'cssd'],
+    band: 'split',
   },
   {
     id: 'discharge',
@@ -77,6 +135,17 @@ export const ZONES: FlowZone[] = [
     color: '#06b6d4',
     borderColor: '#0891b2',
     modules: ['billing', 'inventory'],
+    band: 'full',
+  },
+  {
+    id: 'back-office',
+    label: 'Back-office · Odoo ERP V16',
+    labelTh: 'สำนักงานหลัง · Odoo ERP V16',
+    color: '#facc15',
+    borderColor: '#ca8a04',
+    modules: ['odoo-finance', 'odoo-inventory', 'odoo-procurement'],
+    band: 'full',
+    variant: 'erp',
   },
 ];
 
