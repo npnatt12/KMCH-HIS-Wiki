@@ -209,3 +209,72 @@ tags:
 4. ยาบางประเภท (เช่น ยาเสพติด, ยาควบคุม) ต้องมี Supervisor อนุมัติ
 
 -> [อ่านเพิ่มเติม](/modules/pharmacy/)
+
+## ปัญหา UAT Phase 1–5 (TCK-001 lifecycle)
+
+### Medical Discharge ทำไม่ได้ — error ICD10ISMANDATORY
+
+**สาเหตุ:** ระบบเช็คฝั่ง server ว่ามี Diagnosis (ICD-10) บันทึกไว้กับการตรวจครั้งนี้หรือยัง ถ้าไม่มี จะ return HTTP 500 พร้อมรหัส `ERRORS.ICD10ISMANDATORYFORMEDICALDISCHARGE`
+
+**วิธีแก้:**
+1. กลับเข้า EMR ผ่าน Doctor Worklist (vm.openPatientEMRFromWorkbench) — อย่าใช้ back button
+2. เปิดแผง Diagnosis → กด **ICD 10 Browser**
+3. ค้นหาชื่อโรค (ภาษาอังกฤษหรือไทย) **ไม่ใช่รหัส**
+4. เลือกแล้ว **ต้องกด Add/Save อีกครั้ง** เพื่อให้บันทึกจริง (ดูปัญหาถัดไป)
+5. ลอง Medical Discharge อีกครั้ง
+
+-> [อ่านเพิ่มเติม](/concepts/medhis-server-side-gates/)
+
+### เลือก ICD ใน ICD 10 Browser แล้วไม่บันทึก
+
+**สาเหตุ:** การเลือกใน dialog (`vm.selectProblem`) แค่ resolve dialog promise ไม่ได้ persist ตัว diagnosis ไป server. ต้องเรียก `vm.addDiagnosisData(prob)` ของหน้าหลักเพื่อยิง `POST /emr/diagnosis/create`
+
+**วิธีแก้:**
+1. หลังเลือก ICD ใน dialog แล้ว ตรวจ list บนหน้า EMR Diagnosis ว่ามีรายการเพิ่มขึ้นหรือไม่
+2. ถ้าไม่มี กด Save / Add บนหน้าหลักอีกครั้ง
+3. Verify โดย `POST /emr/diagnosis/getdetails {patientvisituid}` — ต้องมี item ใน array
+
+-> [อ่านเพิ่มเติม](/concepts/icd-coding/)
+
+### หน้าจอล็อค Session locked — ทำไงต่อ
+
+**สาเหตุ:** ไม่ใช้งานนาน (~5 นาที) ระบบล็อค session อัตโนมัติ ข้อความ "Welcome back &lt;user&gt;. Your session is locked"
+
+**วิธีแก้:**
+1. **กรอก password ของผู้ใช้จริงเท่านั้น** — agent/ระบบอัตโนมัติห้ามพิมพ์ password
+2. หลัง re-auth สำเร็จ ข้อมูลฝั่ง server ยังอยู่ครบ (visit / EMR / orders ไม่หาย)
+3. โหลด worklist ใหม่ (vm.searchVisits + clickPatientAndSelect) เพื่อเริ่มต่อจากเดิม
+
+-> [อ่านเพิ่มเติม](/concepts/medhis-server-side-gates/)
+
+### ค่า 150 บาทมาจากไหน — ทั้งที่ไม่ได้สั่งอะไร
+
+**สาเหตุ:** ทุก visit OPD จะแนบรายการ `ค่าบริการผู้ป่วยนอก ในเวลาราชการ` (chargecode `55020`, item uid `6833e0e7c7a8b1000176354a`, 150 บาท) อัตโนมัติตอน visit creation **ไม่ว่าจะสั่ง order อะไรหรือไม่**
+
+**วิธีแก้:**
+1. ถ้าเจตนาคือบิลปกติ — ปล่อยไว้ ระบบคำนวณถูกแล้ว
+2. ถ้าเจตนาคือ free visit / ทดสอบ — ต้อง void / waive จาก [[OP Cashier Worklist]] หรือปรับ allocation
+3. รายการนี้บันทึกลง [[Generate Bill Screen]] เป็นบรรทัดที่อ่านได้
+
+-> [อ่านเพิ่มเติม](/entities/generate-bill-screen/)
+
+### Receipt RO26... คืออะไร — ออกที่ไหน
+
+**สาเหตุ:** เลขใบเสร็จ format `RO<YY><serial>` (Receipt OP, ปี พ.ศ. 2 หลักท้าย, serial 6 หลัก) ออกโดยอัตโนมัติเมื่อ `vm.settleBill()` สำเร็จบน [[Generate Bill Screen]]
+
+**วิธีแก้:**
+1. การ settle เป็น atomic action — ออกบิล + บันทึก payment + ออกใบเสร็จ + ส่ง Financial Discharge ในครั้งเดียว
+2. ถ้าต้องค้น receipt ภายหลัง: ใช้ `POST /billing/billsearch` ด้วย patientvisituid
+3. รูปแบบ Print preview เปิดอัตโนมัติ — ปิดเพื่อกลับไป Cashier Worklist
+
+-> [อ่านเพิ่มเติม](/workflows/op-billing-workflow/)
+
+### ค้นหา ICD ด้วยรหัส Z00.0 ไม่เจอ
+
+**สาเหตุ:** ระบบเก็บรหัส ICD-10 **ไม่มีจุด** — Z00.0 ถูกเก็บเป็น `Z000`. นอกจากนี้ endpoint `POST /clinicaldatamaster/problem/search` ค้นด้วย field `name` (ชื่อโรค) เท่านั้น ไม่ค้นด้วย `code`
+
+**วิธีแก้:**
+1. ค้นด้วยชื่อโรค ภาษาอังกฤษหรือไทย (เช่น "general medical examination" → Z000)
+2. ห้ามค้นด้วยรหัสในรูปแบบ `Z00.0` — ใช้ `Z000` หรือชื่อโรค
+
+-> [อ่านเพิ่มเติม](/concepts/icd-coding/)
