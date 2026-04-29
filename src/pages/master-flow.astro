@@ -137,6 +137,29 @@ function getZone(id: string) {
     .info-module-names h2 { font-size: 16px; font-weight: 700; color: #f1f5f9; margin: 0; }
     .info-module-names .name-th { font-size: 13px; color: #94a3b8; margin: 0; }
     .info-purpose { font-size: 13px; color: #cbd5e1; line-height: 1.6; }
+    .info-system-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #94a3b8;
+      padding-bottom: 8px;
+      margin-bottom: 4px;
+      border-bottom: 1px solid #334155;
+    }
+    .info-system-line .system-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .info-system-line.medhis .system-dot { background: #22c55e; }
+    .info-system-line.odoo .system-dot { background: #facc15; }
+    .info-system-line.patient-app .system-dot { background: #ec4899; }
+    .info-embedded-note {
+      font-size: 11.5px;
+      color: #cbd5e1;
+      font-style: italic;
+      padding: 4px 8px;
+      background: #33415544;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
     .info-section-title {
       font-size: 11px;
       font-weight: 700;
@@ -390,6 +413,16 @@ function getZone(id: string) {
     }
     .module-chip:hover { transform: translateY(-1px); }
     .module-chip.selected { border-color: #fff !important; }
+    .module-chip[data-system="odoo"] {
+      box-shadow: inset 4px 0 0 #facc15;
+    }
+    .module-chip[data-system="patient-app"] {
+      box-shadow: inset 4px 0 0 #ec4899;
+    }
+    .module-chip[data-new="true"] {
+      outline: 2px dashed #fde68a;
+      outline-offset: 2px;
+    }
     .module-chip-icon { font-size: 15px; }
 
     /* Split Row */
@@ -659,7 +692,7 @@ function getZone(id: string) {
                 {z.modules.map(slug => {
                   const m = moduleMap[slug];
                   return (
-                    <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                    <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                       <span class="module-chip-icon">{m.icon}</span>
                       {m.nameEn}
                     </button>
@@ -690,7 +723,7 @@ function getZone(id: string) {
                   {z.modules.map(slug => {
                     const m = moduleMap[slug];
                     return (
-                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                         <span class="module-chip-icon">{m.icon}</span>
                         {m.nameEn}
                       </button>
@@ -716,7 +749,7 @@ function getZone(id: string) {
                   {z.modules.map(slug => {
                     const m = moduleMap[slug];
                     return (
-                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                         <span class="module-chip-icon">{m.icon}</span>
                         {m.nameEn}
                       </button>
@@ -753,7 +786,7 @@ function getZone(id: string) {
                 {z.modules.map(slug => {
                   const m = moduleMap[slug];
                   return (
-                    <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                    <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                       <span class="module-chip-icon">{m.icon}</span>
                       {m.nameEn}
                     </button>
@@ -795,7 +828,7 @@ function getZone(id: string) {
                   {z.modules.map(slug => {
                     const m = moduleMap[slug];
                     return (
-                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                         <span class="module-chip-icon">{m.icon}</span>
                         {m.nameEn}
                       </button>
@@ -821,7 +854,7 @@ function getZone(id: string) {
                   {z.modules.map(slug => {
                     const m = moduleMap[slug];
                     return (
-                      <button class="module-chip" data-slug={slug} style={`background: ${z.color}33; color: ${z.color};`}>
+                      <button class="module-chip" data-slug={slug} data-system={m.system} data-new={m.isNew ? 'true' : 'false'} style={`background: ${z.color}33; color: ${z.color};`}>
                         <span class="module-chip-icon">{m.icon}</span>
                         {m.nameEn}
                       </button>
@@ -918,6 +951,11 @@ function getZone(id: string) {
               <p class="name-th" id="info-name-th"></p>
             </div>
           </div>
+          <div class="info-system-line" id="info-system-line">
+            <span class="system-dot"></span>
+            <span id="info-system-label"></span>
+          </div>
+          <div class="info-embedded-note" id="info-embedded-note" style="display:none"></div>
           <p class="info-purpose" id="info-purpose"></p>
 
           <div>
@@ -956,7 +994,7 @@ function getZone(id: string) {
     </div>
   </div>
 
-  <script define:vars={{ FLOW_MODULES, ZONES }}>
+  <script define:vars={{ FLOW_MODULES, ZONES, SYSTEMS, ENTRY_POINTS }}>
     // Build lookup
     const modulesBySlug = {};
     FLOW_MODULES.forEach(m => { modulesBySlug[m.slug] = m; });
@@ -998,6 +1036,25 @@ function getZone(id: string) {
       infoIcon.textContent = mod.icon;
       infoNameEn.textContent = mod.nameEn;
       infoNameTh.textContent = mod.nameTh;
+
+      // System line
+      const sys = SYSTEMS.find(s => s.id === mod.system);
+      const sysLine = document.getElementById('info-system-line');
+      const sysLabel = document.getElementById('info-system-label');
+      const embedNote = document.getElementById('info-embedded-note');
+      if (sys && sysLine && sysLabel) {
+        sysLine.className = 'info-system-line ' + sys.id;
+        sysLabel.textContent = sys.label;
+      }
+      if (embedNote) {
+        if (mod.embeddedIn) {
+          embedNote.style.display = 'block';
+          embedNote.textContent = 'แอปแพทย์ฝังใน MEDHIS · แอปคนไข้ = หมอพระจอม';
+        } else {
+          embedNote.style.display = 'none';
+        }
+      }
+
       infoPurpose.textContent = mod.purpose;
 
       // Key screens
