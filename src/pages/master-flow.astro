@@ -1,5 +1,5 @@
 ---
-import { ZONES, FLOW_MODULES, CONNECTIONS } from '../lib/hospital-flow-data';
+import { ZONES, FLOW_MODULES, CONNECTIONS, SYSTEMS, ENTRY_POINTS, INTERFACES } from '../lib/hospital-flow-data';
 
 // Build a lookup map for quick zone color access
 const zoneColorMap: Record<string, string> = {};
@@ -72,6 +72,27 @@ function getZone(id: string) {
       transition: background 0.15s;
     }
     .top-bar a:hover, .top-bar button:hover { background: #334155; }
+    .version-chips {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .version-chip {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 14px;
+      border: 1px solid #475569;
+      background: #1e293b;
+      color: #94a3b8;
+      white-space: nowrap;
+    }
+    .version-chip-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+    .version-chip.medhis { border-color: #22c55e; color: #86efac; }
+    .version-chip.medhis .version-chip-dot { background: #22c55e; }
+    .version-chip.odoo { border-color: #facc15; color: #fde68a; }
+    .version-chip.odoo .version-chip-dot { background: #facc15; }
+    .version-chip.patient-app { border-color: #ec4899; color: #fbcfe8; }
+    .version-chip.patient-app .version-chip-dot { background: #ec4899; }
     .btn-print { background: #1e3a5f !important; border-color: #3b82f6 !important; color: #93c5fd !important; }
 
     .main-content {
@@ -388,6 +409,15 @@ function getZone(id: string) {
       .flow-pill { font-size: 13px; padding: 8px 18px; }
     }
 
+    @media (max-width: 480px) {
+      .version-chip {
+        font-size: 0;
+        padding: 6px;
+        line-height: 0;
+      }
+      .version-chip-dot { margin-right: 0; }
+    }
+
     /* Mobile panel overlay backdrop */
     .panel-backdrop {
       display: none;
@@ -496,6 +526,13 @@ function getZone(id: string) {
     <!-- Top Bar -->
     <div class="top-bar">
       <h1>Master Hospital Flow — KMCH HIS</h1>
+      <div class="version-chips" aria-label="Systems">
+        {SYSTEMS.map(s => (
+          <span class={`version-chip ${s.id}`} title={s.version} aria-label={`${s.shortLabel} ${s.version}`}>
+            <span class="version-chip-dot"></span>{s.label}
+          </span>
+        ))}
+      </div>
       <div class="top-bar-actions">
         <button class="btn-print" onclick="window.print()">Print A3 Poster</button>
         <a href="/">Back to Wiki</a>
