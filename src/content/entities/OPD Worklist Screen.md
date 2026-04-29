@@ -3,10 +3,10 @@ title: OPD Worklist Screen
 type: entity
 sources: ["3.MEDHIS_Manual_OPD V.1.docx"]
 created: 2026-04-08
-updated: 2026-04-09
+updated: 2026-04-29
 tags: [entity, screen, opd]
 roles: [NurseOPD]
-verified-on-uat: pending
+verified-on-uat: 2026-04-29
 ---
 
 # OPD Worklist Screen
@@ -129,3 +129,14 @@ OPD → OPD Worklist
 - [OPD Patient Flow](/workflows/opd-patient-flow/) — workflow
 - [OPD Patient Status](/concepts/opd-patient-status/) — 8 สถานะ
 - [OPD Screening Screen](/entities/opd-screening-screen/) — หน้าจอ Vital Signs / Charting
+
+## UAT Verification (Phase 1–2, 2026-04-29)
+
+Source: TCK-001 walkthrough Phases 1–2, see `uat-recon/agent-uat-handoff` §2, §5 Recipe Phase 2.
+
+| Wiki claim | UAT observation | Resolution |
+|---|---|---|
+| Status sub-lanes for `Screening Completed` exist | UAT keeps `Screening Completed` inside `INPROGRESS` lane; the visibility flip surface is [Doctor Worklist Screen](/entities/doctor-worklist-screen/) OutPatients box | This page describes lanes correctly above; cross-link added |
+| Row autocomplete inputs are clickable | Autocomplete inputs (department, careprovider) cannot be reliably driven via UI clicks — set scope vm fields directly (`vm.selecteddept`, `vm.selectedcareprovider`) and call `vm.searchVisits(true)` | Documented in `uat-recon/agent-uat-handoff` §2 |
+| Action toolbar fully UI-clickable | Buttons like `Charting`, `Assign Careprovider`, `View EMR` ARE clickable. The Visit Details *autocomplete* inputs inside dialogs are not. | Confirmed; selector cheatsheet in handoff §2.6 |
+| Browser back navigation works | Triggers security-policy modal — see [MEDHIS Server-Side Gates](/concepts/medhis-server-side-gates/#browser-back-navigation-security-policy-popup) | Use `$state.go()` |

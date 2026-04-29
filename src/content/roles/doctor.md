@@ -5,7 +5,7 @@ role-id: Doctor
 icon: stethoscope
 accent: '#C2362F'
 created: 2026-04-27
-updated: 2026-04-27
+updated: 2026-04-29
 verified-on-uat: pending
 status: tier-1
 tags: [role, clinical]
@@ -26,14 +26,17 @@ tags: [role, clinical]
 ## Reference screens
 
 - [Doctor Worklist Screen](/entities/doctor-worklist-screen/) — Dashboard, 10 boxes
+- [OPD EMR Landing](/entities/opd-emr-landing/) — 19-entry EMR hub (right-side menu)
 - [EMR Form Screen](/entities/emr-form-screen/) — 11 record sections, Vital Signs 3 views
 - [Order Entry Screen](/entities/order-entry-screen/) — CPOE, 7 tabs, 11 drug alerts
 - [Drug Alert Popup](/entities/drug-alert-popup/) — 11 alert types
 - [Patient Banner](/entities/patient-banner/) — VIP/Anonymous/Interpreter, vitals, allergies
+- [Tasks Panel](/entities/tasks-panel/) — order non-billable nursing tasks
+- [Allergies Panel](/entities/allergies-panel/) — NKDA fast-path
 
 ## Permissions
 
-See _role-permission-matrix for the full screen × action matrix. Highlights:
+See the role-permission matrix for the full screen × action matrix. Highlights:
 - **Read+Write:** Doctor Worklist, EMR Form, Order Entry, Consult, Admit, Refer, Medical Certificate
 - **Read-only:** Lab Result, XRAY Report, Pharmacy Dispensing (their orders)
 - **Hidden:** OR Schedule book, Inventory, Diet Order, CSSD Request
@@ -44,3 +47,5 @@ See _role-permission-matrix for the full screen × action matrix. Highlights:
 - [Order Types](/concepts/order-types/)
 - [Drug Alert Types](/concepts/drug-alert-types/)
 - [Lab and Radiology Order Status](/concepts/lab-and-radiology-order-status/)
+- [ICD Coding](/concepts/icd-coding/) — no-period rule + ICD 10 Browser silent-no-op pitfall
+- [MEDHIS Server-Side Gates](/concepts/medhis-server-side-gates/) — server-side validation blockers (ICD10ISMANDATORY, idle session lock, etc.)

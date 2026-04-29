@@ -3,10 +3,10 @@ title: OPD Patient Flow
 type: workflow
 sources: ["3.MEDHIS_Manual_OPD V.1.docx"]
 created: 2026-04-08
-updated: 2026-04-09
+updated: 2026-04-29
 tags: [workflow, opd, patient-flow]
 roles: [NurseOPD]
-verified-on-uat: pending
+verified-on-uat: 2026-04-29
 ---
 
 # ขั้นตอนการรับบริการผู้ป่วยนอก (OPD Patient Flow)
@@ -148,3 +148,38 @@ OPD Worklist → Click ผู้ป่วย → Visit Details → **Patient Tra
 กรณี Admit: [OPD](/modules/opd/) → [Admission](/modules/admission/) → [IPD](/modules/ipd/)
 
 กรณี Consult: [OPD](/modules/opd/) → [OPD](/modules/opd/) (REFERRALS tab ของแผนกรับ)
+
+## UAT Verification (Phase 1–5, 2026-04-29)
+
+Source: TCK-001 walkthrough Phases 1–5, see `uat-recon/agent-uat-handoff`.
+
+### Step 4 — Consultation Started (clarification)
+
+The wiki line "แพทย์ Click เริ่มตรวจ" omits a prerequisite. The doctor must first **toggle the `Consultation` md-icon** on the action bar (`onConsultationClick()`) — without the toggle, the `START` button is not in the DOM. After toggle:
+
+1. Pre-flight: `POST /mpi/patientvisit/isopdvisitclosed`
+2. `vm.startConsultation()`
+3. `POST /mpi/patientvisit/logvisitjourney` with `statusuid: VSTSTS4`
+
+See [Doctor Worklist Screen](/entities/doctor-worklist-screen/#uat-verification) and [OPD EMR Landing](/entities/opd-emr-landing/).
+
+### Step 6 — Medical Discharge (server-side ICD-10 gate)
+
+Pressing Medical Discharge **fails with HTTP 500 `ERRORS.ICD10ISMANDATORYFORMEDICALDISCHARGE`** if no diagnosis row exists on the visit. See [MEDHIS Server-Side Gates](/concepts/medhis-server-side-gates/#errorsicd10ismandatoryformedicaldischarge).
+
+Pre-flight before pressing discharge:
+
+```js
+POST /emr/diagnosis/getdetails {patientvisituid}
+// Empty diagnosis: [] array means the discharge will be rejected.
+```
+
+To persist a diagnosis correctly, see [ICD Coding](/concepts/icd-coding/#rule-2-selectproblem-is-not-the-same-as-save). The fix is `vm.addDiagnosisData(prob)`, which fires `POST /emr/diagnosis/create`.
+
+### Auto-attached service charge
+
+Every OPD visit gets `ค่าบริการผู้ป่วยนอก ในเวลาราชการ` (chargecode `55020`, item uid `6833e0e7c7a8b1000176354a`, **150 baht**) attached at visit creation regardless of orders placed. Even a fake patient incurs this 150-baht line if it walks the OP loop. See [Generate Bill Screen](/entities/generate-bill-screen/#auto-attached-service-charge).
+
+### Idle session lock
+
+If the operator (or agent) is idle for ~5 minutes, MEDHIS shows a session-locked modal. See [MEDHIS Server-Side Gates](/concepts/medhis-server-side-gates/#idle-session-lock) for recovery. Server state is durable; only Angular scope is lost.

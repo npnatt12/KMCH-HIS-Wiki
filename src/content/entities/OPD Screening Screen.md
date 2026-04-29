@@ -3,10 +3,10 @@ title: OPD Screening Screen
 type: entity
 sources: ["3.MEDHIS_Manual_OPD V.1.docx"]
 created: 2026-04-09
-updated: 2026-04-09
+updated: 2026-04-29
 tags: [entity, screen, opd, screening]
 roles: [NurseOPD]
-verified-on-uat: pending
+verified-on-uat: 2026-04-29
 ---
 
 # OPD Screening Screen (หน้าจอคัดกรองผู้ป่วยนอก)
@@ -37,7 +37,11 @@ OPD → OPD Worklist → Click ผู้ป่วย (Status: Registered) → Vi
 
 | Field | ประเภท | Description |
 |-------|--------|-------------|
-| ค่า Vital Signs ต่างๆ | Number | BT, PR, RR, BP, SpO2 ฯลฯ (ตามที่ตั้งค่าระบบ) |
+| Ht / Wt / BMI / BSA / MAP | Number (auto-calc) | Height + Weight entered, BMI / BSA / MAP auto-computed and saved |
+| BT / PR / RR / BP / SpO2 | Number | Body temp / Pulse / Respiration / Blood pressure / O2 saturation |
+| รอบศีรษะ / รอบอก / รอบท้อง / รอบเอว | Number | Anthropometric measurements (cm) |
+| LMP | Date | Last menstrual period (when applicable) |
+| Pain Score | Number 0–10 | Pain assessment |
 
 **หลังบันทึก:** ข้อมูล Vital Signs แสดงใน:
 - EMR → ส่วน **Observation**
@@ -78,3 +82,39 @@ OPD → OPD Worklist → Click ผู้ป่วย (Status: Registered) → Vi
 - [OPD Worklist Screen](/entities/opd-worklist-screen/) — หน้าจอหลัก OPD
 - [Patient Banner](/entities/patient-banner/) — แสดง Vital Signs หลังบันทึก
 - [OPD Patient Status](/concepts/opd-patient-status/) — 8 สถานะผู้ป่วยนอก
+
+## UAT Verification (Phase 2, 2026-04-29)
+
+Source: TCK-001 walkthrough Phase 2, see `uat-recon/agent-uat-handoff` §5 Recipe Phase 2.
+
+### Other Charting Panels exposed at KMCH
+
+In addition to `Vital Sign Chart`, the CHARTING PANELS list includes 14 cross-cutting charts. None are mandatory for a baseline OPD visit; populate as clinical context dictates.
+
+| Panel | Use |
+|---|---|
+| NIHSS | Stroke severity |
+| MEWS | Modified Early Warning Score |
+| PEWS | Pediatric Early Warning Score |
+| M-CHAT | Modified Checklist for Autism in Toddlers |
+| Modified Barthel Index | ADL assessment |
+| Pain Management | Pain follow-up |
+| Malnutrition | Nutrition screening |
+| Intake-Output | Fluid balance |
+| Stroke Assessment | Stroke neuro check |
+| Knee Assessment | Orthopedic |
+| OSA | Obstructive sleep apnea |
+| (additional KMCH-specific) | (per dept SOP) |
+
+### Post-save behavior
+
+After `vm.saveData()` succeeds, the toast `Charting Saved successfully` appears. The Charting screen does **not** auto-navigate to EMR; the operator returns to the [OPD Worklist Screen](/entities/opd-worklist-screen/) via `$state.go('triangular.opdworkbench.patientlist')` to continue the flow.
+
+### Status transition sequence
+
+The full nurse-side sequence verified:
+
+1. `Registered → Arrived` via `vm.patientTracking({_id: VSTSTS2})`
+2. Charting save (Vital Signs)
+3. Assign Careprovider via dialog scope (cannot be driven by autocomplete UI; see handoff §2.4)
+4. `Arrived → Screening Completed` via `vm.patientTracking({_id: VSTSTS3})`

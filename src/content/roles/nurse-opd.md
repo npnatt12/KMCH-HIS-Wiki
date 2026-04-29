@@ -5,7 +5,7 @@ role-id: NurseOPD
 icon: clipboard-list
 accent: '#E87D2C'
 created: 2026-04-27
-updated: 2026-04-27
+updated: 2026-04-29
 verified-on-uat: pending
 status: tier-1
 tags: [role, clinical, nursing]
@@ -27,10 +27,13 @@ tags: [role, clinical, nursing]
 - [OPD Screening Screen](/entities/opd-screening-screen/) — Vital Signs entry, status transitions
 - [Patient Banner](/entities/patient-banner/)
 - [Lab Specimen Collection Screen](/entities/lab-specimen-collection-screen/)
+- [Tasks Panel](/entities/tasks-panel/) — bulk task execution modal (order execution / nursing tasks)
+- [Allergies Panel](/entities/allergies-panel/) — NKDA one-click button (EMR support during screening)
+- [OP Cashier Worklist](/entities/op-cashier-worklist/) — discharge handoff target for billing
 
 ## Permissions
 
-See _role-permission-matrix. Highlights:
+See the role-permission matrix. Highlights:
 - **Read+Write:** OPD Worklist, OPD Screening (vitals), Lab Specimen Collection
 - **Read-only:** EMR Form, Order Entry, Appointment list
 - **Hidden:** Order Entry write, Pharmacy Dispense
@@ -40,3 +43,4 @@ See _role-permission-matrix. Highlights:
 - [OPD Patient Status](/concepts/opd-patient-status/)
 - [Visit Types](/concepts/visit-types/)
 - [Appointment System](/concepts/appointment-system/)
+- [MEDHIS Server-Side Gates](/concepts/medhis-server-side-gates/) — non-obvious server-side blockers across the OPD lifecycle

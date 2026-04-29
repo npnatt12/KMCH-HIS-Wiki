@@ -3,10 +3,10 @@ title: OPD Doctor EMR Workflow
 type: workflow
 sources: ["17.MEDHIS Manual_EMR_Doctor V.2.docx"]
 created: 2026-04-09
-updated: 2026-04-09
+updated: 2026-04-29
 tags: [workflow, emr, doctor, opd, consultation]
 roles: [Doctor]
-verified-on-uat: pending
+verified-on-uat: 2026-04-29
 ---
 
 # OPD Doctor EMR Workflow — กระบวนการตรวจรักษาผู้ป่วยนอก
@@ -146,3 +146,40 @@ Registered
 - [XRAY](/modules/xray/) — รับคำสั่ง Radiology
 - [Admission](/modules/admission/) — ขอ Admit
 - [Billing](/modules/billing/) — Financial Discharge
+
+## UAT Verification (Phase 3, 2026-04-29)
+
+Source: TCK-001 walkthrough Phase 3, see `uat-recon/agent-uat-handoff` §3.6, §5 Recipe Phase 3.
+
+### CC / PI auto-save (debounced)
+
+Chief Complaints (`cchpiMain.chiefcomplaint`) and Present Illness (`cchpiMain.presentillness`) bound `ng-model` fields are **debounced auto-save** — there is no Save button. Each ~800ms quiet period after typing fires `POST /emr/cchpi/createorupdate` with `cconly:true` (CC) or `hpionly:true` (PI). The visible confirmation is an inline `Last Updated <timestamp>` line below the field.
+
+Implication: do not look for a Save button on these panels.
+
+### ICD 10 Browser silent-no-op pitfall
+
+Selecting a problem in the ICD 10 Browser dialog (`vm.selectProblem(prob)`) **only resolves the dialog promise**. The parent `mdSelectedItemChange()` handler runs but does not persist. To persist server-side, the parent must call `vm.addDiagnosisData(prob)` which fires `POST /emr/diagnosis/create`.
+
+Without this, the diagnosis is never created and Medical Discharge will fail with `ERRORS.ICD10ISMANDATORYFORMEDICALDISCHARGE`. See [ICD Coding](/concepts/icd-coding/) and [MEDHIS Server-Side Gates](/concepts/medhis-server-side-gates/#errorsicd10ismandatoryformedicaldischarge).
+
+### Past / Family / Personal History / Examination / Doctor Notes — coded autocomplete
+
+These EMR text panels use **coded-disease autocomplete**, not free text. Scope fields:
+
+- `autocompleteData.searchOption` (Smart Search / specific schemes)
+- `autocompleteData.codingschemeuid` (which coding scheme to query)
+
+The wiki's older free-text description is incorrect for these panels (Doctor Notes may be the exception — not exercised in UAT).
+
+### Diagnosis dialog feature flag
+
+`diagnosisPopup` is gated by `EMR_CHRONIC_DISEASE_DIALOG`. KMCH UAT has this flag **disabled**. Use the in-panel `<button aria-label="ICD 10 Browser" ng-click="showIcd10Browser()">` instead.
+
+### Allergies fast-path
+
+`NKDA` is a one-click button that fires `POST /emr/drugalergy/setnoknownallergies`. See [Allergies Panel](/entities/allergies-panel/).
+
+### Tasks bulk update
+
+Bulk Tasks update via the modal `vm.updateTasks()` is the canonical path, not click-execute-per-row. See [Tasks Panel](/entities/tasks-panel/).

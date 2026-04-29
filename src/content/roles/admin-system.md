@@ -5,7 +5,7 @@ role-id: AdminSystem
 icon: settings
 accent: '#6E665C'
 created: 2026-04-27
-updated: 2026-04-27
+updated: 2026-04-29
 verified-on-uat: pending
 status: tier-2-pending
 tags: [role, admin]
@@ -34,6 +34,8 @@ tags: [role, admin]
 - [Patient Demographics Screen](/entities/patient-demographics-screen/)
 - [MRD Worklist Screen](/entities/mrd-worklist-screen/)
 - [Billing Settlement Screen](/entities/billing-settlement-screen/)
+- [OP Cashier Worklist](/entities/op-cashier-worklist/) — billing intake screen (`triangular.cashierworklist`)
+- [Generate Bill Screen](/entities/generate-bill-screen/) — atomic settle action for self-pay (`vm.settleBill()`)
 - [Inventory Receive Screen](/entities/inventory-receive-screen/)
 - [Inventory Transfer Screen](/entities/inventory-transfer-screen/)
 - [Diet Order Entry Screen](/entities/diet-order-entry-screen/)
@@ -41,10 +43,11 @@ tags: [role, admin]
 
 ## Permissions
 
-See _role-permission-matrix (populated in Phase 5).
+See the role-permission matrix (populated in Phase 5).
 
 ## Concepts to know
 
 - [Payor and Treatment Rights](/concepts/payor-and-treatment-rights/)
 - [Patient Types](/concepts/patient-types/)
 - [Payment Modes](/concepts/payment-modes/)
+- [MEDHIS Server-Side Gates](/concepts/medhis-server-side-gates/) — non-obvious server-side blockers (GL coverage, idle session lock, isopdvisitclosed)

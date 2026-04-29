@@ -3,10 +3,10 @@ title: OPD Patient Status
 type: concept
 sources: ["3.MEDHIS_Manual_OPD V.1.docx"]
 created: 2026-04-08
-updated: 2026-04-08
+updated: 2026-04-29
 tags: [concept, opd, status, patient-flow]
 roles: [NurseOPD]
-verified-on-uat: pending
+verified-on-uat: 2026-04-29
 ---
 
 # OPD Patient Status (สถานะผู้ป่วยนอก)
@@ -31,6 +31,43 @@ The MEDHIS reference domain API at `/framework/referencedomain/getrefdomains/[VS
 | 10 | Financial Discharge | VSTSTS7 | F | ✓ |
 | — | Triaged | VSTSTS11 | T | **✗ NEW (ER context)** |
 | — | Urgent | VSTSTS12 | U | **✗ NEW (ER context)** |
+
+## Status `_id` ↔ valuecode mapping (Phase 1–5 UAT-verified)
+
+The MongoDB `_id` per status, captured live from `$rootScope` on the UAT server (2026-04-29):
+
+| Code | `_id` | Display | Lane | Phase 1–5 exercised |
+|---|---|---|---|---|
+| VSTSTS1 | `5784c4d032f3003ef802ae15` | Registered | REGISTERED | ✅ |
+| VSTSTS2 | `5784c4d032f3003ef802ae16` | Arrived | INPROGRESS | ✅ |
+| VSTSTS3 | `5784c4d032f3003ef802ae17` | Screening Completed | INPROGRESS | ✅ |
+| VSTSTS4 | `5784c4d032f3003ef802ae18` | Consultation Started | INPROGRESS | ✅ |
+| VSTSTS5 | `5784c4d032f3003ef802ae19` | Consultation Completed | INPROGRESS | ✅ |
+| VSTSTS6 | `5784c4d032f3003ef802ae1b` | Medical Discharge | DISCHARGED | ✅ (server-side ICD gate, see [MEDHIS Server-Side Gates](/concepts/medhis-server-side-gates/)) |
+| VSTSTS7 | (in `vm.financialDischargeStatusUid`) | Financial Discharge | DISCHARGED | ✅ |
+| VSTSTS8 | `57c4446aa454a0ba852ce690` | Billing Inprogress | DISCHARGED | ✅ |
+| VSTSTS9 | `57c6712c4f362d6b9c5ef09e` | Under Observation | INPROGRESS | ⏳ not yet exercised |
+| VSTSTS10 | (TBD on UAT) | Bill Finalized | DISCHARGED | ⏳ not yet exercised |
+| VSTSTS11 | `5a0ac84700d17a9459beab28` | Triaged | INPROGRESS | 🔵 ER-context |
+| VSTSTS12 | `6489a121db4cede700dee2be` | Urgent | INPROGRESS | 🔵 ER-context |
+
+## Phase 1–5 verified flow (TCK-001)
+
+The OP self-pay flow exercised on TCK-001 produced 9 journey rows in this order:
+
+1. Registered (Phase 1)
+2. Arrived (Phase 1)
+3. Arrived (re-emit on careprovider claim, Phase 2)
+4. Screening Completed (Phase 2)
+5. Consultation Started (Phase 3)
+6. Consultation Completed (Phase 3)
+7. Medical Discharge (Phase 5a — gated by ICD-10 server-side check)
+8. Billing Inprogress (Phase 5b — from Cashier Worklist Lock)
+9. Financial Discharge (Phase 5e — auto-emitted by `vm.settleBill()`)
+
+Bill Finalized (VSTSTS10) and Under Observation (VSTSTS9) were **not** exercised. They remain candidates for future UAT chunks.
+
+For the user-driven flow, see [OPD Patient Flow](/workflows/opd-patient-flow/). For the cashier-side flow, see [OP Billing Workflow](/workflows/op-billing-workflow/).
 
 **Action items for this wiki:**
 - Confirm whether `Under Observation` (VSTSTS9) and `Bill Finalized` (VSTSTS10) are part of the standard OPD flow at KMCH or specific to other workflows

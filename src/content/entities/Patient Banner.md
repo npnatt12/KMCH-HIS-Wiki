@@ -3,10 +3,10 @@ title: Patient Banner
 type: entity
 sources: ["2.MEDHIS Manual_Registration V.2.docx"]
 created: 2026-04-08
-updated: 2026-04-08
+updated: 2026-04-29
 tags: [entity, ui, patient]
 roles: [Doctor, NurseIPD, NurseOPD, NurseOR, Pharmacist, XRayTech]
-verified-on-uat: pending
+verified-on-uat: 2026-04-29
 ---
 
 # Patient Banner
@@ -29,3 +29,11 @@ verified-on-uat: pending
 
 - [Patient Types](/concepts/patient-types/) — VIP, Anonymous, Interpreter flags
 - [Registration](/modules/registration/) — กำหนดค่าใน Additional Detail
+
+## UAT Verification (Phase 2, 2026-04-29)
+
+Source: TCK-001 walkthrough Phase 2, see `uat-recon/agent-uat-handoff` §5 Recipe Phase 2.
+
+After [OPD Screening Screen](/entities/opd-screening-screen/) save (`vm.saveData()` on the Charting panel), the Patient Banner reflects the saved Vital Signs (Ht, Wt, BMI, BSA, BT, PR, RR, BP, SpO2, MAP) on every subsequent page that renders the banner — confirmed across [OPD Worklist Screen](/entities/opd-worklist-screen/), [OPD EMR Landing](/entities/opd-emr-landing/), and [Doctor Worklist Screen](/entities/doctor-worklist-screen/).
+
+The banner is read-only on these pages; edits happen in [OPD Screening Screen](/entities/opd-screening-screen/).
