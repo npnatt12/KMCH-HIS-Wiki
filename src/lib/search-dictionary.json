@@ -151,6 +151,46 @@
     {
       "match": "opd patient status|สถานะผู้ป่วย opd",
       "terms": ["opd patient status", "สถานะผู้ป่วย opd", "status flow"]
+    },
+    {
+      "match": "icd10ismandatory|ICD10ISMANDATORY|วินิจฉัยจำเป็น|ICD-10 mandatory|มันดาทอรี",
+      "terms": ["ICD10 mandatory", "วินิจฉัยจำเป็นก่อนจำหน่าย", "Medical Discharge ทำไม่ได้", "diagnosis missing block", "ERRORS.ICD10ISMANDATORYFORMEDICALDISCHARGE"]
+    },
+    {
+      "match": "Z000|Z00\\.0|ICD ไม่มีจุด|period|จุด|no period",
+      "terms": ["Z000", "ICD code no period", "ICD ไม่มีจุด", "search by name not code", "general medical examination", "Z00.0"]
+    },
+    {
+      "match": "cashier worklist|cashierworklist|MEDICAL DISCHARGES tab|op cashier|แคชเชียร์",
+      "terms": ["op cashier worklist", "cashier worklist", "MEDICAL DISCHARGES tab", "lock visit", "billing inprogress"]
+    },
+    {
+      "match": "generate bill|generatebill|settle|RO\\d+|receipt no|ใบเสร็จ",
+      "terms": ["generate bill", "settle bill", "receipt", "RO26", "self-pay receipt", "atomic settle", "ใบเสร็จ OP"]
+    },
+    {
+      "match": "auto charge|150 baht|55020|ค่าบริการผู้ป่วยนอก|ค่าบริการอัตโนมัติ",
+      "terms": ["auto charge", "150 baht", "OPD service charge", "ค่าบริการผู้ป่วยนอก", "chargecode 55020", "automatic OPD fee"]
+    },
+    {
+      "match": "session locked|locked session|กลับเข้าระบบ|หน้าจอล็อค|idle timeout",
+      "terms": ["session locked", "locked session", "หน้าจอล็อค", "idle timeout", "re-authenticate", "session lock recovery"]
+    },
+    {
+      "match": "back button|security policy|navigation policy|ปุ่ม back",
+      "terms": ["back button blocked", "security policy popup", "navigation policy", "use state.go", "ปุ่ม back ใช้ไม่ได้"]
+    },
+    {
+      "match": "start consultation|END consultation|consultation toggle|md-icon consultation|เริ่มตรวจ|สิ้นสุดการตรวจ",
+      "terms": ["start consultation", "end consultation", "consultation toggle", "doctor START button", "doctor END button", "เริ่มตรวจปุ่ม"]
+    },
+    {
+      "match": "nkda|no known allergy|ไม่แพ้ยา|noknownallergies",
+      "terms": ["NKDA", "no known drug allergies", "ไม่แพ้ยา", "allergies fast-path"]
+    },
+    {
+      "match": "bulk update tasks|updateTasks|task execute|TASK004|update tasks modal",
+      "terms": ["bulk task update", "execute tasks", "update tasks modal", "task status bulk", "executed status"]
     }
   ]
 }
