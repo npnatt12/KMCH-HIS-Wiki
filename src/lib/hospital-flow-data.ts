@@ -70,6 +70,49 @@ export const SYSTEMS: FlowSystem[] = [
   },
 ];
 
+// ── Entry Points (patient-side actors) ──────────────────────────────
+
+export interface FlowEntryPoint {
+  slug: string;
+  nameEn: string;
+  nameTh: string;
+  icon: string;
+  system: SystemId | 'external';
+  description: string;
+  externalLinks?: { label: string; url: string }[];
+}
+
+export const ENTRY_POINTS: FlowEntryPoint[] = [
+  {
+    slug: 'mophrachom-app',
+    nameEn: 'หมอพระจอม Mobile App',
+    nameTh: 'แอปหมอพระจอม',
+    icon: '📱',
+    system: 'patient-app',
+    description: 'ผู้ป่วยจองและคุยกับแพทย์ผ่านแอป Flutter — เชื่อมตรงกับ Telemedicine module ใน MEDHIS',
+    externalLinks: [
+      { label: 'Google Play', url: 'https://play.google.com/store/apps/details?id=th.kmutnb.kmch.telemed' },
+      { label: 'App Store', url: 'https://apps.apple.com/th/app/หมอพระจอม/id6473001234' },
+    ],
+  },
+  {
+    slug: 'walk-in',
+    nameEn: 'Walk-in',
+    nameTh: 'เดินมาเอง',
+    icon: '🚶',
+    system: 'external',
+    description: 'ผู้ป่วยมารับบริการที่โรงพยาบาลโดยตรง',
+  },
+  {
+    slug: 'phone-booking',
+    nameEn: 'Phone Booking',
+    nameTh: 'จองทางโทรศัพท์',
+    icon: '📞',
+    system: 'external',
+    description: 'ผู้ป่วยโทรศัพท์มาจองคิว เจ้าหน้าที่ลงทะเบียนให้',
+  },
+];
+
 // ── 8 Zones: Patient touchpoints + 6 clinical + Back-office ─────────
 
 export const ZONES: FlowZone[] = [

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ZONES, FLOW_MODULES, SYSTEMS } from '../hospital-flow-data';
+import { ZONES, FLOW_MODULES, SYSTEMS, ENTRY_POINTS } from '../hospital-flow-data';
 
 test('every module slug listed in a zone exists in FLOW_MODULES', () => {
   const moduleSlugs = new Set(FLOW_MODULES.map(m => m.slug));
@@ -43,4 +43,21 @@ test('exactly 8 zones (6 clinical + patient-touchpoints + back-office)', () => {
   const ids = ZONES.map(z => z.id);
   assert.ok(ids.includes('patient-touchpoints'));
   assert.ok(ids.includes('back-office'));
+});
+
+test('ENTRY_POINTS contains 3 entries: mophrachom-app, walk-in, phone-booking', () => {
+  const slugs = ENTRY_POINTS.map(e => e.slug).sort();
+  assert.deepEqual(slugs, ['mophrachom-app', 'phone-booking', 'walk-in']);
+});
+
+test('every entry-point externalLink is https://', () => {
+  for (const ep of ENTRY_POINTS) {
+    if (!ep.externalLinks) continue;
+    for (const link of ep.externalLinks) {
+      assert.ok(
+        link.url.startsWith('https://'),
+        `Entry point "${ep.slug}" has non-https link: ${link.url}`,
+      );
+    }
+  }
 });
