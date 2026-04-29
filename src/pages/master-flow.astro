@@ -501,7 +501,8 @@ function getZone(id: string) {
 
       .zone-box { max-width: 100%; min-width: 0; }
 
-      .module-chip { font-size: 12px; padding: 6px 10px; }
+      .module-chip { font-size: 12px; padding: 11px 12px; min-height: 44px; }
+      .entry-point-chip { font-size: 12px; padding: 11px 12px; min-height: 44px; }
 
       .flow-decision { padding: 10px 18px; font-size: 13px; }
 
@@ -595,6 +596,12 @@ function getZone(id: string) {
       .flow-pill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .zone-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .module-chip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .version-chips { display: none !important; }
+      .entry-point-chip { -webkit-print-color-adjust: exact; print-color-adjust: exact; border-color: #1e293b; }
+      .interface-chip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .flow-cross-line { border-color: #94a3b8 !important; }
+      .zone-box.variant-patient,
+      .zone-box.variant-erp { border-style: dashed !important; }
       .flow-decision { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       .flow-arrow { color: #94a3b8; }
       .flow-arrow-line { background: #94a3b8; }
@@ -927,6 +934,13 @@ function getZone(id: string) {
             <div class="print-legend-item">
               <div class="print-legend-dot" style={`background: ${z.color};`}></div>
               <span>{z.label} ({z.labelTh})</span>
+            </div>
+          ))}
+          <div class="print-legend-item" style="font-weight:700;">| Systems:</div>
+          {SYSTEMS.map(s => (
+            <div class="print-legend-item">
+              <div class="print-legend-dot" style={`background: ${s.color};`}></div>
+              <span>{s.shortLabel}</span>
             </div>
           ))}
         </div>
