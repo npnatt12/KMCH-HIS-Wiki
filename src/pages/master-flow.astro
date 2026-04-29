@@ -126,6 +126,7 @@ function getZone(id: string) {
     .info-default .hint-icon { font-size: 36px; margin-bottom: 10px; }
     .info-module { display: none; }
     .info-module.active { display: flex; flex-direction: column; gap: 14px; }
+    .info-entrypoint { display: flex; flex-direction: column; gap: 14px; }
     .info-module-header {
       display: flex;
       align-items: center;
@@ -978,6 +979,26 @@ function getZone(id: string) {
           </a>
         </div>
 
+        <!-- Entry-point variant (touchpoint actor) -->
+        <div class="info-entrypoint" id="info-entrypoint" style="display:none">
+          <div class="info-module-header">
+            <span class="info-module-icon" id="info-ep-icon"></span>
+            <div class="info-module-names">
+              <h2 id="info-ep-name-en"></h2>
+              <p class="name-th" id="info-ep-name-th"></p>
+            </div>
+          </div>
+          <div class="info-system-line" id="info-ep-system-line">
+            <span class="system-dot"></span>
+            <span id="info-ep-system-label"></span>
+          </div>
+          <p class="info-purpose" id="info-ep-description"></p>
+          <div id="info-ep-links-section" style="display:none">
+            <div class="info-section-title">Download</div>
+            <div class="info-connected" id="info-ep-links"></div>
+          </div>
+        </div>
+
         <!-- Legend (always at bottom) -->
         <div class="legend">
           <div class="legend-title">Zone Legend</div>
@@ -1018,11 +1039,69 @@ function getZone(id: string) {
 
     let selectedSlug = null;
 
+    function showEntryPoint(slug) {
+      const ep = ENTRY_POINTS.find(e => e.slug === slug);
+      if (!ep) return;
+
+      // Update selected state
+      document.querySelectorAll('.module-chip, .entry-point-chip').forEach(el => {
+        el.classList.toggle(
+          'selected',
+          el.getAttribute('data-entrypoint') === slug,
+        );
+      });
+
+      infoDefault.style.display = 'none';
+      infoModule.classList.remove('active');
+      const epPanel = document.getElementById('info-entrypoint');
+      if (epPanel) epPanel.style.display = 'flex';
+
+      document.getElementById('info-ep-icon').textContent = ep.icon;
+      document.getElementById('info-ep-name-en').textContent = ep.nameEn;
+      document.getElementById('info-ep-name-th').textContent = ep.nameTh;
+      document.getElementById('info-ep-description').textContent = ep.description;
+
+      const sysLine = document.getElementById('info-ep-system-line');
+      const sysLabel = document.getElementById('info-ep-system-label');
+      if (ep.system === 'external') {
+        sysLine.className = 'info-system-line';
+        sysLine.querySelector('.system-dot').style.background = '#94a3b8';
+        sysLabel.textContent = 'External / Real-world';
+      } else {
+        const sys = SYSTEMS.find(s => s.id === ep.system);
+        sysLine.className = 'info-system-line ' + (sys ? sys.id : '');
+        sysLine.querySelector('.system-dot').style.background = '';
+        sysLabel.textContent = sys ? sys.label : ep.system;
+      }
+
+      const linksSection = document.getElementById('info-ep-links-section');
+      const linksContainer = document.getElementById('info-ep-links');
+      linksContainer.innerHTML = '';
+      if (ep.externalLinks && ep.externalLinks.length) {
+        linksSection.style.display = 'block';
+        ep.externalLinks.forEach(l => {
+          const a = document.createElement('a');
+          a.href = l.url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.className = 'info-connected-chip';
+          a.textContent = l.label;
+          linksContainer.appendChild(a);
+        });
+      } else {
+        linksSection.style.display = 'none';
+      }
+    }
+
     function showModule(slug) {
       const mod = modulesBySlug[slug];
       if (!mod) return;
 
       selectedSlug = slug;
+
+      // Hide entry-point panel when switching to a module
+      const epPanel = document.getElementById('info-entrypoint');
+      if (epPanel) epPanel.style.display = 'none';
 
       // Update selected state
       document.querySelectorAll('.module-chip').forEach(el => {
@@ -1118,6 +1197,16 @@ function getZone(id: string) {
         const slug = el.getAttribute('data-slug');
         showModule(slug);
         // Auto-open panel on mobile when a chip is clicked
+        if (window.innerWidth <= 768) {
+          openPanel();
+        }
+      });
+    });
+
+    document.querySelectorAll('.entry-point-chip').forEach(el => {
+      el.addEventListener('click', () => {
+        const slug = el.getAttribute('data-entrypoint');
+        showEntryPoint(slug);
         if (window.innerWidth <= 768) {
           openPanel();
         }
