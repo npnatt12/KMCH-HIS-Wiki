@@ -278,3 +278,45 @@ tags:
 2. ห้ามค้นด้วยรหัสในรูปแบบ `Z00.0` — ใช้ `Z000` หรือชื่อโรค
 
 -> [อ่านเพิ่มเติม](/concepts/icd-coding/)
+
+---
+
+### สั่ง Lab แล้วไม่เห็นรายการในหน้า Specimen Collection
+
+**สาเหตุ:** Filter บนหน้า Specimen Collection อาจยังจำกัด Department, Ward, Careprovider, Patient, Encounter Type, Order No., Date หรือ Status ทำให้รายการที่สั่งแล้วไม่แสดงใน Tab NEW
+
+**วิธีแก้:**
+1. เปิด Laboratory > Specimen Collection และตรวจว่าอยู่ Tab **NEW**
+2. ตรวจ Department / Ward / Date From-To ให้ตรงกับแผนกและวันที่สั่ง
+3. ล้าง Patient, Careprovider, Order No. หรือ Status ที่อาจกรองแคบเกินไป
+4. ถ้ายังไม่พบ ให้กลับไปยืนยันใน EMR Order Details ว่า Save แล้วและมี Order No.
+
+-> อ่านเพิ่มเติม: [[Lab Specimen Collection Screen]] — Fields (Filter Bar)
+
+---
+
+### Specimen ถูก Reject เก็บใหม่ยังไง
+
+**สาเหตุ:** เจ้าหน้าที่ Lab กด Reject Specimen และเลือกเหตุผลการ Reject แล้ว ระบบจึงเปลี่ยนสถานะเป็น **Specimen Rejected**
+
+**วิธีแก้:**
+1. ตรวจเหตุผล Reject จาก Lab Worklist หรือ Audit Log ถ้ามี
+2. แจ้งผู้เก็บสิ่งส่งตรวจเพื่อเก็บตัวอย่างใหม่ตามเหตุผลที่ระบบบันทึก
+3. กลับไปหน้า Specimen Collection Tab **NEW** รายการที่ถูก Reject จะแสดงอีกครั้ง
+4. เลือกรายการเดิม กด **Collect Specimen** แล้วยืนยันเพื่อส่งกลับไปให้ Lab รับใหม่
+
+-> อ่านเพิ่มเติม: [[Lab Order to Result]] — ขั้นตอน 3b Reject Specimen
+
+---
+
+### ลงผลผิดต้องแก้ยังไง
+
+**สาเหตุ:** วิธีแก้ขึ้นกับว่าผลยังอยู่ก่อนหรือหลัง **Report Authorised**
+
+**วิธีแก้:**
+1. ถ้ายังไม่ Report Authorised: เปิด **Manual Result** อีกครั้ง เลือก **Modify Reason** แก้ค่า แล้วกด Save
+2. ถ้า Report Authorised แล้ว: กด **Reset Result** เพื่อให้สถานะกลับเป็น Test Executed
+3. หลัง Reset Result ให้เปิด Manual Result ลงผลใหม่ แล้ว Save อีกครั้ง
+4. ตรวจสถานะให้กลับไป Report Entered และค่อย Report Authorised เมื่อผลถูกต้อง
+
+-> อ่านเพิ่มเติม: [[Lab Result Entry Screen]] — Modify Reason / Reset Result

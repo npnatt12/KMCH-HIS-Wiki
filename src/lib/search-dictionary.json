@@ -191,6 +191,30 @@
     {
       "match": "bulk update tasks|updateTasks|task execute|TASK004|update tasks modal",
       "terms": ["bulk task update", "execute tasks", "update tasks modal", "task status bulk", "executed status"]
+    },
+    {
+      "match": "specimen collection|collect specimen|เก็บสิ่งส่งตรวจ|laboratory\\.specimencollection",
+      "terms": ["specimen collection", "เก็บสิ่งส่งตรวจ", "Print Sticker", "Lab Label", "Collect Specimen"]
+    },
+    {
+      "match": "lab worklist|specimen accept|specimen reject|laboratory\\.resultentry",
+      "terms": ["lab worklist", "Accept Specimen", "Reject Specimen", "Specimen Accepted", "Specimen Rejected"]
+    },
+    {
+      "match": "manual result|report entered|report authorised|report authorized",
+      "terms": ["Manual Result", "Report Entered", "Report Authorised", "Lab result entry"]
+    },
+    {
+      "match": "H indicator|L indicator|abnormal value|ค่าผิดปกติ",
+      "terms": ["H", "L", "abnormal lab value", "ค่าสูง", "ค่าต่ำ", "Normal Range"]
+    },
+    {
+      "match": "modify reason|reset result|แก้ไขผล lab",
+      "terms": ["Modify Reason", "Reset Result", "edit lab result", "แก้ไขผล lab"]
+    },
+    {
+      "match": "STAT lab|stat order|lab เร่งด่วน",
+      "terms": ["STAT", "stat order", "lab เร่งด่วน", "red row priority"]
     }
   ]
 }
