@@ -1,14 +1,15 @@
 ---
 import BaseV2 from '../layouts/BaseV2.astro';
+import { HOSPITAL, HOSPITAL_LOCKUP, SITE } from '../lib/site';
 ---
 <BaseV2 title="นโยบายข้อมูลส่วนบุคคล / PDPA">
   <main class="mx-auto px-4 lg:px-6 py-8 lg:py-12 max-w-[820px] kmch-prose">
     <h1>นโยบายข้อมูลส่วนบุคคล / PDPA</h1>
-    <p><em>Last updated: 28 April 2026</em></p>
+    <p><em>Last updated: 3 May 2026</em></p>
 
     <h2>1. ขอบเขต / Scope</h2>
     <p>
-      KMCH HIS Wiki (kmch-wiki.vercel.app) เป็นเอกสารคู่มือการใช้งานระบบ HIS ของโรงพยาบาลกระทุ่มแม่เจดีย์
+      {SITE.name} (kmch-wiki.vercel.app) เป็นเอกสารคู่มือการใช้งานระบบ HIS สำหรับ {HOSPITAL_LOCKUP}
       ไม่เก็บข้อมูลผู้ใช้ ไม่มี analytics ที่ติดตามตัวบุคคล
     </p>
     <p>
@@ -40,7 +41,15 @@ import BaseV2 from '../layouts/BaseV2.astro';
       or masked within 24 hours of report.</em>
     </p>
 
-    <h2>4. หลัก PDPA / PDPA basis</h2>
+    <h2>4. ช่องทางอ้างอิงทางการ / Official references</h2>
+    <p>
+      ชื่อโรงพยาบาลและช่องทางติดต่ออ้างอิงจากเว็บไซต์ทางการ
+      <a href={HOSPITAL.website}>{HOSPITAL.website}</a>
+      และ Facebook Page
+      <a href={HOSPITAL.facebook}>{HOSPITAL.facebook}</a>
+    </p>
+
+    <h2>5. หลัก PDPA / PDPA basis</h2>
     <p>
       เนื้อหาในเว็บไซต์นี้เป็นเอกสารทางเทคนิคสำหรับเจ้าหน้าที่โรงพยาบาล ไม่ใช่การประมวลผลข้อมูลส่วนบุคคล
       ตามนิยามของ พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 มาตรา 24 และ 26 หากภาพหน้าจอมีข้อมูลส่วนบุคคล

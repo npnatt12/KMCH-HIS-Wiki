@@ -2,6 +2,22 @@
 
 All notable changes to the KMCH HIS Wiki Portal are listed here. Versions follow [Semantic Versioning](https://semver.org/) and dates use ISO 8601 (`YYYY-MM-DD`).
 
+## [v2.5.3] — 2026-05-03
+
+KMCH hospital identity is now corrected sitewide.
+
+### Added
+- Central site metadata in `src/lib/site.ts` for hospital name, Thai name, official website, Facebook page, and wiki titles.
+- Official KMCH links in footer navigation and README: `https://kmch.kmitl.ac.th` and `https://www.facebook.com/KMCHbyKMITL`.
+- Improvement plan in `docs/plans/2026-05-03-kmch-wiki-improvement-plan.md`.
+
+### Changed
+- KMCH is now consistently described as **King Mongkut Chaokhunthahan Hospital / โรงพยาบาลพระจอมเกล้าเจ้าคุณทหาร**.
+- Removed the incorrect prior hospital expansion from README and PDPA copy.
+- Layout titles, print footers, logo alt text, homepage copy, and footer copy now read from shared metadata.
+
+---
+
 ## [v2.5.2] — 2026-05-03
 
 Room Mode now shifts Thai-first and extends into the Lab workflow.

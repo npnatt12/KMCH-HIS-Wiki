@@ -2,6 +2,7 @@
 import EyebrowPill from '../ui/EyebrowPill.astro';
 import LogoLockup from '../ui/LogoLockup.astro';
 import TroubleshootSearch from '../TroubleshootSearch.astro';
+import { HOSPITAL } from '../../lib/site';
 ---
 <section class="relative pt-24 pb-16 lg:pt-[120px] lg:pb-24" style="background: linear-gradient(180deg, var(--color-bg) 0%, color-mix(in srgb, var(--color-accent-soft) 40%, var(--color-bg)) 100%);">
   <div class="mx-auto px-4" style="max-width: min(calc(100% - 32px), 1080px);">
@@ -12,7 +13,7 @@ import TroubleshootSearch from '../TroubleshootSearch.astro';
         ค้นหาวิธีแก้ปัญหา MEDHIS
       </h1>
       <p class="mt-3 text-[var(--color-ink-muted)] text-base">
-        คู่มือสำหรับบุคลากร KMCH — ค้นหาตามบทบาท ห้องทำงาน หรือโมดูล
+        คู่มือสำหรับบุคลากร {HOSPITAL.nameTh} ({HOSPITAL.acronym}) — ค้นหาตามบทบาท ห้องทำงาน หรือโมดูล
       </p>
     </div>
     <div class="mt-10 max-w-2xl mx-auto">

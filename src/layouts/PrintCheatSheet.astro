@@ -7,6 +7,8 @@ interface Props {
   slug: string;
   type: 'module' | 'workflow';
 }
+import { SITE } from '../lib/site';
+
 const { title, titleTh, icon = '', source = '', slug, type } = Astro.props;
 const today = new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
 const backUrl = type === 'workflow' ? `/workflows/${slug}/` : `/modules/${slug}/`;
@@ -55,7 +57,7 @@ if (rawSvg) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} — KMCH Cheat Sheet</title>
+    <title>{title} — {SITE.cheatSheetName}</title>
     <style>
       @font-face {
         font-family: 'Sarabun';
@@ -289,7 +291,7 @@ if (rawSvg) {
       </div>
 
       <footer class="cs-footer">
-        <span>KMCH HIS Wiki</span>
+        <span>{SITE.name}</span>
         <span>{today}</span>
       </footer>
     </div>

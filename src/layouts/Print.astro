@@ -5,6 +5,8 @@ interface Props {
   source?: string;
   slug: string;
 }
+import { SITE } from '../lib/site';
+
 const { title, icon = '', source = '', slug } = Astro.props;
 const today = new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
 const backUrl = slug.startsWith('workflow/') ? `/workflows/${slug.replace('workflow/', '')}/` : `/modules/${slug}/`;
@@ -14,7 +16,7 @@ const backUrl = slug.startsWith('workflow/') ? `/workflows/${slug.replace('workf
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} — KMCH HIS Print</title>
+    <title>{title} — {SITE.printName}</title>
     <style>
       @font-face {
         font-family: 'Sarabun';
@@ -270,7 +272,7 @@ const backUrl = slug.startsWith('workflow/') ? `/workflows/${slug.replace('workf
       </div>
 
       <footer class="print-footer">
-        <span>KMCH HIS Wiki</span>
+        <span>{SITE.name}</span>
         {source && <span>{source}</span>}
         <span>{today}</span>
       </footer>

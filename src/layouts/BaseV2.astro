@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import TopBar from '../components/nav/TopBar.astro';
 import Lightbox from '../components/Lightbox.astro';
+import { HOSPITAL, SITE } from '../lib/site';
 interface Props { title: string; activeRole?: string; hideFooter?: boolean; }
 const { title, activeRole, hideFooter = false } = Astro.props;
 ---
@@ -9,7 +10,8 @@ const { title, activeRole, hideFooter = false } = Astro.props;
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{title} — KMCH HIS Wiki</title>
+  <title>{title} — {SITE.name}</title>
+  <meta name="description" content={SITE.description} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preload" href="/fonts/Anuphan-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/Anuphan-600.woff2" as="font" type="font/woff2" crossorigin />
@@ -21,12 +23,14 @@ const { title, activeRole, hideFooter = false } = Astro.props;
   {!hideFooter && (
     <footer class="border-t border-[var(--color-border)] bg-[var(--color-bg-strong)] mt-12">
       <div class="mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-[var(--color-ink-muted)]" style="max-width: min(calc(100% - 32px), 1080px);">
-        <span>© {new Date().getFullYear()} KMCH HIS Wiki</span>
-        <nav class="flex gap-6">
+        <span>© {new Date().getFullYear()} {SITE.name}</span>
+        <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2">
           <a href="/rooms/" class="hover:underline">Rooms</a>
           <a href="/master-flow/" class="hover:underline">Master Flow</a>
           <a href="/faq/" class="hover:underline">FAQ</a>
           <a href="/pdpa/" class="hover:underline">นโยบายข้อมูลส่วนบุคคล / PDPA</a>
+          <a href={HOSPITAL.website} class="hover:underline" rel="noopener noreferrer">KMCH Website</a>
+          <a href={HOSPITAL.facebook} class="hover:underline" rel="noopener noreferrer">Facebook</a>
         </nav>
       </div>
     </footer>

@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Lightbox from '../components/Lightbox.astro';
+import { HOSPITAL, SITE } from '../lib/site';
 
 interface Props {
   title: string;
@@ -14,7 +15,8 @@ const { title, showBackLink = false } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} — KMCH HIS Wiki</title>
+    <title>{title} — {SITE.name}</title>
+    <meta name="description" content={SITE.description} />
     <link rel="preload" href="/fonts/Sarabun-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Sarabun-Bold.woff2" as="font" type="font/woff2" crossorigin />
   </head>
@@ -29,7 +31,7 @@ const { title, showBackLink = false } = Astro.props;
       <slot />
     </main>
     <footer class="max-w-4xl mx-auto px-4 py-8 text-center text-xs text-gray-400">
-      KMCH HIS Wiki • สร้างจากคู่มือ MEDHIS • {new Date().getFullYear()}
+      {SITE.name} • {HOSPITAL.nameTh} • สร้างจากคู่มือ MEDHIS • {new Date().getFullYear()}
     </footer>
     <Lightbox />
     <script>

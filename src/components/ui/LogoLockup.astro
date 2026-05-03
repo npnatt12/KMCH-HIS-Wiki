@@ -1,6 +1,8 @@
 ---
+import { SITE } from '../../lib/site';
+
 interface Props { height?: number; mono?: boolean; class?: string; }
 const { height = 32, mono = false, class: className = '' } = Astro.props;
 const src = mono ? '/kmch-logo-mono.svg' : '/kmch-logo.svg';
 ---
-<img src={src} alt="KMCH HIS Wiki" height={height} class={`block ${className}`} style={`height: ${height}px; width: auto;`} />
+<img src={src} alt={SITE.name} height={height} class={`block ${className}`} style={`height: ${height}px; width: auto;`} />

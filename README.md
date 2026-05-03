@@ -1,10 +1,12 @@
 # KMCH HIS Wiki Portal
 
-A searchable, mobile-friendly, Thailand-context-aware reference portal for the **MEDHIS Hospital Information System** used at KMCH (Krathum Mae Chedi Hospital). Built to replace 18 paper manuals plus the Phase-4 Odoo / Telemedicine extensions with a fast, accessible web interface for medical professionals of all digital literacy levels.
+A searchable, mobile-friendly, Thailand-context-aware reference portal for the **MEDHIS Hospital Information System** used at KMCH — **King Mongkut Chaokhunthahan Hospital / โรงพยาบาลพระจอมเกล้าเจ้าคุณทหาร**. Built to replace 18 paper manuals plus the Phase-4 Odoo / Telemedicine extensions with a fast, accessible web interface for medical professionals of all digital literacy levels.
 
 **Live site:** [kmch-wiki.vercel.app](https://kmch-wiki.vercel.app)
 
-**Latest:** v2.5.2 — see [CHANGELOG.md](./CHANGELOG.md).
+**Official hospital:** [kmch.kmitl.ac.th](https://kmch.kmitl.ac.th) · [Facebook: KMCHbyKMITL](https://www.facebook.com/KMCHbyKMITL)
+
+**Latest:** v2.5.3 — see [CHANGELOG.md](./CHANGELOG.md).
 
 ## Highlights
 
@@ -17,7 +19,8 @@ A searchable, mobile-friendly, Thailand-context-aware reference portal for the *
 - **PDPA-aware screenshots** — entity pages with screen captures auto-render a bilingual mock-data disclaimer; site-wide `/pdpa/` policy page; PII regex scaffold ready for OCR-based caption linting
 - **Self-hosted Thai fonts** (Anuphan + Sarabun) — no Google Fonts CDN dependency, works behind hospital firewalls
 - **Lighthouse Mobile ≥90** on Performance / Accessibility / Best Practices (Slow 4G profile)
-- **Static-first** — 250 HTML files. Works on Vercel, Apache, Nginx, USB drive, or hospital intranet share. No Node.js or server runtime needed in production.
+- **Static-first** — 256 static pages. Works on Vercel, Apache, Nginx, USB drive, or hospital intranet share. No Node.js or server runtime needed in production.
+- **Correct hospital identity** — KMCH means King Mongkut Chaokhunthahan Hospital / โรงพยาบาลพระจอมเกล้าเจ้าคุณทหาร. Keep this spelling in public copy, docs, and handoffs.
 
 ## Pages (current)
 
@@ -74,9 +77,9 @@ Open [http://localhost:4321](http://localhost:4321).
 ### Other commands
 
 ```bash
-npm run build           # Sync vault → build static site (250 pages)
+npm run build           # Sync vault → build static site (256 pages)
 npm run preview         # Preview the built site locally
-npm test                # Run all tsx + node:test files (67 tests)
+npm test                # Run all tsx + node:test files (138 tests)
 npm run sync            # Sync vault once (no Astro)
 npm run sync:watch      # Sync vault in watch mode
 ```
