@@ -4,11 +4,12 @@ A searchable, mobile-friendly, Thailand-context-aware reference portal for the *
 
 **Live site:** [kmch-wiki.vercel.app](https://kmch-wiki.vercel.app)
 
-**Latest:** v2.3.0 — see [CHANGELOG.md](./CHANGELOG.md).
+**Latest:** v2.5.2 — see [CHANGELOG.md](./CHANGELOG.md).
 
 ## Highlights
 
-- **250 static pages** covering 18 MEDHIS modules, the Phase-4 Odoo ERP + Telemedicine surfaces, and 14 role hubs
+- **256 static pages** covering 18 MEDHIS modules, the Phase-4 Odoo ERP + Telemedicine surfaces, 14 role hubs, and 5 room-mode operating cards
+- **Room Mode** — Thai-first OPD Screening, Doctor Room, Cashier/Billing, Lab Specimen Collection, and Lab Result Entry pages for staff standing at a real service point
 - **Thai-aware search** — n-gram tokenization (2/3/4-grams) with a 38-group bilingual hint dictionary; works for partial Thai keywords without spaces
 - **Vault-backed authoring** — content lives in an Obsidian vault; `npm run dev` runs a watcher that re-syncs into Astro content collections on every save (wikilinks, comments, frontmatter, code fences all handled)
 - **Role-first IA** — 14 role hubs (Tier 1: doctor, nurse-IPD, nurse-OPD, pharmacist; Tier 2: nurse-OR, x-ray, admin-system, IT support, finance-accounting, procurement, warehouse-staff, telemedicine-admin, telemedicine-IT-operator, patient)
@@ -27,6 +28,7 @@ A searchable, mobile-friendly, Thailand-context-aware reference portal for the *
 | Concepts | 21 | OPD Status, Visit Types, Payor Rights, Bed Status, ESI Level, Lab/Rad Status, EDC, Drug Alerts, NHSO Auth, Telemed Appointment Status, HIS-ERP Interface, Phase-4 UAT Coverage Matrix, etc. |
 | Entities | 49 | All key screens: registration / triage / ward board / EMR / order entry / drug alerts / Odoo PO/Invoice/Payment/Inventory / Telemed Mobile App / Admin Portal / IT Service Stack |
 | Roles | 14 | Doctor, Nurse-IPD, Nurse-OPD, Nurse-OR, Pharmacist, X-Ray Tech, Admin-System, IT-Support, Finance-Accounting, Procurement, Warehouse-Staff, Telemedicine-Admin, Telemedicine-IT-Operator, Patient |
+| Rooms | 5 | OPD Screening Room, Doctor Room, Cashier/Billing, Lab Specimen Collection, Lab Worklist / Result Entry |
 | Cheat Sheets | 42 | Single-page A4 (`/cheatsheets/...`) with flowchart hero |
 | Flowcharts | 42 | Mermaid SVG (`/charts/...`), pre-rendered |
 | FAQ | 1 | How-to + Troubleshooting |
@@ -111,8 +113,8 @@ kmch-portal/
 │   ├── content/          # Synced wiki markdown (modules, workflows, concepts, entities, roles, faq, cheatsheets)
 │   ├── content/config.ts # Zod schemas for content collections
 │   ├── layouts/          # BaseV2.astro, LandingV2.astro, ArticleV2.astro, Print.astro (legacy cheat-sheet layout)
-│   ├── lib/              # roles metadata, role-content-map, format-date (BE), article-meta, slug, search-index, thai-tokens
-│   ├── pages/            # Route templates: roles/[role]/, workflows/[...slug]/, entities/[...slug]/, concepts/[...slug]/, modules/[...slug]/, cheatsheet/, print/, faq/, pdpa.astro, master-flow.astro
+│   ├── lib/              # roles/rooms metadata, role-content-map, format-date (BE), article-meta, slug, search-index, thai-tokens
+│   ├── pages/            # Route templates: roles/[role]/, rooms/, workflows/[...slug]/, entities/[...slug]/, concepts/[...slug]/, modules/[...slug]/, cheatsheet/, print/, faq/, pdpa.astro, master-flow.astro
 │   └── styles/           # Tailwind 4 design tokens + motion + prose
 ├── public/
 │   ├── charts/           # Pre-rendered Mermaid SVGs

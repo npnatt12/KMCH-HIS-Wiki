@@ -1,0 +1,39 @@
+---
+import { ROOMS } from '../../lib/rooms';
+import EyebrowPill from '../ui/EyebrowPill.astro';
+import Card from '../ui/Card.astro';
+import Reveal from '../ui/Reveal.astro';
+---
+<section class="py-24 lg:py-[120px] bg-[var(--color-bg-strong)]">
+  <div class="mx-auto px-4" style="max-width: min(calc(100% - 32px), 1080px);">
+    <Reveal>
+      <EyebrowPill>เลือกตามห้อง / BY ROOM</EyebrowPill>
+      <h2 class="mt-4 text-[clamp(1.6rem,3.4vw,2.5rem)] font-semibold tracking-tight">เริ่มจากจุดบริการจริง</h2>
+      <p class="mt-2 text-[var(--color-ink-muted)]">การ์ดปฏิบัติงานภาษาไทยสำหรับ OPD และ LAB flow ที่ใช้บ่อย</p>
+    </Reveal>
+    <div class="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-4">
+      {ROOMS.map((room, idx) => (
+        <Reveal delay={idx * 90}>
+          <Card href={`/rooms/${room.slug}/`}>
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <p class="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-ink-muted)]">{room.department}</p>
+                <h3 class="mt-2 text-lg font-semibold">{room.titleTh}</h3>
+              </div>
+              <span class="h-10 w-1 rounded-full" style={`background:${room.accent}`}></span>
+            </div>
+            <p class="mt-1 text-sm text-[var(--color-ink-muted)]">{room.title}</p>
+            <p class="mt-4 text-sm text-[var(--color-ink-muted)] leading-relaxed">{room.summary}</p>
+          </Card>
+        </Reveal>
+      ))}
+    </div>
+    <Reveal>
+      <div class="mt-8">
+        <a href="/rooms/" class="inline-flex min-h-11 items-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-5 text-sm font-medium hover:bg-[var(--color-surface-tint)]">
+          ดูทุกห้อง
+        </a>
+      </div>
+    </Reveal>
+  </div>
+</section>

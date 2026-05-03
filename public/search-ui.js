@@ -40,7 +40,7 @@
 
   function loadIndex() {
     if (!indexPromise) {
-      var COLLECTIONS = ['modules', 'workflows', 'entities', 'concepts', 'faq'];
+      var COLLECTIONS = ['modules', 'workflows', 'entities', 'concepts', 'faq', 'rooms'];
       indexPromise = Promise.all([
         fetch('/search-manifest.json').then(function (r) {
           if (!r.ok) throw new Error('Manifest failed to load');
@@ -117,6 +117,7 @@
     });
 
     if (record.type === 'troubleshooting') total += 30;
+    if (record.type === 'room') total += 18;
     if (record.type === 'workflow') total += 12;
     if (record.type === 'entity') total += 8;
 
@@ -165,6 +166,7 @@
       entity: 'Screen',
       module: 'Module',
       concept: 'Concept',
+      room: 'Room',
     };
     return labels[type] || type;
   }

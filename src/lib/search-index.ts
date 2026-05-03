@@ -1,8 +1,9 @@
 import { slugify } from './slug';
 import dictionary from './search-dictionary.json';
+import { ROOMS } from './rooms';
 import { tokenizeThai } from './thai-tokens';
 
-type SearchType = 'module' | 'workflow' | 'concept' | 'entity' | 'how-to' | 'troubleshooting';
+type SearchType = 'room' | 'module' | 'workflow' | 'concept' | 'entity' | 'how-to' | 'troubleshooting';
 
 export interface SearchRecord {
   id: string;
@@ -17,8 +18,9 @@ export interface SearchRecord {
   priority: number;
 }
 
-export const SEARCH_COLLECTIONS = ['modules', 'workflows', 'concepts', 'entities', 'faq'] as const;
+export const SEARCH_COLLECTIONS = ['modules', 'workflows', 'concepts', 'entities', 'faq', 'rooms'] as const;
 export type SearchCollection = (typeof SEARCH_COLLECTIONS)[number];
+export type ContentSearchCollection = Exclude<SearchCollection, 'rooms'>;
 
 export interface SearchEntryInput {
   id: string;
@@ -58,19 +60,21 @@ const QUERY_HINTS: Array<{ match: RegExp; terms: string[] }> = dictionary.groups
 
 export async function getSearchRecords(): Promise<SearchRecord[]> {
   const { getCollection } = await import('astro:content');
-  const buckets: Array<{ collection: SearchCollection; entries: SearchEntryInput[] }> = [];
+  const buckets: Array<{ collection: ContentSearchCollection; entries: SearchEntryInput[] }> = [];
 
   for (const collection of SEARCH_COLLECTIONS) {
+    if (collection === 'rooms') continue;
     const entries = await getCollection(collection);
     buckets.push({ collection, entries: entries as unknown as SearchEntryInput[] });
   }
 
-  const native = buildSearchRecords(buckets);
+  const native = [...buildSearchRecords(buckets), ...buildRoomSearchRecords()];
   const manifest = await loadPhase4Manifest();
   return injectPhase4Records(native, manifest);
 }
 
 export async function getSearchRecordsByCollection(target: SearchCollection): Promise<SearchRecord[]> {
+  if (target === 'rooms') return buildRoomSearchRecords();
   const { getCollection } = await import('astro:content');
   const entries = await getCollection(target);
   const native = buildSearchRecords([{ collection: target, entries: entries as unknown as SearchEntryInput[] }]);
@@ -79,7 +83,7 @@ export async function getSearchRecordsByCollection(target: SearchCollection): Pr
 }
 
 export function buildSearchRecords(
-  buckets: Array<{ collection: SearchCollection; entries: SearchEntryInput[] }>,
+  buckets: Array<{ collection: ContentSearchCollection; entries: SearchEntryInput[] }>,
 ): SearchRecord[] {
   const records: SearchRecord[] = [];
 
@@ -118,11 +122,67 @@ export function buildSearchRecords(
   return records.sort((a, b) => b.priority - a.priority || typeRank(a.type) - typeRank(b.type));
 }
 
+export function buildRoomSearchRecords(): SearchRecord[] {
+  return ROOMS.flatMap((room) => {
+    const sharedKeywords = [
+      room.slug,
+      room.department,
+      room.title,
+      room.titleTh,
+      ...room.staff,
+      ...room.searchTerms,
+    ].map((value) => value.toLowerCase());
+
+    const sections = [
+      {
+        id: 'overview',
+        section: 'Overview',
+        summary: room.summary,
+        body: [
+          room.summary,
+          room.titleTh,
+          room.department,
+          room.staff.join(', '),
+          room.searchTerms.join(', '),
+        ].join(' '),
+        priority: 36,
+      },
+      {
+        id: 'start',
+        section: 'Start Here',
+        summary: room.startHere.join(' '),
+        body: room.startHere.join(' '),
+        priority: 44,
+      },
+      {
+        id: 'mistakes',
+        section: 'Common Mistakes',
+        summary: room.commonMistakes.map((item) => item.symptom).join(' '),
+        body: room.commonMistakes.map((item) => `${item.symptom} ${item.fix}`).join(' '),
+        priority: 52,
+      },
+    ];
+
+    return sections.map((section) => ({
+      id: `rooms:${room.slug}:${section.id}`,
+      title: `${room.titleTh} / ${room.title}`,
+      section: section.section,
+      type: 'room' as const,
+      url: section.section === 'Overview' ? `/rooms/${room.slug}/` : `/rooms/${room.slug}/#${slugify(section.section)}`,
+      module: room.department.toLowerCase(),
+      summary: section.summary.slice(0, 240),
+      body: section.body.slice(0, 4200),
+      keywords: Array.from(new Set([...sharedKeywords, ...buildKeywords(room.title, section.section, room.searchTerms, section.body)])),
+      priority: section.priority,
+    }));
+  });
+}
+
 export function getQueryHints() {
   return QUERY_HINTS.map((hint) => hint.terms).flat();
 }
 
-function getType(collection: (typeof SEARCH_COLLECTIONS)[number], id: string): SearchType {
+function getType(collection: ContentSearchCollection, id: string): SearchType {
   if (collection === 'faq' && id.toLowerCase().includes('troubleshooting')) return 'troubleshooting';
   if (collection === 'faq') return 'how-to';
   if (collection === 'modules') return 'module';
@@ -131,7 +191,7 @@ function getType(collection: (typeof SEARCH_COLLECTIONS)[number], id: string): S
   return 'entity';
 }
 
-function getUrl(collection: (typeof SEARCH_COLLECTIONS)[number], id: string) {
+function getUrl(collection: ContentSearchCollection, id: string) {
   if (collection === 'faq') return '/faq/';
   return `/${collection}/${slugify(id.replace(/\.md$/, ''))}/`;
 }
@@ -222,6 +282,7 @@ function scorePriority(type: SearchType, heading: string, body: string) {
   }
 
   if (type === 'troubleshooting') score += 28;
+  if (type === 'room') score += 18;
   if (type === 'workflow') score += 10;
   if (type === 'entity') score += 8;
   if (/วิธีแก้|สาเหตุ|ปัญหา|ข้อจำกัด|validation|restriction|behavior/i.test(heading)) score += 18;
@@ -244,6 +305,7 @@ function inferModule(id: string, tags: string[], body: string) {
     ['mrd', /\bmrd\b|เวชระเบียน|merge/],
     ['inventory', /inventory|stock|สินค้า/],
     ['order-entry', /order entry|cpoe|คำสั่ง/],
+    ['room', /room|ห้อง|จุดบริการ/],
   ] as const;
 
   return modules.find(([, pattern]) => pattern.test(text))?.[0];
@@ -251,6 +313,8 @@ function inferModule(id: string, tags: string[], body: string) {
 
 function typeRank(type: SearchType) {
   switch (type) {
+    case 'room':
+      return 0;
     case 'troubleshooting':
       return 1;
     case 'workflow':

@@ -2,6 +2,45 @@
 
 All notable changes to the KMCH HIS Wiki Portal are listed here. Versions follow [Semantic Versioning](https://semver.org/) and dates use ISO 8601 (`YYYY-MM-DD`).
 
+## [v2.5.2] — 2026-05-03
+
+Room Mode now shifts Thai-first and extends into the Lab workflow.
+
+### Added
+- **2 Lab room pages** — `เก็บสิ่งส่งตรวจ Lab` and `รับสิ่งส่งตรวจและลงผล Lab`.
+- Search coverage for Lab room terms such as เก็บสิ่งส่งตรวจ, Print Sticker, Accept Specimen, Manual Result, Modify Reason, Report Authorised, and Reset Result.
+
+### Changed
+- Room Mode page titles, summaries, instructions, common mistakes, and section headings are now Thai-first.
+- Homepage Room Mode copy now positions the room cards as Thai operating cards for OPD and LAB.
+
+### Stats
+- 256 pages (was 254)
+- 5 live room operating cards
+
+---
+
+## [v2.5.1] — 2026-05-03
+
+Room Mode v1 adds point-of-service operating cards for the core OPD flow.
+
+### Added
+- **Room index** at `/rooms/` for physical service-point navigation.
+- **3 room pages** — OPD Screening Room, Doctor Room, and Cashier/Billing. Each page includes Start Here steps, linked screens, common mistakes, handoffs, workflows, concepts, print, and QR.
+- **Room search records** via `/search-rooms.json`; homepage search and Cmd-K now include room-mode results.
+- **Homepage Room Mode section** between role hubs and module browsing.
+- **Room Mode implementation plan** in `docs/superpowers/plans/2026-05-03-kmch-wiki-room-mode-v1.md`.
+
+### Changed
+- Top navigation and footers now link to Room Mode.
+- Homepage copy now positions the wiki around role, room, and module lookup.
+
+### Stats
+- 254 pages (was 250)
+- 3 live room operating cards
+
+---
+
 ## [v2.5.0] — 2026-04-29
 
 Master flow now visualizes the post-Phase-4 architecture: 3 systems, 8 zones, 23 modules, 4 named cross-system interfaces.

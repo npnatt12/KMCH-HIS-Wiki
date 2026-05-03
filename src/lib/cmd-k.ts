@@ -12,7 +12,7 @@ let cachedIndex: IndexEntry[] | null = null;
 async function loadIndex(): Promise<IndexEntry[]> {
   if (cachedIndex) return cachedIndex;
   try {
-    const COLLECTIONS = ['modules', 'workflows', 'entities', 'concepts', 'faq'];
+    const COLLECTIONS = ['modules', 'workflows', 'entities', 'concepts', 'faq', 'rooms'];
     const buckets = await Promise.all(
       COLLECTIONS.map((name) =>
         fetch(`/search-${name}.json`).then((r) => (r.ok ? r.json() : { records: [] })),
@@ -51,7 +51,7 @@ function ensureModal() {
         <input
           type="search"
           id="kmch-search-input"
-          placeholder="พิมพ์เพื่อค้นหาหน้า workflow หน้าจอ หรือ concept..."
+          placeholder="พิมพ์เพื่อค้นหาห้อง workflow หน้าจอ หรือ concept..."
           autocomplete="off"
           autocorrect="off"
           autocapitalize="off"

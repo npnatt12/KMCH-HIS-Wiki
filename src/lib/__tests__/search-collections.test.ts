@@ -1,8 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildSearchRecords, type SearchEntryInput, type SearchCollection } from '../search-index';
+import {
+  buildRoomSearchRecords,
+  buildSearchRecords,
+  type ContentSearchCollection,
+  type SearchEntryInput,
+} from '../search-index';
 
-function fixture(): Array<{ collection: SearchCollection; entries: SearchEntryInput[] }> {
+function fixture(): Array<{ collection: ContentSearchCollection; entries: SearchEntryInput[] }> {
   return [
     {
       collection: 'modules',
@@ -49,4 +54,11 @@ test('split records merged equal full-bucket records (same total)', () => {
   const all = buildSearchRecords(fixture());
   const split = fixture().flatMap((b) => buildSearchRecords([b]));
   assert.equal(split.length, all.length);
+});
+
+test('buildRoomSearchRecords exposes room operating cards', () => {
+  const records = buildRoomSearchRecords();
+  assert.ok(records.length > 0);
+  assert.ok(records.every((r) => r.type === 'room'));
+  assert.ok(records.some((r) => r.url === '/rooms/doctor-room/'));
 });

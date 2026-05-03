@@ -5,9 +5,10 @@ import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import {
+  buildRoomSearchRecords,
   buildSearchRecords,
   SEARCH_COLLECTIONS,
-  type SearchCollection,
+  type ContentSearchCollection,
   type SearchEntryInput,
   type SearchRecord,
 } from '../search-index';
@@ -50,7 +51,7 @@ function scoreQuery(records: SearchRecord[], query: string) {
 // Read content collections from disk. astro:content is a virtual module that
 // only resolves inside Astro itself, so we replicate `getCollection()` by
 // walking src/content/<collection>/ and parsing frontmatter with gray-matter.
-function loadCollection(collection: SearchCollection, contentRoot: string): SearchEntryInput[] {
+function loadCollection(collection: ContentSearchCollection, contentRoot: string): SearchEntryInput[] {
   const dir = join(contentRoot, collection);
   const entries: SearchEntryInput[] = [];
 
@@ -87,11 +88,11 @@ const CONTENT_ROOT = join(HERE, '..', '..', 'content');
 let cachedRecords: SearchRecord[] | null = null;
 function records() {
   if (!cachedRecords) {
-    const buckets = SEARCH_COLLECTIONS.map((collection) => ({
+    const buckets = SEARCH_COLLECTIONS.filter((collection) => collection !== 'rooms').map((collection) => ({
       collection,
       entries: loadCollection(collection, CONTENT_ROOT),
     }));
-    cachedRecords = buildSearchRecords(buckets);
+    cachedRecords = [...buildSearchRecords(buckets), ...buildRoomSearchRecords()];
   }
   return cachedRecords;
 }
